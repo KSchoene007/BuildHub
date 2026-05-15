@@ -1,19 +1,25 @@
 # Changelog
 
+## v1.4 – 2026-05-15
+### Build Logic Corrections
+- Fixed: St. Elmo's Engine — 4× Striker (Mask+Chest+Backpack+Gloves), Chest=Press the Advantage, Backpack=Risk Management (both fixed Set talents), Holster=Picaro's Named, Kneepads=Fox's Prayer Named
+- Fixed: Chameleon — same 4-piece Striker logic as St. Elmo's
+- Fixed: Pestilence — now uses 4× Negotiator's Dilemma + Memento Exotic + Picaro's Holster instead of random Brand Pieces
+- Rule established: All Set builds require minimum 4× Set pieces including Chest+Backpack for their fixed talents
+
+## v1.3.1 – 2026-05-15
+- Fixed: Syntax error (apostrophe) in Chameleon card
+
 ## v1.3 – 2026-05-15
-- Fixed: St. Elmo's Engine — 4× Striker statt 5×, Holster jetzt Picaro's Named (+15% WD), Chest Perfect Obliterate
-- Fixed: Chameleon — gleiche Korrekturen wie St. Elmo's (Picaro's Holster, Perfect Obliterate)
-- Fixed: App Build Cards für St. Elmo's und Chameleon angepasst
+- Fixed: St. Elmo's + Chameleon (Perfect Obliterate chest, Picaro's Holster)
+- Fixed: App Build Cards updated
 
 ## v1.2.1 – 2026-05-15
-- Fixed: Syntax error (doppeltes Komma) im Bluescreen Build Card
+- Fixed: Syntax error (double comma) in Bluescreen card
 
 ## v1.2 – 2026-05-15
-- Fixed: Bluescreen Build — 4× Tipping Scales, Salvo Named Holster (+5% RoF), Set Talent Korrekturen
-
-## v1.1 – 2026-05-15
 - Added: Division 2 Bluescreen Build (Tipping Scales · Y8S1 Meta)
-- Fixed: Back to Build Hub Button auf allen Guides
+- Fixed: Back to Build Hub button on all guides
 
 ## v1.0 – 2026-05-15
 - Initial release

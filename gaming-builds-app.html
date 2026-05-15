@@ -412,26 +412,16 @@ const BUILDS=[
   <div class="ds"><div class="ds-title">⚡ Exotic Weapon</div>
     ${wC('⚡',"St. Elmo's Engine",'Exotic · SMG · Shock','15%','900 RPM','Red','Actum Est','Charge up shock rounds and release as a burst. Shock rounds ignore 50% of enemy armor. Currently the strongest SMG in the game.')}
   </div>
-  <div class="ds"><div class="ds-title">🎽 Gear Set: Striker's Battlegear</div>
-    ${note('note-info','<strong>Important:</strong> 6× Striker\'s Battlegear active. The Striker mask is a normal set piece – NOT Exotic! Exotic slot stays free for Memento.')}
-    ${gC('🎭','set','MASK','gb-set',"Striker's Mask",'Set (not Exotic)','Head Slot',"Normal set piece – not Coyote's Mask! Fire Rate & Weapon Handling as attributes.",'Fire Rate','Weapon Handling')}
-    ${gC('🧥','set','CHEST','gb-set',"Striker's Chest",'Obliterate','Chest Slot','Obliterate Talent: +20% Weapon Damage after Killing Blow (use the 3 sec window!).','Obliterate','Weapon Damage')}
-    ${gC('🧤','set','GLOVES','gb-set',"Striker's Gloves",'Set Piece','Gloves Slot','Weapon Damage as core. Crit Chance & Crit Damage as secondary rolls.','Crit Chance','Weapon Damage')}
-    ${gC('🎒','exotic','BACKPACK','gb-exotic','Memento','⭐ Only Exotic','Kill Confirmed','Collect kills for +30% Weapon Damage buff. Only Exotic slot – do not combine with Exotic mask!','+30% WD','Kill Confirmed')}
-    ${gC('👟','set','KNEEPADS','gb-set',"Striker's Kneepads",'Set Piece','Kneepads','Weapon Damage + Crit Damage as rolls.','Crit Damage','Weapon Damage')}
-    ${gC('🎒','set','HOLSTER','gb-set',"Striker's Holster",'Set Piece','Holster Slot',"Alt: Picaro's Holster (Named) for +15% WD.",'Weapon Damage','Crit Chance')}
+  <div class="ds"><div class="ds-title">🎽 Gear Setup</div>
+    ${note('note-info','<strong>Setup:</strong> 4x Striker (Mask+Chest+Backpack+Gloves) for full set talents + Picaro Holster (Named +15% WD) + Fox Prayer Kneepads (Named). Chest and Backpack are the most important Set pieces — they have the strongest fixed talents.')}
+    ${gC('🎭','set','MASK','gb-set',"Striker Mask",'Set Piece 1','Head Slot','Set piece for 4-piece bonus. Weapon Damage + Crit Chance as attributes.','Weapon Damage','Crit Chance')}
+    ${gC('🧥','set','CHEST','gb-set',"Striker Chest",'Press the Advantage','Chest Slot','Fixed Set talent: Max Stacks 100 to 200. Essential — do NOT replace with Brand Piece.','Max Stacks x2','Fixed Talent')}
+    ${gC('🎒','set','BACKPACK','gb-set',"Striker Backpack",'Risk Management','Backpack Slot','Fixed Set talent: WD per stack 0.65% to 1%. Essential — do NOT use Memento here if running Striker chest.','WD per Stack x1.5','Fixed Talent')}
+    ${gC('🧤','set','GLOVES','gb-set',"Striker Gloves",'Set Piece 4','Gloves Slot','4th Set piece to activate all bonuses. Crit Chance + Crit Damage as attributes.','Crit Chance','Crit Damage')}
+    ${gC('🔫','named','HOLSTER','gb-named',"Picaro Holster",'Named BiS','+15% WD','5th slot freed from Set. +15% Weapon Damage — best Named Holster for DPS.','+15% WD','Named BiS')}
+    ${gC('👟','named','KNEEPADS','gb-named',"Fox Prayer",'Named BiS','Gain on Hit','6th slot freed from Set. Gain on Hit always active — permanent armor regen on any hit.','Gain on Hit','Named BiS')}
   </div>
-  <div class="ds"><div class="ds-title">⚡ Skills & Specialization</div>
-    ${gC('🔧','spec','SPEC','gb-spec','Technician','Required','Specialization','Artificer Hive repairs Crusader Shield. +10% Repair bonus massively extends shield uptime.','Hive Repair','+10%')}
-    ${gC('🛡️','spec','SKILL 1','gb-spec','Crusader Shield','Cover','Skill Slot 1','Front cover while building stacks. Repaired by Hive – runs nearly indefinitely.','Shield HP','Repairable')}
-    ${gC('🐝','spec','SKILL 2','gb-spec','Artificer Hive','Support','Skill Slot 2','Keeps Crusader Shield alive. Core of the defensive layer.','Repair','Continuous')}
-  </div>
-  <div class="ds"><div class="ds-title">💡 Talents & Tips</div>
-    ${gC('⭐','talent','TALENT','gb-talent',"Striker's Gamble",'Set Bonus','Stack Damage','Up to +100% Weapon Damage through hit stacks. Never reload when stack is full – weapon swap instead!','Max: +100%','Hold Stack')}
-    ${gC('💥','talent','TALENT','gb-talent','Obliterate','Chest Talent','After Kill','+20% Weapon Damage for 3 sec after Killing Blow. Stay aggressive = almost always active.','+20% WD','3 sec')}
-    ${note('note-warn','<strong>⚠️ Group Note:</strong> Another player\'s Ongoing Directive overwrites St. Elmo\'s shock rounds! Keep this in mind in groups.')}
-    ${note('note-warn','<strong>⚠️ Exotic Rule:</strong> Memento is the ONLY Exotic. Striker Mask is a normal set piece.')}
-  </div>`},
+  >`},
 {id:'div-ch',game:'div2',tier:'A',name:'Chameleon',icon:'🦎',sub:'Exotic AR · Striker · Allrounder',tags:['map','dmg'],diff:'easy',accent:'#3a8fff',guide:'guide_chameleon.html',
  stats:[{l:'DPS',v:80,c:'#ff6060'},{l:'Survival',v:80,c:'#60a0ff'},{l:'Mobility',v:100,c:'#50c8b4'},{l:'Group',v:60,c:'#ffd700'}],
  detail:`
@@ -439,12 +429,13 @@ const BUILDS=[
     ${wC('🦎','Chameleon','Exotic · Assault Rifle · Adaptive','12%','750 RPM','Red','Adaptive Instinct','Automatically analyzes enemy type and adjusts all weapon attributes. No manual swapping – best all-rounder in the game.')}
   </div>
   <div class="ds"><div class="ds-title">🎽 Gear Setup</div>
-    ${gC('🎭','set','MASK','gb-set',"Striker's Mask",'Set Piece','Head Slot','4-piece Striker activates Striker\'s Gamble. Mask = Set piece #1.','Fire Rate','Weapon Handling')}
-    ${gC('🧥','brand','CHEST','gb-set','Ceska / Grupo / Fenris','Perfect Obliterate','Chest Slot','Brand Piece — NOT a Set chest! Perfect Obliterate: +1.5% WD per Crit. Stronger than standard Obliterate.','Perf. Obliterate','+1.5% WD/Crit')}
-    ${gC('🧤','set','GLOVES','gb-set',"Striker's Gloves",'Set Piece','Gloves Slot','Set piece #2 — Crit Chance + Crit Damage as attributes.','Crit Chance','Crit Damage')}
-    ${gC('🎒','exotic','BACKPACK','gb-exotic','Memento','Only Exotic','Kill Confirmed','+30% Weapon Damage after kills. Synergizes with Chameleon's high kill rate.','+30% WD','Kill Confirmed')}
-    ${gC('🔫','named','HOLSTER','gb-named',"Picaro's Holster",'Named · BiS','+15% WD','Frees the 5th Striker slot. +15% WD stronger than 5-piece bonus. Named item from Brazos de Arcabuz.','+15% WD','Named BiS')}
-    ${gC('👟','set','KNEEPADS','gb-set',"Striker's Kneepads",'Set Piece','Kneepads','Set piece #3 — Crit Damage as primary roll.','Crit Damage','Weapon Damage')}
+    ${note('note-info','<strong>Setup:</strong> 4x Striker (Mask+Chest+Backpack+Gloves) + Picaro Holster (Named +15% WD) + Fox Prayer Kneepads (Named). Striker Chest and Backpack have the strongest fixed talents — always include them.')}
+    ${gC('🎭','set','MASK','gb-set',"Striker Mask",'Set Piece 1','Head Slot','Set piece for 4-piece bonus. Weapon Damage + Crit Chance.','Weapon Damage','Crit Chance')}
+    ${gC('🧥','set','CHEST','gb-set',"Striker Chest",'Press the Advantage','Chest Slot','Fixed Set talent: Max Stacks 100 to 200. Always use this — never replace with Brand Piece.','Max Stacks x2','Fixed Talent')}
+    ${gC('🎒','set','BACKPACK','gb-set',"Striker Backpack",'Risk Management','Backpack Slot','Fixed Set talent: WD per stack 0.65% to 1%. Always use this piece.','WD per Stack x1.5','Fixed Talent')}
+    ${gC('🧤','set','GLOVES','gb-set',"Striker Gloves",'Set Piece 4','Gloves Slot','4th Set piece. Crit Chance + Crit Damage as attributes.','Crit Chance','Crit Damage')}
+    ${gC('🔫','named','HOLSTER','gb-named',"Picaro Holster",'Named BiS','+15% WD','Freed slot from Set. +15% Weapon Damage.','+15% WD','Named BiS')}
+    ${gC('👟','named','KNEEPADS','gb-named',"Fox Prayer",'Named BiS','Gain on Hit','Freed slot. Permanent armor regen on any hit.','Gain on Hit','Named BiS')}
   </div>
   <div class="ds"><div class="ds-title">🎯 Stat Goals</div>
     ${opt('oc-rec','PRIO 1','60% Crit Chance','Hit the cap first. Chameleon benefits greatly from Crit since Adaptive Instinct boosts base stats.')}
@@ -462,11 +453,13 @@ const BUILDS=[
     ${wC('☣️','Pestilence','Exotic · LMG · DOT','8%','600 RPM','Blue','Plagued','Hits apply Plague DOT + leave poison puddles on the ground. Enemies in puddles take 10% more damage from ALL sources. Best group support exotic in the game.')}
   </div>
   <div class="ds"><div class="ds-title">🎽 Gear Setup</div>
-    ${gC('🎭','exotic','MASK','gb-exotic',"Coyote's Mask",'Only Exotic','Headshot Boost','Headshots permanently increase Crit Damage. Very effective with LMG sustained fire. ONLY EXOTIC!','Crit Damage','Headshots')}
-    ${gC('🧥','set','CHEST','gb-set','Grupo Modelo','3-piece Bonus','Chest Slot','3× Grupo Modelo: +15% Weapon Damage. Red core attributes for max DPS.','Weapon Damage','+15%')}
-    ${gC('🧤','set','GLOVES','gb-set','Ceska Vyroba','3-piece Bonus','Gloves Slot','3× Ceska: Crit Chance + Crit Damage bonus. Optimal damage distribution.','Crit Chance','Crit Damage')}
-    ${gC('🎒','set','BACKPACK','gb-set','Ceska / Grupo','Set Piece','Backpack','Maintain 3-piece set bonuses. Vigilance or Composure as talent.','Weapon Damage','Resistances')}
-    ${gC('👟','named','KNEEPADS','gb-named',"Fox's Prayer",'Named · Optional','Kneepads','Named item with Perfect Talent. Alt: Ceska to maintain 3-piece bonus.','+15% WD','Perfect Talent')}
+    ${note('note-info','<strong>Setup:</strong> 4x Negotiator Dilemma (Mask+Chest+Gloves+Kneepads) + Memento Exotic Backpack + Picaro Holster (Named +15% WD). 4-piece activates Hostile Negotiations — every marked enemy kill gives +2% Crit Damage stacking to +40%.')}
+    ${gC('🎭','set','MASK','gb-set',"Negotiator Mask",'Set Piece 1','Head Slot','Set piece for 4-piece bonus. Red Core — Weapon Damage + Crit Chance.','Crit Chance','Weapon Damage')}
+    ${gC('🧥','set','CHEST','gb-set',"Negotiator Chest",'Obliterate','Chest Slot','Fixed Set talent. Red Core — Weapon Damage + Crit Damage.','Obliterate','Fixed Talent')}
+    ${gC('🎒','exotic','BACKPACK','gb-exotic','Memento','Only Exotic','Kill Confirmed','Collect kills for +30% WD long-term buff. Synergizes with Negotiator kill chains.','+30% WD','Kill Confirmed')}
+    ${gC('🧤','set','GLOVES','gb-set',"Negotiator Gloves",'Set Piece 3','Gloves Slot','Set piece. Red Core — Crit Chance + Crit Damage.','Crit Chance','Crit Damage')}
+    ${gC('🔫','named','HOLSTER','gb-named',"Picaro Holster",'Named BiS','+15% WD','Freed slot. +15% Weapon Damage — best holster for DPS.','+15% WD','Named BiS')}
+    ${gC('👟','set','KNEEPADS','gb-set',"Negotiator Kneepads",'Set Piece 4','Kneepads','4th Set piece to activate Hostile Negotiations. Crit Damage + Weapon Damage.','Crit Damage','Weapon Damage')}
   </div>
   <div class="ds"><div class="ds-title">🎯 Stat Goals</div>
     ${opt('oc-rec','PRIO 1','60% Crit Chance','Mandatory cap. Only then push offensive stats further.')}
