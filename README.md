@@ -1,16 +1,14 @@
 # 🎮 Build Hub
  
-<div align="center">
-![Build Hub](https://img.shields.io/badge/Build_Hub-v1.0-E03060?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTV6TTIgMTdsOCA0IDgtNE0yIDEybDggNCA4LTQiLz48L3N2Zz4=)
+![Build Hub](https://img.shields.io/badge/Build_Hub-v1.0-E03060?style=for-the-badge)
 ![Games](https://img.shields.io/badge/Games-2-E8A820?style=for-the-badge&logo=steam&logoColor=white)
 ![Builds](https://img.shields.io/badge/Builds-6-2FB8B4?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-4CAF50?style=for-the-badge)
-![iPad](https://img.shields.io/badge/iPad_Ready-✓-E03060?style=for-the-badge&logo=apple&logoColor=white)
+![iPad](https://img.shields.io/badge/iPad_Ready-%E2%9C%93-E03060?style=for-the-badge&logo=apple&logoColor=white)
  
-**A personal gaming build reference hub — optimized for iPad, self-hosted on Proxmox.**  
-*The Division 2 · Path of Exile 2 · Always up to date.*
+> **A personal gaming build reference hub — optimized for iPad, self-hosted on Proxmox.**
+> *The Division 2 · Path of Exile 2 · Always up to date.*
  
-</div>
 ---
  
 ## 📋 Overview
@@ -62,7 +60,7 @@ The app is designed for **iPad use** and served directly from a **Proxmox LXC co
  
 ## 🖥️ Self-Hosting on Proxmox
  
-The Build Hub is served from a lightweight LXC container on Proxmox via Nginx.  
+The Build Hub is served from a lightweight LXC container on Proxmox via Nginx.
 GitHub acts as the version control layer — the server auto-pulls on every new commit.
  
 ```
@@ -113,7 +111,7 @@ When a new patch drops or a build changes:
  
 ## 📝 Versioning
  
-Every guide displays its version number directly in the header (e.g. `v1.2 · Patch 0.6`).  
+Every guide displays its version number directly in the header (e.g. `v1.2 · Patch 0.6`).
 Full version history is tracked in [`CHANGELOG.md`](./CHANGELOG.md).
  
 ---
@@ -130,7 +128,7 @@ Full version history is tracked in [`CHANGELOG.md`](./CHANGELOG.md).
 | Tier S | 🥇 Gold badge |
 | Tier A | 🔵 Blue badge |
 | Exotic | 💎 Gold border |
-| Named Item | ⭐ Purple border |
+| Named Item | ⭐ Gold border |
  
 ---
  
@@ -142,8 +140,5 @@ Full version history is tracked in [`CHANGELOG.md`](./CHANGELOG.md).
 - Works offline after first load (browser cache)
 ---
  
-<div align="center">
-*Build Hub · Personal Project · Updated with every major patch*  
+*Build Hub · Personal Project · Updated with every major patch*
 *The Division 2 (Year 8) · Path of Exile 2 (Patch 0.5+)*
- 
-</div>
