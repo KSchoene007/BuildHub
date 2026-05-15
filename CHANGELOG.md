@@ -31,3 +31,7 @@
 - Initial release
 - Division 2: Heartbreaker, St. Elmo's Engine, Chameleon, Pestilence
 - PoE 2: Poisonburst Pathfinder, Spiraling Conspiracy (Patch 0.5)
+
+## v1.6.2 – 2026-05-15
+- Fixed: gaming-builds-app.html syntax errors (double brace, extra comma)
+- Added: Necromancer guide — full Level-by-Level Skill Tree (83 points, Level 2–70+)
