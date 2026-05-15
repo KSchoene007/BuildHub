@@ -512,7 +512,46 @@ const BUILDS=[
 
 const GAMES=[
   {id:'poe2',label:'Path of Exile 2',icon:'🔮',ac:'poe'},
-  {id:'div2',label:'The Division 2',icon:'🎯',ac:'div2'},
+  {id:'div2',label:'The Division 2',icon:'🎯',ac:'div2'},,
+
+{id:'d4-necro',game:'d4',tier:'S',name:'Shadow Warrior',icon:'💀',sub:'Minion Necromancer · Season 13',tags:['boss','map'],diff:'medium',accent:'#8B20CC',guide:'guide_necromancer.html',
+ stats:[{l:'DPS',v:95,c:'#ff6060'},{l:'Survival',v:90,c:'#60a0ff'},{l:'Speed',v:80,c:'#50c8b4'},{l:'Ease',v:85,c:'#ffd700'}],
+ detail:`
+  <div class="ds"><div class="ds-title">💀 Core Mechanic</div>
+    <div class="mech-card">
+      <div class="mech-top">
+        <div class="mech-icon" style="background:rgba(139,32,204,.12);border:1px solid rgba(139,32,204,.3)">👥</div>
+        <div><div class="mech-name">Darkness Minion Army (up to 28)</div>
+          <div class="mech-stack">${Array(10).fill(0).map((_,i)=>`<div class="mech-pip${i<9?' on':''}" style="background:#8B20CC"></div>`).join('')}<span style="font-size:10px;color:var(--muted);margin-left:4px">28 Minions Max</span></div>
+        </div>
+      </div>
+      <div class="mech-desc">Convert ALL minions to Shadow damage → Darkness skills → stack +Darkness Skills on gear. <strong style="color:#c060ff">Bloodless Scream</strong> freezes everything and provides ×3.5 multiplier. Army of the Dead nukes for 1350%+ every ~10 seconds.</div>
+    </div>
+    ${note('note-warn','<strong>Darkness Conversion Required:</strong> Click Bone Mages → back to Shadow → re-summon. All mages MUST be Shadow for Darkness skill stacking to work.')}
+  </div>
+  <div class="ds"><div class="ds-title">⚔️ Key Skills</div>
+    ${wC('💀','Skeletal Warriors','Reaper · Command','—','—','Darkness','Deathgrip Cleave','Primary damage dealers. Use Command to focus-fire — +30-40% damage taken by target. Reaper node: +50% damage.')}
+    ${wC('🔮','Skeletal Mages','Shadow · Barrier','—','—','Darkness','Shadow Barrier','Shadow = Darkness skill. Barrier node provides passive damage reduction. Coven upgrade: more mages simultaneously.')}
+    ${wC('💥','Army of the Dead','Prime · Supreme','—','—','Ultimate','1350%+ Nuke','Unyielding Commander: +50% while active + 2% per minion. At 25 minions = +100% bonus. ~10 sec CDR = near permanent.')}
+  </div>
+  <div class="ds"><div class="ds-title">🛡️ Key Uniques</div>
+    ${gC('⚔️','named','WEAPON','gb-named','Bloodless Scream','BiS · Build-Defining','Darkness Mult','All Darkness damage Chills. Chill scales to 250% on frozen targets. Provides x3.5 damage multiplier.','x3.5 Mult','Perma-Freeze')}
+    ${gC('🧤','named','GLOVES','gb-named','Deathgrip','S13 Unique','+6 Warriors','Max Warriors +6. Warriors Cleave all nearby enemies. Commanding gives 30-40% more damage taken.','+6 Warriors','Cleave')}
+    ${gC('🪖','named','HELMET','gb-named','The Undercrown','S13 Unique','+6 Mages','Max Skeletal Mages +6. Mages summon permanently. Or use as Talisman Charm.','+6 Mages','Permanent')}
+    ${gC('💍','named','RING','gb-named','Pact of Bone','S13 Unique','Minion Empower','Buffs minion damage. Empowers remaining minions when one dies — death triggers power surge.','+Minion Dmg','On Death Buff')}
+  </div>
+  <div class="ds"><div class="ds-title">🎯 Stat Goals</div>
+    ${opt('oc-rec','PRIO 1','100% Attack Speed','Absolute first priority. Minions inherit your Attack Speed directly. Nothing else matters until capped.')}
+    ${opt('oc-alt','PRIO 2','100% Crit Strike Chance','Second priority after Attack Speed. Minions inherit Crit Chance — both caps required before damage multipliers.')}
+    ${opt('oc-free','PRIO 3','+Darkness Skills everywhere','Stack on every gear slot. Buffs ALL minions simultaneously since they are all Darkness skills.')}
+  </div>
+  <div class="ds"><div class="ds-title">💡 Tips & Notes</div>
+    ${note('note-tip','<strong>Talisman System:</strong> Use Azurewrath Charm for Speed Farm, swap to Red Blessing for Pit boss. Legendary Seal +1 Charm Slot = 6 total Charm slots.')}
+    ${note('note-info','<strong>Mercenary:</strong> Raheir as Primary (15% All Resist + 25% more damage dealt). Varyana as Reinforcement (Bleed = primary healing source with 25+ minions).')}
+    ${note('note-warn','<strong>Best Content:</strong> Helltides, Infernal Hordes, Pit 60-100+, all Bosses. One of the most versatile S13 builds — handles everything.')}
+  </div>`}
+
+
 ];
 
 // ── STATE ──

@@ -1,15 +1,18 @@
 # Changelog
 
+## v1.6 – 2026-05-15
+- Added: Diablo 4 as third game in Build Hub
+- Added: Shadow Warrior Minion Necromancer Build (Season 13 · Lord of Hatred · S-Tier)
+- Updated: README with Diablo 4 section, 3 games, 8 builds total
+- Updated: App with D4 game tab (purple accent) and Necromancer build card
+
 ## v1.5 – 2026-05-15
-### St. Elmo's Engine + Chameleon — Gear Logic Corrected
-- Fixed: 4x Striker now correctly Mask+Gloves+Holster+Kneepads (not Chest+Backpack)
-- Fixed: Backpack = Memento Exotic (Kill Confirmed +30% WD outperforms Striker Backpack talent)
-- Fixed: Chest = Brand Piece with Obliterate (freely choosable talent)
-- Confirmed by 2026 meta sources — Memento is mandatory for sustained DPS
+- Fixed: St. Elmo's + Chameleon — Memento Backpack restored, Brand Chest Obliterate
+- Confirmed by 2026 meta: Memento Kill Confirmed > Striker Backpack talent
 
 ## v1.4 – 2026-05-15
-- Fixed: All builds now use minimum 4x Set pieces
-- Fixed: Pestilence now uses 4x Negotiator's Dilemma + Memento + Picaro's Holster
+- Fixed: All builds use minimum 4x Set pieces
+- Fixed: Pestilence → 4x Negotiator's Dilemma + Memento + Picaro's
 
 ## v1.3.1 – 2026-05-15
 - Fixed: Syntax error (apostrophe) in Chameleon card
