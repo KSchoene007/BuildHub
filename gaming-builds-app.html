@@ -481,6 +481,45 @@ const BUILDS=[
     ${note('note-warn','<strong>⚠️ Exotic Rule:</strong> Coyote\'s Mask is the ONLY Exotic. Do not combine with Memento!')}
     ${note('note-info','<strong>Farming:</strong> Drop rate is very low. Countdown + Summit Heroic with LMG loot are the best sources.')}
   </div>`},
+,
+
+{id:'div-bs',game:'div2',tier:'A',name:'Bluescreen',icon:'💻',sub:'Exotic LMG · Tipping Scales · Y8S1',tags:['boss','dmg'],diff:'medium',accent:'#3a8fff',guide:'guide_bluescreen.html',
+ stats:[{l:'DPS',v:90,c:'#ff6060'},{l:'Survival',v:75,c:'#60a0ff'},{l:'Mobility',v:50,c:'#50c8b4'},{l:'Group',v:85,c:'#ffd700'}],
+ detail:`
+  <div class="ds"><div class="ds-title">💻 Exotic Weapon</div>
+    ${wC('💻','Bluescreen','Exotic · LMG · Disruptor','—','580 RPM','Red','Disruptor Rounds','Every bullet marks the target and adds +1 stack (max 50). Killing a marked enemy or using any non-shield skill detonates all stacks — disrupts and disorients all marked enemies within 10m simultaneously.')}
+  </div>
+  <div class="ds"><div class="ds-title">⚙️ Core Mechanic</div>
+    <div class="mech-card">
+      <div class="mech-top">
+        <div class="mech-icon" style="background:rgba(47,184,180,.12);border:1px solid rgba(47,184,180,.25)">💥</div>
+        <div><div class="mech-name">Disruptor Rounds (50 Stacks)</div>
+          <div class="mech-stack">${Array(10).fill(0).map((_,i)=>`<div class="mech-pip${i<7?' on':''}" style="background:var(--teal)"></div>`).join('')}<span style="font-size:10px;color:var(--muted);margin-left:4px">50 Stacks Max</span></div>
+        </div>
+      </div>
+      <div class="mech-desc">Build 50 Disruptor stacks by shooting marked enemies. Detonate via skill use or kill → <strong style="color:#50d8d0">10m AoE disrupt + disorient</strong> on all marked targets. Snowballs with Tipping Scales kill bonuses.</div>
+    </div>
+    ${note('note-warn','<strong>No Shield Skills!</strong> Crusader Shield and Ballistic Shield do NOT trigger Disruptor detonation. Use Reviver Hive or Decoy.')}
+  </div>
+  <div class="ds"><div class="ds-title">🎽 Gear Setup</div>
+    ${gC('🎭','named','MASK','gb-named','Tinkerer','Named · BiS','Blatza Talent','Named talent scales with armor. Keep total armor above 1.1M for maximum Blatza efficiency.','Weapon Damage','Blatza')}
+    ${gC('🧥','set','CHEST','gb-set','Tipping Scales','Set Piece','Chest Slot','4-piece set bonus is all you need. Fixed set talent — cannot be changed.','Set Bonus','Kill Scaling')}
+    ${gC('🎒','set','BACKPACK','gb-set','Tipping Scales','Set Piece','Backpack Slot','4-piece Tipping Scales for multiplicative kill damage scaling.','Set Bonus','Kill Scaling')}
+    ${gC('🧤','set','GLOVES','gb-set','Tipping Scales','Set Piece','Gloves Slot','Red core — Weapon Damage + Crit Chance.','Weapon Damage','Crit Chance')}
+    ${gC('🔫','named','HOLSTER','gb-named','Salvo','Named · BiS · Unit Alloys','+5% Rate of Fire','Perfect Attribute: +5% Rate of Fire on all weapons. Best-in-slot — freed from Set requirement.','+5% RoF','Weapon Damage')}
+    ${gC('👟','set','KNEEPADS','gb-set','Tipping Scales','Set Piece','Kneepads','Red core — Weapon Damage + Crit Damage.','Weapon Damage','Crit Damage')}
+  </div>
+  <div class="ds"><div class="ds-title">🎯 Stat Goals</div>
+    ${opt('oc-rec','PRIO 1','All Red Cores','Full weapon damage build. 6× red cores for maximum Tipping Scales and Disruptor scaling.')}
+    ${opt('oc-alt','PRIO 2','≥ 1.1M Armor','Required for Tinkerer Blatza talent to fire at full efficiency. Non-negotiable.')}
+    ${opt('oc-free','PRIO 3','60% Crit Chance → Crit Dmg','Cap Crit Chance at 60%, then stack Crit Damage on all remaining slots and mods.')}
+  </div>
+  <div class="ds"><div class="ds-title">💡 Tips & Notes</div>
+    ${note('note-tip','<strong>Magazine Management:</strong> Secondary LMG needs ~300 rounds. Frenzy + Measured = permanent uptime when timed correctly with reloads.')}
+    ${note('note-info','<strong>Best Content:</strong> Legendary Missions, The Summit, Countdown, Heroic Strongholds. Snowballs hard in dense groups.')}
+    ${note('note-warn','<strong>How to get Bluescreen:</strong> Guaranteed first drop from Jefferson Trade Center SHD Mission (Manhunt: Captain Lewis).')}
+  </div>`},
+
 ];
 
 const GAMES=[
