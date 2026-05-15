@@ -1,15 +1,19 @@
 # Changelog
 
+## v1.3 – 2026-05-15
+- Fixed: St. Elmo's Engine — 4× Striker statt 5×, Holster jetzt Picaro's Named (+15% WD), Chest Perfect Obliterate
+- Fixed: Chameleon — gleiche Korrekturen wie St. Elmo's (Picaro's Holster, Perfect Obliterate)
+- Fixed: App Build Cards für St. Elmo's und Chameleon angepasst
+
+## v1.2.1 – 2026-05-15
+- Fixed: Syntax error (doppeltes Komma) im Bluescreen Build Card
+
 ## v1.2 – 2026-05-15
-- Fixed: Bluescreen Build — 4× Tipping Scales (statt 6×), Holster Slot jetzt Salvo Named (+5% Rate of Fire)
-- Fixed: Bluescreen — Blood Sucker von Set Chest entfernt (Set Gear hat feste Talente)
-- Fixed: Alle Set Gear Pieces korrekt als "Fixed Set Talent" markiert
-- Fixed: App Build Card Bluescreen angepasst (Salvo Holster, korrektes 4-piece Setup)
+- Fixed: Bluescreen Build — 4× Tipping Scales, Salvo Named Holster (+5% RoF), Set Talent Korrekturen
 
 ## v1.1 – 2026-05-15
 - Added: Division 2 Bluescreen Build (Tipping Scales · Y8S1 Meta)
-- Fixed: "Back to Build Hub" button now correctly links back to app on all guides
-- Updated: gaming-builds-app.html with new Bluescreen build card
+- Fixed: Back to Build Hub Button auf allen Guides
 
 ## v1.0 – 2026-05-15
 - Initial release
