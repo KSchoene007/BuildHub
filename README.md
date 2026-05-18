@@ -73,7 +73,7 @@ The app is designed for **iPad use** and served directly from a **Proxmox LXC co
 ```
 iPad Browser  (Tailscale VPN — accessible anywhere)
     ↓
-Proxmox LXC · Debian 12 · Nginx · 192.168.0.190
+Proxmox LXC · Debian 12 · Nginx · "Redacted"
     ↓ git pull every 5 minutes (Cronjob)
 GitHub Repository  ←── Claude generates updates
     ↑
@@ -84,8 +84,8 @@ You push new builds / patch updates
 
 | Network | URL |
 |---|---|
-| Home | `http://192.168.0.190/buildhub/gaming-builds-app.html` |
-| Anywhere (Tailscale) | `http://100.113.7.28/buildhub/gaming-builds-app.html` |
+| Home | `Redacted` |
+| Anywhere (Tailscale) | `Redacted` |
 
 ### Quick Setup Reference
 
