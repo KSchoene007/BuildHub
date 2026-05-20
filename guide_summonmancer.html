@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diablo 2 Resurrected – Summonmancer · Minion Necromancer</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
+<style>
+:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(224,48,96,0.08) 0%,transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(232,168,32,0.05) 0%,transparent 45%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 2px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:0}
+.container{max-width:1100px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
+.back-btn{display:inline-flex;align-items:center;gap:8px;margin:20px 0;padding:8px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:.15s}
+.back-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+header{padding:40px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;display:flex;align-items:center;gap:28px;animation:fadeDown .6s ease both}
+.hemblem{font-size:64px;animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{filter:drop-shadow(0 0 10px rgba(224,48,96,.75))}50%{filter:drop-shadow(0 0 28px rgba(224,48,96,1)) drop-shadow(0 0 40px rgba(232,168,32,.35))}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(24px,4vw,46px);color:var(--bright);text-transform:uppercase;letter-spacing:3px;line-height:1}
+h1 .r{color:var(--red)} h1 .g{color:var(--gold)} h1 .t{color:var(--teal)}
+.subtitle{margin-top:8px;font-size:12px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--red)}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.badge{padding:3px 12px;border:1px solid;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+.badge-pve{border-color:var(--teal);color:var(--teal)} .badge-dps{border-color:var(--red);color:var(--red)} .badge-tank{border-color:var(--gold);color:var(--gold)} .badge-dot{border-color:#b040f0;color:#b040f0} .badge-shock{border-color:#60c0ff;color:#60c0ff} .badge-meta{border-color:var(--gold);color:var(--gold)}
+section{margin-bottom:44px;animation:fadeUp .5s ease both}
+section:nth-child(2){animation-delay:.06s} section:nth-child(3){animation-delay:.12s} section:nth-child(4){animation-delay:.18s} section:nth-child(5){animation-delay:.24s} section:nth-child(6){animation-delay:.30s} section:nth-child(7){animation-delay:.36s} section:nth-child(8){animation-delay:.42s} section:nth-child(9){animation-delay:.48s} section:nth-child(10){animation-delay:.54s} section:nth-child(11){animation-delay:.60s}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.si{width:36px;height:36px;background:var(--dark4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
+.st{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:3px;color:var(--bright)}
+.st .r{color:var(--red)} .st .g{color:var(--gold)} .st .t{color:var(--teal)}
+.divider{height:1px;background:linear-gradient(90deg,var(--red) 0%,var(--gold) 35%,transparent 65%);margin:8px 0 24px;opacity:.35}
+p.body{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.gear-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px;transition:.2s;position:relative}
+.gear-card:hover{border-color:var(--red);box-shadow:var(--glow)}
+.gear-card.named{border-left-color:var(--gold)} .gear-card.named:hover{border-color:var(--gold);box-shadow:var(--gglow)}
+.gear-card.exotic{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 60%)} .gear-card.exotic:hover{border-color:var(--gold);box-shadow:var(--gglow)}
+.gear-card.blue{border-left-color:var(--teal)} .gear-card.blue:hover{border-color:var(--teal)}
+.gear-card.purple{border-left-color:#b040f0} .gear-card.purple:hover{border-color:#b040f0;box-shadow:0 0 16px rgba(176,64,240,.3)}
+.gear-slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:6px}
+.gear-card.named .gear-slot,.gear-card.exotic .gear-slot{color:var(--gold)} .gear-card.blue .gear-slot{color:var(--teal)} .gear-card.purple .gear-slot{color:#b040f0}
+.gear-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;color:var(--bright);margin-bottom:8px}
+.core-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.core-red{background:rgba(224,48,96,.12);color:var(--red);border:1px solid rgba(224,48,96,.4)}
+.core-named{background:rgba(232,168,32,.12);color:var(--gold);border:1px solid rgba(232,168,32,.4)}
+.core-exotic{background:linear-gradient(90deg,rgba(232,168,32,.15),rgba(224,48,96,.1));color:var(--gold);border:1px solid rgba(232,168,32,.45)}
+.core-blue{background:rgba(47,184,180,.1);color:var(--teal);border:1px solid rgba(47,184,180,.35)}
+.gear-mods{display:flex;flex-wrap:wrap;gap:5px}
+.mod-tag{font-size:10px;padding:2px 7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#8070a0}
+.t-r{font-size:11px;padding:2px 7px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
+.t-g{font-size:11px;padding:2px 7px;background:rgba(232,168,32,.08);border:1px solid rgba(232,168,32,.2);color:var(--gold)}
+.t-t{font-size:11px;padding:2px 7px;background:rgba(47,184,180,.08);border:1px solid rgba(47,184,180,.2);color:var(--teal)}
+.t-p{font-size:11px;padding:2px 7px;background:rgba(176,64,240,.08);border:1px solid rgba(176,64,240,.2);color:#c060ff}
+.wpn-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:14px}
+.wpn-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.15);padding:14px 16px;transition:.2s}
+.wpn-card:hover{border-color:rgba(255,255,255,.2)}
+.wpn-card.named-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 55%)} .wpn-card.named-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
+.wpn-card.exotic-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.08) 0%,rgba(224,48,96,.04) 55%,var(--dark3) 100%)} .wpn-card.exotic-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
+.wpn-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#6a5080;margin-bottom:6px}
+.wpn-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--bright);margin-bottom:3px}
+.wpn-type{font-size:12px;color:#6a5080;margin-bottom:10px}
+.wpn-talent{background:var(--dark4);border-left:3px solid var(--red);padding:9px 12px;margin-top:8px}
+.wpn-talent.gold-t{border-left-color:var(--gold)}
+.talent-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:4px}
+.wpn-talent.gold-t .talent-lbl{color:var(--gold)}
+.talent-txt{font-size:12px;line-height:1.55;color:#8070a0}
+.spec-card{background:var(--dark3);border:1px solid var(--border);padding:20px;display:flex;gap:20px;align-items:flex-start}
+.spec-ico{font-size:36px;flex-shrink:0}
+.spec-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--bright);letter-spacing:1px;margin-bottom:8px}
+.spec-desc{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px}
+.perks{display:flex;flex-wrap:wrap;gap:6px}
+.perk{font-size:11px;padding:3px 10px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
+.talent-list{display:flex;flex-direction:column;gap:12px}
+.trow{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;transition:.2s}
+.trow:hover{border-color:var(--red);box-shadow:var(--glow)}
+.trow.gold{border-left-color:var(--gold)} .trow.gold:hover{border-color:var(--gold);box-shadow:var(--gglow)}
+.trow .src{font-size:10px;color:#6a5080;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.trow .tname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);margin-bottom:4px}
+.trow.gold .tname{color:var(--gold)}
+.trow .tdesc{font-size:12px;line-height:1.55;color:#8070a0}
+.stats-table{width:100%;border-collapse:collapse;font-size:13px}
+.stats-table th{text-align:left;padding:10px 14px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:11px;border-bottom:1px solid var(--border)}
+.stats-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
+.stats-table tr:hover td{background:rgba(255,255,255,.02)}
+.sv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red)}
+.sl{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;display:block;margin-top:2px}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.skill-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px;text-align:center}
+.skill-ico{font-size:28px;display:block;margin-bottom:10px}
+.skill-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:6px}
+.skill-desc{font-size:12px;color:#7a6080;line-height:1.5}
+.note-box{padding:13px 16px;font-size:13px;line-height:1.6;margin-bottom:12px}
+.note-r{background:rgba(224,48,96,.06);border:1px solid rgba(224,48,96,.2);color:#c87080} .note-r strong{color:var(--red)}
+.note-g{background:rgba(232,168,32,.06);border:1px solid rgba(232,168,32,.2);color:#b09040} .note-g strong{color:var(--gold)}
+.note-t{background:rgba(47,184,180,.06);border:1px solid rgba(47,184,180,.2);color:#50a09a} .note-t strong{color:var(--teal)}
+.tips{display:flex;flex-direction:column;gap:10px}
+.tip{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;font-size:13px;line-height:1.6}
+.tip.gold{border-left-color:var(--gold)} .tip.teal{border-left-color:var(--teal)}
+.tip strong.r{color:var(--red)} .tip strong.g{color:var(--gold)} .tip strong.t{color:var(--teal)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12px}
+.ldot{width:10px;height:10px;border-radius:50%}
+/* Cycle boxes */
+.cycle-box{background:var(--dark3);border:1px solid rgba(224,48,96,.3);padding:20px;display:grid;gap:0;position:relative;overflow:hidden}
+.cycle-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,48,96,.05) 0%,transparent 50%,rgba(232,168,32,.03) 100%);pointer-events:none}
+.cycle-step{padding:16px;text-align:center;position:relative}
+.cnum{width:40px;height:40px;border-radius:50%;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--red);margin:0 auto 10px}
+.ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);text-transform:uppercase;letter-spacing:1px}
+.cval{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--gold);margin:4px 0 2px}
+.cdesc{font-size:11px;color:#7a6080;margin-top:5px;line-height:1.5}
+/* strengths/weaknesses */
+.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.sw-box{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
+.sw-title.green{color:#64c864} .sw-title.red{color:var(--red)}
+.sw-item{font-size:12px;line-height:1.6;padding:4px 0;color:var(--text);display:flex;gap:8px}
+.sw-item span{flex-shrink:0}
+/* Leveling phases */
+.phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:16px;margin-bottom:12px}
+.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.phase-num{width:32px;height:32px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red);flex-shrink:0}
+.phase-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);letter-spacing:.5px}
+.phase-sub{font-size:11px;color:var(--gold);margin-top:2px}
+.phase-desc{font-size:12px;line-height:1.6;color:var(--text);margin-bottom:12px}
+.gem-list{display:flex;flex-direction:column;gap:6px}
+.gem-row{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--dark4);border:1px solid rgba(255,255,255,.04)}
+.gem-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);min-width:140px;flex-shrink:0}
+.gem-supports{font-size:11px;color:#8070a0;line-height:1.4}
+.passive-box{background:var(--dark4);border:1px solid rgba(232,168,32,.15);padding:10px 14px;margin-top:10px;font-size:12px;color:#8070a0;line-height:1.6}
+/* Passive tree */
+.passive-phase{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.pp-row{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:var(--dark4);border:1px solid rgba(255,255,255,.04);font-size:12px}
+.pp-name{color:var(--text)}
+.pp-pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:13px}
+/* Ascendancy */
+.asc-list{display:flex;flex-direction:column;gap:10px}
+.asc-item{display:flex;gap:14px;align-items:flex-start;background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px}
+.asc-num{width:28px;height:28px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--red);flex-shrink:0}
+.asc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:4px}
+.asc-when{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.asc-desc{font-size:12px;color:#8070a0;line-height:1.4}
+/* Rotation */
+.rotation-steps{display:flex;flex-direction:column;gap:8px}
+.rstep{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--dark3);border:1px solid rgba(255,255,255,.04)}
+.rstep-n{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--red);width:24px;flex-shrink:0}
+.rstep-body{}
+.rstep-skill{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);margin-bottom:3px}
+.rstep-desc{font-size:12px;color:#8070a0;line-height:1.4}
+/* Equipment table */
+.equip-table{width:100%;border-collapse:collapse;font-size:12px}
+.equip-table th{text-align:left;padding:8px 12px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:10px;border-bottom:1px solid var(--border)}
+.equip-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
+.equip-table tr:hover td{background:rgba(255,255,255,.02)}
+.item-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);display:flex;align-items:center;gap:6px}
+.item-note{font-size:11px;color:#7a6080;margin-top:4px;line-height:1.4}
+.item-badge{font-size:9px;padding:1px 6px;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.3);color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.item-badge.req{background:rgba(224,48,96,.1);border-color:rgba(224,48,96,.3);color:var(--red)}
+footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:#4a3858;letter-spacing:2px;text-transform:uppercase}
+
+:root{--d2r:#8B3A00;--d2rdim:rgba(139,58,0,0.15);--d2rborder:rgba(139,58,0,0.4);--d2rglow:0 0 20px rgba(139,58,0,0.5);--bone:#C8A060;--bonedim:rgba(200,160,96,0.15);--poison:#406030;--poisonglow:0 0 16px rgba(64,128,48,0.5)}
+.badge-d2r{border-color:var(--bone);color:var(--bone)}
+.badge-d2rp{border-color:#50c850;color:#50c850}
+.d2r-card{background:var(--dark3);border:1px solid rgba(200,160,96,0.2);border-left:3px solid var(--bone);padding:14px 16px;transition:.2s}
+.d2r-card:hover{border-color:var(--bone);box-shadow:0 0 16px rgba(200,160,96,0.3)}
+.d2r-card.rune{border-left-color:var(--red);background:linear-gradient(135deg,rgba(139,58,0,.08) 0%,var(--dark3) 60%)}
+.d2r-card.rune:hover{border-color:var(--red);box-shadow:var(--d2rglow)}
+.d2r-card.unique{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 60%)}
+.d2r-card.unique:hover{border-color:var(--gold);box-shadow:var(--gglow)}
+.d2r-card.set-item{border-left-color:#50c850}
+.d2r-slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--bone);margin-bottom:6px}
+.d2r-card.rune .d2r-slot{color:var(--red)}
+.d2r-card.unique .d2r-slot{color:var(--gold)}
+.d2r-card.set-item .d2r-slot{color:#50c850}
+.t-bone{font-size:11px;padding:2px 7px;background:rgba(200,160,96,.08);border:1px solid rgba(200,160,96,.2);color:var(--bone)}
+.t-rune{font-size:11px;padding:2px 7px;background:rgba(139,58,0,.1);border:1px solid rgba(139,58,0,.3);color:#e06020}
+.t-poison{font-size:11px;padding:2px 7px;background:rgba(64,128,48,.1);border:1px solid rgba(64,128,48,.3);color:#50c850}
+/* Skill tree */
+.skill-tab{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.skill-tab-btn{padding:6px 16px;background:var(--dark3);border:1px solid rgba(200,160,96,.2);color:var(--bone);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:1px}
+.skill-row{display:grid;grid-template-columns:200px 60px 1fr;gap:0;align-items:center;padding:9px 14px;background:var(--dark4);border-bottom:1px solid rgba(255,255,255,.03)}
+.skill-row:hover{background:rgba(255,255,255,.03)}
+.skill-row.maxed{background:rgba(200,160,96,.06)}
+.skill-row.synergy{background:rgba(47,184,180,.04)}
+.skill-row.one-pt{background:rgba(224,48,96,.04)}
+.sk-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright)}
+.sk-name.maxed{color:var(--gold)} .sk-name.synergy{color:var(--teal)} .sk-name.one-pt{color:var(--red)}
+.sk-pts{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;text-align:center}
+.sk-pts.maxed{color:var(--gold)} .sk-pts.synergy{color:var(--teal)} .sk-pts.one-pt{color:var(--red)}
+.sk-desc{font-size:11px;color:#7a6080;line-height:1.4}
+/* Stat allocation */
+.stat-row{display:grid;grid-template-columns:130px 80px 1fr;gap:0;align-items:center;padding:10px 14px;background:var(--dark4);border-bottom:1px solid rgba(255,255,255,.03)}
+.stat-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright)}
+.stat-val{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--gold);text-align:center}
+.stat-note{font-size:12px;color:#7a6080}
+/* Level phase */
+.lvl-phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--bone);padding:16px;margin-bottom:12px}
+.lvl-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.lvl-badge{padding:3px 12px;background:rgba(200,160,96,.1);border:1px solid rgba(200,160,96,.3);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;color:var(--bone);letter-spacing:1px}
+.lvl-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright)}
+.lvl-desc{font-size:12px;color:#8070a0;line-height:1.6;margin-bottom:10px}
+/* Runeword box */
+.runeword-box{background:linear-gradient(135deg,rgba(139,58,0,.1) 0%,var(--dark3) 60%);border:1px solid rgba(139,58,0,.35);padding:16px;margin-bottom:14px}
+.rw-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:#e06020;margin-bottom:4px}
+.rw-formula{font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--bone);margin-bottom:8px;letter-spacing:1px}
+.rw-base{font-size:11px;color:#6a5080;margin-bottom:10px}
+.rw-stats{display:flex;flex-direction:column;gap:4px}
+.rw-stat{font-size:12px;color:#8070a0;line-height:1.4;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.rw-stat strong{color:var(--gold)}
+/* Merc */
+.merc-box{background:var(--dark3);border:1px solid var(--d2rborder);padding:18px;display:flex;gap:18px}
+.merc-ico{font-size:36px;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="container">
+<a class="back-btn" href="gaming-builds-app.html">← Back to Build Hub</a>
+
+<header>
+  <div class="hemblem" style="filter:drop-shadow(0 0 20px rgba(200,160,96,0.9))">💀</div>
+  <div>
+    <h1 style="color:var(--bright)">Summon<span style="color:var(--bone)">mancer</span></h1>
+    <h1 style="font-size:clamp(14px,2vw,22px);letter-spacing:2px;margin-top:4px"><span style="color:#50c850">Minion</span> Necromancer · Fishymancer · D2R Season 13</h1>
+    <div class="subtitle">Diablo 2: Resurrected · Summoner Build · Season 13 / Patch 3.0 · S-Tier</div>
+    <div class="badges">
+      <span class="badge badge-d2r">Necromancer</span>
+      <span class="badge badge-dps">S-Tier</span>
+      <span class="badge badge-d2rp">Beginner Friendly</span>
+      <span class="badge badge-tank">Hardcore Safe</span>
+      <span class="badge badge-pve">All Content</span>
+    </div>
+  </div>
+</header>
+
+<div class="note-box" style="background:rgba(200,160,96,.06);border:1px solid rgba(200,160,96,.25);color:#b09040;font-size:13px;line-height:1.6;margin-bottom:12px">
+  ☠️ <strong style="color:var(--bone)">The Summonmancer (also called "Fishymancer")</strong> is one of the most iconic builds in Diablo 2 history. You raise an army of up to 16 Skeletons, 9 Skeletal Mages, 1 Golem and up to 18 Revives — a screen-filling horde of undead that destroys everything in your path while you stay safely behind cursing enemies. <strong style="color:var(--gold)">Ideal for beginners, hardcore players and endgame farming alike.</strong>
+</div>
+
+<section>
+  <div class="sh"><div class="si">💀</div><div class="st">Build <span class="r">Overview</span></div></div>
+  <div class="divider"></div>
+  <div class="sw-grid">
+    <div class="sw-box">
+      <div class="sw-title green">✓ Strengths</div>
+      <div class="sw-item"><span>✓</span>Up to 44 minions simultaneously (with Revives)</div>
+      <div class="sw-item"><span>✓</span>Extremely safe — minions absorb all damage</div>
+      <div class="sw-item"><span>✓</span>Best beginner build in D2R — no gear required</div>
+      <div class="sw-item"><span>✓</span>Ideal for Hardcore mode — nearly unkillable</div>
+      <div class="sw-item"><span>✓</span>Corpse Explosion clears entire screens instantly</div>
+      <div class="sw-item"><span>✓</span>Scales from zero budget to endgame gear</div>
+      <div class="sw-item"><span>✓</span>Trivializes all Terror Zones and Uber content</div>
+    </div>
+    <div class="sw-box">
+      <div class="sw-title red">✗ Weaknesses</div>
+      <div class="sw-item"><span>✗</span>Slow vs. Physical Immune enemies (need Mages)</div>
+      <div class="sw-item"><span>✗</span>Enigma required for max efficiency (expensive)</div>
+      <div class="sw-item"><span>✗</span>Army management — skeletons can get scattered</div>
+      <div class="sw-item"><span>✗</span>Cold damage from merc shatters corpses (no CE)</div>
+      <div class="sw-item"><span>✗</span>Rebuilding army after death takes time</div>
+    </div>
+  </div>
+  <p class="body" style="margin-top:16px"><strong style="color:var(--bone)">Core Mechanic:</strong> Raise Skeleton builds your primary army (max 16). Amplify Damage curse makes all physical-immune monsters vulnerable and doubles minion damage. Corpse Explosion is your AoE nuke — it deals 70–120% of a corpse's max life as physical/fire damage in a large radius, clearing entire screens with one click. Decrepify slows and weakens bosses. The army does the work — you manage curses and position.</p>
+</section>
+
+<section>
+  <div class="sh"><div class="si">📊</div><div class="st">Stat <span class="r">Allocation</span></div></div>
+  <div class="divider"></div>
+  <div class="note-box" style="background:rgba(200,160,96,.06);border:1px solid rgba(200,160,96,.25);color:#b09040;font-size:13px;line-height:1.6;margin-bottom:14px">
+    ℹ <strong style="color:var(--bone)">Stat Rule:</strong> The Summonmancer has the simplest stat allocation in D2R. Strength just enough to wear your gear, Dexterity ignored, Energy ignored, everything else into Vitality. Your minions do the damage — you just need to stay alive.
+  </div>
+  <div style="border:1px solid rgba(200,160,96,.2);overflow:hidden">
+    <div class="stat-row"><div class="stat-name">Strength</div><div class="stat-val">~60–100</div><div class="stat-note">Just enough to equip your gear. Harlequin Crest needs 50, Enigma needs ~65 in Mage Plate base. Never invest more than needed.</div></div>
+    <div class="stat-row"><div class="stat-name">Dexterity</div><div class="stat-val">Base (25)</div><div class="stat-note">Never invest points here. The Summonmancer does not need attack rating, block chance or any dex-based stat. Leave at base 25.</div></div>
+    <div class="stat-row"><div class="stat-name">Vitality</div><div class="stat-val">Everything</div><div class="stat-note">All remaining stat points go here. Target: 1200–1500 Life in endgame. Life is your only real defensive stat — maximize it.</div></div>
+    <div class="stat-row"><div class="stat-name">Energy</div><div class="stat-val">Base (25)</div><div class="stat-note">Never invest points here. Mana is managed through gear (+mana on gear, Insight Runeword on merc provides Meditation aura). Base energy is sufficient.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">🌳</div><div class="st">Skill Tree <span class="r">· Point Distribution</span></div></div>
+  <div class="divider"></div>
+  <div class="note-box" style="background:rgba(200,160,96,.06);border:1px solid rgba(200,160,96,.25);color:#b09040;font-size:13px;line-height:1.6;margin-bottom:14px">
+    📋 <strong style="color:var(--bone)">Total Points at Level 99:</strong> 98 skill points (Level 2–99) + 12 from quests (4 per difficulty) = 110 total. The distribution below uses 99 points — the remaining 11 are flex points. Color code: <span style="color:var(--gold)">Gold = Max (20pts)</span> · <span style="color:var(--teal)">Teal = Synergy</span> · <span style="color:var(--red)">Red = 1 point wonder</span>
+  </div>
+
+  <p style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bone);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px">⚔ SUMMONING SKILLS</p>
+  <div style="border:1px solid rgba(200,160,96,.15);overflow:hidden;margin-bottom:20px">
+    <div class="skill-row maxed"><div class="sk-name maxed">Raise Skeleton</div><div class="sk-pts maxed">20</div><div class="sk-desc">Primary army builder. Max this first — every point increases skeleton count, damage and life. At 20 points (with +skills gear): up to 16 skeletons simultaneously.</div></div>
+    <div class="skill-row maxed"><div class="sk-name maxed">Skeleton Mastery</div><div class="sk-pts maxed">20</div><div class="sk-desc">Passive synergy for all skeletons and golems. Max alongside Raise Skeleton — doubles their effective life and damage output. Essential.</div></div>
+    <div class="skill-row maxed"><div class="sk-name maxed">Raise Skeletal Mage</div><div class="sk-pts maxed">20</div><div class="sk-desc">Mages deal elemental damage — critical for Physical Immune enemies. Max in endgame for variety in damage types (fire, cold, lightning, poison mages).</div></div>
+    <div class="skill-row synergy"><div class="sk-name synergy">Clay Golem</div><div class="sk-pts synergy">1</div><div class="sk-desc">1-point wonder. Clay Golem slows enemies by 25% on hit — invaluable for boss fights. Used as a meat shield and slow tank, especially for Act bosses.</div></div>
+    <div class="skill-row synergy"><div class="sk-name synergy">Golem Mastery</div><div class="sk-pts synergy">1</div><div class="sk-desc">1-point wonder. Increases Golem life and speed slightly. One point is sufficient — the Golem is primarily used for its slow and meat-shield value, not damage.</div></div>
+    <div class="skill-row synergy"><div class="sk-name synergy">Summon Resist</div><div class="sk-pts synergy">1</div><div class="sk-desc">1-point wonder. Grants minions resistances — essential in Nightmare and Hell difficulty where elemental damage can destroy your army. Always take this.</div></div>
+    <div class="skill-row synergy"><div class="sk-name synergy">Revive</div><div class="sk-pts synergy">1</div><div class="sk-desc">1-point wonder. Raises a monster as a Revive — copies the monster's abilities and stats. Incredibly powerful with the right monsters (e.g. Might aura Wendigos). Up to 18 Revives with +skills gear.</div></div>
+  </div>
+
+  <p style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bone);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px">☠ CURSE SKILLS</p>
+  <div style="border:1px solid rgba(200,160,96,.15);overflow:hidden;margin-bottom:20px">
+    <div class="skill-row one-pt"><div class="sk-name one-pt">Amplify Damage</div><div class="sk-pts one-pt">1</div><div class="sk-desc">MOST IMPORTANT CURSE. 1-point wonder. Reduces physical resistance by 100% — brings Physical Immune monsters to 0 resistance. Doubles all minion damage. Cast this first on any enemy group, always.</div></div>
+    <div class="skill-row one-pt"><div class="sk-name one-pt">Decrepify</div><div class="sk-pts one-pt">1</div><div class="sk-desc">1-point wonder. Slows enemies by 50%, reduces damage by 50%, reduces physical resistance by 50%. Use on bosses (Diablo, Baal, Mephisto) and Uber Tristram. Switches from Amplify Damage for boss fights.</div></div>
+    <div class="skill-row one-pt"><div class="sk-name one-pt">Lower Resist</div><div class="sk-pts one-pt">1</div><div class="sk-desc">1-point wonder. Reduces all elemental resistances. Use when fighting elemental immune enemies that your Mages need to hit. Situational but useful in specific farming zones.</div></div>
+    <div class="skill-row one-pt"><div class="sk-name one-pt">Dim Vision</div><div class="sk-pts one-pt">1</div><div class="sk-desc">1-point wonder. Blinds enemies — they cannot attack at range. Useful in specific dangerous zones (Chaos Sanctuary Oblivion Knights, Durance of Hate) to prevent dangerous spells.</div></div>
+  </div>
+
+  <p style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bone);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px">💥 CORPSE SKILLS</p>
+  <div style="border:1px solid rgba(200,160,96,.15);overflow:hidden;margin-bottom:14px">
+    <div class="skill-row maxed"><div class="sk-name maxed">Corpse Explosion</div><div class="sk-pts maxed">20</div><div class="sk-desc">Your screen-clearing nuke. Deals 70–120% of target corpse's max life as physical/fire damage in a large radius. Max this — it is the primary reason the Summonmancer clears so fast. One click can clear a full screen.</div></div>
+    <div class="skill-row synergy"><div class="sk-name synergy">Bone Armor</div><div class="sk-pts synergy">1</div><div class="sk-desc">1-point wonder. Absorbs a small amount of physical damage. Situational defensive skill — useful when repositioning through dangerous areas or in Hardcore mode for an extra safety layer.</div></div>
+  </div>
+
+  <div class="note-box note-t">
+    📊 <strong>Full Point Distribution Summary (99 points used):</strong><br>
+    Raise Skeleton 20 + Skeleton Mastery 20 + Raise Skeletal Mage 20 + Corpse Explosion 20 = 80 pts<br>
+    Clay Golem 1 + Golem Mastery 1 + Summon Resist 1 + Revive 1 = 4 pts<br>
+    Amplify Damage 1 + Decrepify 1 + Lower Resist 1 + Dim Vision 1 = 4 pts<br>
+    Bone Armor 1 = 1 pt<br>
+    <strong style="color:var(--gold)">Total: 89 pts used · 21 flex points for prerequisites and optional skills</strong>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">🎮</div><div class="st">Level by Level <span class="r">Skill Order</span></div></div>
+  <div class="divider"></div>
+
+  <div class="lvl-phase">
+    <div class="lvl-header"><div class="lvl-badge">LVL 1–17</div><div class="lvl-title">Act 1 Normal — First Skeletons</div></div>
+    <div class="lvl-desc">Start with Teeth (1 point) as your only damage skill until you get a wand with +Raise Skeleton from your starter gear. From Level 1 grab Raise Skeleton immediately and invest all points there. At Level 6 add Clay Golem for a meat shield against Act bosses. Use Iron Maiden on bosses (1 point) — it reflects physical damage back, making Andariel kill herself.</div>
+    <div class="gem-list">
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 1</div><div class="gem-supports">Raise Skeleton (1 pt) — your starter minion skill from wand</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 2–5</div><div class="gem-supports">Teeth (1–4 pts) — only damage skill available early, use for killing</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 6</div><div class="gem-supports">Clay Golem (1 pt) — meat shield for bosses, slows on hit</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 7–11</div><div class="gem-supports">Raise Skeleton (2→6 pts) — keep building skeleton count</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 12</div><div class="gem-supports">Amplify Damage (1 pt) — FIRST curse, use it forever after</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 13–16</div><div class="gem-supports">Raise Skeleton (7→10 pts) — more skeletons, more safety</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 17</div><div class="gem-supports">Corpse Explosion (1 pt) — game changer, never stop using this</div></div>
+    </div>
+    <div class="passive-box" style="border-color:rgba(200,160,96,.2);color:#9a7040">📦 <strong>Stat Points Lvl 1–17:</strong> All into Vitality. You need zero Strength past base (25) for a very long time — your starter wand has no Strength requirement.</div>
+  </div>
+
+  <div class="lvl-phase">
+    <div class="lvl-header"><div class="lvl-badge">LVL 18–29</div><div class="lvl-title">Act 2–3 Normal — Army Grows</div></div>
+    <div class="lvl-desc">Continue building Raise Skeleton toward 20. At Level 18 you unlock Corpse Explosion — this immediately becomes your most important skill. Spam it after every kill to chain explosions. Add Bone Wall (prerequisites) and Bone Armor for Decrepify prerequisites. At Level 24 add Decrepify (1 pt) — from now on use Decrepify on bosses, Amplify Damage on normal enemies.</div>
+    <div class="gem-list">
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 18</div><div class="gem-supports">Corpse Explosion (1→5 pts) — invest heavily here for faster clear</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 18–23</div><div class="gem-supports">Skeleton Mastery (1 pt) — prerequisite, then continue CE</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 24</div><div class="gem-supports">Decrepify (1 pt) — boss curse, essential from here on</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 25–29</div><div class="gem-supports">Raise Skeleton (11→15 pts) — continue toward 20</div></div>
+    </div>
+    <div class="passive-box" style="border-color:rgba(200,160,96,.2);color:#9a7040">📦 <strong>Stat Points Lvl 18–29:</strong> Check your gear — if you find items requiring Strength, invest minimum needed. Otherwise all Vitality. Target 300+ Life by end of Normal.</div>
+  </div>
+
+  <div class="lvl-phase">
+    <div class="lvl-header"><div class="lvl-badge">LVL 30–59</div><div class="lvl-title">Nightmare Difficulty — Full Army Online</div></div>
+    <div class="lvl-desc">Max Raise Skeleton to 20 ASAP. Then start maxing Skeleton Mastery alongside CE. At Level 30 add Summon Resist (1 pt) — critical in Nightmare where elemental damage surges. Add Revive (1 pt) for utility. Begin maxing Corpse Explosion toward 20. At Level 30 also unlock Raise Skeletal Mage — add 1 point for Physical Immune enemies, max later.</div>
+    <div class="gem-list">
+      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 30</div><div class="gem-supports">Raise Skeleton → MAX 20 pts — finish this first priority</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 30</div><div class="gem-supports">Summon Resist (1 pt) — essential now, nightmare elemental damage spikes</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 30</div><div class="gem-supports">Revive (1 pt) — copy strong monsters, up to 18 revives with +skills</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 30</div><div class="gem-supports">Raise Skeletal Mage (1 pt) — handle Physical Immune enemies</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Level 31–50</div><div class="gem-supports">Skeleton Mastery (1→20 pts) — max this next, doubles army power</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 51–59</div><div class="gem-supports">Corpse Explosion (5→20 pts) — maximize your screen nuke</div></div>
+    </div>
+    <div class="passive-box" style="border-color:rgba(200,160,96,.2);color:#9a7040">📦 <strong>Gear Milestone Lvl 30–59:</strong> Farm Normal Countess for Tal + Eth + Thul runes → craft Stealth runeword armor. Find Spirit runeword shield (4-socket Monarch Shield, farming from Normal Mephisto). These two items carry you through Nightmare easily.</div>
+  </div>
+
+  <div class="lvl-phase" style="border-left-color:var(--gold)">
+    <div class="lvl-header"><div class="lvl-badge" style="background:rgba(232,168,32,.1);border-color:rgba(232,168,32,.3);color:var(--gold)">LVL 60–80</div><div class="lvl-title" style="color:var(--gold)">Hell Difficulty — Endgame Transitions</div></div>
+    <div class="lvl-desc">Max Raise Skeletal Mage toward 20 for full elemental damage variety. Add Lower Resist (1 pt) and Dim Vision (1 pt) for utility. Continue Corpse Explosion to max. This is when you start farming for endgame Runewords — Enigma and Beast are the two key items that transform the build from "good" to "S-tier".</div>
+    <div class="gem-list">
+      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 60–79</div><div class="gem-supports">Raise Skeletal Mage (1→20 pts) — max for full elemental coverage</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 60</div><div class="gem-supports">Lower Resist (1 pt) — reduces elemental resistances for Mages</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 60</div><div class="gem-supports">Dim Vision (1 pt) — blind ranged enemies in dangerous areas</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--bone)">Level 60</div><div class="gem-supports">Bone Armor (1 pt) — small defensive buffer for repositioning</div></div>
+    </div>
+    <div class="passive-box" style="border-color:rgba(232,168,32,.2);color:#b09040">⭐ <strong>Respec at Level 60+:</strong> Once you obtain Enigma, use your Act 5 Hell Respec (or token of absolution) to optimize your final skill distribution. This is when the build hits its full potential.</div>
+  </div>
+
+  <div class="lvl-phase" style="border-left-color:var(--teal)">
+    <div class="lvl-header"><div class="lvl-badge" style="background:rgba(47,184,180,.1);border-color:rgba(47,184,180,.3);color:var(--teal)">LVL 80–99</div><div class="lvl-title">Endgame Optimization</div></div>
+    <div class="lvl-desc">All four skill trees are now maxed or 1-pointed. Remaining points go into prerequisite skills (Teeth, Bone Wall etc.) or additional points in Revive for more copies if desired. Focus entirely on gear optimization and farming Terror Zones + Uber Tristram.</div>
+    <div class="gem-list">
+      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Level 80–99</div><div class="gem-supports">Remaining points into prerequisites (Teeth, Bone Wall, Iron Maiden) — 1 pt each as needed for unlocking</div></div>
+      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Optional</div><div class="gem-supports">Extra points into Revive for more simultaneous Revives (needs unlocking via Skeleton Mage prerequisite chain)</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">⚔️</div><div class="st">Runewords <span class="r">· Weapons & Armor</span></div></div>
+  <div class="divider"></div>
+  <div class="note-box" style="background:rgba(139,58,0,.08);border:1px solid rgba(139,58,0,.35);color:#c07040;font-size:13px;line-height:1.6;margin-bottom:20px">
+    🗝 <strong style="color:#e06020">Runeword System:</strong> Insert runes into a socketed item in EXACT ORDER shown. The item must be the correct type (Weapon/Armor/Shield), have EXACTLY the right number of sockets, and be a gray (normal) or white item — NOT magic/rare/unique. Ladder-only Runewords can only be crafted on Ladder characters.
+  </div>
+
+  <p style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bone);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px">🔑 ENDGAME RUNEWORDS (Priority Order)</p>
+
+  <div class="runeword-box">
+    <div class="rw-name">⭐ Enigma (Priority 1 — Build-Defining)</div>
+    <div class="rw-formula">Jah • Ith • Ber · 3-Socket Body Armor</div>
+    <div class="rw-base">Best Base: Mage Plate (low Str req), Dusk Shroud, or Archon Plate (max defense)</div>
+    <div class="rw-stats">
+      <div class="rw-stat"><strong>+2 to All Skills</strong> — massive army and CE damage boost</div>
+      <div class="rw-stat"><strong>Teleport Charge (Level 1)</strong> — repositions your entire army instantly. Game-changing.</div>
+      <div class="rw-stat"><strong>+45% Faster Run/Walk</strong> — mobility without sacrificing other stats</div>
+      <div class="rw-stat"><strong>+0.75 Life per Level</strong> — significant life boost at high levels</div>
+      <div class="rw-stat"><strong>+8% Damage Reduction</strong> — small but welcome survivability</div>
+      <div class="rw-stat">Rune Cost: Jah (very high) + Ith (low) + Ber (very high). Farm: Hell Hellforge, Countess, LK chests.</div>
+    </div>
+  </div>
+
+  <div class="runeword-box">
+    <div class="rw-name">⭐ Beast (Priority 2 — Fanaticism Aura)</div>
+    <div class="rw-formula">Ber • Tir • Um • Mal • Lum · 5-Socket Axe or Scepter</div>
+    <div class="rw-base">Best Base: Berserker Axe (highest damage, fast attack) or Phase Blade (indestructible)</div>
+    <div class="rw-stats">
+      <div class="rw-stat"><strong>Level 9 Fanaticism Aura</strong> — grants ALL minions +75% Attack Speed + +180% Enhanced Damage. Doubles effective DPS of your skeleton army.</div>
+      <div class="rw-stat"><strong>+40% Increased Attack Speed</strong> — you won't attack much, but useful</div>
+      <div class="rw-stat"><strong>Level 25 Werebear (10 charges)</strong> — emergency transformation for survivability</div>
+      <div class="rw-stat">Rune Cost: Ber (very high) + others. Farm: Hell Hellforge, Travincal Council for Um/Mal.</div>
+    </div>
+  </div>
+
+  <div class="runeword-box">
+    <div class="rw-name">Call to Arms (CTA — Secondary Weapon Switch)</div>
+    <div class="rw-formula">Amn • Ral • Mal • Ist • Ohm · 5-Socket Weapon</div>
+    <div class="rw-base">Any 5-socket weapon (Flail, Crystal Sword) — kept on Weapon Switch (W key)</div>
+    <div class="rw-stats">
+      <div class="rw-stat"><strong>Battle Orders (Level 2–6)</strong> — switch to CTA, cast Battle Orders, switch back. Doubles your Life and Mana permanently for the game session.</div>
+      <div class="rw-stat"><strong>Battle Command (Level 1)</strong> — +1 to all skills for 5 minutes. Always cast before entering dangerous areas.</div>
+      <div class="rw-stat">Cast on weapon switch before every session → switch back to Beast. Essential QoL.</div>
+    </div>
+  </div>
+
+  <div class="runeword-box">
+    <div class="rw-name">Spirit (Shield) — Budget BiS Shield</div>
+    <div class="rw-formula">Tal • Thul • Ort • Amn · 4-Socket Shield</div>
+    <div class="rw-base">Best Base: 4-Socket Monarch Shield (35 Str req, max block). Farm: Normal Mephisto / Nightmare Mephisto.</div>
+    <div class="rw-stats">
+      <div class="rw-stat"><strong>+2 to All Skills</strong> — core stat for any caster/summoner</div>
+      <div class="rw-stat"><strong>+35% Faster Cast Rate</strong> — reaches Corpse Explosion and Teleport FCR breakpoints</div>
+      <div class="rw-stat"><strong>+22 to Vitality</strong> — extra life</div>
+      <div class="rw-stat"><strong>+89–112 to Mana</strong> — significant mana pool increase</div>
+      <div class="rw-stat">Rune Cost: Very cheap (Tal/Thul/Ort/Amn). Obtainable by Act 1 Normal Countess farming.</div>
+    </div>
+  </div>
+
+  <p style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bone);text-transform:uppercase;letter-spacing:2px;margin:20px 0 12px">🛡 MERCENARY RUNEWORDS</p>
+
+  <div class="runeword-box">
+    <div class="rw-name">Insight (Merc Weapon — Meditation Aura)</div>
+    <div class="rw-formula">Ral • Tir • Tal • Sol · 4-Socket Polearm</div>
+    <div class="rw-base">Best Base: Cryptic Axe or Thresher (fast attack speed polearms)</div>
+    <div class="rw-stats">
+      <div class="rw-stat"><strong>Level 12–17 Meditation Aura</strong> — provides massive mana regeneration for you and your merc. Solves ALL mana problems without investing in Energy stat.</div>
+      <div class="rw-stat"><strong>+1–6 to Critical Strike</strong> — adds damage variance</div>
+      <div class="rw-stat">Rune Cost: Very cheap. This is your Priority 1 merc weapon — farm Normal Countess for runes.</div>
+    </div>
+  </div>
+
+  <div class="runeword-box">
+    <div class="rw-name">Fortitude (Merc Armor — Enhancement Aura)</div>
+    <div class="rw-formula">El • Sol • Dol • Lo · 4-Socket Body Armor</div>
+    <div class="rw-base">Best Base: Eth Superior Armor (ethereal — no durability concern for merc), high defense base</div>
+    <div class="rw-stats">
+      <div class="rw-stat"><strong>+300% Enhanced Damage</strong> — merc hits very hard, generating Corpse Explosion corpses rapidly</div>
+      <div class="rw-stat"><strong>Level 15 Chilling Armor</strong> — defensive for the merc</div>
+      <div class="rw-stat"><strong>+200% Enhanced Defense</strong> — merc survives much longer</div>
+      <div class="rw-stat">⚠️ Important: Use a Fire Resist merc build to avoid Cold damage shattering corpses!</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
+  <div class="divider"></div>
+  <div class="note-box" style="background:rgba(200,160,96,.06);border:1px solid rgba(200,160,96,.25);color:#b09040;font-size:13px;line-height:1.6;margin-bottom:16px">
+    ℹ <strong style="color:var(--bone)">Gear Priority:</strong> +Skills is the most important stat on every item. Every +1 All Skills = all your skeletons and mages get +1 effective skill level = more life, more damage. Target: +15 All Skills total from gear (achievable endgame).
+  </div>
+
+  <div class="card-grid">
+    <div class="d2r-card unique"><div class="d2r-slot">Helmet · Unique (BiS)</div><div class="gear-name">Harlequin Crest (Shako)</div><div class="gear-mods"><span class="t-bone">+2 All Skills</span><span class="t-bone">+2 All Attributes</span><span class="mod-tag">+50% MF · DR 10%</span><span class="mod-tag">Huge Mana/Life bonus</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Best-in-slot helmet for any caster. The +2 All Skills, massive stats and 50% Magic Find make this irreplaceable. Farm: Hell Mephisto or any Hell boss.</div></div>
+    <div class="d2r-card rune"><div class="d2r-slot">Body Armor · Runeword (BiS)</div><div class="gear-name">Enigma</div><div class="gear-mods"><span class="t-rune">Jah • Ith • Ber</span><span class="t-bone">+2 All Skills</span><span class="mod-tag">Teleport Charges</span><span class="mod-tag">+45% FRW</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">The most important item in the build. Teleport repositions your entire army instantly. +2 Skills boosts all minions. Use Mage Plate base for low Strength requirement.</div></div>
+    <div class="d2r-card unique"><div class="d2r-slot">Amulet · Unique (BiS)</div><div class="gear-name">Mara's Kaleidoscope</div><div class="gear-mods"><span class="t-bone">+2 All Skills</span><span class="t-bone">+20–30 All Resistances</span><span class="mod-tag">+5 All Attributes</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">+2 Skills + huge resistances. Best amulet for the build. Alternative: Rare amulet with +2 Necro Skills + Resistances if Mara's is unavailable.</div></div>
+    <div class="d2r-card rune"><div class="d2r-slot">Weapon · Runeword (BiS)</div><div class="gear-name">Beast (Berserker Axe)</div><div class="gear-mods"><span class="t-rune">Ber • Tir • Um • Mal • Lum</span><span class="t-bone">Lvl 9 Fanaticism Aura</span><span class="mod-tag">Army +75% Atk Speed</span><span class="mod-tag">Army +180% Damage</span></div></div>
+    <div class="d2r-card rune"><div class="d2r-slot">Shield · Runeword (BiS)</div><div class="gear-name">Spirit (Monarch Shield)</div><div class="gear-mods"><span class="t-rune">Tal • Thul • Ort • Amn</span><span class="t-bone">+2 All Skills</span><span class="mod-tag">+35% FCR</span><span class="mod-tag">+Mana · +Vitality</span></div></div>
+    <div class="d2r-card unique"><div class="d2r-slot">Gloves · Unique (BiS)</div><div class="gear-name">Trang-Oul's Claws</div><div class="gear-mods"><span class="t-bone">+2 Necromancer Skills</span><span class="t-bone">+20% FCR</span><span class="mod-tag">Cold Resist +30%</span><span class="mod-tag">Mana Regen +25%</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">+2 Necro Skills + 20% FCR. Helps reach FCR breakpoints for Corpse Explosion and Teleport. Cheap and easy to find — part of the Trang-Oul set.</div></div>
+    <div class="d2r-card unique"><div class="d2r-slot">Belt · Unique (BiS)</div><div class="gear-name">Arachnid Mesh</div><div class="gear-mods"><span class="t-bone">+1 All Skills</span><span class="t-bone">+20% FCR</span><span class="mod-tag">Slows target 10%</span><span class="mod-tag">+5% Max Mana</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">+1 All Skills + 20% FCR. Only belt in the game with +Skills. Farm: Hell Mephisto or any Hell Unique/Champion. Relatively common drop.</div></div>
+    <div class="d2r-card unique"><div class="d2r-slot">Boots · Unique (BiS)</div><div class="gear-name">Aldur's Advance</div><div class="gear-mods"><span class="t-bone">+40% FRW</span><span class="t-bone">+180 Life</span><span class="mod-tag">Fire Resist +50%</span><span class="mod-tag">Heal stamina</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Best boots for movement speed + life + fire resistance. Alternative: War Traveler for +50% MF or any rare boots with resistances + FRW.</div></div>
+    <div class="d2r-card unique"><div class="d2r-slot">Ring 1 · Unique (BiS)</div><div class="gear-name">Stone of Jordan</div><div class="gear-mods"><span class="t-bone">+1 All Skills</span><span class="t-bone">+25% Max Mana</span><span class="mod-tag">+20 Mana</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">+1 All Skills + huge mana. The classic summoner ring. Farm from any Hell boss or trade with other players.</div></div>
+    <div class="d2r-card unique"><div class="d2r-slot">Ring 2 · Optional</div><div class="gear-name">Bul-Kathos' Wedding Band</div><div class="gear-mods"><span class="t-bone">+1 All Skills</span><span class="t-bone">+Life stolen</span><span class="mod-tag">+50 Life</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Second +1 Skills ring for maximum skill bonus. Alternative: Second SoJ, or a rare ring with FCR + resistances + life.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">⚔️</div><div class="st">Budget Gear <span class="r">· Ladder Start</span></div></div>
+  <div class="divider"></div>
+  <div class="note-box" style="background:rgba(200,160,96,.06);border:1px solid rgba(200,160,96,.25);color:#b09040;font-size:13px;line-height:1.6;margin-bottom:14px">
+    💰 <strong style="color:var(--bone)">You do NOT need endgame gear to play the Summonmancer.</strong> The build functions from Level 1 with zero gear. These budget items carry you from Normal through Hell until you can farm endgame BiS.
+  </div>
+  <div class="card-grid">
+    <div class="d2r-card"><div class="d2r-slot">Weapon · Budget</div><div class="gear-name">White Runeword Wand</div><div class="gear-mods"><span class="t-bone">Io • Dol</span><span class="mod-tag">+3 Poison/Bone Skills</span><span class="mod-tag">+2 specific Necro skills</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Craft in a 2-socket wand with +3 Skeleton skills. Very cheap — Io and Dol runes drop commonly in Normal.</div></div>
+    <div class="d2r-card"><div class="d2r-slot">Body Armor · Budget</div><div class="gear-name">Stealth Runeword</div><div class="gear-mods"><span class="t-bone">Tal • Eth</span><span class="mod-tag">+25% FCR</span><span class="mod-tag">+25% FRW</span><span class="mod-tag">Mana Regen +25%</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">2-socket armor, Tal + Eth runes. Farm Normal Countess. Excellent early-mid game — cheap, fast, and effective until Enigma.</div></div>
+    <div class="d2r-card"><div class="d2r-slot">Helmet · Budget</div><div class="gear-name">Lore Runeword</div><div class="gear-mods"><span class="t-bone">Ort • Sol</span><span class="mod-tag">+1 All Skills</span><span class="mod-tag">+30% Lightning Resist</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">2-socket helm, Ort + Sol. Cheap +1 Skills and lightning resistance. Use until you find Shako.</div></div>
+    <div class="d2r-card"><div class="d2r-slot">Shield · Budget</div><div class="gear-name">Rhyme Runeword</div><div class="gear-mods"><span class="t-bone">Shael • Eth</span><span class="mod-tag">+25% Block</span><span class="mod-tag">Cannot be Frozen</span><span class="mod-tag">+25% All Resist</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">2-socket shield, Shael + Eth. Cannot be Frozen is extremely valuable — removes the need for Thawing Potions. Use until Spirit Monarch.</div></div>
+    <div class="d2r-card"><div class="d2r-slot">Weapon Alt · Mid-Game</div><div class="gear-name">Arm of King Leoric</div><div class="gear-mods"><span class="t-bone">+3 Summoning Skills</span><span class="t-bone">+4 Skeleton Warriors</span><span class="mod-tag">+2 All Skills on Equip</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Best weapon before Beast. Adds up to +4 extra Skeleton Warriors directly. Farm Normal/Nightmare Countess or Mephisto.</div></div>
+    <div class="d2r-card unique"><div class="d2r-slot">Amulet · Budget</div><div class="gear-name">Tal Rasha's Adjudication</div><div class="gear-mods"><span class="t-bone">+2 All Necro Skills</span><span class="mod-tag">+33–50 Life</span><span class="mod-tag">Mana after kill +11</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">+2 Necro Skills. Much cheaper than Mara's. Good budget amulet until you find or trade Mara's Kaleidoscope.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">⚔️</div><div class="st">Mercenary <span class="r">· The Might Merc</span></div></div>
+  <div class="divider"></div>
+  <div class="merc-box">
+    <div class="merc-ico">⚔️</div>
+    <div>
+      <div class="spec-name">Act 2 Nightmare Offensive Mercenary</div>
+      <div class="spec-desc" style="font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px">
+        The <strong style="color:var(--gold)">Might Aura</strong> Act 2 Nightmare Offensive mercenary is mandatory. Might Aura amplifies all physical damage for you and your minions. <strong style="color:var(--red)">NEVER use a Cold-damage mercenary</strong> — cold kills shatter corpses, making Corpse Explosion impossible on those enemies.
+      </div>
+      <div class="spec-desc" style="font-size:12px;color:#7a6080;margin-bottom:12px">
+        How to get: Rescue him in Act 2 Nightmare difficulty (not Normal, not Hell — specifically Nightmare). He will have the Might Aura from the start.
+      </div>
+      <div class="perks">
+        <span class="perk" style="background:rgba(232,168,32,.08);border-color:rgba(232,168,32,.3);color:var(--gold)">Might Aura — +250% Merc Damage</span>
+        <span class="perk">Weapon: Insight (Meditation Aura)</span>
+        <span class="perk">Armor: Fortitude (Ethereal)</span>
+        <span class="perk">Helmet: Andariel's Visage (Ethereal)</span>
+        <span class="perk" style="color:var(--red)">NEVER Cold Merc — shatters corpses</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">💎</div><div class="st">Charms <span class="r">· Inventory</span></div></div>
+  <div class="divider"></div>
+  <div class="card-grid">
+    <div class="d2r-card unique"><div class="d2r-slot">Grand Charm · BiS</div><div class="gear-name">Summoner GC (+1 Summoning Skills)</div><div class="gear-mods"><span class="t-bone">+1 to Summoning Skill Tab</span><span class="mod-tag">With Life suffix = perfect</span><span class="mod-tag">Farm: NM Andariel or trade</span></div></div>
+    <div class="d2r-card unique"><div class="d2r-slot">Small Charm · MF</div><div class="gear-name">Gheed's Fortune</div><div class="gear-mods"><span class="t-bone">+80–160% Extra Gold</span><span class="t-bone">+25–40% MF</span><span class="mod-tag">Reduce vendor prices</span></div></div>
+    <div class="d2r-card"><div class="d2r-slot">Small Charms · Fill</div><div class="gear-name">Resist / Life SCs</div><div class="gear-mods"><span class="mod-tag">Life 20 SC</span><span class="mod-tag">All Resist 5% SC</span><span class="mod-tag">Fill remaining inv. space</span></div></div>
+    <div class="d2r-card"><div class="d2r-slot">Sunder Charm · Endgame</div><div class="gear-name">Physical Sunder Charm</div><div class="gear-mods"><span class="t-bone">Breaks Physical Immunity</span><span class="mod-tag">Farm: Hell Terror Zones</span><span class="mod-tag">Season 13/14 more accessible</span></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">⚡</div><div class="st">Playstyle <span class="r">& Rotation</span></div></div>
+  <div class="divider"></div>
+
+  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px">📋 SESSION START (Before Every Game)</p>
+  <div class="rotation-steps">
+    <div class="rstep"><div class="rstep-n">1</div><div class="rstep-body"><div class="rstep-skill">Switch to Call to Arms (W key)</div><div class="rstep-desc">Cast Battle Command (+1 All Skills) → Cast Battle Orders (doubles Life + Mana). Switch back to Beast. Lasts until you leave the game.</div></div></div>
+    <div class="rstep"><div class="rstep-n">2</div><div class="rstep-body"><div class="rstep-skill">Build Your Army</div><div class="rstep-desc">Find corpses or kill the first few enemies manually. Raise Skeleton from every corpse. Then raise Skeletal Mages. Clay Golem last. Army is online in 2–3 minutes of play.</div></div></div>
+    <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Revive Strong Monsters</div><div class="rstep-desc">When you pass Might-aura Wendigos, Act Boss minions, or strong unique monsters — Revive them for extra utility. Up to 18 Revives with +skills gear.</div></div></div>
+  </div>
+
+  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px;margin-top:20px">🗺 NORMAL ENEMY GROUPS</p>
+  <div class="rotation-steps">
+    <div class="rstep"><div class="rstep-n">1</div><div class="rstep-body"><div class="rstep-skill">Amplify Damage</div><div class="rstep-desc">Cast on the largest group of enemies. Reduces physical resistance by 100% — doubles all minion damage instantly. Always cast first.</div></div></div>
+    <div class="rstep"><div class="rstep-n">2</div><div class="rstep-body"><div class="rstep-skill">Teleport (Enigma)</div><div class="rstep-desc">Teleport into or near the enemy group. Your skeleton army follows and immediately attacks. One teleport = engage.</div></div></div>
+    <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Corpse Explosion</div><div class="rstep-desc">The moment the first enemy dies → spam Corpse Explosion on the corpse. Chain explosions wipe the entire screen. This is how full maps clear in seconds.</div></div></div>
+    <div class="rstep"><div class="rstep-n">4</div><div class="rstep-body"><div class="rstep-skill">Replace Fallen Skeletons</div><div class="rstep-desc">If a skeleton dies — Raise Skeleton from the fresh corpses. Your army self-replenishes from the enemies it kills.</div></div></div>
+  </div>
+
+  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px;margin-top:20px">👑 BOSSES (Diablo, Baal, Mephisto)</p>
+  <div class="rotation-steps">
+    <div class="rstep"><div class="rstep-n">1</div><div class="rstep-body"><div class="rstep-skill">Switch Curse: Decrepify</div><div class="rstep-desc">On bosses use Decrepify instead of Amplify Damage. Decrepify: slows boss 50%, reduces damage 50%, reduces physical resist 50%. Much safer than Amplify Damage vs. bosses.</div></div></div>
+    <div class="rstep"><div class="rstep-n">2</div><div class="rstep-body"><div class="rstep-skill">Clay Golem</div><div class="rstep-desc">Summon Clay Golem directly on the boss. It slows the boss 25% on every hit — stacks with Decrepify for near-immobile bosses.</div></div></div>
+    <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Position Army</div><div class="rstep-desc">Teleport your army close to the boss. Stay at maximum range yourself — let skeletons tank and attack. Refresh Decrepify when it expires.</div></div></div>
+    <div class="rstep"><div class="rstep-n">4</div><div class="rstep-body"><div class="rstep-skill">Corpse Explosion on Boss Minions</div><div class="rstep-desc">When boss minions die use CE on their corpses — the explosion radius can hit the boss itself for massive physical/fire damage.</div></div></div>
+  </div>
+
+  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px;margin-top:20px">⚠️ PHYSICAL IMMUNE ENEMIES</p>
+  <div class="rotation-steps">
+    <div class="rstep"><div class="rstep-n">1</div><div class="rstep-body"><div class="rstep-skill">Amplify Damage Curse</div><div class="rstep-desc">Amplify Damage removes Physical Immunity entirely (reduces resistance by 100%). Most "Physical Immune" monsters go from immune to 0% resistance. Use this first.</div></div></div>
+    <div class="rstep"><div class="rstep-n">2</div><div class="rstep-body"><div class="rstep-skill">Skeletal Mages</div><div class="rstep-desc">If Amplify Damage doesn't work (some monsters have >100% phys resist), rely on Skeletal Mages. They deal fire, cold, lightning and poison damage — always effective.</div></div></div>
+    <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Lower Resist + Mages</div><div class="rstep-desc">For elemental immune enemies — cast Lower Resist to reduce their elemental resistances, then let Mages deal elemental damage. Handles most situations.</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">🌾</div><div class="st">Best Farming <span class="r">Locations</span></div></div>
+  <div class="divider"></div>
+  <div class="card-grid">
+    <div class="d2r-card"><div class="d2r-slot">Budget Start · Act 1 Hell</div><div class="gear-name">The Pit (Area Level 85)</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Every unique item in the game can drop here. Safe, easy for Summonmancer — skeletons tank everything. Farm Uniques/Sets/Runes efficiently.</div></div>
+    <div class="d2r-card"><div class="d2r-slot">Rune Farming · Normal</div><div class="gear-name">Countess (Tower Level 5)</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Drops up to Ist rune in Normal/Nightmare. Farm for Stealth, Spirit, Insight rune components. Very fast runs with Summonmancer.</div></div>
+    <div class="d2r-card"><div class="d2r-slot">MF Farming · Act 3 Hell</div><div class="gear-name">Mephisto (Durance of Hate Lvl 3)</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Best drop pool for Shako, Mara's, unique rings. Very fast kill — Decrepify + Clay Golem + army shreds him in seconds. Moat trick keeps you safe.</div></div>
+    <div class="d2r-card"><div class="d2r-slot">Endgame Farming · Season 13</div><div class="gear-name">Terror Zones (All of Hell)</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Rotating Level 85+ zones every hour. Summonmancer trivializes all Terror Zones — clear safely while farming Sunder Charms and high-tier loot.</div></div>
+    <div class="d2r-card"><div class="d2r-slot">High Rune Farming</div><div class="gear-name">Lower Kurast (LK) Chests</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Super chests in LK have fixed drop tables including high runes. Run the two super chest areas every game. Best source of Ber/Jah for Enigma/Beast.</div></div>
+    <div class="d2r-card"><div class="d2r-slot">Uber Content</div><div class="gear-name">Uber Tristram</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">With Enigma + Beast: Decrepify the Uber bosses, army tanks, CE clears minions. Lifetap wand (charges) keeps army alive. Drop: Hellfire Torch charm.</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
+  <div class="divider"></div>
+  <div class="tips">
+    <div class="tip gold"><strong class="g">FCR Breakpoints are crucial:</strong> Corpse Explosion and Teleport (Enigma) cast faster at specific Faster Cast Rate thresholds. Target: 125% FCR (fastest Teleport) or at minimum 75% FCR. Spirit Shield (+35%) + Trang Gloves (+20%) + Arachnid Mesh (+20%) + gear = easy to reach.</div>
+    <div class="tip"><strong class="r">Amplify Damage first, always:</strong> Every combat starts with Amplify Damage on the largest group. It doubles all physical damage from all 30+ minions simultaneously. This is the highest DPS action you can perform every single fight.</div>
+    <div class="tip gold"><strong class="g">Corpse Explosion chains:</strong> CE deals damage based on the corpse's max life — not your damage. Larger monsters = bigger explosions. Always trigger CE on the largest corpse first to maximize the chain reaction radius.</div>
+    <div class="tip"><strong class="r">Teleport army management:</strong> When your army gets scattered (after Teleporting repeatedly), stand still for 2–3 seconds. Skeletons pathfind back to you. Or Teleport to a new position — skeletons "snap" to your new location within seconds.</div>
+    <div class="tip gold"><strong class="g">Iron Golem from Insight:</strong> In endgame, replace Clay Golem with Iron Golem made from a spare Insight Runeword polearm. The Iron Golem inherits the Meditation Aura from Insight — giving you double aura stacking if your merc also has Insight.</div>
+    <div class="tip teal"><strong class="t">Season 14 Note:</strong> Season 14 launches May 22–23, 2026. Necromancer receives no nerfs in Patch 3.2 — the Summonmancer remains S-tier and fully unchanged. Latent Sunder Charms are more accessible, making Physical Immune breaking even easier.</div>
+  </div>
+</section>
+
+<footer>Diablo 2: Resurrected · Summonmancer Build Guide · Season 13 / Patch 3.0 · Updated May 2026</footer>
+</div>
+</body>
+</html>

@@ -64,3 +64,17 @@
 ## v1.9.1 – 2026-05-18
 - Added: Mandalorian guide — vollständiger Ability Tree (alle 8 Choices mit Empfehlungen und Begründungen)
 - Note: SWTOR 7.6+ hat kein Punkte-System mehr — 8 binäre Choices ersetzen das alte Utility-System
+
+## v2.0 – 2026-05-18
+- Added: Diablo 2: Resurrected as 5th game in Build Hub
+- Added: Summonmancer (Fishymancer) — complete Season 13 guide including:
+  - Full Stat Allocation (Str/Dex/Vit/Energy)
+  - Complete Skill Tree with all point distributions
+  - Level-by-level skill order (Lvl 1 → 99)
+  - All Runewords (Enigma, Beast, CTA, Spirit, Insight, Fortitude + Budget options)
+  - Full Gear slots (BiS + Budget alternatives)
+  - Mercenary setup (Act 2 NM Offensive, Might Aura, Insight + Fortitude)
+  - Charms and inventory
+  - Complete Playstyle / Rotation (Normal enemies, Bosses, Physical Immune)
+  - Best farming locations (Pit, Mephisto, Countess, Terror Zones, LK)
+- Build Hub now: 5 Games · 11 Builds

@@ -1,8 +1,8 @@
 # 🎮 Build Hub
 
 ![Build Hub](https://img.shields.io/badge/Build_Hub-v1.6-E03060?style=for-the-badge)
-![Games](https://img.shields.io/badge/Games-4-E8A820?style=for-the-badge&logo=steam&logoColor=white)
-![Builds](https://img.shields.io/badge/Builds-10-2FB8B4?style=for-the-badge)
+![Games](https://img.shields.io/badge/Games-5-E8A820?style=for-the-badge&logo=steam&logoColor=white)
+![Builds](https://img.shields.io/badge/Builds-11-2FB8B4?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-4CAF50?style=for-the-badge)
 ![iPad](https://img.shields.io/badge/iPad_Ready-%E2%9C%93-E03060?style=for-the-badge&logo=apple&logoColor=white)
 ![Self-Hosted](https://img.shields.io/badge/Self--Hosted-Proxmox-E8A820?style=for-the-badge)
@@ -52,6 +52,13 @@ The app is designed for **iPad use** and served directly from a **Proxmox LXC co
 |---|---|---|---|
 | 🚀 **The Mandalorian** | A | Arsenal DPS · Rockets + Blasters | Tracer Missile · Heatseeker · Rail Shot |
 
+
+### Diablo 2: Resurrected (Season 13 · Patch 3.0)
+
+| Build | Tier | Playstyle | Key Items |
+|---|---|---|---|
+| ☠️ **Summonmancer** | S | Minion Army · All Content · HC Safe | Enigma · Beast · Shako · Spirit |
+
 ---
 
 ## 📁 File Structure
@@ -69,7 +76,8 @@ The app is designed for **iPad use** and served directly from a **Proxmox LXC co
  ├── 🌐 guide_poisonburst.html
  ├── 🌐 guide_spiraling.html
  ├── 🌐 guide_necromancer.html
- └── 🌐 guide_mandalorian.html
+ ├── 🌐 guide_mandalorian.html
+ └── 🌐 guide_summonmancer.html
 ```
 
 > ⚠️ All files must be in the **same folder** for guide links to work correctly.
@@ -167,4 +175,4 @@ Every guide shows its version in the header. Full history in [`CHANGELOG.md`](./
 ---
 
 *Build Hub · Personal Project · Updated with every major patch*
-*The Division 2 (Y8S1) · Path of Exile 2 (S13) · Diablo 4 (S13) · Star Wars: TOR (Patch 7.8)*
+*The Division 2 (Y8S1) · PoE 2 (S13) · Diablo 4 (S13) · SWTOR (7.8) · Diablo 2: Resurrected (S13)*

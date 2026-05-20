@@ -576,6 +576,44 @@ const BUILDS=[
     ${note('note-tip','<strong>Mandalorian Look:</strong> Use Outfit Designer — equip Mandalorian Enforcer armor set visually while wearing optimized gear underneath. Blizz companion = Grogu vibes.')}
     ${note('note-info','<strong>Hydraulic Overrides = Jetpack:</strong> 60% movement speed + CC immunity for 8 sec. Use for mechanics, AoE avoidance, and repositioning. This is the Way.')}
     ${note('note-warn','<strong>Best Content:</strong> Story + Veteran Flashpoints, Solo Heroics, Story Operations. Comfortable for all Solo content and group Operations.')}
+  </div>`},
+
+{id:'d2r-summon',game:'d2r',tier:'S',name:'Summonmancer',icon:'☠️',sub:'Minion Necromancer · Fishymancer · Season 13',tags:['boss','map'],diff:'easy',accent:'#C8A060',guide:'guide_summonmancer.html',
+ stats:[{l:'DPS',v:85,c:'#ff6060'},{l:'Survival',v:99,c:'#60a0ff'},{l:'Speed',v:75,c:'#50c8b4'},{l:'Ease',v:95,c:'#ffd700'}],
+ detail:`
+  <div class="ds"><div class="ds-title">☠️ Core Mechanic</div>
+    <div class="mech-card">
+      <div class="mech-top">
+        <div class="mech-icon" style="background:rgba(200,160,96,.12);border:1px solid rgba(200,160,96,.3)">💀</div>
+        <div><div class="mech-name">Undead Army (up to 44 minions)</div>
+          <div class="mech-stack">${Array(10).fill(0).map((_,i)=>`<div class="mech-pip${i<10?' on':''}" style="background:#C8A060"></div>`).join('')}<span style="font-size:10px;color:var(--muted);margin-left:4px">16 Skeletons + 9 Mages + 18 Revives + 1 Golem</span></div>
+        </div>
+      </div>
+      <div class="mech-desc">Raise up to 16 Skeletons + 9 Skeletal Mages + 18 Revives + 1 Golem. <strong style="color:#C8A060">Amplify Damage</strong> curse removes Physical Immunity and doubles all minion damage. <strong style="color:var(--gold)">Corpse Explosion</strong> deals 70-120% of corpse max life in AoE — clears entire screens in one click.</div>
+    </div>
+    ${note('note-info','<strong>Why S-Tier:</strong> Safest build in D2R — minions absorb all damage. Ideal for beginners AND hardcore mode. Scales from zero budget to full BiS gear.')}
+  </div>
+  <div class="ds"><div class="ds-title">🌳 Key Skills</div>
+    ${wC('💀','Raise Skeleton','Summoning · Max 20pts','—','—','Bone','Primary Army','Up to 16 skeletons at max pts + skills gear. Physical damage dealers. Core of the build.')}
+    ${wC('💥','Corpse Explosion','Corpse · Max 20pts','—','—','Fire/Phys','Screen Nuke','70-120% of corpse max life as AoE damage. One click clears entire screens in Hell.')}
+    ${wC('☠️','Amplify Damage','Curse · 1pt','—','—','Curse','Immunity Break','-100% Physical Resistance. Removes Physical Immunity from most monsters. Double minion DPS.')}
+    ${wC('🐌','Decrepify','Curse · 1pt','—','—','Curse','Boss Curse','-50% speed, -50% damage, -50% Phys Resist. Mandatory on all Act Bosses and Uber content.')}
+  </div>
+  <div class="ds"><div class="ds-title">⚔️ Key Gear</div>
+    ${gC('🛡️','named','ARMOR','gb-named','Enigma','BiS · Jah Ith Ber','Teleport + Skills','+2 All Skills + Teleport charges. Repositions entire army instantly. Most important item.','+2 Skills','Teleport')}
+    ${gC('⚔️','named','WEAPON','gb-named','Beast (Berserker Axe)','BiS · Ber Tir Um Mal Lum','Fanaticism Aura','Level 9 Fanaticism: all minions +75% Attack Speed + +180% Damage. Doubles army DPS.','Fanaticism','Army x2 DPS')}
+    ${gC('🪖','named','HELMET','gb-named','Harlequin Crest (Shako)','BiS Unique','+2 All Skills','+2 Skills + 50% MF + huge stats. Best helmet for any caster in D2R.','+2 Skills','50% MF')}
+    ${gC('🛡️','named','SHIELD','gb-named','Spirit (Monarch)','BiS · Tal Thul Ort Amn','+2 Skills + FCR','+2 All Skills + 35% FCR + Mana. Cheap and powerful. Budget BiS.','+2 Skills','+35% FCR')}
+  </div>
+  <div class="ds"><div class="ds-title">🎯 Stat & Priority</div>
+    ${opt('oc-rec','PRIORITY 1','Raise Skeleton 20 → Skeleton Mastery 20','Max these two first. Every point = more skeletons + more life and damage. This IS the build.')}
+    ${opt('oc-alt','PRIORITY 2','Corpse Explosion 20 + 1pt Curses','CE is your screen nuke. Amplify Damage and Decrepify are 1-point wonders — always cast first.')}
+    ${opt('oc-free','STATS','Strength (gear min) · Everything else = Vitality','Never invest in Dexterity or Energy. Target 1200-1500 Life in endgame.')}
+  </div>
+  <div class="ds"><div class="ds-title">💡 Tips & Notes</div>
+    ${note('note-tip','<strong>Army Management:</strong> Cast Battle Orders (CTA weapon switch) at session start to double Life + Mana. Then build army from first corpses — self-replenishes from kills.')}
+    ${note('note-info','<strong>Merc:</strong> Act 2 Nightmare Offensive (Might Aura). Gear: Insight (Meditation = free mana) + Fortitude armor. NEVER Cold merc — cold kills shatter corpses, no CE possible.')}
+    ${note('note-warn','<strong>Best Content:</strong> The Pit (L85 items), Mephisto (MF), Countess (runes), Terror Zones, Uber Tristram. S-Tier for ALL Hell content. Season 14 launches May 22 — no nerfs to Necro.')}
   </div>`}
 
 
@@ -585,7 +623,8 @@ const GAMES=[
   {id:'poe2',label:'Path of Exile 2',icon:'🔮',ac:'poe'},
   {id:'div2',label:'The Division 2',icon:'🎯',ac:'div'},
   {id:'d4',label:'Diablo 4',icon:'💀',ac:'d4'},
-  {id:'swtor',label:'Star Wars: TOR',icon:'🚀',ac:'sw'}
+  {id:'swtor',label:'Star Wars: TOR',icon:'🚀',ac:'sw'},
+  {id:'d2r',label:'Diablo 2: Resurrected',icon:'☠️',ac:'d2r'}
 ];
 
 // ── STATE ──
