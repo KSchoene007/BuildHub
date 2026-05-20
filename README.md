@@ -1,8 +1,8 @@
 # 🎮 Build Hub
 
 ![Build Hub](https://img.shields.io/badge/Build_Hub-v1.6-E03060?style=for-the-badge)
-![Games](https://img.shields.io/badge/Games-3-E8A820?style=for-the-badge&logo=steam&logoColor=white)
-![Builds](https://img.shields.io/badge/Builds-8-2FB8B4?style=for-the-badge)
+![Games](https://img.shields.io/badge/Games-4-E8A820?style=for-the-badge&logo=steam&logoColor=white)
+![Builds](https://img.shields.io/badge/Builds-10-2FB8B4?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-4CAF50?style=for-the-badge)
 ![iPad](https://img.shields.io/badge/iPad_Ready-%E2%9C%93-E03060?style=for-the-badge&logo=apple&logoColor=white)
 ![Self-Hosted](https://img.shields.io/badge/Self--Hosted-Proxmox-E8A820?style=for-the-badge)
@@ -45,6 +45,13 @@ The app is designed for **iPad use** and served directly from a **Proxmox LXC co
 |---|---|---|---|
 | 💀 **Shadow Warrior Necro** | S | Minion Army · All Content | Bloodless Scream · Deathgrip · Undercrown |
 
+
+### Star Wars: The Old Republic (Patch 7.8)
+
+| Build | Tier | Playstyle | Key Abilities |
+|---|---|---|---|
+| 🚀 **The Mandalorian** | A | Arsenal DPS · Rockets + Blasters | Tracer Missile · Heatseeker · Rail Shot |
+
 ---
 
 ## 📁 File Structure
@@ -61,7 +68,8 @@ The app is designed for **iPad use** and served directly from a **Proxmox LXC co
  ├── 🌐 guide_bluescreen.html
  ├── 🌐 guide_poisonburst.html
  ├── 🌐 guide_spiraling.html
- └── 🌐 guide_necromancer.html
+ ├── 🌐 guide_necromancer.html
+ └── 🌐 guide_mandalorian.html
 ```
 
 > ⚠️ All files must be in the **same folder** for guide links to work correctly.
@@ -73,7 +81,7 @@ The app is designed for **iPad use** and served directly from a **Proxmox LXC co
 ```
 iPad Browser  (Tailscale VPN — accessible anywhere)
     ↓
-Proxmox LXC · Debian 12 · Nginx · "Redacted"
+Proxmox LXC · Debian 12 · Nginx · 192.168.0.190
     ↓ git pull every 5 minutes (Cronjob)
 GitHub Repository  ←── Claude generates updates
     ↑
@@ -84,8 +92,8 @@ You push new builds / patch updates
 
 | Network | URL |
 |---|---|
-| Home | `Redacted` |
-| Anywhere (Tailscale) | `Redacted` |
+| Home | `http://192.168.0.190/buildhub/gaming-builds-app.html` |
+| Anywhere (Tailscale) | `http://100.113.7.28/buildhub/gaming-builds-app.html` |
 
 ### Quick Setup Reference
 
@@ -159,4 +167,4 @@ Every guide shows its version in the header. Full history in [`CHANGELOG.md`](./
 ---
 
 *Build Hub · Personal Project · Updated with every major patch*
-*The Division 2 (Y8S1) · Path of Exile 2 (S13 / Patch 0.5) · Diablo 4 (S13 Lord of Hatred)*
+*The Division 2 (Y8S1) · Path of Exile 2 (S13) · Diablo 4 (S13) · Star Wars: TOR (Patch 7.8)*
