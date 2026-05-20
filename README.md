@@ -81,7 +81,7 @@ The app is designed for **iPad use** and served directly from a **Proxmox LXC co
 ```
 iPad Browser  (Tailscale VPN — accessible anywhere)
     ↓
-Proxmox LXC · Debian 12 · Nginx · 192.168.0.190
+Proxmox LXC · Debian 12 · Nginx · YOUR-LOCAL-IP
     ↓ git pull every 5 minutes (Cronjob)
 GitHub Repository  ←── Claude generates updates
     ↑
@@ -92,8 +92,8 @@ You push new builds / patch updates
 
 | Network | URL |
 |---|---|
-| Home | `http://192.168.0.190/buildhub/gaming-builds-app.html` |
-| Anywhere (Tailscale) | `http://100.113.7.28/buildhub/gaming-builds-app.html` |
+| Home | `http://YOUR-LOCAL-IP/buildhub/gaming-builds-app.html` |
+| Anywhere (Tailscale) | `http://YOUR-TAILSCALE-IP/buildhub/gaming-builds-app.html` |
 
 ### Quick Setup Reference
 
@@ -102,7 +102,7 @@ You push new builds / patch updates
 apt update && apt install nginx git curl -y
 
 # Clone repo
-git clone https://github.com/KSchoene007/BuildHub.git /var/www/html/buildhub
+git clone https://github.com/YOUR-USERNAME/YOUR-REPO.git /var/www/html/buildhub
 chown -R root:root /var/www/html/buildhub
 git config --global --add safe.directory /var/www/html/buildhub
 
