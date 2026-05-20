@@ -35,3 +35,32 @@
 ## v1.6.2 – 2026-05-15
 - Fixed: gaming-builds-app.html syntax errors (double brace, extra comma)
 - Added: Necromancer guide — full Level-by-Level Skill Tree (83 points, Level 2–70+)
+
+## v1.7 – 2026-05-18
+- Rework: Pestilence Build komplett überarbeitet
+  - Alt: Negotiator's Dilemma (skalierte Crit Marks, nicht den DoT)
+  - Neu: Lengmo Brand 3-piece (+30% LMG Damage) + Overdogs Exotic + Sacrifice Chest (Perfect Glass Canon) + Turmoil Kneepads
+  - Pestilence DoT skaliert direkt mit Weapon Damage — Ziel: ~1.5M WD
+  - Deutlich höherer DPS Output bei Heroic/Legendary
+
+## v1.7 – 2026-05-18
+- Rework: Pestilence Build komplett überarbeitet
+- Removed: Negotiator's Dilemma (skaliert DoT nicht direkt)
+- Added: Lengmo 3-piece (+30% LMG Damage) + Backbone Named Backpack (+35% WD kill stacks)
+- Added: Overdogs Exotic Gloves + Turmoil Named Kneepads (Impact Spread)
+- Reason: Pestilence DoT skaliert direkt mit Weapon Damage — WD stacking > Crit marks
+
+## v1.8 – 2026-05-18
+- Fixed: Pestilence Build — 4x Core Strength (Mask+Chest+Holster+Kneepads) korrekt
+- Removed: 2-piece Core Strength (verstößt gegen 4-piece Regel)
+- Setup: 4x Core Strength + Backbone Named + Overdogs Exotic (6 Slots, korrekt)
+- 4-piece Bonus: 75% Cross-Attribute Scaling — WD und Armor skalieren gemeinsam
+
+## v1.9 – 2026-05-18
+- Added: Star Wars: The Old Republic as 4th game in Build Hub
+- Added: The Mandalorian — Arsenal Mercenary DPS Build (Patch 7.8)
+- Guide includes: Core mechanic, Heat management, full rotation with opener, movement solutions, defensive cooldowns, stat priority, Mandalorian appearance tips
+
+## v1.9.1 – 2026-05-18
+- Added: Mandalorian guide — vollständiger Ability Tree (alle 8 Choices mit Empfehlungen und Begründungen)
+- Note: SWTOR 7.6+ hat kein Punkte-System mehr — 8 binäre Choices ersetzen das alte Utility-System

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Division 2 – Pestilence Build</title>
+<title>The Division 2 – Pestilence Build (Core Strength · Y8S1)</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
 <style>:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -161,28 +161,59 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
 </head>
 <body>
 <div class="container">
-<a class="back-btn" onclick="window.history.back()">← Back to Build Hub</a>
+<a class="back-btn" href="gaming-builds-app.html">← Back to Build Hub</a>
 
 <header>
-  <div class="hemblem" style="filter:drop-shadow(0 0 20px rgba(80,200,80,0.7))">☣️</div>
+  <div class="hemblem" style="filter:drop-shadow(0 0 20px rgba(80,200,80,0.8))">☣️</div>
   <div>
     <h1>Pestilence <span class="g">Build</span></h1>
-    <h1 style="font-size:clamp(14px,2vw,22px);letter-spacing:2px;margin-top:4px"><span class="r">Negotiator's</span> Dilemma · LMG DoT</h1>
-    <div class="subtitle">The Division 2 · LMG · DPS / DoT · 2025/2026</div>
+    <h1 style="font-size:clamp(14px,2vw,22px);letter-spacing:2px;margin-top:4px"><span class="t">Core Strength</span> · LMG DoT · Solo DPS · Y8S1</h1>
+    <div class="subtitle">The Division 2 · Exotic LMG · Year 8 Season 1 · 2026</div>
     <div class="badges">
       <span class="badge badge-pve">PvE</span>
-      <span class="badge badge-pve" style="border-color:var(--red);color:var(--red)">PvP</span>
+      <span class="badge badge-dps">High DPS</span>
       <span class="badge badge-dot">DoT</span>
-      <span class="badge badge-dps">Group DPS</span>
+      <span class="badge badge-tank">Solo Optimized</span>
     </div>
   </div>
 </header>
 
+<div class="note-box note-g">
+  💡 <strong>Why Core Strength 4-piece?</strong> The 4-piece bonus grants 75% of any Core Attribute value to all other Core Attributes automatically. With Backbone Named Backpack stacking up to +35% WD via kills, and Overdogs Exotic Gloves providing Crit stats — Core Strength cross-scales everything simultaneously. Perfect balance of DPS and survivability for Solo play.
+</div>
+
 <section>
   <div class="sh"><div class="si">☣️</div><div class="st">Build <span class="r">Overview</span></div></div>
   <div class="divider"></div>
-  <p class="body">The Pestilence build combines the Exotic Pestilence LMG with the <strong style="color:var(--red)">Negotiator's Dilemma</strong> gear set to simultaneously mark multiple enemies with harmful DoT (Damage over Time) and chain damage waves between targets.</p>
-  <p class="body">Ideal for Control Points, The Summit, and Heroic/Legendary missions. <strong style="color:var(--gold)">Playstyle:</strong> Mark enemies with critical hits (up to 3–5 marks), stack Pestilence's viral DoT, chain damage to other targets via the Negotiator effect. Cover-based play recommended.</p>
+  <p class="body">The Pestilence build maximizes <strong style="color:var(--red)">Plague of the Outcasts</strong> DoT damage through raw Weapon Damage stacking. Every single DoT tick scales directly with your WD stat — so every % of WD you add multiplies all 50 active stacks simultaneously.</p>
+  <p class="body"><strong style="color:var(--gold)">Core Synergy:</strong> 4× Core Strength cross-scales Armor and WD simultaneously via the 4-piece bonus. Backbone Named Backpack adds up to +35% WD via kill stacks. Overdogs Exotic Gloves provide Crit Chance and Crit Damage. Together this gives you a build that is both tanky enough for Solo Legendary and hits hard enough to melt groups.</p>
+  <p class="body"><strong style="color:var(--gold)">Playstyle:</strong> Mid-range cover-based. Spray Pestilence to apply DoT stacks → kill one poisoned enemy to chain the DoT to nearby targets → let ticks finish the rest. Use grenades on room entry for 2 instant Backbone stacks. Keep shooting, keep killing, keep stacks active.</p>
+</section>
+
+<section>
+  <div class="sh"><div class="si">🔋</div><div class="st">Plague of the Outcasts <span class="r">Mechanic</span></div></div>
+  <div class="divider"></div>
+  <div class="cycle-box" style="grid-template-columns:repeat(3,1fr)">
+    <div class="cycle-step">
+      <div class="cnum" style="border-color:#50c850;color:#50c850;background:rgba(80,200,80,.15)">☣️</div>
+      <div class="ctitle">Apply DoT</div>
+      <div class="cval" style="color:#50c850;font-size:14px">100% WD / 10 sec</div>
+      <div class="cdesc">Every hit applies 100% Weapon Damage as DoT over 10 seconds. Up to 50 stacks. Each stack ticks independently — all scale with your current WD stat.</div>
+    </div>
+    <div class="cycle-step" style="border-left:1px solid rgba(255,255,255,.06);border-right:1px solid rgba(255,255,255,.06)">
+      <div class="cnum" style="border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,.15)">💀</div>
+      <div class="ctitle">Enemy Dies</div>
+      <div class="cval" style="font-size:14px">DoT Chains</div>
+      <div class="cdesc">Full DoT stack transfers to nearest enemy within 25m on death. Chain through entire groups. One kill triggers the cascade.</div>
+    </div>
+    <div class="cycle-step">
+      <div class="cnum" style="border-color:var(--red);color:var(--red);background:rgba(224,48,96,.15)">📈</div>
+      <div class="ctitle">WD Scales All</div>
+      <div class="cval" style="font-size:14px">Every Tick</div>
+      <div class="cdesc">Core Strength 4-piece + Backbone stacks = every tick hits significantly harder. Target: ~1.5M WD for sweet spot between damage and survivability.</div>
+    </div>
+  </div>
+  <div class="note-box note-r" style="margin-top:12px">⚠️ <strong>Key Insight:</strong> DoT damage is calculated from your WD at the moment of application. Keep Backbone stacks active before engaging — grenade on entry, then spray Pestilence at full stack WD.</div>
 </section>
 
 <section>
@@ -192,14 +223,14 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="wpn-card exotic-w">
       <div class="wpn-lbl">Primary Weapon · Exotic LMG ⭐</div>
       <div class="wpn-name">Pestilence</div>
-      <div class="wpn-type">Light Machine Gun (LMG) · Exotic</div>
-      <div class="wpn-talent gold-t"><div class="talent-lbl">Plague of the Outcasts</div><div class="talent-txt">Hits apply 100% Weapon Damage over 10 sec. Stacks up to 50×. If an enemy dies under the debuff, it transfers to the nearest enemy within 25m.</div></div>
+      <div class="wpn-type">Light Machine Gun · Exotic · High Magazine</div>
+      <div class="wpn-talent gold-t"><div class="talent-lbl">Plague of the Outcasts</div><div class="talent-txt">Every hit applies 100% WD as DoT over 10 seconds (max 50 stacks). On enemy death: full DoT transfers to nearest enemy within 25m. Also applies Pestilence debuff: -50% healing received + instant kill if enemy would be downed.</div></div>
     </div>
     <div class="wpn-card">
-      <div class="wpn-lbl">Secondary Weapon</div>
-      <div class="wpn-name">Any AR / Shotgun</div>
-      <div class="wpn-type">Assault Rifle or Shotgun</div>
-      <div class="wpn-talent"><div class="talent-lbl">Recommended Talents</div><div class="talent-txt">Flatline, Preserving, Unbreakable, Spotter — depending on playstyle. The talent should increase damage or survivability.</div></div>
+      <div class="wpn-lbl">Secondary Weapon · Recommended</div>
+      <div class="wpn-name">MK46 / Any LMG (~300 rounds)</div>
+      <div class="wpn-type">LMG · Large Magazine · Sustained Fire</div>
+      <div class="wpn-talent"><div class="talent-lbl">Frenzy + Measured</div><div class="talent-txt">Frenzy: +15% WD + Fire Rate at start of magazine. Measured: stability and damage at end. ~300 round magazine keeps both talents active with minimal dead time. Also refreshes Backbone stacks during Pestilence reloads.</div></div>
     </div>
   </div>
 </section>
@@ -211,13 +242,13 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="spec-ico">🔧</div>
     <div>
       <div class="spec-name">Gunner</div>
-      <div class="spec-desc">Best choice for this build. Provides increased LMG magazine capacity, Weapon Handling bonuses and strong survivability on kills.</div>
+      <div class="spec-desc">Essential. Gunner provides the largest LMG magazine in the game — more rounds means more DoT stacks per magazine, more kills for Backbone stacks, and longer sustained fire. Also provides +10% Armor on Kill which synergizes well with Core Strength's armor scaling.</div>
       <div class="perks">
+        <span class="perk">+LMG Magazine Size</span>
         <span class="perk">+10% Armor on Kill</span>
         <span class="perk">+15% Fire Rate on Kill</span>
-        <span class="perk">Large LMG Magazine</span>
-        <span class="perk">Hostile Negotiations Synergy</span>
         <span class="perk">Weapon Handling Bonuses</span>
+        <span class="perk">Hostile Negotiations</span>
       </div>
     </div>
   </div>
@@ -226,35 +257,47 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
 <section>
   <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
   <div class="divider"></div>
-  <div class="note-box note-r">⚠️ <strong>Setup:</strong> 4× Negotiator's Dilemma (Mask + Chest + Gloves + Kneepads) + Memento Exotic Backpack + Picaro's Named Holster (+15% WD). 4-piece activates Hostile Negotiations — +2% Crit Damage per marked enemy kill, stacking to +40%.</div>
-  <div class="note-box note-t">💡 <strong>Synergy:</strong> Pestilence marks enemies with every hit. Negotiator's Dilemma amplifies this — critical hits mark up to 5 enemies simultaneously, spreading 112% damage between all of them. Memento rewards the high kill rate with a +30% WD long-term buff.</div>
+  <div class="note-box note-r">⚠️ <strong>Setup:</strong> 4× Core Strength (Mask + Chest + Holster + Kneepads) + Backbone Named Backpack (Lengmo) + Overdogs Exotic Gloves. Full 4-piece bonus active: 75% cross-scaling between all Core Attributes.</div>
+  <div class="note-box note-t">💡 <strong>4-piece Core Strength bonus explained:</strong> If you have 100K Weapon Damage as your Red Core, 75% of that value (75K) is automatically added to your Armor and Skill Tier. And vice versa — your Armor value also adds 75% to WD. Stack one stat and all stats go up together.</div>
   <div class="card-grid">
-    <div class="gear-card"><div class="gear-slot">Mask · Set Piece 1</div><div class="gear-name">Negotiator's Dilemma</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Chance</span></div></div>
-    <div class="gear-card"><div class="gear-slot">Chest · Set Piece 2 · Fixed Talent</div><div class="gear-name">Negotiator's Dilemma</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="t-r">Fixed Set Talent</span><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span></div></div>
-    <div class="gear-card exotic"><div class="gear-slot">Backpack · Exotic 💎 (ONLY ONE)</div><div class="gear-name">Memento</div><span class="core-badge core-exotic">Exotic · Tri-Core</span><div class="gear-mods"><span class="t-g">Kill Confirmed</span><span class="mod-tag">+30% WD Long-term</span><span class="mod-tag">+3% Armor Regen</span></div></div>
-    <div class="gear-card"><div class="gear-slot">Gloves · Set Piece 3</div><div class="gear-name">Negotiator's Dilemma</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span></div></div>
-    <div class="gear-card named"><div class="gear-slot">Holster · Named ⭐ (BiS)</div><div class="gear-name">Picaro's Holster</div><span class="core-badge core-named">Named · Brazos de Arcabuz</span><div class="gear-mods"><span class="t-g">+15% Weapon Damage</span><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span></div></div>
-    <div class="gear-card"><div class="gear-slot">Kneepads · Set Piece 4</div><div class="gear-name">Negotiator's Dilemma</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Crit Damage</span><span class="mod-tag">Weapon Damage</span></div></div>
+    <div class="gear-card"><div class="gear-slot">Mask · Set Piece 1</div><div class="gear-name">Core Strength</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Chance</span><span class="t-r">Fixed Set Talent</span></div></div>
+    <div class="gear-card"><div class="gear-slot">Chest · Set Piece 2</div><div class="gear-name">Core Strength</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Damage</span><span class="t-r">Fixed Set Talent</span></div></div>
+    <div class="gear-card named"><div class="gear-slot">Backpack · Named ⭐ (BiS)</div><div class="gear-name">Backbone</div><span class="core-badge core-named">Named · Lengmo Brand</span><div class="gear-mods"><span class="t-g">Perfectly Unstoppable Force</span><span class="mod-tag">+5% WD per kill · Max 7 stacks</span><span class="mod-tag">= up to +35% total WD</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Every kill: +5% WD for 15 sec (max 7 stacks = +35% WD). Grenade kills add 2 stacks instantly. In dense groups permanently maxed.</div></div>
+    <div class="gear-card exotic"><div class="gear-slot">Gloves · Exotic 💎 (BiS · ONLY ONE)</div><div class="gear-name">Overdogs</div><span class="core-badge core-exotic">Exotic · Red Core</span><div class="gear-mods"><span class="t-g">Exotic Talent</span><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Best-in-slot Exotic for DPS builds. Crit Chance + Crit Damage as primary stats. Only Exotic in the build — no conflicts.</div></div>
+    <div class="gear-card"><div class="gear-slot">Holster · Set Piece 3</div><div class="gear-name">Core Strength</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Chance</span><span class="t-r">Fixed Set Talent</span></div></div>
+    <div class="gear-card named"><div class="gear-slot">Kneepads · Set Piece 4</div><div class="gear-name">Core Strength</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Damage</span><span class="t-r">Fixed Set Talent</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Completes 4-piece Core Strength bonus. 75% cross-scaling between all Core Attributes activates here.</div></div>
   </div>
+</section>
 
-<div class="sh"><div class="si">⚙️</div><div class="st">Negotiator's Dilemma <span class="r">Set Bonuses</span> · 4-piece</div></div>
+<section>
+  <div class="sh"><div class="si">⚙️</div><div class="st">Core Strength <span class="r">Set Bonuses</span></div></div>
   <div class="divider"></div>
   <table class="stats-table">
     <tr><th>Set Pieces</th><th>Bonus</th></tr>
-    <tr><td><span class="sv">2-piece</span></td><td>Critical hits mark enemies for 20 sec — up to 3 marks simultaneously</td></tr>
-    <tr><td><span class="sv">3-piece</span></td><td>Crit hits on marked enemies → all other marked enemies receive 60% of the damage</td></tr>
-    <tr><td><span class="sv">4-piece</span><span class="sl">Hostile Negotiations</span></td><td>+2% Crit Damage per marked enemy killed (max 20 stacks = +40% Crit Damage)</td></tr>
-    <tr><td><span class="sv">Bonus</span><span class="sl">Crowd Control</span></td><td>Damage to secondary targets increases from 60% to 112%, marks increase to 5</td></tr>
+    <tr><td><span class="sv">2-piece</span></td><td>+15% Weapon Damage</td></tr>
+    <tr><td><span class="sv">3-piece</span></td><td>+15% Armor</td></tr>
+    <tr><td><span class="sv">4-piece</span><span class="sl">Core Mechanic</span></td><td>75% of any Core Attribute value automatically added to all other Core Attributes. Stack one → all go up. Perfect for hybrid WD + Armor scaling.</td></tr>
   </table>
+  <div class="note-box note-g" style="margin-top:12px">💡 <strong>Practical Example:</strong> With 1.0M Armor as your base: 75% = 750K added to WD. With 100K WD red core: 75K added back to Armor. Everything scales together — you get tankiness AND damage from the same investment.</div>
+</section>
+
+<section>
+  <div class="sh"><div class="si">🌟</div><div class="st">Key <span class="r">Talents</span></div></div>
+  <div class="divider"></div>
+  <div class="talent-list">
+    <div class="trow gold"><div class="src">Backbone Named Backpack · Core DPS Talent</div><div class="tname">Perfectly Unstoppable Force</div><div class="tdesc">Kill an enemy: +5% total Weapon Damage for 15 sec. Stacks up to 7× (+35% WD total). Grenade kills add 2 stacks instantly. In dense enemy groups this is permanently maxed — every single Pestilence DoT tick hits 35% harder.</div></div>
+    <div class="trow gold"><div class="src">Core Strength 4-piece · Passive Scaling</div><div class="tname">75% Cross-Attribute Scaling</div><div class="tdesc">75% of any Core Attribute is automatically added to all other Core Attributes. Stack Red WD cores → Armor also goes up. Stack Armor → WD also goes up. Synergizes directly with Backbone's WD stacks for compounding returns.</div></div>
+    <div class="trow"><div class="src">Secondary LMG · Choosable Talent</div><div class="tname">Frenzy + Measured</div><div class="tdesc">Frenzy (+15% WD + Fire Rate) at start of magazine. Measured (stability + damage) at end. ~300 round magazine keeps both active with minimal downtime. Keeps DPS high during Pestilence reloads and helps refresh Backbone stacks.</div></div>
+  </div>
 </section>
 
 <section>
   <div class="sh"><div class="si">⚙️</div><div class="st">Skills <span class="r">/ Abilities</span></div></div>
   <div class="divider"></div>
   <div class="skills-grid">
-    <div class="skill-card"><span class="skill-ico">🎭</span><div class="skill-name">Decoy</div><div class="skill-desc">Draws enemies away and enables repositioning. Ideal for breaking up enemy groups.</div></div>
-    <div class="skill-card"><span class="skill-ico">🛡️</span><div class="skill-name">Defender Drone</div><div class="skill-desc">Protects against incoming projectiles and increases survivability in fights.</div></div>
-    <div class="skill-card"><span class="skill-ico">🩹</span><div class="skill-name">Reviver Hive</div><div class="skill-desc">Automatic revive, prevents deaths in difficult moments. Recommended for Solo play.</div></div>
+    <div class="skill-card"><span class="skill-ico">🎭</span><div class="skill-name">Decoy</div><div class="skill-desc">Draws enemy groups together — maximizes DoT chain range. Buys time for repositioning and Backbone stack refreshing between waves.</div></div>
+    <div class="skill-card"><span class="skill-ico">🩹</span><div class="skill-name">Reviver Hive</div><div class="skill-desc">Auto-revive for Solo play. Essential on Heroic and Legendary. Keep in second slot always.</div></div>
+    <div class="skill-card"><span class="skill-ico">🤖</span><div class="skill-name">Striker Drone (Alt.)</div><div class="skill-desc">For Group play. Additional sustained DPS and target distraction while DoT chains tick down.</div></div>
   </div>
 </section>
 
@@ -262,29 +305,41 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   <div class="sh"><div class="si">📊</div><div class="st">Target <span class="r">Stats</span></div></div>
   <div class="divider"></div>
   <table class="stats-table">
-    <tr><th>Attribute</th><th>Target</th><th>Priority</th></tr>
-    <tr><td><span class="sv" style="font-size:13px">Crit Chance</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">≥ 60%</span></td><td>🥇 Highest priority</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Crit Damage</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Maximize</span></td><td>🥈 After Crit Chance</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Armor Cores (Blue)</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Min. 2</span></td><td>Survivability</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">WD Cores (Red)</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Remaining slots</span></td><td>Damage multiplier</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Gear Mods</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Crit Chance / Crit Dmg</span></td><td>All free slots</td></tr>
+    <tr><th>Attribute</th><th>Target</th><th>Note</th></tr>
+    <tr><td><span class="sv" style="font-size:13px">WD Cores (Red)</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">All 6 Red</span></td><td>DoT scales with WD — absolute priority</td></tr>
+    <tr><td><span class="sv" style="font-size:13px">Total WD Sweet Spot</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">~1.5M</span></td><td>Solo sweet spot: damage + survivability via Core Strength</td></tr>
+    <tr><td><span class="sv" style="font-size:13px">Backbone WD Stacks</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">+35% WD (7 stacks)</span></td><td>Keep active at all times — grenade on entry</td></tr>
+    <tr><td><span class="sv" style="font-size:13px">Crit Chance</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">≥ 60%</span></td><td>Via Overdogs + gear mods</td></tr>
+    <tr><td><span class="sv" style="font-size:13px">Crit Damage</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Maximize</span></td><td>After Crit Chance is capped</td></tr>
+    <tr><td><span class="sv" style="font-size:13px">Gear Mods</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Crit Chance / Crit Dmg</span></td><td>All free mod slots</td></tr>
   </table>
+</section>
+
+<section>
+  <div class="sh"><div class="si">🌾</div><div class="st">Farming <span class="g">Key Items</span></div></div>
+  <div class="divider"></div>
+  <div class="card-grid">
+    <div class="gear-card named"><div class="gear-slot">Backbone Backpack · Priority 1</div><div class="gear-name">Season Pass Rank 61</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Guaranteed at Season Pass Rank 61. Also drops as Targeted Loot from Summit and Countdown on Challenging+. Farm here first.</div></div>
+    <div class="gear-card exotic"><div class="gear-slot">Overdogs Exotic Gloves · Priority 2</div><div class="gear-name">Exotic Caches / Gloves Targeted Loot</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Exotic Caches from seasonal activities and events. Also drops from activities with Gloves Targeted Loot on Heroic.</div></div>
+    <div class="gear-card"><div class="gear-slot">Core Strength Set · Priority 3</div><div class="gear-name">General Loot / Targeted Loot</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Core Strength drops from general loot and targeted loot activities. Farm on Heroic for god-rolls with WD core + Crit Chance + Crit Damage.</div></div>
+    <div class="gear-card named"><div class="gear-slot">Pestilence Exotic LMG · Priority 4</div><div class="gear-name">Hyena Control Points / Exotic Caches</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">One of the most common Exotic drops. Hyena-controlled Control Points and Exotic Caches. Very accessible — most players already have it.</div></div>
+  </div>
 </section>
 
 <section>
   <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
   <div class="divider"></div>
   <div class="tips">
-    <div class="tip gold"><strong class="g">Maintain Marks:</strong> Always land critical hits to mark enemies (up to 5 simultaneously). Every kill of a marked enemy gives you +2% Crit Damage — that adds up to +40% at 20 kills!</div>
-    <div class="tip"><strong class="r">Exploit Pestilence DoT:</strong> Keep the DoT effect from Pestilence always active. When a poisoned enemy dies the debuff transfers to nearby enemies — perfect for dense enemy packs.</div>
-    <div class="tip"><strong class="r">Use Decoy Tactically:</strong> The Decoy skill breaks up enemy groups and allows you to mark multiple enemies simultaneously — maximum synergy with the Negotiator's set.</div>
-    <div class="tip gold"><strong class="g">Coyote's Mask:</strong> This exotic mask is Best-in-Slot for this build as it grants additional Crit bonuses for both close and distant enemies. If unavailable, use a red-core mask with Crit stats.</div>
-    <div class="tip teal"><strong class="t">Best Content:</strong> Control Points (Heroic), The Summit, Countdown, Heroic/Legendary Missions. For Legendary content use cover-based play for best results.</div>
+    <div class="tip gold"><strong class="g">Grenade on Room Entry:</strong> Always throw a grenade as you enter a new room. A grenade kill instantly adds 2 Backbone stacks — you enter every fight at near-max WD.</div>
+    <div class="tip"><strong class="r">DoT Chain Trigger:</strong> Kill ONE poisoned enemy to chain the full stack to nearby enemies. Don't dump all ammo into one target — mark several, kill one, let the chain do the rest.</div>
+    <div class="tip gold"><strong class="g">~1.5M WD Sweet Spot:</strong> For Solo play the sweet spot is around 1.5M Weapon Damage. Above that you sacrifice too much armor — the Core Strength 4-piece cross-scaling makes this the ideal balance point.</div>
+    <div class="tip"><strong class="r">Decoy for Grouping:</strong> Enemies need to be within 25m for the DoT chain to trigger. Use Decoy to pull groups tighter — the tighter they cluster the more simultaneous chains you get.</div>
+    <div class="tip gold"><strong class="g">Cover-Based on Legendary:</strong> Pestilence is a passive DoT build — you don't need line of sight after applying the stacks. Duck behind cover, let ticks do the work, pop out to refresh stacks and chain again.</div>
+    <div class="tip teal"><strong class="t">Best Content:</strong> Control Points (Heroic), The Summit, Countdown, Heroic + Legendary Missions. Exceptional in dense enemy areas — the more enemies in a room the more DoT chains you trigger simultaneously.</div>
   </div>
 </section>
 
-<footer>The Division 2 · Pestilence Build Guide · Updated 2025/2026 (Year 8, Season 1)</footer>
-
+<footer>The Division 2 · Pestilence Build Guide (Core Strength · Y8S1) · Updated 2026 (Year 8, Season 1)</footer>
 </div>
 </body>
 </html>

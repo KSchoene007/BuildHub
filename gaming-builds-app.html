@@ -446,31 +446,32 @@ const BUILDS=[
     ${note('note-tip','<strong>Best Solo Build:</strong> Chameleon adapts automatically. No swapping, no thinking. Perfect for relaxed farming.')}
     ${note('note-info','<strong>Specialization:</strong> Sharpshooter (Tactical Link: +20% Group WD) or Gunner (Minigun for stack buildup).')}
   </div>`},
-{id:'div-pe',game:'div2',tier:'A',name:'Pestilence',icon:'☣️',sub:'LMG · DOT · Group Build',tags:['boss','def'],diff:'medium',accent:'#3a8fff',guide:'guide_pestilence.html',
+{id:'div-pe',game:'div2',tier:'A',name:'Pestilence',icon:'☣️',sub:'Lengmo · LMG Weapon Damage · Y8S1',tags:['boss','dmg'],diff:'medium',accent:'#3a8fff',guide:'guide_pestilence.html',
  stats:[{l:'DPS',v:80,c:'#ff6060'},{l:'Survival',v:95,c:'#60a0ff'},{l:'Mobility',v:40,c:'#50c8b4'},{l:'Group',v:100,c:'#ffd700'}],
  detail:`
-  <div class="ds"><div class="ds-title">☣️ Exotic Weapon</div>
-    ${wC('☣️','Pestilence','Exotic · LMG · DOT','8%','600 RPM','Blue','Plagued','Hits apply Plague DOT + leave poison puddles on the ground. Enemies in puddles take 10% more damage from ALL sources. Best group support exotic in the game.')}
+  <div class="ds"><div class="ds-title">☣️ Core Mechanic</div>
+    ${wC('☣️','Pestilence','Exotic · LMG · DoT','—','High Mag','Red','Plague of the Outcasts','Every hit: 100% WD as DoT over 10 sec (max 50 stacks). On death: full DoT transfers to nearest enemy within 25m. DoT scales directly with Weapon Damage — Core Strength 4-piece + Backbone stacks multiply every tick.')}
+    ${note('note-info','<strong>Sweet spot:</strong> ~1.5M Weapon Damage for Solo play. Core Strength 4-piece cross-scaling keeps armor and WD both high simultaneously.')}
   </div>
   <div class="ds"><div class="ds-title">🎽 Gear Setup</div>
-    ${note('note-info','<strong>Setup:</strong> 4x Negotiator Dilemma (Mask+Chest+Gloves+Kneepads) + Memento Exotic Backpack + Picaro Holster (Named +15% WD). 4-piece activates Hostile Negotiations — every marked enemy kill gives +2% Crit Damage stacking to +40%.')}
-    ${gC('🎭','set','MASK','gb-set',"Negotiator Mask",'Set Piece 1','Head Slot','Set piece for 4-piece bonus. Red Core — Weapon Damage + Crit Chance.','Crit Chance','Weapon Damage')}
-    ${gC('🧥','set','CHEST','gb-set',"Negotiator Chest",'Obliterate','Chest Slot','Fixed Set talent. Red Core — Weapon Damage + Crit Damage.','Obliterate','Fixed Talent')}
-    ${gC('🎒','exotic','BACKPACK','gb-exotic','Memento','Only Exotic','Kill Confirmed','Collect kills for +30% WD long-term buff. Synergizes with Negotiator kill chains.','+30% WD','Kill Confirmed')}
-    ${gC('🧤','set','GLOVES','gb-set',"Negotiator Gloves",'Set Piece 3','Gloves Slot','Set piece. Red Core — Crit Chance + Crit Damage.','Crit Chance','Crit Damage')}
-    ${gC('🔫','named','HOLSTER','gb-named',"Picaro Holster",'Named BiS','+15% WD','Freed slot. +15% Weapon Damage — best holster for DPS.','+15% WD','Named BiS')}
-    ${gC('👟','set','KNEEPADS','gb-set',"Negotiator Kneepads",'Set Piece 4','Kneepads','4th Set piece to activate Hostile Negotiations. Crit Damage + Weapon Damage.','Crit Damage','Weapon Damage')}
+    ${note('note-info','<strong>Setup:</strong> 4x Core Strength (Mask+Chest+Holster+Kneepads) + Backbone Named Backpack + Overdogs Exotic Gloves. Full 4-piece: 75% cross-scaling between all Core Attributes.')}
+    ${gC('🎭','set','MASK','gb-set','Core Strength','Set Piece 1','Head Slot','Set piece 1. Red Core — Weapon Damage + Crit Chance.','Weapon Damage','Crit Chance')}
+    ${gC('🧥','set','CHEST','gb-set','Core Strength','Set Piece 2','Chest Slot','Set piece 2. Red Core — Weapon Damage + Crit Damage. Fixed Set talent.','Weapon Damage','Crit Damage')}
+    ${gC('🎒','named','BACKPACK','gb-named','Backbone','Named BiS · Lengmo','Perf. Unstoppable','+5% WD per kill, max 7 stacks = +35% WD. Grenade kills = 2 stacks instantly.','+35% WD','Kill Stacks')}
+    ${gC('🧤','exotic','GLOVES','gb-exotic','Overdogs','Only Exotic','Exotic Talent','BiS exotic gloves. Crit Chance + Crit Damage as primary stats.','Crit Chance','Crit Damage')}
+    ${gC('🔫','set','HOLSTER','gb-set','Core Strength','Set Piece 3','Holster Slot','Set piece 3. Red Core — Weapon Damage + Crit Chance.','Weapon Damage','Crit Chance')}
+    ${gC('👟','set','KNEEPADS','gb-set','Core Strength','Set Piece 4 · 4-piece Active','Kneepads','Completes 4-piece bonus: 75% of any Core Attribute added to all others automatically.','75% Cross-Scale','4-piece Active')}
   </div>
   <div class="ds"><div class="ds-title">🎯 Stat Goals</div>
-    ${opt('oc-rec','PRIO 1','60% Crit Chance','Mandatory cap. Only then push offensive stats further.')}
-    ${opt('oc-alt','PRIO 2','Crit Damage 200%+','Easily achievable with Coyote\'s Mask + Ceska set. Headshots with LMG happen more than you think.')}
-    ${opt('oc-free','GROUP','Stack Pestilence','Lure multiple enemies into puddles. Team deals 10% more damage to all enemies in puddles.')}
+    ${opt('oc-rec','PRIO 1','All Red Cores · ~1.5M WD','DoT scales with WD. Sweet spot ~1.5M for Solo — Core Strength cross-scaling keeps armor up simultaneously.')}
+    ${opt('oc-alt','PRIO 2','Keep Backbone Stacks Active','Grenade on room entry = 2 stacks instantly. 7 stacks = +35% WD. Never let drop before engaging.')}
+    ${opt('oc-free','PRIO 3','60% Crit Chance → Crit Damage','Overdogs Exotic provides big head start. Fill remaining via gear mods.')}
   </div>
   <div class="ds"><div class="ds-title">💡 Tips & Notes</div>
-    ${note('note-tip','<strong>Group Synergy:</strong> Puddles increase damage for ALL team members. In raids focus on enemy groups, not individual targets.')}
-    ${note('note-warn','<strong>⚠️ Exotic Rule:</strong> Coyote\'s Mask is the ONLY Exotic. Do not combine with Memento!')}
-    ${note('note-info','<strong>Farming:</strong> Drop rate is very low. Countdown + Summit Heroic with LMG loot are the best sources.')}
-  </div>`},
+    ${note('note-tip','<strong>DoT Chain:</strong> Kill ONE poisoned enemy to chain full stack to nearby enemies within 25m. Mark several, kill one, let chain finish the rest.')}
+    ${note('note-info','<strong>Grenade Entry:</strong> Always grenade on room entry. Kill = 2 Backbone stacks instantly. Start every fight at near-max WD.')}
+    ${note('note-warn','<strong>Best Content:</strong> Control Points (Heroic), Summit, Countdown, Heroic + Legendary Missions. More enemies = more simultaneous DoT chains.')}
+  </div>``},
 {id:'div-bs',game:'div2',tier:'A',name:'Bluescreen',icon:'💻',sub:'Exotic LMG · Tipping Scales · Y8S1',tags:['boss','dmg'],diff:'medium',accent:'#3a8fff',guide:'guide_bluescreen.html',
  stats:[{l:'DPS',v:90,c:'#ff6060'},{l:'Survival',v:75,c:'#60a0ff'},{l:'Mobility',v:50,c:'#50c8b4'},{l:'Group',v:85,c:'#ffd700'}],
  detail:`
@@ -543,6 +544,38 @@ const BUILDS=[
     ${note('note-tip','<strong>Talisman System:</strong> Use Azurewrath Charm for Speed Farm, swap to Red Blessing for Pit boss. Legendary Seal +1 Charm Slot = 6 total Charm slots.')}
     ${note('note-info','<strong>Mercenary:</strong> Raheir as Primary (15% All Resist + 25% more damage dealt). Varyana as Reinforcement (Bleed = primary healing source with 25+ minions).')}
     ${note('note-warn','<strong>Best Content:</strong> Helltides, Infernal Hordes, Pit 60-100+, all Bosses. One of the most versatile S13 builds — handles everything.')}
+  </div>`},
+
+{id:'sw-mando',game:'swtor',tier:'A',name:'The Mandalorian',icon:'🚀',sub:'Arsenal Mercenary · Bounty Hunter · 7.8',tags:['boss','map'],diff:'medium',accent:'#C87820',guide:'guide_mandalorian.html',
+ stats:[{l:'DPS',v:80,c:'#ff6060'},{l:'Survival',v:85,c:'#60a0ff'},{l:'Mobility',v:75,c:'#50c8b4'},{l:'Ease',v:70,c:'#ffd700'}],
+ detail:`
+  <div class="ds"><div class="ds-title">🚀 Core Mechanic</div>
+    <div class="mech-card">
+      <div class="mech-top">
+        <div class="mech-icon" style="background:rgba(200,120,32,.12);border:1px solid rgba(200,120,32,.3)">🔥</div>
+        <div><div class="mech-name">Supercharge + Tracer Lock System</div>
+          <div class="mech-stack">${Array(10).fill(0).map((_,i)=>`<div class="mech-pip${i<8?' on':''}" style="background:#C87820"></div>`).join('')}<span style="font-size:10px;color:var(--muted);margin-left:4px">10 Stacks → Supercharged Gas</span></div>
+        </div>
+      </div>
+      <div class="mech-desc">Fire <strong style="color:#C87820">Tracer Missile</strong> to build Tracer Lock (5 stacks) → enables <strong style="color:var(--gold)">Heatseeker Missiles</strong> + <strong style="color:var(--gold)">Rail Shot</strong>. Generate 10 Supercharge stacks → activate Supercharged Gas for 15-sec burst window. Manage Heat below 80 at all times.</div>
+    </div>
+    ${note('note-warn','<strong>Heat Management:</strong> Primary resource constraint. Use Vent Heat proactively at 50+ Heat. Never overheat — lost GCDs cost more DPS than the extra ability gained.')}
+  </div>
+  <div class="ds"><div class="ds-title">⚔️ Priority Rotation</div>
+    ${wC('🎯','Heatseeker Missiles','Burst · 5x Tracer Lock req.','—','—','Red','Highest Damage','Always highest priority at 5 Tracer Lock stacks. Your shoulder-launched homing rockets.')}
+    ${wC('💥','Rail Shot','Instant · Burst','—','—','Red','Execute Shot','Instant cast — use on cooldown whenever Tracer Lock is active. The Mandalorian signature shot.')}
+    ${wC('🚀','Tracer Missile','Primary Filler','—','—','Red','Stack Builder','Builds Tracer Lock + Supercharge. Use Power Surge for instant casts. Core of the rotation.')}
+    ${wC('🔫','Blazing Bolts','Mobile Filler','—','—','Red','Dual Blaster','Use when moving or Tracer Missile is cooling down. Channeled dual-blaster suppression.')}
+  </div>
+  <div class="ds"><div class="ds-title">🎯 Stat Goals</div>
+    ${opt('oc-rec','PRIO 1','110% Accuracy','Non-negotiable. Every missed ability is a lost GCD. Hit this before any other stat.')}
+    ${opt('oc-alt','PRIO 2','~40% Crit Chance','Soft cap around 2500-3000 rating. After soft cap returns diminish heavily.')}
+    ${opt('oc-free','PRIO 3','1900+ Alacrity → Power/Mastery','Hit 1.4s GCD breakpoint, then fill remaining budget with Power/Mastery.')}
+  </div>
+  <div class="ds"><div class="ds-title">💡 Tips & Notes</div>
+    ${note('note-tip','<strong>Mandalorian Look:</strong> Use Outfit Designer — equip Mandalorian Enforcer armor set visually while wearing optimized gear underneath. Blizz companion = Grogu vibes.')}
+    ${note('note-info','<strong>Hydraulic Overrides = Jetpack:</strong> 60% movement speed + CC immunity for 8 sec. Use for mechanics, AoE avoidance, and repositioning. This is the Way.')}
+    ${note('note-warn','<strong>Best Content:</strong> Story + Veteran Flashpoints, Solo Heroics, Story Operations. Comfortable for all Solo content and group Operations.')}
   </div>`}
 
 
@@ -551,7 +584,8 @@ const BUILDS=[
 const GAMES=[
   {id:'poe2',label:'Path of Exile 2',icon:'🔮',ac:'poe'},
   {id:'div2',label:'The Division 2',icon:'🎯',ac:'div'},
-  {id:'d4',label:'Diablo 4',icon:'💀',ac:'d4'}
+  {id:'d4',label:'Diablo 4',icon:'💀',ac:'d4'},
+  {id:'swtor',label:'Star Wars: TOR',icon:'🚀',ac:'sw'}
 ];
 
 // ── STATE ──
