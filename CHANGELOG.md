@@ -78,3 +78,9 @@
   - Complete Playstyle / Rotation (Normal enemies, Bosses, Physical Immune)
   - Best farming locations (Pit, Mephisto, Countess, Terror Zones, LK)
 - Build Hub now: 5 Games · 11 Builds
+
+## v2.1 – 2026-05-21
+- Fixed: Diablo 4 Shadow Warrior — Skill Tree komplett neu geschrieben
+- Korrekte Unlock-Level: Warriors Lvl 4, Mages Lvl 15, Golem Lvl 25 (+ Quest), Army of the Dead Lvl 20
+- Präzise Level-für-Level Angaben: jede Entscheidung mit exaktem Level
+- Unlock-Reihenfolge Zusammenfassung am Ende der Sektion
