@@ -84,3 +84,11 @@
 - Korrekte Unlock-Level: Warriors Lvl 4, Mages Lvl 15, Golem Lvl 25 (+ Quest), Army of the Dead Lvl 20
 - Präzise Level-für-Level Angaben: jede Entscheidung mit exaktem Level
 - Unlock-Reihenfolge Zusammenfassung am Ende der Sektion
+
+## v2.2 – 2026-05-21
+- Fixed: D4 Necromancer Skill Tree — korrekte Cluster-Unlock-Logik
+- Warriors, Mages und Golem sind alle früh verfügbar (Basis-Skills)
+- Ihre Book of the Dead Upgrades unloken schrittweise später
+- Curse Cluster (Iron Maiden + Decrepify) korrekt bei Level 13
+- Ultimate Cluster (Army of the Dead) bei Level 20
+- Jeder Level einzeln aufgeführt mit exakter Skill-Entscheidung
