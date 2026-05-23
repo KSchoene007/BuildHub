@@ -236,7 +236,7 @@ header::after{
 .bc-icon-wrap{width:52px;height:52px;border-radius:10px;border:1px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .bc-icon-wrap svg{width:32px;height:32px}
 .bc-title-area{flex:1;min-width:0}
-.bc-tier-badge{position:absolute;top:8px;left:12px;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;border:1px solid;z-index:3;font-family:'Rajdhani',sans-serif;letter-spacing:1px}
+.bc-tier-badge{position:absolute;top:8px;right:10px;font-size:11px;font-weight:700;padding:2px 7px;border-radius:3px;border:1px solid;z-index:3;font-family:'Rajdhani',sans-serif;letter-spacing:1px}
 .bc-tier-big{font-size:32px;font-weight:900;font-family:'Rajdhani',sans-serif;letter-spacing:-2px;opacity:0.18;align-self:flex-end;margin-bottom:2px;line-height:1;flex-shrink:0}
 .vc-game{font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;font-weight:700}
 .bc-name{font-size:18px;font-weight:700;line-height:1.1;margin-bottom:2px;letter-spacing:.3px}
@@ -257,7 +257,7 @@ header::after{
 
 /* Card decorations */
 .bc-hud-corner{
-  position:absolute;top:8px;right:10px;
+  position:absolute;top:8px;left:78px;
   font-size:10px;letter-spacing:3px;font-weight:700;
   opacity:0.35;font-family:'Rajdhani',sans-serif;
   text-transform:uppercase;
@@ -746,6 +746,19 @@ html,body{font-size:20px!important}
 .dpatch-desc,.dtree-desc,.dtree-range,.dasc-desc{font-size:16px!important}
 #srch-in{font-size:20px!important}
 .srch-cancel{font-size:18px!important}
+}
+
+@media (min-width:768px){
+.bcard-emblem{width:58px!important;height:58px!important}
+.bcard-emblem svg{width:36px!important;height:36px!important}
+.bc-icon-wrap{width:60px!important;height:60px!important}
+.bc-icon-wrap svg{width:38px!important;height:38px!important}
+.bcard-top{gap:14px!important}
+.bcard-inner{padding:14px 14px 14px 18px!important}
+.bc-top-inner{gap:14px!important;padding:12px 14px!important}
+.bc-tier-badge{font-size:14px!important;padding:3px 9px!important}
+.bc-tier-big{font-size:38px!important}
+.bc-top{height:108px!important}
 }
 </style>
 </head>
