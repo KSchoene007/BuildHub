@@ -407,6 +407,43 @@ const BUILDS=[
     ${note('note-info','<strong>Difficulty:</strong> Complex – Flask management and Withering timing are game-defining. Highest mechanical requirement of all builds.')}
   </div>`},
 
+{id:'poe-la',game:'poe2',tier:'S',name:'Lightning Arrow',icon:'⚡',sub:'Deadeye · Ranger · Patch 0.5.0 · League Starter',tags:['boss','map'],diff:'easy',accent:'#d4883a',guide:'guide_lightningarrow.html',
+ stats:[{l:'DPS',v:88,c:'#ff6060'},{l:'Survival',v:75,c:'#60a0ff'},{l:'Speed',v:98,c:'#50c8b4'},{l:'Ease',v:90,c:'#ffd700'}],
+ detail:`
+  <div class="ds"><div class="ds-title">⚡ Core Mechanic</div>
+    <div class="mech-card">
+      <div class="mech-top">
+        <div class="mech-icon" style="background:rgba(212,136,58,.12);border:1px solid rgba(212,136,58,.3)">🏹</div>
+        <div><div class="mech-name">Lightning Chain Reaction</div>
+          <div class="mech-stack">${Array(10).fill(0).map((_,i)=>`<div class="mech-pip${i<9?' on':''}" style="background:#d4883a"></div>`).join('')}<span style="font-size:10px;color:var(--muted);margin-left:4px">Most Played Build in PoE2</span></div>
+        </div>
+      </div>
+      <div class="mech-desc"><strong style="color:var(--poe)">Lightning Arrow</strong> hits → beams arc to 3 enemies → Freeze + Shock → kill → <strong style="color:var(--gold)">Herald of Thunder</strong> explodes → chain reaction clears screens. <strong>Lightning Rod</strong> for boss burst. Mirage Archer fires a copy of your attacks for free.</div>
+    </div>
+    ${note('note-tip','<strong>0.5.0 Status:</strong> S-Tier unchanged. Minor nerf: beams no longer chain same target. Bullseye still 10 stacks. Runeforging system improves bow crafting significantly.')}
+  </div>
+  <div class="ds"><div class="ds-title">🎯 Key Skills</div>
+    ${wC('⚡','Lightning Arrow','Primary Clear','—','Fast','Dex','Chain Beams','Chains lightning to 3 enemies per hit. Freeze + Shock. Herald of Thunder procs on shocked kill. Main skill always.')}
+    ${wC('🔱','Lightning Rod','Boss Burst','—','—','Dex','Detonation','Plant at boss feet → fire Lightning Arrow at Rod → devastating burst. Primary single-target DPS tool.')}
+    ${wC('🌪️','Tornado Shot','Single Target','—','—','Dex','Finishing Shot','Homing tornado for single-target. Use between Rod detonations. Boosted by Focal Point Ascendancy.')}
+    ${wC('⛈️','Herald of Thunder','Always Active','—','—','Passive','Chain Explosion','Triggers on shocked enemy kill. Creates cold/lightning explosions. Makes map clear godlike.')}
+  </div>
+  <div class="ds"><div class="ds-title">🛡️ Key Gear</div>
+    ${gC('🏹','named','BOW','gb-named','High pDPS Bow','BiS · Most Important','Lightning Dmg','High Physical DPS + Added Lightning Damage + Attack Speed. Bow is the centerpiece — everything else secondary.','+Lightning','Attack Speed')}
+    ${gC('🪃','named','QUIVER','gb-named','Mana on Kill Quiver','Priority 1','2% Mana/Kill','Sapphire Jewel or Quiver with Recover 2% Mana on Kill. Solves Mana sustain permanently.','Mana on Kill','Essential')}
+    ${gC('💍','named','RINGS','gb-named','Sapphire Ring x2','Resistance + Mana','Mana Sustain','Resistance caps + Mana on Kill. At least 1 ring with Mana recovery.','Resistances','Mana')}
+  </div>
+  <div class="ds"><div class="ds-title">🎯 Ascendancy Priority</div>
+    ${opt('oc-rec','1ST','Gathering Winds','Tailwind on Kill = stacking Action Speed. Powers constant crits via Deadeye. Take first always.')}
+    ${opt('oc-alt','2ND','Mirage Archer','Creates a copy that fires your attacks for free. Effectively doubles Lightning Arrow projectiles.')}
+    ${opt('oc-free','3RD','Bullseye','10 Critical Weakness stacks on Crit. With constant crits = permanent massive damage multiplier.')}
+  </div>
+  <div class="ds"><div class="ds-title">💡 Tips & Notes</div>
+    ${note('note-tip','<strong>Mana Priority:</strong> Get 2% Mana on Kill (Sapphire Jewel or Quiver) ASAP. Mana is the build\'s only real weakness early.')}
+    ${note('note-info','<strong>Boss Rotation:</strong> Voltaic Mark → plant 2-3 Lightning Rods → fire Lightning Arrow at Rods → Tornado Shot between detonations. Keep moving always.')}
+    ${note('note-warn','<strong>Best Content:</strong> Fastest map clear in PoE2. All Pinnacle Bosses. Self-found to red maps. Endgame needs high pDPS bow from trade.')}
+  </div>`},
+
 // ─── DIVISION 2 ───
 {id:'div-hb',game:'div2',tier:'S',name:'Heartbreaker',icon:'❤️',sub:'AR · Gear Set · DPS + Survival',tags:['boss','dmg','def'],diff:'medium',accent:'#3a8fff',guide:'guide_heartbreaker.html',
  stats:[{l:'DPS',v:95,c:'#ff6060'},{l:'Survival',v:90,c:'#60a0ff'},{l:'Mobility',v:55,c:'#50c8b4'},{l:'Group',v:80,c:'#ffd700'}],

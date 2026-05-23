@@ -2,7 +2,7 @@
 
 ![Build Hub](https://img.shields.io/badge/Build_Hub-v1.6-E03060?style=for-the-badge)
 ![Games](https://img.shields.io/badge/Games-5-E8A820?style=for-the-badge&logo=steam&logoColor=white)
-![Builds](https://img.shields.io/badge/Builds-11-2FB8B4?style=for-the-badge)
+![Builds](https://img.shields.io/badge/Builds-12-2FB8B4?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-4CAF50?style=for-the-badge)
 ![iPad](https://img.shields.io/badge/iPad_Ready-%E2%9C%93-E03060?style=for-the-badge&logo=apple&logoColor=white)
 ![Self-Hosted](https://img.shields.io/badge/Self--Hosted-Proxmox-E8A820?style=for-the-badge)

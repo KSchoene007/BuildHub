@@ -105,3 +105,9 @@
   - Neue Minion Splash + Minion Splash II Support Gems
   - Minion Mods jetzt craftbar auf Rings/Belts via Genesis Tree
   - Minion Management: Jüngere Minions werden zuerst entfernt (QoL)
+
+## v2.4 – 2026-05-23
+- Added: Lightning Arrow Deadeye (PoE2 · Patch 0.5.0 · S-Tier · League Starter)
+- Most played build in PoE2 (34% of top players, 80% chose Lightning Arrow)
+- Guide includes: Ascendancy priority, full skill gem setup, passive tree phases, gear priority, boss + map rotation, 0.5.0 patch impact
+- PoE2 now has 3 builds: Poisonburst (nerfed A-Tier), Spiraling (buffed), Lightning Arrow (S-Tier)
