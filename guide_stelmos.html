@@ -3,452 +3,273 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>The Division 2 – St. Elmo's Engine Build</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
+<title>St. Elmo's Engine — The Division 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(224,48,96,0.08) 0%,transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(232,168,32,0.05) 0%,transparent 45%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 2px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:0}
-.container{max-width:1100px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
-.back-btn{display:inline-flex;align-items:center;gap:8px;margin:20px 0;padding:8px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:.15s}
-.back-btn:hover{background:rgba(255,255,255,.1);color:#fff}
-header{padding:40px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;display:flex;align-items:center;gap:28px;animation:fadeDown .6s ease both}
-.hemblem{font-size:64px;animation:pulse 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{filter:drop-shadow(0 0 10px rgba(224,48,96,.75))}50%{filter:drop-shadow(0 0 28px rgba(224,48,96,1)) drop-shadow(0 0 40px rgba(232,168,32,.35))}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(24px,4vw,46px);color:var(--bright);text-transform:uppercase;letter-spacing:3px;line-height:1}
-h1 .r{color:var(--red)} h1 .g{color:var(--gold)} h1 .t{color:var(--teal)}
-.subtitle{margin-top:8px;font-size:12px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--red)}
-.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.badge{padding:3px 12px;border:1px solid;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
-.badge-pve{border-color:var(--teal);color:var(--teal)} .badge-dps{border-color:var(--red);color:var(--red)} .badge-tank{border-color:var(--gold);color:var(--gold)} .badge-dot{border-color:#b040f0;color:#b040f0} .badge-shock{border-color:#60c0ff;color:#60c0ff} .badge-meta{border-color:var(--gold);color:var(--gold)}
-section{margin-bottom:44px;animation:fadeUp .5s ease both}
-section:nth-child(2){animation-delay:.06s} section:nth-child(3){animation-delay:.12s} section:nth-child(4){animation-delay:.18s} section:nth-child(5){animation-delay:.24s} section:nth-child(6){animation-delay:.30s} section:nth-child(7){animation-delay:.36s} section:nth-child(8){animation-delay:.42s} section:nth-child(9){animation-delay:.48s} section:nth-child(10){animation-delay:.54s} section:nth-child(11){animation-delay:.60s}
-.sh{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.si{width:36px;height:36px;background:var(--dark4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
-.st{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:3px;color:var(--bright)}
-.st .r{color:var(--red)} .st .g{color:var(--gold)} .st .t{color:var(--teal)}
-.divider{height:1px;background:linear-gradient(90deg,var(--red) 0%,var(--gold) 35%,transparent 65%);margin:8px 0 24px;opacity:.35}
-p.body{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.gear-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px;transition:.2s;position:relative}
-.gear-card:hover{border-color:var(--red);box-shadow:var(--glow)}
-.gear-card.named{border-left-color:var(--gold)} .gear-card.named:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.exotic{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 60%)} .gear-card.exotic:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.blue{border-left-color:var(--teal)} .gear-card.blue:hover{border-color:var(--teal)}
-.gear-card.purple{border-left-color:#b040f0} .gear-card.purple:hover{border-color:#b040f0;box-shadow:0 0 16px rgba(176,64,240,.3)}
-.gear-slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:6px}
-.gear-card.named .gear-slot,.gear-card.exotic .gear-slot{color:var(--gold)} .gear-card.blue .gear-slot{color:var(--teal)} .gear-card.purple .gear-slot{color:#b040f0}
-.gear-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;color:var(--bright);margin-bottom:8px}
-.core-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.core-red{background:rgba(224,48,96,.12);color:var(--red);border:1px solid rgba(224,48,96,.4)}
-.core-named{background:rgba(232,168,32,.12);color:var(--gold);border:1px solid rgba(232,168,32,.4)}
-.core-exotic{background:linear-gradient(90deg,rgba(232,168,32,.15),rgba(224,48,96,.1));color:var(--gold);border:1px solid rgba(232,168,32,.45)}
-.core-blue{background:rgba(47,184,180,.1);color:var(--teal);border:1px solid rgba(47,184,180,.35)}
-.gear-mods{display:flex;flex-wrap:wrap;gap:5px}
-.mod-tag{font-size:10px;padding:2px 7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#8070a0}
-.t-r{font-size:11px;padding:2px 7px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.t-g{font-size:11px;padding:2px 7px;background:rgba(232,168,32,.08);border:1px solid rgba(232,168,32,.2);color:var(--gold)}
-.t-t{font-size:11px;padding:2px 7px;background:rgba(47,184,180,.08);border:1px solid rgba(47,184,180,.2);color:var(--teal)}
-.t-p{font-size:11px;padding:2px 7px;background:rgba(176,64,240,.08);border:1px solid rgba(176,64,240,.2);color:#c060ff}
-.wpn-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:14px}
-.wpn-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.15);padding:14px 16px;transition:.2s}
-.wpn-card:hover{border-color:rgba(255,255,255,.2)}
-.wpn-card.named-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 55%)} .wpn-card.named-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-card.exotic-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.08) 0%,rgba(224,48,96,.04) 55%,var(--dark3) 100%)} .wpn-card.exotic-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#6a5080;margin-bottom:6px}
-.wpn-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--bright);margin-bottom:3px}
-.wpn-type{font-size:12px;color:#6a5080;margin-bottom:10px}
-.wpn-talent{background:var(--dark4);border-left:3px solid var(--red);padding:9px 12px;margin-top:8px}
-.wpn-talent.gold-t{border-left-color:var(--gold)}
-.talent-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:4px}
-.wpn-talent.gold-t .talent-lbl{color:var(--gold)}
-.talent-txt{font-size:12px;line-height:1.55;color:#8070a0}
-.spec-card{background:var(--dark3);border:1px solid var(--border);padding:20px;display:flex;gap:20px;align-items:flex-start}
-.spec-ico{font-size:36px;flex-shrink:0}
-.spec-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--bright);letter-spacing:1px;margin-bottom:8px}
-.spec-desc{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.perks{display:flex;flex-wrap:wrap;gap:6px}
-.perk{font-size:11px;padding:3px 10px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.talent-list{display:flex;flex-direction:column;gap:12px}
-.trow{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;transition:.2s}
-.trow:hover{border-color:var(--red);box-shadow:var(--glow)}
-.trow.gold{border-left-color:var(--gold)} .trow.gold:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.trow .src{font-size:10px;color:#6a5080;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.trow .tname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);margin-bottom:4px}
-.trow.gold .tname{color:var(--gold)}
-.trow .tdesc{font-size:12px;line-height:1.55;color:#8070a0}
-.stats-table{width:100%;border-collapse:collapse;font-size:13px}
-.stats-table th{text-align:left;padding:10px 14px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:11px;border-bottom:1px solid var(--border)}
-.stats-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.stats-table tr:hover td{background:rgba(255,255,255,.02)}
-.sv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red)}
-.sl{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;display:block;margin-top:2px}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.skill-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px;text-align:center}
-.skill-ico{font-size:28px;display:block;margin-bottom:10px}
-.skill-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:6px}
-.skill-desc{font-size:12px;color:#7a6080;line-height:1.5}
-.note-box{padding:13px 16px;font-size:13px;line-height:1.6;margin-bottom:12px}
-.note-r{background:rgba(224,48,96,.06);border:1px solid rgba(224,48,96,.2);color:#c87080} .note-r strong{color:var(--red)}
-.note-g{background:rgba(232,168,32,.06);border:1px solid rgba(232,168,32,.2);color:#b09040} .note-g strong{color:var(--gold)}
-.note-t{background:rgba(47,184,180,.06);border:1px solid rgba(47,184,180,.2);color:#50a09a} .note-t strong{color:var(--teal)}
-.tips{display:flex;flex-direction:column;gap:10px}
-.tip{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;font-size:13px;line-height:1.6}
-.tip.gold{border-left-color:var(--gold)} .tip.teal{border-left-color:var(--teal)}
-.tip strong.r{color:var(--red)} .tip strong.g{color:var(--gold)} .tip strong.t{color:var(--teal)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px}
-.legend-item{display:flex;align-items:center;gap:7px;font-size:12px}
-.ldot{width:10px;height:10px;border-radius:50%}
-/* Cycle boxes */
-.cycle-box{background:var(--dark3);border:1px solid rgba(224,48,96,.3);padding:20px;display:grid;gap:0;position:relative;overflow:hidden}
-.cycle-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,48,96,.05) 0%,transparent 50%,rgba(232,168,32,.03) 100%);pointer-events:none}
-.cycle-step{padding:16px;text-align:center;position:relative}
-.cnum{width:40px;height:40px;border-radius:50%;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--red);margin:0 auto 10px}
-.ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);text-transform:uppercase;letter-spacing:1px}
-.cval{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--gold);margin:4px 0 2px}
-.cdesc{font-size:11px;color:#7a6080;margin-top:5px;line-height:1.5}
-/* strengths/weaknesses */
-.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.sw-box{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px}
-.sw-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
-.sw-title.green{color:#64c864} .sw-title.red{color:var(--red)}
-.sw-item{font-size:12px;line-height:1.6;padding:4px 0;color:var(--text);display:flex;gap:8px}
-.sw-item span{flex-shrink:0}
-/* Leveling phases */
-.phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:16px;margin-bottom:12px}
-.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.phase-num{width:32px;height:32px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red);flex-shrink:0}
-.phase-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);letter-spacing:.5px}
-.phase-sub{font-size:11px;color:var(--gold);margin-top:2px}
-.phase-desc{font-size:12px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.gem-list{display:flex;flex-direction:column;gap:6px}
-.gem-row{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--dark4);border:1px solid rgba(255,255,255,.04)}
-.gem-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);min-width:140px;flex-shrink:0}
-.gem-supports{font-size:11px;color:#8070a0;line-height:1.4}
-.passive-box{background:var(--dark4);border:1px solid rgba(232,168,32,.15);padding:10px 14px;margin-top:10px;font-size:12px;color:#8070a0;line-height:1.6}
-/* Passive tree */
-.passive-phase{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.pp-row{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:var(--dark4);border:1px solid rgba(255,255,255,.04);font-size:12px}
-.pp-name{color:var(--text)}
-.pp-pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:13px}
-/* Ascendancy */
-.asc-list{display:flex;flex-direction:column;gap:10px}
-.asc-item{display:flex;gap:14px;align-items:flex-start;background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px}
-.asc-num{width:28px;height:28px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--red);flex-shrink:0}
-.asc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:4px}
-.asc-when{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.asc-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Rotation */
-.rotation-steps{display:flex;flex-direction:column;gap:8px}
-.rstep{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--dark3);border:1px solid rgba(255,255,255,.04)}
-.rstep-n{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--red);width:24px;flex-shrink:0}
-.rstep-body{}
-.rstep-skill{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);margin-bottom:3px}
-.rstep-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Equipment table */
-.equip-table{width:100%;border-collapse:collapse;font-size:12px}
-.equip-table th{text-align:left;padding:8px 12px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:10px;border-bottom:1px solid var(--border)}
-.equip-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.equip-table tr:hover td{background:rgba(255,255,255,.02)}
-.item-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);display:flex;align-items:center;gap:6px}
-.item-note{font-size:11px;color:#7a6080;margin-top:4px;line-height:1.4}
-.item-badge{font-size:9px;padding:1px 6px;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.3);color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.item-badge.req{background:rgba(224,48,96,.1);border-color:rgba(224,48,96,.3);color:var(--red)}
-footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:#4a3858;letter-spacing:2px;text-transform:uppercase}
-
-
-/* ── TAB SYSTEM ── */
-.tab-bar-hero{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
-  padding:14px 16px 4px;
-}
-.tab-hero{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:7px 12px;cursor:pointer;flex-shrink:0;
-  border-radius:8px;border:1px solid rgba(0,0,0,.15);
-  background:rgba(255,255,255,.03);
-  border-bottom:2px solid transparent;transition:.2s;
-}
-.tab-hero:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
-.tab-hero.on{border-color:#E8A82040;border-bottom-color:#E8A820;background:#E8A82012}
+:root{--ac:#E8A820;--bg:#06040e;--s1:#0e0a04;--s2:#180e04;--text:#f0e8d0;--muted:#907050;--muted2:#503808;--gold:#E8C840;--teal:#40c8b4;--green:#40c060;--red:#e04060;--border:rgba(232,168,32,.15);--border2:rgba(232,168,32,.3)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(232,168,32,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(232,168,32,.05) 1px,transparent 1px);background-size:44px 44px;animation:bgshift 30s linear infinite}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(232,168,32,.12) 0%,transparent 100%)}
+@keyframes bgshift{from{background-position:0 0}to{background-position:44px 44px}}
+.wrap{max-width:660px;margin:0 auto;padding:0 16px 60px;position:relative;z-index:1}
+/* HERO */
+.hero{padding:28px 0 20px;text-align:center}
+@keyframes boltflick{0%,88%,100%{opacity:1}91%{opacity:.1}95%{opacity:.9}}
+@keyframes sparkarc{0%{opacity:0;transform:translate(0,0) scale(0)}40%{opacity:1}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(1.4)}}
+.hero-icon{width:90px;height:90px;margin:0 auto 20px}
+.hbolt{animation:boltflick 1.8s ease-in-out infinite}
+.hspark1{animation:sparkarc 2s ease-out infinite;--tx:-8px;--ty:-6px}
+.hspark2{animation:sparkarc 2s ease-out infinite .5s;--tx:8px;--ty:-8px}
+.hspark3{animation:sparkarc 2s ease-out infinite 1s;--tx:6px;--ty:6px}
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:rgba(232,168,32,.7);margin-bottom:6px;text-transform:uppercase}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(26px,6vw,40px);font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.hero-title em{color:#FFD060;font-style:normal}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.hero-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.htag{font-size:9px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
+.hero-bars{display:flex;justify-content:center;gap:20px}
+.hb{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
+.hb-track{width:48px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.hb-fill{height:100%;border-radius:2px}
+.hb-label{font-size:7px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.hb-val{font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+/* TABS */
+.tab-bar-hero{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;padding:16px 16px 4px}
+.tab-hero{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px;cursor:pointer;flex-shrink:0;border-radius:8px;border:1px solid rgba(232,168,32,.15);background:rgba(232,168,32,.04);border-bottom:2px solid transparent;transition:.2s}
+.tab-hero:hover{background:rgba(232,168,32,.1);border-color:rgba(232,168,32,.3)}
+.tab-hero.on{border-color:rgba(232,168,32,.4);border-bottom-color:var(--ac);background:rgba(232,168,32,.1)}
 .tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
-.tab-ico svg{width:14px;height:14px;color:#666;transition:.2s}
-.tab-hero.on .tab-ico svg{color:#E8A820;filter:drop-shadow(0 0 3px #E8A82080)}
-.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
-  color:#444;transition:.2s;white-space:nowrap}
-.tab-hero.on .tab-lbl{color:#E8A820}
-.sec{display:none}
-.sec.on{display:block}
+.tab-ico svg{width:14px;height:14px;color:#664820;transition:.2s}
+.tab-hero.on .tab-ico svg{color:var(--ac);filter:drop-shadow(0 0 3px rgba(232,168,32,.6))}
+.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#442808;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
+.tab-hero.on .tab-lbl{color:var(--ac)}
+.sec{display:none}.sec.on{display:block}
+/* SHARED */
+.div{height:1px;background:linear-gradient(90deg,transparent,var(--ac),rgba(255,200,60,.4),transparent);margin:20px 0;position:relative}
+.div-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px var(--ac)}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid var(--border2);background:rgba(232,168,32,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-ico svg{width:16px;height:16px;color:var(--ac)}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(232,168,32,.5);letter-spacing:1px}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(232,168,32,.4),transparent)}
+.info-block{background:var(--s1);border:1px solid rgba(232,168,32,.2);border-left:3px solid var(--ac);border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.info-block p{font-size:12px;color:#c0a870;line-height:1.75}
+.info-block p+p{margin-top:8px}
+.kw{color:#FFD060;font-weight:700}.kw2{color:#FFA030;font-weight:700}.kw3{color:var(--gold);font-weight:700}
+.cycle{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.cycle-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
+.cycle-n{width:32px;height:32px;border-radius:50%;border:2px solid var(--ac);background:rgba(232,168,32,.1);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--ac);flex-shrink:0}
+.cycle-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.cycle-sub{font-size:11px;color:#907050;line-height:1.4}
+.cycle-badge{font-size:9px;padding:2px 8px;border-radius:3px;background:rgba(232,168,32,.12);border:1px solid rgba(232,168,32,.3);color:var(--ac);font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start;margin-left:auto}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sw-box{background:var(--s1);border:1px solid;border-radius:8px;padding:11px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#907050;line-height:1.5;margin-bottom:3px}
+.sw-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.note{padding:9px 12px;border-radius:6px;font-size:11px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
+.note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#c04060}
+.note-info{background:rgba(232,168,32,.06);border-color:rgba(232,168,32,.35);color:#c09030}
+.note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
+.gear-list{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.gr{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px;transition:.15s}
+.gr:hover{border-color:rgba(232,168,32,.2)}
+.gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
+.gr.named{border-color:rgba(192,96,255,.2)}
+.gr-slot{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);width:60px;flex-shrink:0;padding-top:2px}
+.gr-info{flex:1}
+.gr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.gr.bis .gr-name{color:var(--gold)}
+.gr.named .gr-name{color:#c060ff}
+.gr-note{font-size:10px;color:var(--muted2);line-height:1.35}
+.gr-tag{font-size:8px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+.talent-cards{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.tc{background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start;position:relative}
+.tc-ico{font-size:18px;flex-shrink:0;line-height:1.3}
+.tc-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#FFD060;margin-bottom:3px}
+.tc-desc{font-size:11px;color:#907050;line-height:1.5}
+.set-table{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.st-row{display:grid;grid-template-columns:80px 1fr;gap:10px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.st-pieces{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--ac);font-weight:700}
+.st-bonus{font-size:11px;color:#c0a870;line-height:1.4}
+.skill-list{display:flex;flex-direction:column;gap:5px}
+.sk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:9px;transition:.15s;position:relative;overflow:hidden}
+.sk:hover{border-color:rgba(232,168,32,.2);background:var(--s2)}
+.sk-ico{font-size:20px;flex-shrink:0;line-height:1.3}
+.sk-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.sk-desc{font-size:11px;color:#907050;line-height:1.4}
+.stats-table{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.stat-row{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.stat-attr{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#fff}
+.stat-target{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--ac)}
+.stat-note{font-size:10px;color:var(--muted2)}
+.rot-steps{display:flex;flex-direction:column;gap:5px}
+.rstep{display:flex;gap:10px;align-items:flex-start}
+.rn{width:22px;height:22px;border-radius:50%;border:1px solid var(--ac);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;color:var(--ac);flex-shrink:0;margin-top:1px}
+.rb-skill{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:1px}
+.rb-desc{font-size:11px;color:#907050;line-height:1.4}
+.tip-cards{display:flex;flex-direction:column;gap:6px}
+.tip-card{background:var(--s1);border:1px solid rgba(232,168,32,.15);border-radius:8px;padding:12px 14px}
+.tip-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.tip-text{font-size:11px;color:#907050;line-height:1.55}
 </style>
 </head>
 <body>
-<div class="container">
-<a class="back-btn" onclick="window.history.back()">← Back to Build Hub</a>
-
-<header>
-  <div class="hemblem" style="filter:drop-shadow(0 0 20px rgba(96,192,255,0.9))">⚡</div>
-  <div>
-    <h1>St. Elmo's <span class="r">Engine</span></h1>
-    <h1 style="font-size:clamp(14px,2vw,22px);letter-spacing:2px;margin-top:4px"><span class="g">Striker's</span> Shock Build</h1>
-    <div class="subtitle">The Division 2 · SMG · 2025/2026</div>
-    <div class="badges">
-      <span class="badge badge-pve">PvE</span>
-      <span class="badge badge-dps">Top DPS</span>
-      <span class="badge badge-shock">Shock</span>
-      <span class="badge badge-meta">#1 Meta</span>
-    </div>
+<div class="wrap">
+<div class="hero">
+  <div class="hero-icon">
+    <svg viewBox="0 0 90 90" fill="none">
+      <g class="hbolt">
+        <path d="M54 8 L32 46 L46 46 L36 82" stroke="#FFD060" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M54 8 L32 46 L46 46 L36 82" stroke="#FFF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".5"/>
+      </g>
+      <circle class="hspark1" cx="54" cy="8" r="3" fill="#FFD060"/>
+      <circle class="hspark2" cx="36" cy="82" r="3" fill="#FFD060"/>
+      <circle class="hspark3" cx="25" cy="46" r="2.5" fill="#FFD060"/>
+    </svg>
   </div>
-</header>
-
+  <div class="hero-pre">▶ The Division 2 · PvE Build · #1 Meta 2026</div>
+  <h1 class="hero-title">St. <em>Elmo's</em> Engine</h1>
+  <div class="hero-sub">SMG · Shock DPS · Striker's Battlegear</div>
+  <div class="hero-tags">
+    <span class="htag" style="color:#FFD700;border-color:rgba(255,215,0,.3)">S-TIER</span>
+    <span class="htag" style="color:#E8A820;border-color:rgba(232,168,32,.3)">SHOCK</span>
+    <span class="htag" style="color:#60a0ff;border-color:rgba(96,160,255,.3)">#1 META</span>
+    <span class="htag" style="color:#50c8b4;border-color:rgba(80,200,180,.3)">ALL CONTENT</span>
+  </div>
+  <div class="hero-bars">
+    <div class="hb"><div class="hb-val" style="color:#ff6060">5★</div><div class="hb-track"><div class="hb-fill" style="width:95%;background:#ff6060"></div></div><div class="hb-label">DPS</div></div>
+    <div class="hb"><div class="hb-val" style="color:#60a0ff">4★</div><div class="hb-track"><div class="hb-fill" style="width:80%;background:#60a0ff"></div></div><div class="hb-label">SURV</div></div>
+    <div class="hb"><div class="hb-val" style="color:var(--teal)">5★</div><div class="hb-track"><div class="hb-fill" style="width:90%;background:#40c8b4"></div></div><div class="hb-label">SPD</div></div>
+    <div class="hb"><div class="hb-val" style="color:var(--gold)">4★</div><div class="hb-track"><div class="hb-fill" style="width:75%;background:var(--gold)"></div></div><div class="hb-label">EASE</div></div>
+  </div>
+</div>
 <div class="tab-bar-hero">
-  <div class="tab-hero on" data-sec="sec-0" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-    <div class="tab-lbl">Build Overvi…</div>
+  <div class="tab-hero on" data-sec="sec-overview" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="tab-lbl">Overview</div></div>
+  <div class="tab-hero" data-sec="sec-mechanic" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div class="tab-lbl">Mechanic</div></div>
+  <div class="tab-hero" data-sec="sec-weapons" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 3a3 3 0 0 0-3 3l-7 9a3 3 0 1 0 4 4l7-9a3 3 0 0 0 0-7z"/></svg></div><div class="tab-lbl">Weapons</div></div>
+  <div class="tab-hero" data-sec="sec-gear" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tab-lbl">Gear</div></div>
+  <div class="tab-hero" data-sec="sec-talents" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="tab-lbl">Talents</div></div>
+  <div class="tab-hero" data-sec="sec-skills" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><div class="tab-lbl">Skills</div></div>
+  <div class="tab-hero" data-sec="sec-rotation" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><div class="tab-lbl">Rotation</div></div>
+  <div class="tab-hero" data-sec="sec-stats" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="tab-lbl">Stats</div></div>
+  <div class="tab-hero" data-sec="sec-tips" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div class="tab-lbl">Pro Tips</div></div>
+</div>
+<div class="div"><div class="div-dot"></div></div>
+
+<div class="sec on" id="sec-overview">
+  <div class="sec-head"><span class="sec-num">01</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h2 class="sec-title">Build Overview</h2><div class="sec-line"></div></div>
+  <div class="info-block">
+    <p><span class="kw">St. Elmo's Engine</span> is an Exotic SMG with the unique <span class="kw">Actum Est</span> talent: every hit generates +1 stack — at 100 stacks the next magazine loads with <span class="kw3">shock rounds</span> that stun enemies and deal additional damage.</p>
+    <p>Playstyle: Combines sustained high damage (<span class="kw2">Striker's Gamble</span> stacks), survivability (<span class="kw2">Memento</span>), and shock effects for unmatched efficiency. With a 70+1 round magazine — the largest of any AR/SMG in the game.</p>
   </div>
-  <div class="tab-hero" data-sec="sec-1" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Actum Est Sh…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-2" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Weapon Slots</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-3" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
-    <div class="tab-lbl">Specializati…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-4" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Gear Slots ·…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-5" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Gear Slots ·…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-6" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Gear Talents</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-7" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Skills / Abi…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-8" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
-    <div class="tab-lbl">Target Stats</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-9" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Farming St. …</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-10" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Pro Tips</div>
+  <div class="sw">
+    <div class="sw-box" style="border-color:rgba(64,192,64,.2)"><div class="sw-title" style="color:var(--green)">✓ Strengths</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--green)"></div>S-Tier sustained DPS + shock CC</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--green)"></div>Shock rounds ignore 50% enemy armor</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--green)"></div>Stacks persist through weapon swaps</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--green)"></div>#1 Meta build 2026 — best all-rounder</div>
+    </div>
+    <div class="sw-box" style="border-color:rgba(224,64,96,.2)"><div class="sw-title" style="color:var(--red)">✗ Weaknesses</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>St. Elmo's required (exotic drop)</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>100 stacks needed for shock mag</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>Memento requires kill management</div>
+    </div>
   </div>
 </div>
 
-<div class="div"></div>
-
-
-<div class="sec on" id="sec-0">
-<section>
-  <div class="sh"><div class="si">⚡</div><div class="st">Build <span class="r">Overview</span></div></div>
-  <div class="divider"></div>
-  <p class="body">St. Elmo's Engine is an Exotic SMG with the unique <strong style="color:var(--red)">Actum Est</strong> talent: every hit generates +1 stack — at 100 stacks the next magazine loads with shock rounds that stun enemies and deal additional damage.</p>
-  <p class="body"><strong style="color:var(--gold)">Playstyle:</strong> The build combines sustained high damage (Striker's Gamble stacks), survivability (Memento), and shock effects (Actum Est) for unmatched efficiency across all difficulty levels. With a 70+1 round magazine it has the largest magazine of any AR/SMG in the game.</p>
-</section>
-</div>
-<div class="sec" id="sec-1">
-<section>
-  <div class="sh"><div class="si">🔋</div><div class="st">Actum Est <span class="r">Shock Cycle</span></div></div>
-  <div class="divider"></div>
-  <div class="cycle-box" style="grid-template-columns:repeat(3,1fr)">
-    <div class="cycle-step">
-      <div class="cnum">1</div>
-      <div class="ctitle">Collect Hits</div>
-      <div class="cval">+1 / hit</div>
-      <div class="cdesc">Every hit on any enemy grants +1 Actum Est stack. Stacks persist through weapon swaps.</div>
-    </div>
-    <div class="cycle-step" style="border-left:1px solid rgba(255,255,255,.06);border-right:1px solid rgba(255,255,255,.06)">
-      <div class="cnum" style="border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,.15)">100</div>
-      <div class="ctitle">100 Stacks</div>
-      <div class="cval" style="font-size:16px">Shock Mag</div>
-      <div class="cdesc">At 100 stacks the next magazine automatically loads with shock rounds.</div>
-    </div>
-    <div class="cycle-step">
-      <div class="cnum" style="border-color:#60c0ff;color:#60c0ff;background:rgba(96,192,255,.1)">⚡</div>
-      <div class="ctitle">Shock Magazine</div>
-      <div class="cval" style="color:#60c0ff;font-size:16px">70 Rounds</div>
-      <div class="cdesc">Shock rounds stun enemies and deal DoT. With Thunder Strike: +30–40% damage on stunned targets.</div>
-    </div>
+<div class="sec" id="sec-mechanic">
+  <div class="sec-head"><span class="sec-num">02</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h2 class="sec-title">Actum Est Shock Cycle</h2><div class="sec-line"></div></div>
+  <div class="cycle">
+    <div class="cycle-step"><div class="cycle-n">1</div><div><div class="cycle-title">Collect Hits — +1 per hit</div><div class="cycle-sub">Every hit on any enemy grants +1 Actum Est stack. Stacks persist through weapon swaps.</div></div><span class="cycle-badge">+1/HIT</span></div>
+    <div class="cycle-step"><div class="cycle-n" style="border-color:#FFD060;color:#FFD060">100</div><div><div class="cycle-title">100 Stacks → Shock Magazine</div><div class="cycle-sub">At 100 stacks the next magazine automatically loads with shock rounds that stun enemies and deal DoT. With Thunder Strike: +30–40% damage on stunned targets.</div></div><span class="cycle-badge" style="background:rgba(255,208,96,.12);border-color:rgba(255,208,96,.3);color:#FFD060">SHOCK MAG</span></div>
+    <div class="cycle-step"><div class="cycle-n" style="border-color:#4a9eff;color:#4a9eff">⚡</div><div><div class="cycle-title">70 Shock Rounds — Stun + DoT</div><div class="cycle-sub">Shock rounds stun enemies and deal continuous DoT. Shock rounds ignore <strong style="color:#FFD060">50% of enemy armor</strong> — devastating against armored targets.</div></div><span class="cycle-badge" style="background:rgba(74,158,255,.12);border-color:rgba(74,158,255,.3);color:#4a9eff">ARMOR PIERCE</span></div>
   </div>
-</section>
-</div>
-<div class="sec" id="sec-2">
-<section>
-  <div class="sh"><div class="si">🔫</div><div class="st"><span class="r">Weapon</span> Slots</div></div>
-  <div class="divider"></div>
-  <div class="wpn-row">
-    <div class="wpn-card exotic-w">
-      <div class="wpn-lbl">Primary Weapon · Exotic SMG ⭐</div>
-      <div class="wpn-name">St. Elmo's Engine</div>
-      <div class="wpn-type">SMG (LVOA-C variant) · 70+1 Magazine · +15% Crit Chance (Muzzle) · +15% Crit Damage (Optics)</div>
-      <div class="wpn-talent gold-t"><div class="talent-lbl">Actum Est</div><div class="talent-txt">Every hit grants +1 stack. At 100 stacks: next magazine loads with shock rounds. Enemies are stunned and take shock damage. Shock rounds ignore 50% of enemy armor.</div></div>
-    </div>
-    <div class="wpn-card">
-      <div class="wpn-lbl">Secondary Weapon</div>
-      <div class="wpn-name">GR9 / Any AR</div>
-      <div class="wpn-type">Assault Rifle (Backup)</div>
-      <div class="wpn-talent"><div class="talent-lbl">Recommended Talents</div><div class="talent-txt">Frenzy or Fast Hands for fast reload flow. Thunder Strike (+30% damage on stunned enemies) is also an excellent choice that pairs directly with shock rounds.</div></div>
-    </div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-3">
-<section>
-  <div class="sh"><div class="si">🔬</div><div class="st"><span class="r">Specialization</span></div></div>
-  <div class="divider"></div>
-  <div class="spec-card">
-    <div class="spec-ico">🔧</div>
-    <div>
-      <div class="spec-name">Gunner</div>
-      <div class="spec-desc">The recommended specialization for this build. It increases LMG/AR handling, provides armor bonuses on kills, and synergizes perfectly with the high-damage approach of the build.</div>
-      <div class="perks">
-        <span class="perk">+10% Armor on Kill</span>
-        <span class="perk">+15% Fire Rate on Kill</span>
-        <span class="perk">Large Magazine Capacity</span>
-        <span class="perk">Weapon Handling Bonuses</span>
-        <span class="perk">Hostile Negotiations</span>
-      </div>
-    </div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-4">
-<section>
-  <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-r">⚠️ <strong>Setup:</strong> 4× Striker (Mask + Gloves + Holster + Kneepads) + Memento Exotic Backpack + Brand Chest (Obliterate). Memento's Kill Confirmed (+30% WD long-term) outperforms the Striker Backpack talent in sustained combat.</div>
-  <div class="note-box note-t">💡 <strong>Why this slot distribution?</strong> Striker Mask/Gloves/Holster/Kneepads = 4-piece Striker's Gamble active. Backpack goes to Memento (Exotic) for Kill Confirmed. Chest goes to Brand Piece for freely choosable Obliterate talent.</div>
-  <div class="card-grid">
-    <div class="gear-card"><div class="gear-slot">Mask · Set Piece 1</div><div class="gear-name">Striker's Battlegear</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Chance</span></div></div>
-    <div class="gear-card"><div class="gear-slot">Chest · Brand Piece · Free Talent</div><div class="gear-name">Ceska / Grupo / Fenris</div><span class="core-badge core-red">Red Core · Brand</span><div class="gear-mods"><span class="t-r">Obliterate</span><span class="mod-tag">+1% WD per Crit hit</span><span class="mod-tag">Freely choosable</span></div></div>
-    <div class="gear-card exotic"><div class="gear-slot">Backpack · Exotic 💎 (ONLY ONE)</div><div class="gear-name">Memento</div><span class="core-badge core-exotic">Exotic · Tri-Core</span><div class="gear-mods"><span class="t-g">Kill Confirmed</span><span class="mod-tag">+30% WD Long-term</span><span class="mod-tag">+3% Armor Regen</span></div></div>
-    <div class="gear-card"><div class="gear-slot">Gloves · Set Piece 2</div><div class="gear-name">Striker's Battlegear</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span></div></div>
-    <div class="gear-card"><div class="gear-slot">Holster · Set Piece 3</div><div class="gear-name">Striker's Battlegear</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span></div></div>
-    <div class="gear-card"><div class="gear-slot">Kneepads · Set Piece 4</div><div class="gear-name">Striker's Battlegear</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Crit Damage</span><span class="mod-tag">Weapon Damage</span></div></div>
-  </div>
-
-<div class="sh"><div class="si">🔬</div><div class="st"><span class="r">Specialization</span></div></div>
-  <div class="divider"></div>
-  <div class="spec-card">
-    <div class="spec-ico">🔧</div>
-    <div>
-      <div class="spec-name">Gunner</div>
-      <div class="spec-desc">The recommended specialization for this build. It increases LMG/AR handling, provides armor bonuses on kills, and synergizes perfectly with the high-damage approach of the build.</div>
-      <div class="perks">
-        <span class="perk">+10% Armor on Kill</span>
-        <span class="perk">+15% Fire Rate on Kill</span>
-        <span class="perk">Large Magazine Capacity</span>
-        <span class="perk">Weapon Handling Bonuses</span>
-        <span class="perk">Hostile Negotiations</span>
-      </div>
-    </div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-5">
-<section>
-  <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-r">⚠️ <strong>Setup:</strong> 4× Striker's Battlegear (Mask, Gloves, Kneepads + 1 more) + Brand Chest (Perfect Obliterate) + Memento Backpack + Picaro's Holster (Named, +15% WD). The Striker Mask is a normal set piece — NOT Exotic! 4-piece bonus activates Striker's Gamble — the 5th Set slot goes to Picaro's for more damage.</div>
-  <div class="card-grid">
-    <div class="gear-card"><div class="gear-slot">Mask · Set Piece (not Exotic!)</div><div class="gear-name">Striker's Battlegear</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span><span class="mod-tag">Alt: Coyote's Mask*</span></div></div>
-    <div class="gear-card exotic"><div class="gear-slot">Backpack · Exotic 💎 (ONLY ONE)</div><div class="gear-name">Memento</div><span class="core-badge core-exotic">Exotic · Tri-Core</span><div class="gear-mods"><span class="t-g">Kill Confirmed</span><span class="mod-tag">Armor / Weapon / Skill Core</span><span class="mod-tag">+30% WD Long-term</span></div></div>
-    <div class="gear-card"><div class="gear-slot">Chest · Brand Piece</div><div class="gear-name">Ceska / Grupo / Fenris</div><span class="core-badge core-red">Red Core</span><div class="gear-mods"><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span><span class="t-g">Perfect Obliterate</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Perfect Obliterate: +1.5% WD per Crit (vs. 1% normal). Requires a Brand Piece chest — do NOT use a Striker Set chest here.</div></div>
-    <div class="gear-card"><div class="gear-slot">Gloves · Set Piece</div><div class="gear-name">Striker's Battlegear</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span></div></div>
-    <div class="gear-card named"><div class="gear-slot">Holster · Named ⭐ (BiS)</div><div class="gear-name">Picaro's Holster</div><span class="core-badge core-named">Named · Brazos de Arcabuz · Red Core</span><div class="gear-mods"><span class="t-g">+15% Weapon Damage (Perfect Attr.)</span><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Frees up the 5th Striker Set slot. +15% WD is stronger than the 5-piece set bonus. 4× Striker for Striker's Gamble is all you need.</div></div>
-    <div class="gear-card"><div class="gear-slot">Kneepads · Named ⭐ (BiS)</div><div class="gear-name">Fox's Prayer</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Crit Chance</span><span class="mod-tag">Crit Damage</span></div></div>
-  </div>
-  <div class="note-box note-g" style="margin-top:16px">* <strong>Coyote's Mask Alternative:</strong> Use Coyote's Mask as Exotic instead → replace Memento with a normal Backpack (e.g. Ceska/Grupo with Vigilance). Striker Mask is dropped → 3-piece bonus remains (no Striker's Gamble). Only recommended for players without Memento or with a pure Crit Chance focus.</div>
-</section>
-</div>
-<div class="sec" id="sec-6">
-<section>
-  <div class="sh"><div class="si">🌟</div><div class="st">Gear <span class="r">Talents</span></div></div>
-  <div class="divider"></div>
-  <div class="talent-list">
-    <div class="trow gold"><div class="src">4× Striker's Battlegear · Core Mechanic</div><div class="tname">Striker's Gamble</div><div class="tdesc">Every hit stacks +0.5% Weapon Damage (max 50 stacks = +25% multiplicative). With the 70+1 magazine, stacks build blazingly fast — this is the core DPS mechanic of the build.</div></div>
-    <div class="trow gold"><div class="src">Chest Talent · Brand Piece · Free Choice</div><div class="tname">Obliterate</div><div class="tdesc">Every critical hit increases Weapon Damage by 1% (additive). Brand Piece chest — talent is freely choosable. Works directly with Striker's Gamble stacks for massive sustained DPS.</div></div>
-    <div class="trow"><div class="src">Memento Exotic Backpack</div><div class="tname">Kill Confirmed</div><div class="tdesc">Kills drop trophies. Short-term: +5% WD per red core (10 sec). Long-term (30 kills): +30% Weapon Damage + up to 3% Armor Regen + 30% Skill Efficiency for 5 minutes. Outperforms Striker Backpack talent in sustained combat.</div></div>
-    <div class="trow"><div class="src">Memento Exotic Backpack</div><div class="tname">Kill Confirmed</div><div class="tdesc">Kills drop trophies. Short-term: +5% WD per red core (10 sec). Long-term (30 kills): +30% Weapon Damage, up to 3% Armor Regen, +30% Skill Efficiency for 5 minutes.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-7">
-<section>
-  <div class="sh"><div class="si">⚙️</div><div class="st">Skills <span class="r">/ Abilities</span></div></div>
-  <div class="divider"></div>
-  <div class="skills-grid">
-    <div class="skill-card"><span class="skill-ico">🎭</span><div class="skill-name">Decoy</div><div class="skill-desc">Distracts enemies, allows free repositioning and reloading without taking fire.</div></div>
-    <div class="skill-card"><span class="skill-ico">🤖</span><div class="skill-name">Striker Drone</div><div class="skill-desc">Adds additional damage and keeps enemies occupied. Ideal for Solo content.</div></div>
-    <div class="skill-card"><span class="skill-ico">🩹</span><div class="skill-name">Reviver Hive (Alt.)</div><div class="skill-desc">Automatic revive for Solo play. Safety net in tight situations on Legendary content.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-8">
-<section>
-  <div class="sh"><div class="si">📊</div><div class="st">Target <span class="r">Stats</span></div></div>
-  <div class="divider"></div>
-  <table class="stats-table">
-    <tr><th>Attribute</th><th>Target</th><th>Note</th></tr>
-    <tr><td><span class="sv" style="font-size:13px">Crit Chance</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">60% (Cap)</span></td><td>Highest priority</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Crit Damage</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Maximize</span></td><td>Stack after Crit Chance cap</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Weapon Damage Cores</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">All 6 Slots (Red)</span></td><td>For Striker & Memento buff</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Magazine Size</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">70+1</span></td><td>Fixed by Exotic mod</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Gear Mods</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Crit Chance / Crit Dmg</span></td><td>All free mod slots</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Shock Damage</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Auto-active</span></td><td>Via Actum Est — no setup needed</td></tr>
-  </table>
-</section>
-</div>
-<div class="sec" id="sec-9">
-<section>
-  <div class="sh"><div class="si">🌾</div><div class="st">Farming <span class="g">St. Elmo's Engine</span></div></div>
-  <div class="divider"></div>
-  <div class="card-grid">
-    <div class="gear-card named"><div class="gear-slot">Season Pass Level 90</div><div class="gear-name">Year 5 Season 1 Reward</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Unlock through the Year 5 Season 1 reward track. The safest and most reliable method.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Exotic Caches</div><div class="gear-name">Events & Season Activities</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Events and seasonal activities drop Exotic Caches with a chance to contain St. Elmo's Engine.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Targeted Loot</div><div class="gear-name">Summit / Countdown</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Check the map for SMG Targeted Loot. Play on Challenging+ for increased drop chances.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Blueprint (Level 91)</div><div class="gear-name">Craft Your Own</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Level 91 in the Season Pass unlocks the blueprint — allows you to craft the weapon yourself.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-10">
-<section>
-  <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
-  <div class="divider"></div>
-  <div class="tips">
-    <div class="tip gold"><strong class="g">Understand the Shock Cycle:</strong> The 70-round magazine means you automatically collect 100 hits in 1–2 mags. After reloading you immediately have the shock magazine — no manual effort required.</div>
-    <div class="tip"><strong class="r">Hold Striker Stacks:</strong> The large magazine makes it easier to maintain 50 Striker's Gamble stacks. Keep shooting continuously, don't interrupt — the damage bonus stacks multiplicatively.</div>
-    <div class="tip gold"><strong class="g">Thunder Strike Synergy:</strong> With Thunder Strike as a secondary talent you get +30–40% damage on stunned enemies. Since shock rounds stun enemies, this bonus is essentially permanent during shock magazines.</div>
-    <div class="tip"><strong class="r">Collect Memento Trophies:</strong> Always pick up Kill Confirmed trophies! The long-term buff (+30% Weapon Damage for 5 minutes) makes this build even stronger — and it's easy to maintain.</div>
-    <div class="tip gold"><strong class="g">⚠️ Group Note:</strong> If a teammate has Ongoing Directive active, their Hollow-Point ammo will override St. Elmo's shock rounds. Be aware of this in group play!</div>
-  </div>
-</section>
 </div>
 
+<div class="sec" id="sec-weapons">
+  <div class="sec-head"><span class="sec-num">03</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 3a3 3 0 0 0-3 3l-7 9a3 3 0 1 0 4 4l7-9a3 3 0 0 0 0-7z"/></svg></div><h2 class="sec-title">Weapon Slots</h2><div class="sec-line"></div></div>
+  <div class="note note-info">🔬 <strong>Specialization: Gunner</strong> — +10% Armor on Kill, +15% Fire Rate on Kill, Large Magazine. Synergizes with high-damage sustained fire playstyle.</div>
+  <div class="gear-list">
+    <div class="gr bis"><span class="gr-slot">Primary</span><div class="gr-info"><div class="gr-name">⭐ St. Elmo's Engine (BiS)</div><div class="gr-note">Exotic SMG · 70+1 Magazine · Actum Est — 100 stacks = Shock Magazine · +15% Crit Chance · +15% Crit Damage</div></div><span class="gr-tag" style="color:var(--gold);border-color:rgba(232,200,64,.4)">EXOTIC</span></div>
+    <div class="gr"><span class="gr-slot">Secondary</span><div class="gr-info"><div class="gr-name">GR9 / Any AR (Backup)</div><div class="gr-note">Recommended talents: Frenzy or Fast Hands · Thunder Strike (+30% damage on stunned enemies) pairs directly with shock rounds</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(232,168,32,.3)">AR</span></div>
+  </div>
+</div>
+
+<div class="sec" id="sec-gear">
+  <div class="sec-head"><span class="sec-num">04</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h2 class="sec-title">Gear Slots</h2><div class="sec-line"></div></div>
+  <div class="note note-info">⚠ <strong>Setup:</strong> 4× Striker (Mask + Gloves + Holster + Kneepads) + Memento Exotic Backpack + Brand Chest (Obliterate). Memento's Kill Confirmed (+30% WD) outperforms Striker Backpack in sustained combat.</div>
+  <div class="gear-list">
+    <div class="gr"><span class="gr-slot">Mask</span><div class="gr-info"><div class="gr-name">Striker's Battlegear</div><div class="gr-note">Red Core · Set · Weapon Damage · Crit Chance</div></div><span class="gr-tag" style="color:#3a8fff;border-color:rgba(58,143,255,.3)">SET</span></div>
+    <div class="gr"><span class="gr-slot">Chest</span><div class="gr-info"><div class="gr-name">Brand Piece (Ceska / Grupo / Fenris)</div><div class="gr-note">Red Core · Obliterate talent: +1% WD per Crit hit · Freely choosable</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(232,168,32,.3)">BRAND</span></div>
+    <div class="gr bis"><span class="gr-slot">Backpack</span><div class="gr-info"><div class="gr-name">Memento Exotic</div><div class="gr-note">Kill Confirmed — +30% WD long-term · +3% Armor Regen · Tri-Core</div></div><span class="gr-tag" style="color:var(--gold);border-color:rgba(232,200,64,.4)">EXOTIC</span></div>
+    <div class="gr"><span class="gr-slot">Gloves</span><div class="gr-info"><div class="gr-name">Striker's Battlegear</div><div class="gr-note">Red Core · Crit Chance · Crit Damage</div></div><span class="gr-tag" style="color:#3a8fff;border-color:rgba(58,143,255,.3)">SET</span></div>
+    <div class="gr"><span class="gr-slot">Holster</span><div class="gr-info"><div class="gr-name">Striker's Battlegear</div><div class="gr-note">Red Core · Crit Chance · Crit Damage</div></div><span class="gr-tag" style="color:#3a8fff;border-color:rgba(58,143,255,.3)">SET</span></div>
+    <div class="gr"><span class="gr-slot">Kneepads</span><div class="gr-info"><div class="gr-name">Striker's Battlegear</div><div class="gr-note">Red Core · Crit Damage · Weapon Damage</div></div><span class="gr-tag" style="color:#3a8fff;border-color:rgba(58,143,255,.3)">SET</span></div>
+  </div>
+</div>
+
+<div class="sec" id="sec-talents">
+  <div class="sec-head"><span class="sec-num">05</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h2 class="sec-title">Set Bonuses & Talents</h2><div class="sec-line"></div></div>
+  <div class="set-table">
+    <div class="st-row"><span class="st-pieces">2-piece</span><span class="st-bonus">+15% Weapon Handling</span></div>
+    <div class="st-row"><span class="st-pieces">3-piece</span><span class="st-bonus">+15% Weapon Handling & +15% Fire Rate</span></div>
+    <div class="st-row" style="border-color:rgba(232,168,32,.2)"><span class="st-pieces" style="color:#FFD060">4-piece</span><span class="st-bonus"><strong style="color:#fff">Striker's Gamble</strong> — Every hit: +0.5% WD (max 50 stacks = +25% WD). All stacks lost on empty mag or cover.</span></div>
+  </div>
+  <div class="talent-cards">
+    <div class="tc"><div class="tc-ico">⚡</div><div><div class="tc-name">Actum Est — St. Elmo's Engine</div><div class="tc-desc">Every hit grants +1 stack. At 100 stacks: next magazine loads with shock rounds — stun enemies and deal DoT. Shock rounds ignore 50% enemy armor.</div></div></div>
+    <div class="tc"><div class="tc-ico">🏆</div><div><div class="tc-name" style="color:#40c8b4">Kill Confirmed — Memento</div><div class="tc-desc">Kills drop trophies. Long-term: +30% WD, +3% Armor Regen, +30% Skill Efficiency for 5 minutes at 30 kills.</div></div></div>
+    <div class="tc"><div class="tc-ico">💥</div><div><div class="tc-name">Obliterate — Brand Chest Talent</div><div class="tc-desc">+1% WD per Crit hit. With Crit-heavy Striker setup this ramps up extremely fast and stays near-permanently maxed.</div></div></div>
+  </div>
+</div>
+
+<div class="sec" id="sec-skills">
+  <div class="sec-head"><span class="sec-num">06</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><h2 class="sec-title">Skills & Specialization</h2><div class="sec-line"></div></div>
+  <div class="skill-list">
+    <div class="sk"><div class="sk-ico">🛡️</div><div><div class="sk-name">Crusader Shield</div><div class="sk-desc">Primary protection. Enables safe sustained fire for Actum Est stack building. Boosted by Gunner Skill Tier.</div></div></div>
+    <div class="sk"><div class="sk-ico">🩹</div><div><div class="sk-name">Reviver Hive</div><div class="sk-desc">Auto-revive for Solo play. Essential on Heroic and Legendary content. Keep permanently.</div></div></div>
+    <div class="sk"><div class="sk-ico">🎭</div><div><div class="sk-name">Decoy (Alternative)</div><div class="sk-desc">Draws enemies for easier stacking. Useful when Memento Kill Confirmed stacks need refreshing.</div></div></div>
+  </div>
+</div>
+
+<div class="sec" id="sec-rotation">
+  <div class="sec-head"><span class="sec-num">07</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><h2 class="sec-title">Rotation & Playstyle</h2><div class="sec-line"></div></div>
+  <div class="rot-steps" style="margin-bottom:16px">
+    <div class="rstep"><div class="rn">1</div><div><div class="rb-skill">Engage continuously — build stacks</div><div class="rb-desc">Hold fire — every bullet adds +1 Actum Est stack. Never stop shooting. Striker stacks build simultaneously.</div></div></div>
+    <div class="rstep"><div class="rn">2</div><div><div class="rb-skill">Farm kills for Memento</div><div class="rb-desc">Each kill builds Kill Confirmed. At 30 kills: +30% WD + Armor Regen + Skill Efficiency for 5 minutes.</div></div></div>
+    <div class="rstep"><div class="rn" style="border-color:#FFD060;color:#FFD060">100</div><div><div class="rb-skill">100 stacks — Shock Magazine fires</div><div class="rb-desc">The 70-round shock magazine loads automatically. Stun everything in range — 50% armor pierce devastates elite enemies.</div></div></div>
+    <div class="rstep"><div class="rn">4</div><div><div class="rb-skill">Repeat cycle immediately</div><div class="rb-desc">After shock mag: stacks reset to 0. Keep shooting — build back to 100. The cycle is fast with St. Elmo's fire rate.</div></div></div>
+  </div>
+  <div class="note note-tip">💡 <strong>Never swap weapons mid-stack:</strong> Actum Est stacks persist through weapon swaps, but Striker's Gamble stacks reset on empty magazine — time your reloads carefully.</div>
+</div>
+
+<div class="sec" id="sec-stats">
+  <div class="sec-head"><span class="sec-num">08</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h2 class="sec-title">Target Stats</h2><div class="sec-line"></div></div>
+  <div class="stats-table">
+    <div class="stat-row"><span class="stat-attr">Crit Chance</span><span class="stat-target">≥ 50–60%</span><span class="stat-note">Priority — Striker's Gamble & Obliterate</span></div>
+    <div class="stat-row"><span class="stat-attr">Crit Damage</span><span class="stat-target">Maximize</span><span class="stat-note">After Crit Chance is capped</span></div>
+    <div class="stat-row"><span class="stat-attr">Weapon Damage</span><span class="stat-target">All Red Cores</span><span class="stat-note">Full red build recommended</span></div>
+    <div class="stat-row" style="border-color:rgba(232,168,32,.2)"><span class="stat-attr">Actum Est Stacks</span><span class="stat-target" style="color:#FFD060">100</span><span class="stat-note">= Shock Magazine activation</span></div>
+    <div class="stat-row"><span class="stat-attr">Gear Mods</span><span class="stat-target">Crit Chance / Dmg</span><span class="stat-note">All free mod slots</span></div>
+  </div>
+</div>
+
+<div class="sec" id="sec-tips">
+  <div class="sec-head"><span class="sec-num">09</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><h2 class="sec-title">Pro Tips</h2><div class="sec-line"></div></div>
+  <div class="tip-cards">
+    <div class="tip-card"><div class="tip-title">⚡ Shock Rounds Timing</div><div class="tip-text">Save the 100-stack shock magazine for dense elite packs or boss phases. The 50% armor pierce makes it devastating when timed well. Don't waste it on trash.</div></div>
+    <div class="tip-card"><div class="tip-title">🏆 Memento Management</div><div class="tip-text">Farm trash packs before boss rooms to reach 30 kills. Enter every boss encounter with full Kill Confirmed (+30% WD + Armor Regen) active for maximum burst.</div></div>
+    <div class="tip-card"><div class="tip-title">🔫 Secondary Weapon Choice</div><div class="tip-text">Thunder Strike on your secondary pairs perfectly with shock rounds — +30–40% damage on stunned enemies. Switch to secondary when enemies are stunned from the shock mag.</div></div>
+    <div class="tip-card"><div class="tip-title">🎯 Best Content</div><div class="tip-text">Heroic & Legendary Missions, The Summit, Countdown, all Raids. St. Elmo's + Striker combination is the #1 meta build in 2026 — viable and effective in all PvE content.</div></div>
+  </div>
+</div>
+<footer style="border-top:1px solid rgba(232,168,32,.15);padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">THE DIVISION 2 · ST. ELMO'S ENGINE · SHOCK DPS · #1 META 2026</footer>
 </div>
 <script>
-function ST(el) {
-  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
-  document.getElementById(el.dataset.sec).classList.add('on');
-  window.scrollTo(0, 0);
-}
+function ST(el){document.querySelectorAll('.tab-hero').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.getElementById(el.dataset.sec).classList.add('on');window.scrollTo(0,0)}
 </script>
 </body>
 </html>

@@ -3,437 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>The Division 2 – Bluescreen Build</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
-<style>
-:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(224,48,96,0.08) 0%,transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(232,168,32,0.05) 0%,transparent 45%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 2px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:0}
-.container{max-width:1100px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
-.back-btn{display:inline-flex;align-items:center;gap:8px;margin:20px 0;padding:8px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:.15s}
-.back-btn:hover{background:rgba(255,255,255,.1);color:#fff}
-header{padding:40px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;display:flex;align-items:center;gap:28px;animation:fadeDown .6s ease both}
-.hemblem{font-size:64px;animation:pulse 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{filter:drop-shadow(0 0 10px rgba(224,48,96,.75))}50%{filter:drop-shadow(0 0 28px rgba(224,48,96,1)) drop-shadow(0 0 40px rgba(232,168,32,.35))}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(24px,4vw,46px);color:var(--bright);text-transform:uppercase;letter-spacing:3px;line-height:1}
-h1 .r{color:var(--red)} h1 .g{color:var(--gold)} h1 .t{color:var(--teal)}
-.subtitle{margin-top:8px;font-size:12px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--red)}
-.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.badge{padding:3px 12px;border:1px solid;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
-.badge-pve{border-color:var(--teal);color:var(--teal)} .badge-dps{border-color:var(--red);color:var(--red)} .badge-tank{border-color:var(--gold);color:var(--gold)} .badge-dot{border-color:#b040f0;color:#b040f0} .badge-shock{border-color:#60c0ff;color:#60c0ff} .badge-meta{border-color:var(--gold);color:var(--gold)}
-section{margin-bottom:44px;animation:fadeUp .5s ease both}
-section:nth-child(2){animation-delay:.06s} section:nth-child(3){animation-delay:.12s} section:nth-child(4){animation-delay:.18s} section:nth-child(5){animation-delay:.24s} section:nth-child(6){animation-delay:.30s} section:nth-child(7){animation-delay:.36s} section:nth-child(8){animation-delay:.42s} section:nth-child(9){animation-delay:.48s} section:nth-child(10){animation-delay:.54s} section:nth-child(11){animation-delay:.60s}
-.sh{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.si{width:36px;height:36px;background:var(--dark4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
-.st{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:3px;color:var(--bright)}
-.st .r{color:var(--red)} .st .g{color:var(--gold)} .st .t{color:var(--teal)}
-.divider{height:1px;background:linear-gradient(90deg,var(--red) 0%,var(--gold) 35%,transparent 65%);margin:8px 0 24px;opacity:.35}
-p.body{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.gear-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px;transition:.2s;position:relative}
-.gear-card:hover{border-color:var(--red);box-shadow:var(--glow)}
-.gear-card.named{border-left-color:var(--gold)} .gear-card.named:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.exotic{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 60%)} .gear-card.exotic:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.blue{border-left-color:var(--teal)} .gear-card.blue:hover{border-color:var(--teal)}
-.gear-card.purple{border-left-color:#b040f0} .gear-card.purple:hover{border-color:#b040f0;box-shadow:0 0 16px rgba(176,64,240,.3)}
-.gear-slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:6px}
-.gear-card.named .gear-slot,.gear-card.exotic .gear-slot{color:var(--gold)} .gear-card.blue .gear-slot{color:var(--teal)} .gear-card.purple .gear-slot{color:#b040f0}
-.gear-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;color:var(--bright);margin-bottom:8px}
-.core-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.core-red{background:rgba(224,48,96,.12);color:var(--red);border:1px solid rgba(224,48,96,.4)}
-.core-named{background:rgba(232,168,32,.12);color:var(--gold);border:1px solid rgba(232,168,32,.4)}
-.core-exotic{background:linear-gradient(90deg,rgba(232,168,32,.15),rgba(224,48,96,.1));color:var(--gold);border:1px solid rgba(232,168,32,.45)}
-.core-blue{background:rgba(47,184,180,.1);color:var(--teal);border:1px solid rgba(47,184,180,.35)}
-.gear-mods{display:flex;flex-wrap:wrap;gap:5px}
-.mod-tag{font-size:10px;padding:2px 7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#8070a0}
-.t-r{font-size:11px;padding:2px 7px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.t-g{font-size:11px;padding:2px 7px;background:rgba(232,168,32,.08);border:1px solid rgba(232,168,32,.2);color:var(--gold)}
-.t-t{font-size:11px;padding:2px 7px;background:rgba(47,184,180,.08);border:1px solid rgba(47,184,180,.2);color:var(--teal)}
-.t-p{font-size:11px;padding:2px 7px;background:rgba(176,64,240,.08);border:1px solid rgba(176,64,240,.2);color:#c060ff}
-.wpn-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:14px}
-.wpn-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.15);padding:14px 16px;transition:.2s}
-.wpn-card:hover{border-color:rgba(255,255,255,.2)}
-.wpn-card.named-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 55%)} .wpn-card.named-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-card.exotic-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.08) 0%,rgba(224,48,96,.04) 55%,var(--dark3) 100%)} .wpn-card.exotic-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#6a5080;margin-bottom:6px}
-.wpn-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--bright);margin-bottom:3px}
-.wpn-type{font-size:12px;color:#6a5080;margin-bottom:10px}
-.wpn-talent{background:var(--dark4);border-left:3px solid var(--red);padding:9px 12px;margin-top:8px}
-.wpn-talent.gold-t{border-left-color:var(--gold)}
-.talent-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:4px}
-.wpn-talent.gold-t .talent-lbl{color:var(--gold)}
-.talent-txt{font-size:12px;line-height:1.55;color:#8070a0}
-.spec-card{background:var(--dark3);border:1px solid var(--border);padding:20px;display:flex;gap:20px;align-items:flex-start}
-.spec-ico{font-size:36px;flex-shrink:0}
-.spec-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--bright);letter-spacing:1px;margin-bottom:8px}
-.spec-desc{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.perks{display:flex;flex-wrap:wrap;gap:6px}
-.perk{font-size:11px;padding:3px 10px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.talent-list{display:flex;flex-direction:column;gap:12px}
-.trow{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;transition:.2s}
-.trow:hover{border-color:var(--red);box-shadow:var(--glow)}
-.trow.gold{border-left-color:var(--gold)} .trow.gold:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.trow .src{font-size:10px;color:#6a5080;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.trow .tname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);margin-bottom:4px}
-.trow.gold .tname{color:var(--gold)}
-.trow .tdesc{font-size:12px;line-height:1.55;color:#8070a0}
-.stats-table{width:100%;border-collapse:collapse;font-size:13px}
-.stats-table th{text-align:left;padding:10px 14px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:11px;border-bottom:1px solid var(--border)}
-.stats-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.stats-table tr:hover td{background:rgba(255,255,255,.02)}
-.sv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red)}
-.sl{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;display:block;margin-top:2px}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.skill-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px;text-align:center}
-.skill-ico{font-size:28px;display:block;margin-bottom:10px}
-.skill-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:6px}
-.skill-desc{font-size:12px;color:#7a6080;line-height:1.5}
-.note-box{padding:13px 16px;font-size:13px;line-height:1.6;margin-bottom:12px}
-.note-r{background:rgba(224,48,96,.06);border:1px solid rgba(224,48,96,.2);color:#c87080} .note-r strong{color:var(--red)}
-.note-g{background:rgba(232,168,32,.06);border:1px solid rgba(232,168,32,.2);color:#b09040} .note-g strong{color:var(--gold)}
-.note-t{background:rgba(47,184,180,.06);border:1px solid rgba(47,184,180,.2);color:#50a09a} .note-t strong{color:var(--teal)}
-.tips{display:flex;flex-direction:column;gap:10px}
-.tip{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;font-size:13px;line-height:1.6}
-.tip.gold{border-left-color:var(--gold)} .tip.teal{border-left-color:var(--teal)}
-.tip strong.r{color:var(--red)} .tip strong.g{color:var(--gold)} .tip strong.t{color:var(--teal)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px}
-.legend-item{display:flex;align-items:center;gap:7px;font-size:12px}
-.ldot{width:10px;height:10px;border-radius:50%}
-/* Cycle boxes */
-.cycle-box{background:var(--dark3);border:1px solid rgba(224,48,96,.3);padding:20px;display:grid;gap:0;position:relative;overflow:hidden}
-.cycle-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,48,96,.05) 0%,transparent 50%,rgba(232,168,32,.03) 100%);pointer-events:none}
-.cycle-step{padding:16px;text-align:center;position:relative}
-.cnum{width:40px;height:40px;border-radius:50%;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--red);margin:0 auto 10px}
-.ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);text-transform:uppercase;letter-spacing:1px}
-.cval{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--gold);margin:4px 0 2px}
-.cdesc{font-size:11px;color:#7a6080;margin-top:5px;line-height:1.5}
-/* strengths/weaknesses */
-.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.sw-box{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px}
-.sw-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
-.sw-title.green{color:#64c864} .sw-title.red{color:var(--red)}
-.sw-item{font-size:12px;line-height:1.6;padding:4px 0;color:var(--text);display:flex;gap:8px}
-.sw-item span{flex-shrink:0}
-/* Leveling phases */
-.phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:16px;margin-bottom:12px}
-.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.phase-num{width:32px;height:32px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red);flex-shrink:0}
-.phase-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);letter-spacing:.5px}
-.phase-sub{font-size:11px;color:var(--gold);margin-top:2px}
-.phase-desc{font-size:12px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.gem-list{display:flex;flex-direction:column;gap:6px}
-.gem-row{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--dark4);border:1px solid rgba(255,255,255,.04)}
-.gem-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);min-width:140px;flex-shrink:0}
-.gem-supports{font-size:11px;color:#8070a0;line-height:1.4}
-.passive-box{background:var(--dark4);border:1px solid rgba(232,168,32,.15);padding:10px 14px;margin-top:10px;font-size:12px;color:#8070a0;line-height:1.6}
-/* Passive tree */
-.passive-phase{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.pp-row{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:var(--dark4);border:1px solid rgba(255,255,255,.04);font-size:12px}
-.pp-name{color:var(--text)}
-.pp-pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:13px}
-/* Ascendancy */
-.asc-list{display:flex;flex-direction:column;gap:10px}
-.asc-item{display:flex;gap:14px;align-items:flex-start;background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px}
-.asc-num{width:28px;height:28px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--red);flex-shrink:0}
-.asc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:4px}
-.asc-when{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.asc-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Rotation */
-.rotation-steps{display:flex;flex-direction:column;gap:8px}
-.rstep{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--dark3);border:1px solid rgba(255,255,255,.04)}
-.rstep-n{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--red);width:24px;flex-shrink:0}
-.rstep-body{}
-.rstep-skill{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);margin-bottom:3px}
-.rstep-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Equipment table */
-.equip-table{width:100%;border-collapse:collapse;font-size:12px}
-.equip-table th{text-align:left;padding:8px 12px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:10px;border-bottom:1px solid var(--border)}
-.equip-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.equip-table tr:hover td{background:rgba(255,255,255,.02)}
-.item-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);display:flex;align-items:center;gap:6px}
-.item-note{font-size:11px;color:#7a6080;margin-top:4px;line-height:1.4}
-.item-badge{font-size:9px;padding:1px 6px;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.3);color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.item-badge.req{background:rgba(224,48,96,.1);border-color:rgba(224,48,96,.3);color:var(--red)}
-footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:#4a3858;letter-spacing:2px;text-transform:uppercase}
-
-
-/* ── TAB SYSTEM ── */
-.tab-bar-hero{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
-  padding:14px 16px 4px;
-}
-.tab-hero{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:7px 12px;cursor:pointer;flex-shrink:0;
-  border-radius:8px;border:1px solid rgba(0,0,0,.15);
-  background:rgba(255,255,255,.03);
-  border-bottom:2px solid transparent;transition:.2s;
-}
-.tab-hero:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
-.tab-hero.on{border-color:#4A9AE040;border-bottom-color:#4A9AE0;background:#4A9AE012}
+<title>Bluescreen</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{--ac:#4A9AE0;--bg:#040810;--s1:#060c12;--text:#d0e8f8;--muted:#507090;--muted2:#203040;--gold:#E8C840;--teal:#40c8b4;--green:#40c060;--red:#e04060}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0) 1px,transparent 1px);background-size:44px 44px;animation:bgshift 30s linear infinite;background-image:linear-gradient(#4A9AE00d 1px,transparent 1px),linear-gradient(90deg,#4A9AE00d 1px,transparent 1px)}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 0%,#4A9AE01f 0%,transparent 100%)}
+@keyframes bgshift{from{background-position:0 0}to{background-position:44px 44px}}
+@keyframes hudpulse{0%,100%{opacity:.7}50%{opacity:1}}
+@keyframes scanline{0%{transform:translateY(-20px)}100%{transform:translateY(110px)}}
+.wrap{max-width:660px;margin:0 auto;padding:0 16px 60px;position:relative;z-index:1}
+.hero{padding:28px 0 20px;text-align:center}
+.hero-icon{width:90px;height:90px;margin:0 auto 20px}
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:#4A9AE099;margin-bottom:6px;text-transform:uppercase}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(26px,6vw,40px);font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.hero-title em,.hero-title .t2{color:#4A9AE0;font-style:normal}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.hero-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.htag{font-size:9px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
+.hero-bars{display:flex;justify-content:center;gap:20px}
+.hb{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
+.hb-track{width:48px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.hb-fill{height:100%;border-radius:2px}
+.hb-label{font-size:7px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.hb-val{font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+.tab-bar-hero{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;padding:16px 16px 4px}
+.tab-hero{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px;cursor:pointer;flex-shrink:0;border-radius:8px;border:1px solid #4A9AE01a;background:#4A9AE00a;border-bottom:2px solid transparent;transition:.2s}
+.tab-hero:hover{background:#4A9AE01a;border-color:#4A9AE099}
+.tab-hero.on{border-color:#4A9AE099;border-bottom-color:#4A9AE0;background:#4A9AE01a}
 .tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
-.tab-ico svg{width:14px;height:14px;color:#666;transition:.2s}
-.tab-hero.on .tab-ico svg{color:#4A9AE0;filter:drop-shadow(0 0 3px #4A9AE080)}
-.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
-  color:#444;transition:.2s;white-space:nowrap}
+.tab-ico svg{width:14px;height:14px;color:#203040;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#4A9AE0;filter:drop-shadow(0 0 3px #4A9AE0#4A9AE01f)}
+.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#203040;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
 .tab-hero.on .tab-lbl{color:#4A9AE0}
-.sec{display:none}
-.sec.on{display:block}
-</style>
+.sec{display:none}.sec.on{display:block}
+.div{height:1px;background:linear-gradient(90deg,transparent,#4A9AE0,#4A9AE099,transparent);margin:20px 0;position:relative}
+.div-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#4A9AE0;border-radius:50%;box-shadow:0 0 8px #4A9AE0}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid #4A9AE099;background:#4A9AE00a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-ico svg{width:16px;height:16px;color:#4A9AE0}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:#4A9AE033;letter-spacing:1px}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,#4A9AE099,transparent)}
+.info-block{background:var(--s1);border:1px solid #4A9AE033;border-left:3px solid #4A9AE0;border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.info-block::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,#4A9AE014,transparent 70%);pointer-events:none}
+.info-block p{font-size:12px;color:#d0e8f899;line-height:1.75}
+.info-block p+p{margin-top:8px}
+.kw{color:#4A9AE0;font-weight:700}.kw2{color:#4A9AE099;font-weight:700}.kw3{color:var(--gold);font-weight:700}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sw-box{background:var(--s1);border:1px solid;border-radius:8px;padding:11px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#507090;line-height:1.5;margin-bottom:3px}
+.sw-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.note{padding:9px 12px;border-radius:6px;font-size:11px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
+.note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#c04060}
+.note-info{background:#4A9AE014;border-color:#4A9AE099;color:#4A9AE099}
+.note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
+.note-gold{background:rgba(232,200,64,.05);border-color:rgba(232,200,64,.3);color:#a08020}
+.cycle{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.cycle-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
+.cycle-n{width:32px;height:32px;border-radius:50%;border:2px solid #4A9AE0;background:#4A9AE014;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#4A9AE0;flex-shrink:0}
+.cycle-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.cycle-sub{font-size:11px;color:#507090;line-height:1.4}
+.cycle-badge{font-size:9px;padding:2px 8px;border-radius:3px;background:#4A9AE014;border:1px solid #4A9AE099;color:#4A9AE0;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start;margin-left:auto}
+.gear-list{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.gr{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px;transition:.15s}
+.gr:hover{border-color:#4A9AE033}
+.gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
+.gr.named{border-color:rgba(192,96,255,.2)}
+.gr-slot{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);width:60px;flex-shrink:0;padding-top:2px}
+.gr-info{flex:1}
+.gr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.gr.bis .gr-name{color:var(--gold)}.gr.named .gr-name{color:#c060ff}
+.gr-note{font-size:10px;color:var(--muted2);line-height:1.35}
+.gr-tag{font-size:8px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+.talent-cards{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.tc{background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+.tc-ico{font-size:18px;flex-shrink:0;line-height:1.3}
+.tc-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#4A9AE0;margin-bottom:3px}
+.tc-desc{font-size:11px;color:#507090;line-height:1.5}
+.set-table{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.st-row{display:grid;grid-template-columns:80px 1fr;gap:10px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.st-pieces{font-family:'Share Tech Mono',monospace;font-size:10px;color:#4A9AE0;font-weight:700}
+.st-bonus{font-size:11px;color:#d0e8f899;line-height:1.4}
+.skill-list{display:flex;flex-direction:column;gap:5px}
+.sk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:9px;transition:.15s;position:relative;overflow:hidden}
+.sk:hover{border-color:#4A9AE033}
+.sk-ico{font-size:20px;flex-shrink:0;line-height:1.3}
+.sk-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.sk-desc{font-size:11px;color:#507090;line-height:1.4}
+.stats-table{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.stat-row{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.stat-attr{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#fff}
+.stat-target{font-family:'Share Tech Mono',monospace;font-size:11px;color:#4A9AE0}
+.stat-note{font-size:10px;color:var(--muted2)}
+.lv-track{position:relative;padding-left:22px}
+.lv-track::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,#4A9AE0,#4A9AE099,transparent)}
+.lv-ph{position:relative;margin-bottom:17px}
+.lv-ph::before{content:'';position:absolute;left:-18px;top:5px;width:8px;height:8px;border-radius:50%;border:2px solid #4A9AE0;background:var(--bg);z-index:1}
+.lv-ph.hi::before{background:#4A9AE0;box-shadow:0 0 7px #4A9AE0}
+.lv-tag{font-size:8px;color:#4A9AE033;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px}
+.lv-t{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.lv-d{font-size:11px;color:#507090;line-height:1.6;margin-bottom:6px}
+.lv-gems{display:flex;flex-direction:column;gap:3px;margin-bottom:5px}
+.lgr{display:flex;align-items:center;gap:7px;padding:3px 8px;background:rgba(255,255,255,.03);border-radius:4px;border:1px solid rgba(255,255,255,.04)}
+.lgr.hi{border-color:#4A9AE033;background:#4A9AE014}
+.lgr-n{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;min-width:120px;color:#fff}
+.lgr-ss{display:flex;flex-wrap:wrap;gap:2px}
+.lgr-s{font-size:8px;padding:1px 4px;border-radius:2px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.lgr-s.gold{border-color:rgba(232,200,64,.3);color:var(--gold)}
+.lv-pts{font-size:9px;color:var(--muted2);border-top:1px solid rgba(255,255,255,.04);padding-top:4px;margin-top:3px}
+.tree-list{display:flex;flex-direction:column;gap:4px}
+.tr{display:flex;align-items:center;gap:12px;padding:7px 10px;background:var(--s1);border-radius:5px;border:1px solid rgba(255,255,255,.04)}
+.tr.hi{border-color:rgba(232,200,64,.18)}
+.tr-range{font-family:'Share Tech Mono',monospace;font-size:10px;color:#4A9AE0;min-width:80px;flex-shrink:0}
+.tr.hi .tr-range{color:var(--gold)}
+.tr-desc{font-size:11px;color:#d0e8f899;flex:1}
+.tr-pts{font-size:9px;color:var(--muted2);flex-shrink:0}
+.rot-block{margin-bottom:16px}
+.rot-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rot-ico{width:22px;height:22px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center}
+.rot-ico svg{width:12px;height:12px}
+.rot-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+.rot-steps{display:flex;flex-direction:column;gap:5px}
+.rstep{display:flex;gap:10px;align-items:flex-start}
+.rn{width:22px;height:22px;border-radius:50%;border:1px solid #4A9AE0;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;color:#4A9AE0;flex-shrink:0;margin-top:1px}
+.rb-skill{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:1px}
+.rb-desc{font-size:11px;color:#507090;line-height:1.4}
+.asc-flow{position:relative;padding-left:20px}
+.asc-flow::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,#4A9AE0,#4A9AE099,transparent)}
+.asc-item{position:relative;margin-bottom:14px;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.asc-item::before{content:'';position:absolute;left:-14px;top:7px;width:8px;height:8px;border-radius:50%;border:2px solid #4A9AE0;background:var(--bg);z-index:1}
+.asc-item.gold::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px var(--gold)}
+.asc-step{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);line-height:1.4}
+.asc-when{font-size:8px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;font-family:'Share Tech Mono',monospace}
+.asc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
+.asc-desc{font-size:11px;color:#507090;line-height:1.5}
+.tip-cards{display:flex;flex-direction:column;gap:6px}
+.tip-card{background:var(--s1);border:1px solid #4A9AE033;border-radius:8px;padding:12px 14px}
+.tip-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#4A9AE0;margin-bottom:4px}
+.tip-text{font-size:11px;color:#507090;line-height:1.55}
+.priority-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.pr{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:flex-start;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px}
+.pr-n{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:900;color:#4A9AE0;text-align:center}
+.pr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.pr-desc{font-size:10px;color:#507090;line-height:1.4}
+.pr-badge{font-size:8px;padding:2px 6px;border-radius:3px;border:1px solid #4A9AE099;color:#4A9AE0;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start}</style>
 </head>
 <body>
-<div class="container">
-<a class="back-btn" href="gaming-builds-app.html">← Back to Build Hub</a>
-
-<header>
-  <div class="hemblem" style="filter:drop-shadow(0 0 20px rgba(32,120,255,0.9))">💻</div>
-  <div>
-    <h1>Blue<span class="r">screen</span> <span class="g">Build</span></h1>
-    <h1 style="font-size:clamp(14px,2vw,22px);letter-spacing:2px;margin-top:4px"><span class="t">Tipping Scales</span> · Disruptor LMG · Y8S1</h1>
-    <div class="subtitle">The Division 2 · Exotic LMG · Year 8 Season 1 · 2026</div>
-    <div class="badges">
-      <span class="badge badge-pve">PvE</span>
-      <span class="badge badge-dps">High DPS</span>
-      <span class="badge badge-dot">Disruptor</span>
-      <span class="badge badge-meta">Y8S1 Meta</span>
-    </div>
-  </div>
-</header>
-
+<div class="wrap">
+<div class="hero">
+  <div class="hero-icon"><svg viewBox="0 0 90 90" fill="none">
+  <rect x="8" y="18" width="74" height="54" rx="5" fill="none" stroke="#4A9AE0" stroke-width="2" style="animation:hudpulse 2s ease-in-out infinite"/>
+  <rect x="14" y="24" width="62" height="42" rx="3" fill="none" stroke="#4A9AE0" stroke-width="1" opacity=".4"/>
+  <rect x="14" y="30" width="62" height="3" fill="#4A9AE0" opacity=".15" style="animation:scanline 3s linear infinite"/>
+  <text x="45" y="46" text-anchor="middle" font-family="monospace" font-size="10" fill="#4A9AE0" style="animation:hudpulse 1.5s ease-in-out infinite">BSOD</text>
+  <text x="45" y="58" text-anchor="middle" font-family="monospace" font-size="7" fill="#4A9AE0" opacity=".6">0x0000FE</text>
+  <line x1="18" y1="66" x2="72" y2="66" stroke="#4A9AE0" stroke-width="1" opacity=".3"/>
+  <line x1="32" y1="72" x2="58" y2="72" stroke="#4A9AE0" stroke-width="2.5"/>
+  <line x1="38" y1="72" x2="38" y2="78" stroke="#4A9AE0" stroke-width="2"/>
+  <line x1="52" y1="72" x2="52" y2="78" stroke="#4A9AE0" stroke-width="2"/>
+  <rect x="30" y="78" width="30" height="4" rx="2" fill="#4A9AE0" opacity=".3"/>
+</svg></div>
+  <div class="hero-pre">▶ The Division 2 · PvE Build · Year 8 Season 1</div>
+  <h1 class="hero-title">Blue<em>screen</em></h1>
+  <div class="hero-sub">Exotic LMG · Disruptor · Tipping Scales · Y8S1</div>
+  <div class="hero-tags"><span class="htag" style="color:#FFD700;border-color:rgba(255,215,0,.3)">S-TIER</span><span class="htag" style="color:#4A9AE0;border-color:#4A9AE04d">DISRUPTOR</span><span class="htag" style="color:#a060ff;border-color:rgba(160,96,255,.3)">CC + DPS</span><span class="htag" style="color:#50c8b4;border-color:rgba(80,200,180,.3)">Y8S1</span></div>
+  <div class="hero-bars"><div class="hb"><div class="hb-val" style="color:#ff6060">5★</div><div class="hb-track"><div class="hb-fill" style="width:93%;background:#ff6060"></div></div><div class="hb-label">DPS</div></div><div class="hb"><div class="hb-val" style="color:#60a0ff">3★</div><div class="hb-track"><div class="hb-fill" style="width:70%;background:#60a0ff"></div></div><div class="hb-label">SURV</div></div><div class="hb"><div class="hb-val" style="color:#40c8b4">4★</div><div class="hb-track"><div class="hb-fill" style="width:78%;background:#40c8b4"></div></div><div class="hb-label">SPD</div></div><div class="hb"><div class="hb-val" style="color:#E8C840">3★</div><div class="hb-track"><div class="hb-fill" style="width:65%;background:#E8C840"></div></div><div class="hb-label">EASE</div></div></div>
+</div>
 <div class="tab-bar-hero">
-  <div class="tab-hero on" data-sec="sec-0" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-    <div class="tab-lbl">Build Overvi…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-1" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Disruptor Ro…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-2" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Weapon Slots</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-3" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
-    <div class="tab-lbl">Specializati…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-4" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Gear Slots ·…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-5" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Tipping Scal…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-6" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
-    <div class="tab-lbl">Key Talents</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-7" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Skills / Abi…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-8" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
-    <div class="tab-lbl">Target Stats</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-9" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Farming Blue…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-10" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Pro Tips</div>
-  </div>
+  <div class="tab-hero on" data-sec="sec-overview" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="tab-lbl">Overview</div></div>
+  <div class="tab-hero" data-sec="sec-mechanic" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div class="tab-lbl">Mechanic</div></div>
+  <div class="tab-hero" data-sec="sec-weapons" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 3a3 3 0 0 0-3 3l-7 9a3 3 0 1 0 4 4l7-9a3 3 0 0 0 0-7z"/></svg></div><div class="tab-lbl">Weapons</div></div>
+  <div class="tab-hero" data-sec="sec-gear" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tab-lbl">Gear</div></div>
+  <div class="tab-hero" data-sec="sec-talents" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="tab-lbl">Talents</div></div>
+  <div class="tab-hero" data-sec="sec-skills" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><div class="tab-lbl">Skills</div></div>
+  <div class="tab-hero" data-sec="sec-rotation" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><div class="tab-lbl">Rotation</div></div>
+  <div class="tab-hero" data-sec="sec-stats" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="tab-lbl">Stats</div></div>
+  <div class="tab-hero" data-sec="sec-tips" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div class="tab-lbl">Pro Tips</div></div>
+</div>
+<div class="div"><div class="div-dot"></div></div>
+<div class="sec on" id="sec-overview"><div class="sec-head"><span class="sec-num">01</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h2 class="sec-title">Build Overview</h2><div class="sec-line"></div></div>
+<div class="info-block"><p>The <span class="kw">Bluescreen</span> build combines the Exotic Bluescreen LMG with the new <span class="kw">Tipping Scales</span> gear set. The Disruptor Rounds talent marks every enemy hit and builds stacks — at 50 stacks the detonation disorients all marked enemies in a <span class="kw3">10-meter AoE radius</span> simultaneously.</p><p>Playstyle: Sustained LMG fire, build Disruptor stacks quickly, detonate on demand via skill use or kill. Tipping Scales amplifies weapon damage multiplicatively with every kill — snowballing hard in dense groups. <strong style="color:#fff">How to get Bluescreen:</strong> Guaranteed first drop from Jefferson Trade Center SHD Mission (Manhunt: Captain Lewis).</p></div>
+<div class="sw"><div class="sw-box" style="border-color:#40c06033"><div class="sw-title" style="color:#40c060">✓ Strengths</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Guaranteed first drop from Jefferson TC</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>CC + DPS in 10m AoE simultaneously</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Tipping Scales snowballs hard in groups</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Frenzy + Measured on secondary = near-100% uptime</div></div><div class="sw-box" style="border-color:#e0406033"><div class="sw-title" style="color:#e04060">✗ Weaknesses</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>No shield skills — they don't trigger detonation</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Stack building takes a few seconds</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Secondary ~300 rounds required — specific farming</div></div></div>
+</div>
+<div class="sec" id="sec-mechanic"><div class="sec-head"><span class="sec-num">02</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h2 class="sec-title">Disruptor Rounds Cycle</h2><div class="sec-line"></div></div>
+<div class="cycle"><div class="cycle-step"><div class="cycle-n">1</div><div><div class="cycle-title">Mark & Stack — +1 per hit</div><div class="cycle-sub">Every bullet marks the target and adds +1 Disruptor stack. Up to 50 stacks total. Shooting a marked enemy refreshes the mark.</div></div><span class="cycle-badge">MARK</span></div>
+<div class="cycle-step"><div class="cycle-n">50</div><div><div class="cycle-title">50 Stacks → Detonate!</div><div class="cycle-sub">Use any non-shield skill OR get a kill on a marked enemy → all stacks detonate instantly. No need to wait for max stacks.</div></div><span class="cycle-badge">DETONATE</span></div>
+<div class="cycle-step"><div class="cycle-n">💥</div><div><div class="cycle-title">10m AoE Burst</div><div class="cycle-sub">All marked enemies within 10m are simultaneously disrupted and disoriented. Crowd control + massive damage burst.</div></div><span class="cycle-badge">CC + DMG</span></div>
+</div>
+<div class="note note-tip">💡 <strong>Pro Tip:</strong> You don't need to wait for 50 stacks. In dense groups kill any marked enemy immediately — the AoE hits everything nearby. Build to 50 only for single target maximum burst.</div>
+<div class="note note-warn">⚠ <strong>No Shield Skills!</strong> Disruptor Rounds specifically requires <em>any non-shield skill</em>. Ballistic Shield and Crusader Shield do NOT trigger the detonation.</div>
+</div>
+<div class="sec" id="sec-weapons"><div class="sec-head"><span class="sec-num">03</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 3a3 3 0 0 0-3 3l-7 9a3 3 0 1 0 4 4l7-9a3 3 0 0 0 0-7z"/></svg></div><h2 class="sec-title">Weapon Slots</h2><div class="sec-line"></div></div>
+<div class="note note-info">🔧 <strong>Specialization: Gunner</strong> — +10% Armor on Kill, +15% Fire Rate on Kill, Large LMG Magazine. Synergizes directly with sustained fire playstyle.</div>
+<div class="gear-list"><div class="gr bis"><span class="gr-slot">Primary</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">⭐ Bluescreen LMG (BiS)</div><div class="gr-note">Exotic · Stoner LAMG · 200-Round Magazine · 580 RPM · Disruptor Rounds: +1 stack/hit → 50 stacks = AoE detonation</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">EXOTIC</span></div>
+<div class="gr"><span class="gr-slot">Secondary</span><div class="gr-info"><div class="gr-name">MK46 / Any LMG (~300 rounds)</div><div class="gr-note">Frenzy + Measured talents · ~300 round mag keeps both active permanently · Sweet spot: Frenzy at start, Measured at end — no dead period</div></div><span class="gr-tag" style="color:#4A9AE0;border-color:#4A9AE066">LMG</span></div>
+</div>
+<div class="note note-gold">💡 <strong>Magazine Size:</strong> Secondary should have ~300 rounds. Too large = Frenzy inactive mid-mag. Too small = too many reloads. 300 rounds is the permanent Frenzy + Measured sweet spot.</div>
+</div>
+<div class="sec" id="sec-gear"><div class="sec-head"><span class="sec-num">04</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h2 class="sec-title">Gear Slots</h2><div class="sec-line"></div></div>
+<div class="note note-info">⚙ <strong>Setup:</strong> 4× Tipping Scales (Backpack + Chest + Gloves + Kneepads) + Tinkerer Named Mask + Salvo Named Holster. All red cores.</div>
+<div class="gear-list"><div class="gr named"><span class="gr-slot">Mask</span><div class="gr-info"><div class="gr-name" style="color:#c060ff">⭐ Tinkerer Named (BiS)</div><div class="gr-note">Blatza talent: scales with armor — over 1.1M armor recommended. Key damage multiplier. Do not swap.</div></div><span class="gr-tag" style="color:#c060ff;border-color:#c060ff66">NAMED</span></div>
+<div class="gr"><span class="gr-slot">Backpack</span><div class="gr-info"><div class="gr-name">Tipping Scales</div><div class="gr-note">Red Core · Set Talent · Weapon Damage · Crit Chance</div></div><span class="gr-tag" style="color:#3a8fff;border-color:#3a8fff66">SET</span></div>
+<div class="gr"><span class="gr-slot">Chest</span><div class="gr-info"><div class="gr-name">Tipping Scales</div><div class="gr-note">Red Core · Fixed Set Talent · Weapon Damage · Crit Damage</div></div><span class="gr-tag" style="color:#3a8fff;border-color:#3a8fff66">SET</span></div>
+<div class="gr"><span class="gr-slot">Gloves</span><div class="gr-info"><div class="gr-name">Tipping Scales</div><div class="gr-note">Red Core · Weapon Damage · Crit Chance</div></div><span class="gr-tag" style="color:#3a8fff;border-color:#3a8fff66">SET</span></div>
+<div class="gr named"><span class="gr-slot">Holster</span><div class="gr-info"><div class="gr-name" style="color:#c060ff">⭐ Salvo Named (BiS)</div><div class="gr-note">Unit Alloys Brand · +5% Rate of Fire (Perfect Attr.) · Weapon Damage · Crit Damage · Best-in-slot for any LMG build</div></div><span class="gr-tag" style="color:#c060ff;border-color:#c060ff66">NAMED</span></div>
+<div class="gr"><span class="gr-slot">Kneepads</span><div class="gr-info"><div class="gr-name">Tipping Scales</div><div class="gr-note">Red Core · Weapon Damage · Crit Chance · Completes 4-piece bonus</div></div><span class="gr-tag" style="color:#3a8fff;border-color:#3a8fff66">SET</span></div>
+</div>
+</div>
+<div class="sec" id="sec-talents"><div class="sec-head"><span class="sec-num">05</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h2 class="sec-title">Set Bonuses & Key Talents</h2><div class="sec-line"></div></div>
+<div class="set-table"><div class="st-row"><span class="st-pieces">2-piece</span><span class="st-bonus">+15% LMG Damage</span></div>
+<div class="st-row"><span class="st-pieces">3-piece</span><span class="st-bonus">+15% Weapon Handling & +10% Fire Rate</span></div>
+<div class="st-row"><span class="st-pieces">4-piece</span><span class="st-bonus"><strong style='color:#fff'>Kills scale WD multiplicatively</strong> — the longer the kill chain the higher the damage. Snowballs hard in dense groups.</span></div>
+</div>
+<div class="talent-cards"><div class="tc"><div class="tc-ico">🎯</div><div><div class="tc-name">Blatza — Tinkerer Mask</div><div class="tc-desc">Named talent that scales with armor. Requires 1.1M+ armor for maximum efficiency. Key multiplier — do not replace this mask.</div></div></div>
+<div class="tc"><div class="tc-ico">⚡</div><div><div class="tc-name">+5% Rate of Fire — Salvo Holster</div><div class="tc-desc">Unique Perfect Attribute applies to all weapons permanently. Directly increases DPS and lowers time-to-kill. Best-in-slot for any LMG build.</div></div></div>
+<div class="tc"><div class="tc-ico">🔫</div><div><div class="tc-name" style="color:#60a0ff">Frenzy + Measured — Secondary LMG</div><div class="tc-desc">Frenzy: +15% WD + Fire Rate at start. Measured: damage at end. ~300 round mag = near-permanent uptime on both.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-skills"><div class="sec-head"><span class="sec-num">06</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><h2 class="sec-title">Skills</h2><div class="sec-line"></div></div>
+<div class="note note-warn">⚠ Always use Reviver Hive or Decoy. Never Crusader Shield or Ballistic Shield — shield skills do NOT trigger Disruptor detonation.</div>
+<div class="skill-list"><div class="sk"><div class="sk-ico">🩹</div><div><div class="sk-name">Reviver Hive</div><div class="sk-desc">Auto-revive for Solo. Also triggers Disruptor detonation when activated — double benefit.</div></div></div>
+<div class="sk"><div class="sk-ico">🎭</div><div><div class="sk-name">Decoy</div><div class="sk-desc">Draws enemies away + activates Disruptor detonation on use. Great for repositioning mid-fight.</div></div></div>
+<div class="sk"><div class="sk-ico">🤖</div><div><div class="sk-name">Striker Drone (Group Alt.)</div><div class="sk-desc">Additional DPS + triggers detonation when deployed. Good for group play where survivability is less critical.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-rotation"><div class="sec-head"><span class="sec-num">07</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><h2 class="sec-title">Rotation & Playstyle</h2><div class="sec-line"></div></div>
+<div class="rot-steps" style="margin-bottom:12px"><div class="rstep"><div class="rn">1</div><div><div class="rb-skill">Engage with Bluescreen — build stacks</div><div class="rb-desc">Every bullet marks and stacks. Dense packs reach 50 stacks in seconds — no need to think about it.</div></div></div>
+<div class="rstep"><div class="rn">2</div><div><div class="rb-skill">Kill any marked enemy OR use Decoy/Hive</div><div class="rb-desc">Detonation triggers on any of these. In groups: kill for instant chain. Solo boss: use skill for controlled burst.</div></div></div>
+<div class="rstep"><div class="rn">3</div><div><div class="rb-skill">10m AoE disorients everything</div><div class="rb-desc">All marked enemies disrupted simultaneously. Swap to secondary during detonation recovery for Frenzy uptime.</div></div></div>
+<div class="rstep"><div class="rn">4</div><div><div class="rb-skill">Secondary LMG during Bluescreen reload</div><div class="rb-desc">Frenzy + Measured keeps DPS going. Refreshes kill chain for Tipping Scales snowball.</div></div></div>
+</div>
+<div class="note note-tip">💡 <strong>Tipping Scales snowball:</strong> Start fights by killing the weakest enemy first. Each kill ramps WD multiplicatively — enter boss phases with full stack momentum.</div>
+</div>
+<div class="sec" id="sec-stats"><div class="sec-head"><span class="sec-num">08</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h2 class="sec-title">Target Stats</h2><div class="sec-line"></div></div>
+<div class="stats-table"><div class="stat-row"><span class="stat-attr">WD Cores (Red)</span><span class="stat-target">All 6 Red</span><span class="stat-note">Full red build — max damage output</span></div>
+<div class="stat-row"><span class="stat-attr">Crit Chance</span><span class="stat-target">≥ 50–60%</span><span class="stat-note">Cap at 60% then stack Crit Damage</span></div>
+<div class="stat-row"><span class="stat-attr">Crit Damage</span><span class="stat-target">Maximize</span><span class="stat-note">After Crit Chance is capped</span></div>
+<div class="stat-row"><span class="stat-attr">Armor</span><span class="stat-target">≥ 1.1M</span><span class="stat-note">Required for Blatza (Tinkerer) efficiency</span></div>
+<div class="stat-row"><span class="stat-attr">Secondary Mag</span><span class="stat-target">~300 Rounds</span><span class="stat-note">Sweet spot for Frenzy + Measured</span></div>
+<div class="stat-row"><span class="stat-attr">Gear Mods</span><span class="stat-target">Crit Chance / Dmg</span><span class="stat-note">All free mod slots</span></div>
+</div>
+</div>
+<div class="sec" id="sec-tips"><div class="sec-head"><span class="sec-num">09</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><h2 class="sec-title">Pro Tips</h2><div class="sec-line"></div></div>
+<div class="tip-cards"><div class="tip-card"><div class="tip-title">💥 Disruptor Timing</div><div class="tip-text">Don't always wait for 50 stacks. In dense groups kill any marked enemy immediately for chain detonation. In single target fights build to 50 first for maximum burst.</div></div>
+<div class="tip-card"><div class="tip-title">🔫 Magazine Management</div><div class="tip-text">The secondary LMG needs ~300 rounds. Time reloads so Frenzy activates at the start of every magazine — never reload mid-Frenzy unless necessary.</div></div>
+<div class="tip-card"><div class="tip-title">🌾 Farming Bluescreen</div><div class="tip-text">Guaranteed first drop: Jefferson Trade Center SHD Mission. After that: LMG Targeted Loot missions on Challenging+ or Heroic, Exotic Caches from seasonal events.</div></div>
+<div class="tip-card"><div class="tip-title">⚠ No Shields Ever</div><div class="tip-text">Shield skills do not trigger Disruptor detonation. Reviver Hive and Decoy are the correct skill choices — they both trigger it on use.</div></div>
+</div>
 </div>
 
-<div class="div"></div>
-
-
-<div class="sec on" id="sec-0">
-<section>
-  <div class="sh"><div class="si">💻</div><div class="st">Build <span class="r">Overview</span></div></div>
-  <div class="divider"></div>
-  <p class="body">The Bluescreen build combines the Exotic Bluescreen LMG with the new <strong style="color:var(--teal)">Tipping Scales</strong> gear set (introduced in Y8S1). The Bluescreen's <strong style="color:var(--red)">Disruptor Rounds</strong> talent marks every enemy hit and builds stacks — at 50 stacks the detonation disorients and disrupts all marked enemies in a 10-meter radius simultaneously.</p>
-  <p class="body"><strong style="color:var(--gold)">Playstyle:</strong> Sustained LMG fire, build Disruptor stacks quickly, detonate on demand via skill use or enemy kill. The Tipping Scales set amplifies weapon damage multiplicatively with every kill — making this build snowball extremely hard in dense enemy groups.</p>
-  <p class="body"><strong style="color:var(--gold)">How to get Bluescreen:</strong> Guaranteed first drop from completing the <strong style="color:var(--red)">Jefferson Trade Center SHD Mission (Manhunt: Captain Lewis)</strong>. After that available from Exotic Caches and LMG Targeted Loot.</p>
-</section>
-</div>
-<div class="sec" id="sec-1">
-<section>
-  <div class="sh"><div class="si">🔋</div><div class="st">Disruptor Rounds <span class="r">Cycle</span></div></div>
-  <div class="divider"></div>
-  <div class="cycle-box" style="grid-template-columns:repeat(3,1fr)">
-    <div class="cycle-step">
-      <div class="cnum">1</div>
-      <div class="ctitle">Mark & Stack</div>
-      <div class="cval">+1 / hit</div>
-      <div class="cdesc">Every bullet marks the target and adds +1 Disruptor stack to the agent. Up to 50 stacks total. Shooting a marked enemy refreshes the mark.</div>
-    </div>
-    <div class="cycle-step" style="border-left:1px solid rgba(255,255,255,.06);border-right:1px solid rgba(255,255,255,.06)">
-      <div class="cnum" style="border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,.15)">50</div>
-      <div class="ctitle">50 Stacks</div>
-      <div class="cval" style="font-size:15px">Detonate!</div>
-      <div class="cdesc">Use any non-shield skill OR get a kill on a marked enemy → all stacks detonate instantly. No need to wait.</div>
-    </div>
-    <div class="cycle-step">
-      <div class="cnum" style="border-color:var(--teal);color:var(--teal);background:rgba(47,184,180,.1)">💥</div>
-      <div class="ctitle">10m AoE Burst</div>
-      <div class="cval" style="color:var(--teal);font-size:14px">Disrupt + Disorient</div>
-      <div class="cdesc">All marked enemies within 10m are simultaneously disrupted and disoriented. Crowd control + massive damage burst.</div>
-    </div>
-  </div>
-  <div class="note-box note-t" style="margin-top:12px">💡 <strong>Pro Tip:</strong> You don't need to wait for 50 stacks — killing any marked enemy at any stack count triggers the detonation immediately. Reward patience OR fast kills.</div>
-</section>
-</div>
-<div class="sec" id="sec-2">
-<section>
-  <div class="sh"><div class="si">🔫</div><div class="st"><span class="r">Weapon</span> Slots</div></div>
-  <div class="divider"></div>
-  <div class="wpn-row">
-    <div class="wpn-card exotic-w">
-      <div class="wpn-lbl">Primary Weapon · Exotic LMG ⭐</div>
-      <div class="wpn-name">Bluescreen</div>
-      <div class="wpn-type">Light Machine Gun · Exotic · Stoner LAMG variant · 200-Round Magazine · 580 RPM</div>
-      <div class="wpn-talent gold-t"><div class="talent-lbl">Disruptor Rounds</div><div class="talent-txt">Every bullet marks the target and adds +1 stack (max 50). Shooting marked enemies refreshes the mark. At 50 stacks: use any non-shield skill or kill a marked enemy to detonate — all marked enemies within 10m are disrupted and disoriented simultaneously.</div></div>
-    </div>
-    <div class="wpn-card">
-      <div class="wpn-lbl">Secondary Weapon · Recommended</div>
-      <div class="wpn-name">MK46 / Any LMG</div>
-      <div class="wpn-type">Light Machine Gun · ~300 Round Magazine</div>
-      <div class="wpn-talent"><div class="talent-lbl">Frenzy + Measured</div><div class="talent-txt">This talent combo is the key: Frenzy activates at the start of a magazine (+15% WD + Fire Rate), Measured reduces recoil and maintains damage at the end. Ideal magazine size: ~300 rounds so Frenzy runs out exactly when the magazine empties — keeping both talents permanently active.</div></div>
-    </div>
-  </div>
-  <div class="note-box note-g"><strong>Magazine Size is critical:</strong> The secondary LMG should have a magazine of around <strong>300 rounds</strong>. Too large = Frenzy inactive period in the middle. Too small = too many reloads. ~300 is the sweet spot for permanent Frenzy + Measured uptime.</div>
-</section>
-</div>
-<div class="sec" id="sec-3">
-<section>
-  <div class="sh"><div class="si">🔬</div><div class="st"><span class="r">Specialization</span></div></div>
-  <div class="divider"></div>
-  <div class="spec-card">
-    <div class="spec-ico">🔧</div>
-    <div>
-      <div class="spec-name">Gunner</div>
-      <div class="spec-desc">Best choice for LMG builds. Provides increased magazine capacity, armor on kills and fire rate bonuses — all of which synergize directly with the sustained fire playstyle of the Bluescreen build.</div>
-      <div class="perks">
-        <span class="perk">+10% Armor on Kill</span>
-        <span class="perk">+15% Fire Rate on Kill</span>
-        <span class="perk">Large LMG Magazine</span>
-        <span class="perk">Weapon Handling Bonuses</span>
-        <span class="perk">Hostile Negotiations</span>
-      </div>
-    </div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-4">
-<section>
-  <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-t">⚙️ <strong>Setup:</strong> 4× Tipping Scales (Backpack, Chest, Gloves, Kneepads) + Tinkerer Named Mask + Salvo Named Holster. All red cores for maximum weapon damage output. The 4-piece bonus is all you need — the freed Holster slot goes to Salvo for +5% Rate of Fire.</div>
-  <div class="card-grid">
-    <div class="gear-card named"><div class="gear-slot">Mask · Named ⭐ (BiS)</div><div class="gear-name">Tinkerer</div><span class="core-badge core-named">Named · Red Core</span><div class="gear-mods"><span class="t-g">Blatza (Named Talent)</span><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Chance</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Blatza talent: over 1.1M armor recommended to maximize efficiency. Key piece — do not swap.</div></div>
-    <div class="gear-card"><div class="gear-slot">Backpack · Set Piece</div><div class="gear-name">Tipping Scales</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Chance</span><span class="t-r">Set Talent</span></div></div>
-    <div class="gear-card"><div class="gear-slot">Chest · Set Piece</div><div class="gear-name">Tipping Scales</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Damage</span><span class="t-r">Fixed Set Talent</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Set Gear talents are fixed — cannot be changed. The Tipping Scales set talent activates at 4-piece.</div></div>
-    <div class="gear-card"><div class="gear-slot">Gloves · Set Piece</div><div class="gear-name">Tipping Scales</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Chance</span></div></div>
-    <div class="gear-card named"><div class="gear-slot">Holster · Named ⭐ (BiS)</div><div class="gear-name">Salvo</div><span class="core-badge core-named">Named · Unit Alloys · Red Core</span><div class="gear-mods"><span class="t-g">+5% Rate of Fire (Perfect Attr.)</span><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Damage</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Unique Perfect Attribute: +5% Rate of Fire on all weapons. Best-in-slot for any LMG DPS build — frees up the Set slot without losing damage.</div></div>
-    <div class="gear-card"><div class="gear-slot">Kneepads · Set Piece</div><div class="gear-name">Tipping Scales</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Chance</span></div></div>
-  </div>
-  <div class="note-box note-g" style="margin-top:16px">🔄 <strong>Glass Cannon Alternative:</strong> Swap Chest to Ceska "Thermal Meat" (Brand Piece with Obliterate talent) to distribute damage across two enemies simultaneously. Higher damage ceiling, lower survivability — but you lose the Tipping Scales Chest Set piece (keep 4-piece via Backpack, Gloves, Holster... wait — Holster is Salvo, so: Backpack, Chest, Gloves, Kneepads for 4-piece).</div>
-</section>
-</div>
-<div class="sec" id="sec-5">
-<section>
-  <div class="sh"><div class="si">⚙️</div><div class="st">Tipping Scales <span class="r">Set Bonuses</span></div></div>
-  <div class="divider"></div>
-  <table class="stats-table">
-    <tr><th>Set Pieces</th><th>Bonus</th></tr>
-    <tr><td><span class="sv">2-piece</span></td><td>+15% LMG Damage</td></tr>
-    <tr><td><span class="sv">3-piece</span></td><td>+15% Weapon Handling & +10% Fire Rate</td></tr>
-    <tr><td><span class="sv">4-piece</span><span class="sl">Core Mechanic</span></td><td>Kills scale weapon damage multiplicatively — the longer the chain the higher the damage output</td></tr>
-
-  </table>
-</section>
-</div>
-<div class="sec" id="sec-6">
-<section>
-  <div class="sh"><div class="si">🌟</div><div class="st">Key <span class="r">Talents</span></div></div>
-  <div class="divider"></div>
-  <div class="talent-list">
-    <div class="trow gold"><div class="src">Tinkerer Named Mask · Required</div><div class="tname">Blatza</div><div class="tdesc">Named talent on the Tinkerer mask. Scales with armor — over 1.1M armor recommended for maximum efficiency. Key damage multiplier for the build.</div></div>
-    <div class="trow gold"><div class="src">Salvo Named Holster · Unique Attribute</div><div class="tname">+5% Rate of Fire</div><div class="tdesc">Perfect Attribute on the Salvo Named Holster (Unit Alloys Brand). Applies to all weapons permanently — directly increases DPS and lowers time-to-kill. Best-in-slot for any LMG build.</div></div>
-    <div class="trow"><div class="src">Secondary LMG · Core Mechanic</div><div class="tname">Frenzy</div><div class="tdesc">+15% Weapon Damage + Fire Rate at the start of each magazine. With a ~300 round magazine this is active for the first half of every mag. Time reloads so Frenzy and Measured never overlap badly.</div></div>
-    <div class="trow"><div class="src">Secondary LMG · Core Mechanic</div><div class="tname">Measured</div><div class="tdesc">Reduces recoil and maintains damage consistency at the end of the magazine. Pairs with Frenzy so there is never a dead period — one starts as the other ends.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-7">
-<section>
-  <div class="sh"><div class="si">⚙️</div><div class="st">Skills <span class="r">/ Abilities</span></div></div>
-  <div class="divider"></div>
-  <div class="skills-grid">
-    <div class="skill-card"><span class="skill-ico">🩺</span><div class="skill-name">Reviver Hive</div><div class="skill-desc">Automatic revive for Solo play. Also triggers the Disruptor Rounds detonation when activated — double benefit.</div></div>
-    <div class="skill-card"><span class="skill-ico">🎭</span><div class="skill-name">Decoy</div><div class="skill-desc">Draws enemies away + activates Disruptor detonation on use. Great combo for repositioning mid-fight.</div></div>
-    <div class="skill-card"><span class="skill-ico">🐝</span><div class="skill-name">Striker Drone (Alt.)</div><div class="skill-desc">Additional DPS + triggers detonation when deployed. Good for group play where survivability is less of a concern.</div></div>
-  </div>
-  <div class="note-box note-r" style="margin-top:12px">⚠️ <strong>No Shield Skills!</strong> Disruptor Rounds specifically states "any non-shield skill" — shield skills do NOT trigger the detonation. Avoid Ballistic Shield and Crusader Shield.</div>
-</section>
-</div>
-<div class="sec" id="sec-8">
-<section>
-  <div class="sh"><div class="si">📊</div><div class="st">Target <span class="r">Stats</span></div></div>
-  <div class="divider"></div>
-  <table class="stats-table">
-    <tr><th>Attribute</th><th>Target</th><th>Note</th></tr>
-    <tr><td><span class="sv" style="font-size:13px">Weapon Damage Cores</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">All 6 Red</span></td><td>Full red build — max damage output</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Crit Chance</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">≥ 50–60%</span></td><td>Cap at 60%, then stack Crit Damage</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Crit Damage</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Maximize</span></td><td>After Crit Chance is capped</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Armor</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">≥ 1.1M</span></td><td>Required for Blatza (Tinkerer) efficiency</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Magazine Size (Secondary)</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">~300 Rounds</span></td><td>Sweet spot for Frenzy + Measured</td></tr>
-    <tr><td><span class="sv" style="font-size:13px">Gear Mods</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Crit Chance / Crit Dmg</span></td><td>All free mod slots</td></tr>
-  </table>
-</section>
-</div>
-<div class="sec" id="sec-9">
-<section>
-  <div class="sh"><div class="si">🌾</div><div class="st">Farming <span class="g">Bluescreen</span></div></div>
-  <div class="divider"></div>
-  <div class="card-grid">
-    <div class="gear-card named"><div class="gear-slot">Guaranteed First Drop</div><div class="gear-name">Jefferson Trade Center</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Complete the SHD Mission Jefferson Trade Center (Manhunt: Captain Lewis) for a guaranteed first Bluescreen drop. Start here!</div></div>
-    <div class="gear-card named"><div class="gear-slot">Targeted Loot</div><div class="gear-name">LMG Targeted Loot Missions</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Check the map for missions with LMG Targeted Loot. Play on Challenging+ or Heroic for better drop chances.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Exotic Caches</div><div class="gear-name">Events & Season Activities</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Exotic Caches from seasonal events and activities have a chance to contain Bluescreen after the first guaranteed drop.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Tipping Scales Set</div><div class="gear-name">Y8S1 Content</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">New Y8S1 gear set — drops from Season 1 activities, targeted loot missions and the Season Pass reward track.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-10">
-<section>
-  <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
-  <div class="divider"></div>
-  <div class="tips">
-    <div class="tip gold"><strong class="g">Disruptor Timing:</strong> Don't always wait for 50 stacks. In dense groups kill any marked enemy immediately to chain-detonate — the AoE hits everything nearby. In single target fights build to 50 first for maximum burst.</div>
-    <div class="tip"><strong class="r">Magazine Management:</strong> The secondary LMG with Frenzy + Measured needs ~300 rounds. Time your reloads so Frenzy activates at the start of every magazine — never reload mid-Frenzy unless absolutely necessary.</div>
-    <div class="tip gold"><strong class="g">Blood Sucker Stacking:</strong> With Gunner's +10% Armor on Kill and Blood Sucker (+3% per kill), your armor ramps up very fast in groups. Don't play too passively — the kills are what keep you alive.</div>
-    <div class="tip"><strong class="r">No Shield Skills!</strong> Always use Reviver Hive or Decoy — never Crusader Shield or Ballistic Shield. Shield skills explicitly do not trigger Disruptor Rounds detonation.</div>
-    <div class="tip gold"><strong class="g">Best Content:</strong> Legendary Missions (excellent in groups), The Summit, Countdown, Heroic Strongholds. The build snowballs hard — the more enemies in a room the stronger it gets.</div>
-    <div class="tip teal"><strong class="t">Tinkerer Armor:</strong> Keep your total armor above 1.1M for Blatza to fire at full efficiency. If you drop below 1.1M the talent loses significant value — adjust mods accordingly.</div>
-  </div>
-</section>
-</div>
-
+<footer style="border-top:1px solid #4A9AE033;padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">THE DIVISION 2 · BLUESCREEN BUILD · DISRUPTOR ROUNDS · Y8S1</footer>
 </div>
 <script>
-function ST(el) {
-  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
-  document.getElementById(el.dataset.sec).classList.add('on');
-  window.scrollTo(0, 0);
-}
+function ST(el){document.querySelectorAll('.tab-hero').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.getElementById(el.dataset.sec).classList.add('on');window.scrollTo(0,0)}
 </script>
 </body>
 </html>

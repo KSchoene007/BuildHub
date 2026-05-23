@@ -3,612 +3,248 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Diablo 4 – Shadow Warrior Minion Necromancer</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
-<style>
-
-:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(224,48,96,0.08) 0%,transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(232,168,32,0.05) 0%,transparent 45%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 2px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:0}
-.container{max-width:1100px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
-.back-btn{display:inline-flex;align-items:center;gap:8px;margin:20px 0;padding:8px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:.15s}
-.back-btn:hover{background:rgba(255,255,255,.1);color:#fff}
-header{padding:40px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;display:flex;align-items:center;gap:28px;animation:fadeDown .6s ease both}
-.hemblem{font-size:64px;animation:pulse 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{filter:drop-shadow(0 0 10px rgba(224,48,96,.75))}50%{filter:drop-shadow(0 0 28px rgba(224,48,96,1)) drop-shadow(0 0 40px rgba(232,168,32,.35))}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(24px,4vw,46px);color:var(--bright);text-transform:uppercase;letter-spacing:3px;line-height:1}
-h1 .r{color:var(--red)} h1 .g{color:var(--gold)} h1 .t{color:var(--teal)}
-.subtitle{margin-top:8px;font-size:12px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--red)}
-.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.badge{padding:3px 12px;border:1px solid;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
-.badge-pve{border-color:var(--teal);color:var(--teal)} .badge-dps{border-color:var(--red);color:var(--red)} .badge-tank{border-color:var(--gold);color:var(--gold)} .badge-dot{border-color:#b040f0;color:#b040f0} .badge-shock{border-color:#60c0ff;color:#60c0ff} .badge-meta{border-color:var(--gold);color:var(--gold)}
-section{margin-bottom:44px;animation:fadeUp .5s ease both}
-section:nth-child(2){animation-delay:.06s} section:nth-child(3){animation-delay:.12s} section:nth-child(4){animation-delay:.18s} section:nth-child(5){animation-delay:.24s} section:nth-child(6){animation-delay:.30s} section:nth-child(7){animation-delay:.36s} section:nth-child(8){animation-delay:.42s} section:nth-child(9){animation-delay:.48s} section:nth-child(10){animation-delay:.54s} section:nth-child(11){animation-delay:.60s}
-.sh{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.si{width:36px;height:36px;background:var(--dark4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
-.st{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:3px;color:var(--bright)}
-.st .r{color:var(--red)} .st .g{color:var(--gold)} .st .t{color:var(--teal)}
-.divider{height:1px;background:linear-gradient(90deg,var(--red) 0%,var(--gold) 35%,transparent 65%);margin:8px 0 24px;opacity:.35}
-p.body{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.gear-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px;transition:.2s;position:relative}
-.gear-card:hover{border-color:var(--red);box-shadow:var(--glow)}
-.gear-card.named{border-left-color:var(--gold)} .gear-card.named:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.exotic{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 60%)} .gear-card.exotic:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.blue{border-left-color:var(--teal)} .gear-card.blue:hover{border-color:var(--teal)}
-.gear-card.purple{border-left-color:#b040f0} .gear-card.purple:hover{border-color:#b040f0;box-shadow:0 0 16px rgba(176,64,240,.3)}
-.gear-slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:6px}
-.gear-card.named .gear-slot,.gear-card.exotic .gear-slot{color:var(--gold)} .gear-card.blue .gear-slot{color:var(--teal)} .gear-card.purple .gear-slot{color:#b040f0}
-.gear-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;color:var(--bright);margin-bottom:8px}
-.core-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.core-red{background:rgba(224,48,96,.12);color:var(--red);border:1px solid rgba(224,48,96,.4)}
-.core-named{background:rgba(232,168,32,.12);color:var(--gold);border:1px solid rgba(232,168,32,.4)}
-.core-exotic{background:linear-gradient(90deg,rgba(232,168,32,.15),rgba(224,48,96,.1));color:var(--gold);border:1px solid rgba(232,168,32,.45)}
-.core-blue{background:rgba(47,184,180,.1);color:var(--teal);border:1px solid rgba(47,184,180,.35)}
-.gear-mods{display:flex;flex-wrap:wrap;gap:5px}
-.mod-tag{font-size:10px;padding:2px 7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#8070a0}
-.t-r{font-size:11px;padding:2px 7px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.t-g{font-size:11px;padding:2px 7px;background:rgba(232,168,32,.08);border:1px solid rgba(232,168,32,.2);color:var(--gold)}
-.t-t{font-size:11px;padding:2px 7px;background:rgba(47,184,180,.08);border:1px solid rgba(47,184,180,.2);color:var(--teal)}
-.t-p{font-size:11px;padding:2px 7px;background:rgba(176,64,240,.08);border:1px solid rgba(176,64,240,.2);color:#c060ff}
-.wpn-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:14px}
-.wpn-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.15);padding:14px 16px;transition:.2s}
-.wpn-card:hover{border-color:rgba(255,255,255,.2)}
-.wpn-card.named-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 55%)} .wpn-card.named-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-card.exotic-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.08) 0%,rgba(224,48,96,.04) 55%,var(--dark3) 100%)} .wpn-card.exotic-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#6a5080;margin-bottom:6px}
-.wpn-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--bright);margin-bottom:3px}
-.wpn-type{font-size:12px;color:#6a5080;margin-bottom:10px}
-.wpn-talent{background:var(--dark4);border-left:3px solid var(--red);padding:9px 12px;margin-top:8px}
-.wpn-talent.gold-t{border-left-color:var(--gold)}
-.talent-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:4px}
-.wpn-talent.gold-t .talent-lbl{color:var(--gold)}
-.talent-txt{font-size:12px;line-height:1.55;color:#8070a0}
-.spec-card{background:var(--dark3);border:1px solid var(--border);padding:20px;display:flex;gap:20px;align-items:flex-start}
-.spec-ico{font-size:36px;flex-shrink:0}
-.spec-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--bright);letter-spacing:1px;margin-bottom:8px}
-.spec-desc{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.perks{display:flex;flex-wrap:wrap;gap:6px}
-.perk{font-size:11px;padding:3px 10px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.talent-list{display:flex;flex-direction:column;gap:12px}
-.trow{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;transition:.2s}
-.trow:hover{border-color:var(--red);box-shadow:var(--glow)}
-.trow.gold{border-left-color:var(--gold)} .trow.gold:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.trow .src{font-size:10px;color:#6a5080;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.trow .tname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);margin-bottom:4px}
-.trow.gold .tname{color:var(--gold)}
-.trow .tdesc{font-size:12px;line-height:1.55;color:#8070a0}
-.stats-table{width:100%;border-collapse:collapse;font-size:13px}
-.stats-table th{text-align:left;padding:10px 14px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:11px;border-bottom:1px solid var(--border)}
-.stats-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.stats-table tr:hover td{background:rgba(255,255,255,.02)}
-.sv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red)}
-.sl{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;display:block;margin-top:2px}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.skill-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px;text-align:center}
-.skill-ico{font-size:28px;display:block;margin-bottom:10px}
-.skill-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:6px}
-.skill-desc{font-size:12px;color:#7a6080;line-height:1.5}
-.note-box{padding:13px 16px;font-size:13px;line-height:1.6;margin-bottom:12px}
-.note-r{background:rgba(224,48,96,.06);border:1px solid rgba(224,48,96,.2);color:#c87080} .note-r strong{color:var(--red)}
-.note-g{background:rgba(232,168,32,.06);border:1px solid rgba(232,168,32,.2);color:#b09040} .note-g strong{color:var(--gold)}
-.note-t{background:rgba(47,184,180,.06);border:1px solid rgba(47,184,180,.2);color:#50a09a} .note-t strong{color:var(--teal)}
-.tips{display:flex;flex-direction:column;gap:10px}
-.tip{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;font-size:13px;line-height:1.6}
-.tip.gold{border-left-color:var(--gold)} .tip.teal{border-left-color:var(--teal)}
-.tip strong.r{color:var(--red)} .tip strong.g{color:var(--gold)} .tip strong.t{color:var(--teal)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px}
-.legend-item{display:flex;align-items:center;gap:7px;font-size:12px}
-.ldot{width:10px;height:10px;border-radius:50%}
-/* Cycle boxes */
-.cycle-box{background:var(--dark3);border:1px solid rgba(224,48,96,.3);padding:20px;display:grid;gap:0;position:relative;overflow:hidden}
-.cycle-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,48,96,.05) 0%,transparent 50%,rgba(232,168,32,.03) 100%);pointer-events:none}
-.cycle-step{padding:16px;text-align:center;position:relative}
-.cnum{width:40px;height:40px;border-radius:50%;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--red);margin:0 auto 10px}
-.ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);text-transform:uppercase;letter-spacing:1px}
-.cval{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--gold);margin:4px 0 2px}
-.cdesc{font-size:11px;color:#7a6080;margin-top:5px;line-height:1.5}
-/* strengths/weaknesses */
-.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.sw-box{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px}
-.sw-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
-.sw-title.green{color:#64c864} .sw-title.red{color:var(--red)}
-.sw-item{font-size:12px;line-height:1.6;padding:4px 0;color:var(--text);display:flex;gap:8px}
-.sw-item span{flex-shrink:0}
-/* Leveling phases */
-.phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:16px;margin-bottom:12px}
-.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.phase-num{width:32px;height:32px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red);flex-shrink:0}
-.phase-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);letter-spacing:.5px}
-.phase-sub{font-size:11px;color:var(--gold);margin-top:2px}
-.phase-desc{font-size:12px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.gem-list{display:flex;flex-direction:column;gap:6px}
-.gem-row{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--dark4);border:1px solid rgba(255,255,255,.04)}
-.gem-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);min-width:140px;flex-shrink:0}
-.gem-supports{font-size:11px;color:#8070a0;line-height:1.4}
-.passive-box{background:var(--dark4);border:1px solid rgba(232,168,32,.15);padding:10px 14px;margin-top:10px;font-size:12px;color:#8070a0;line-height:1.6}
-/* Passive tree */
-.passive-phase{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.pp-row{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:var(--dark4);border:1px solid rgba(255,255,255,.04);font-size:12px}
-.pp-name{color:var(--text)}
-.pp-pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:13px}
-/* Ascendancy */
-.asc-list{display:flex;flex-direction:column;gap:10px}
-.asc-item{display:flex;gap:14px;align-items:flex-start;background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px}
-.asc-num{width:28px;height:28px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--red);flex-shrink:0}
-.asc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:4px}
-.asc-when{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.asc-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Rotation */
-.rotation-steps{display:flex;flex-direction:column;gap:8px}
-.rstep{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--dark3);border:1px solid rgba(255,255,255,.04)}
-.rstep-n{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--red);width:24px;flex-shrink:0}
-.rstep-body{}
-.rstep-skill{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);margin-bottom:3px}
-.rstep-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Equipment table */
-.equip-table{width:100%;border-collapse:collapse;font-size:12px}
-.equip-table th{text-align:left;padding:8px 12px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:10px;border-bottom:1px solid var(--border)}
-.equip-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.equip-table tr:hover td{background:rgba(255,255,255,.02)}
-.item-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);display:flex;align-items:center;gap:6px}
-.item-note{font-size:11px;color:#7a6080;margin-top:4px;line-height:1.4}
-.item-badge{font-size:9px;padding:1px 6px;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.3);color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.item-badge.req{background:rgba(224,48,96,.1);border-color:rgba(224,48,96,.3);color:var(--red)}
-footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:#4a3858;letter-spacing:2px;text-transform:uppercase}
-
-:root{--d4:#8B20CC;--d4dim:rgba(139,32,204,0.15);--d4border:rgba(139,32,204,0.35);--d4glow:0 0 20px rgba(139,32,204,0.4)}
-.badge-necro{border-color:var(--d4);color:var(--d4)}
-.gear-card.d4{border-left-color:var(--d4)} .gear-card.d4:hover{border-color:var(--d4);box-shadow:var(--d4glow)}
-.gear-card.d4unique{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 60%)} .gear-card.d4unique:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.d4slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--d4);margin-bottom:6px}
-.d4unique .d4slot{color:var(--gold)}
-.t-d4{font-size:11px;padding:2px 7px;background:rgba(139,32,204,.08);border:1px solid rgba(139,32,204,.2);color:#c060ff}
-.skill-tree-phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--d4);padding:16px;margin-bottom:12px}
-.skill-name-d4{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.skill-pts{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--gold)}
-.skill-desc-d4{font-size:12px;color:#8070a0;line-height:1.5}
-.upgrade-tag{font-size:10px;padding:1px 6px;background:rgba(139,32,204,.1);border:1px solid rgba(139,32,204,.25);color:#c060ff;margin-left:6px}
-.paragon-row{display:flex;justify-content:space-between;padding:7px 12px;background:var(--dark4);border:1px solid rgba(255,255,255,.04);font-size:12px;margin-bottom:4px}
-.pg-name{color:var(--text)} .pg-pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:13px}
-
-
-/* ── TAB SYSTEM ── */
-.tab-bar-hero{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
-  padding:14px 16px 4px;
-}
-.tab-hero{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:7px 12px;cursor:pointer;flex-shrink:0;
-  border-radius:8px;border:1px solid rgba(0,0,0,.15);
-  background:rgba(255,255,255,.03);
-  border-bottom:2px solid transparent;transition:.2s;
-}
-.tab-hero:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
-.tab-hero.on{border-color:#8B20CC40;border-bottom-color:#8B20CC;background:#8B20CC12}
+<title>Shadow Warrior</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{--ac:#8B20CC;--bg:#06040e;--s1:#0a0412;--text:#e8d0f8;--muted:#705090;--muted2:#301848;--gold:#E8C840;--teal:#40c8b4;--green:#40c060;--red:#e04060}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0) 1px,transparent 1px);background-size:44px 44px;animation:bgshift 30s linear infinite;background-image:linear-gradient(#8B20CC0d 1px,transparent 1px),linear-gradient(90deg,#8B20CC0d 1px,transparent 1px)}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 0%,#8B20CC1f 0%,transparent 100%)}
+@keyframes bgshift{from{background-position:0 0}to{background-position:44px 44px}}
+@keyframes drotate-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes nekropulse{0%,100%{opacity:.5}50%{opacity:1}}
+.wrap{max-width:660px;margin:0 auto;padding:0 16px 60px;position:relative;z-index:1}
+.hero{padding:28px 0 20px;text-align:center}
+.hero-icon{width:90px;height:90px;margin:0 auto 20px}
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:#8B20CC99;margin-bottom:6px;text-transform:uppercase}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(26px,6vw,40px);font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.hero-title em,.hero-title .t2{color:#8B20CC;font-style:normal}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.hero-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.htag{font-size:9px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
+.hero-bars{display:flex;justify-content:center;gap:20px}
+.hb{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
+.hb-track{width:48px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.hb-fill{height:100%;border-radius:2px}
+.hb-label{font-size:7px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.hb-val{font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+.tab-bar-hero{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;padding:16px 16px 4px}
+.tab-hero{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px;cursor:pointer;flex-shrink:0;border-radius:8px;border:1px solid #8B20CC1a;background:#8B20CC0a;border-bottom:2px solid transparent;transition:.2s}
+.tab-hero:hover{background:#8B20CC1a;border-color:#8B20CC99}
+.tab-hero.on{border-color:#8B20CC99;border-bottom-color:#8B20CC;background:#8B20CC1a}
 .tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
-.tab-ico svg{width:14px;height:14px;color:#666;transition:.2s}
-.tab-hero.on .tab-ico svg{color:#8B20CC;filter:drop-shadow(0 0 3px #8B20CC80)}
-.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
-  color:#444;transition:.2s;white-space:nowrap}
+.tab-ico svg{width:14px;height:14px;color:#301848;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#8B20CC;filter:drop-shadow(0 0 3px #8B20CC#8B20CC1f)}
+.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#301848;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
 .tab-hero.on .tab-lbl{color:#8B20CC}
-.sec{display:none}
-.sec.on{display:block}
-</style>
+.sec{display:none}.sec.on{display:block}
+.div{height:1px;background:linear-gradient(90deg,transparent,#8B20CC,#8B20CC99,transparent);margin:20px 0;position:relative}
+.div-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#8B20CC;border-radius:50%;box-shadow:0 0 8px #8B20CC}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid #8B20CC99;background:#8B20CC0a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-ico svg{width:16px;height:16px;color:#8B20CC}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:#8B20CC33;letter-spacing:1px}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,#8B20CC99,transparent)}
+.info-block{background:var(--s1);border:1px solid #8B20CC33;border-left:3px solid #8B20CC;border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.info-block::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,#8B20CC14,transparent 70%);pointer-events:none}
+.info-block p{font-size:12px;color:#e8d0f899;line-height:1.75}
+.info-block p+p{margin-top:8px}
+.kw{color:#8B20CC;font-weight:700}.kw2{color:#8B20CC99;font-weight:700}.kw3{color:var(--gold);font-weight:700}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sw-box{background:var(--s1);border:1px solid;border-radius:8px;padding:11px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#705090;line-height:1.5;margin-bottom:3px}
+.sw-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.note{padding:9px 12px;border-radius:6px;font-size:11px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
+.note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#c04060}
+.note-info{background:#8B20CC14;border-color:#8B20CC99;color:#8B20CC99}
+.note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
+.note-gold{background:rgba(232,200,64,.05);border-color:rgba(232,200,64,.3);color:#a08020}
+.cycle{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.cycle-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
+.cycle-n{width:32px;height:32px;border-radius:50%;border:2px solid #8B20CC;background:#8B20CC14;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#8B20CC;flex-shrink:0}
+.cycle-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.cycle-sub{font-size:11px;color:#705090;line-height:1.4}
+.cycle-badge{font-size:9px;padding:2px 8px;border-radius:3px;background:#8B20CC14;border:1px solid #8B20CC99;color:#8B20CC;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start;margin-left:auto}
+.gear-list{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.gr{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px;transition:.15s}
+.gr:hover{border-color:#8B20CC33}
+.gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
+.gr.named{border-color:rgba(192,96,255,.2)}
+.gr-slot{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);width:60px;flex-shrink:0;padding-top:2px}
+.gr-info{flex:1}
+.gr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.gr.bis .gr-name{color:var(--gold)}.gr.named .gr-name{color:#c060ff}
+.gr-note{font-size:10px;color:var(--muted2);line-height:1.35}
+.gr-tag{font-size:8px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+.talent-cards{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.tc{background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+.tc-ico{font-size:18px;flex-shrink:0;line-height:1.3}
+.tc-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#8B20CC;margin-bottom:3px}
+.tc-desc{font-size:11px;color:#705090;line-height:1.5}
+.set-table{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.st-row{display:grid;grid-template-columns:80px 1fr;gap:10px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.st-pieces{font-family:'Share Tech Mono',monospace;font-size:10px;color:#8B20CC;font-weight:700}
+.st-bonus{font-size:11px;color:#e8d0f899;line-height:1.4}
+.skill-list{display:flex;flex-direction:column;gap:5px}
+.sk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:9px;transition:.15s;position:relative;overflow:hidden}
+.sk:hover{border-color:#8B20CC33}
+.sk-ico{font-size:20px;flex-shrink:0;line-height:1.3}
+.sk-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.sk-desc{font-size:11px;color:#705090;line-height:1.4}
+.stats-table{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.stat-row{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.stat-attr{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#fff}
+.stat-target{font-family:'Share Tech Mono',monospace;font-size:11px;color:#8B20CC}
+.stat-note{font-size:10px;color:var(--muted2)}
+.lv-track{position:relative;padding-left:22px}
+.lv-track::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,#8B20CC,#8B20CC99,transparent)}
+.lv-ph{position:relative;margin-bottom:17px}
+.lv-ph::before{content:'';position:absolute;left:-18px;top:5px;width:8px;height:8px;border-radius:50%;border:2px solid #8B20CC;background:var(--bg);z-index:1}
+.lv-ph.hi::before{background:#8B20CC;box-shadow:0 0 7px #8B20CC}
+.lv-tag{font-size:8px;color:#8B20CC33;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px}
+.lv-t{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.lv-d{font-size:11px;color:#705090;line-height:1.6;margin-bottom:6px}
+.lv-gems{display:flex;flex-direction:column;gap:3px;margin-bottom:5px}
+.lgr{display:flex;align-items:center;gap:7px;padding:3px 8px;background:rgba(255,255,255,.03);border-radius:4px;border:1px solid rgba(255,255,255,.04)}
+.lgr.hi{border-color:#8B20CC33;background:#8B20CC14}
+.lgr-n{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;min-width:120px;color:#fff}
+.lgr-ss{display:flex;flex-wrap:wrap;gap:2px}
+.lgr-s{font-size:8px;padding:1px 4px;border-radius:2px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.lgr-s.gold{border-color:rgba(232,200,64,.3);color:var(--gold)}
+.lv-pts{font-size:9px;color:var(--muted2);border-top:1px solid rgba(255,255,255,.04);padding-top:4px;margin-top:3px}
+.tree-list{display:flex;flex-direction:column;gap:4px}
+.tr{display:flex;align-items:center;gap:12px;padding:7px 10px;background:var(--s1);border-radius:5px;border:1px solid rgba(255,255,255,.04)}
+.tr.hi{border-color:rgba(232,200,64,.18)}
+.tr-range{font-family:'Share Tech Mono',monospace;font-size:10px;color:#8B20CC;min-width:80px;flex-shrink:0}
+.tr.hi .tr-range{color:var(--gold)}
+.tr-desc{font-size:11px;color:#e8d0f899;flex:1}
+.tr-pts{font-size:9px;color:var(--muted2);flex-shrink:0}
+.rot-block{margin-bottom:16px}
+.rot-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rot-ico{width:22px;height:22px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center}
+.rot-ico svg{width:12px;height:12px}
+.rot-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+.rot-steps{display:flex;flex-direction:column;gap:5px}
+.rstep{display:flex;gap:10px;align-items:flex-start}
+.rn{width:22px;height:22px;border-radius:50%;border:1px solid #8B20CC;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;color:#8B20CC;flex-shrink:0;margin-top:1px}
+.rb-skill{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:1px}
+.rb-desc{font-size:11px;color:#705090;line-height:1.4}
+.asc-flow{position:relative;padding-left:20px}
+.asc-flow::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,#8B20CC,#8B20CC99,transparent)}
+.asc-item{position:relative;margin-bottom:14px;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.asc-item::before{content:'';position:absolute;left:-14px;top:7px;width:8px;height:8px;border-radius:50%;border:2px solid #8B20CC;background:var(--bg);z-index:1}
+.asc-item.gold::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px var(--gold)}
+.asc-step{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);line-height:1.4}
+.asc-when{font-size:8px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;font-family:'Share Tech Mono',monospace}
+.asc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
+.asc-desc{font-size:11px;color:#705090;line-height:1.5}
+.tip-cards{display:flex;flex-direction:column;gap:6px}
+.tip-card{background:var(--s1);border:1px solid #8B20CC33;border-radius:8px;padding:12px 14px}
+.tip-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#8B20CC;margin-bottom:4px}
+.tip-text{font-size:11px;color:#705090;line-height:1.55}
+.priority-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.pr{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:flex-start;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px}
+.pr-n{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:900;color:#8B20CC;text-align:center}
+.pr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.pr-desc{font-size:10px;color:#705090;line-height:1.4}
+.pr-badge{font-size:8px;padding:2px 6px;border-radius:3px;border:1px solid #8B20CC99;color:#8B20CC;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start}</style>
 </head>
 <body>
-<div class="container">
-<a class="back-btn" href="gaming-builds-app.html">← Back to Build Hub</a>
-
-<header>
-  <div class="hemblem" style="filter:drop-shadow(0 0 20px rgba(139,32,204,0.9))">💀</div>
-  <div>
-    <h1>Shadow <span class="r">Warrior</span></h1>
-    <h1 style="font-size:clamp(14px,2vw,22px);letter-spacing:2px;margin-top:4px"><span style="color:#c060ff">Minion</span> Necromancer · Season 13</h1>
-    <div class="subtitle">Diablo 4 · Lord of Hatred · Season of Reckoning · S-Tier</div>
-    <div class="badges">
-      <span class="badge badge-necro">Necromancer</span>
-      <span class="badge badge-dps">S-Tier</span>
-      <span class="badge badge-pve">Speed Farm</span>
-      <span class="badge badge-tank">Pit Push</span>
-      <span class="badge badge-meta">All Content</span>
-    </div>
-  </div>
-</header>
-
+<div class="wrap">
+<div class="hero">
+  <div class="hero-icon"><svg viewBox="0 0 90 90" fill="none">
+  <polygon points="45,8 52,28 72,28 56,41 62,62 45,49 28,62 34,41 18,28 38,28" fill="none" stroke="#8B20CC" stroke-width="2" style="animation:drotate-slow 12s linear infinite;transform-origin:45px 45px"/>
+  <polygon points="45,18 49,30 62,30 52,37 56,50 45,43 34,50 38,37 28,30 41,30" fill="#8B20CC" opacity=".1" style="animation:nekropulse 2s ease-in-out infinite"/>
+  <circle cx="45" cy="36" r="8" fill="none" stroke="#8B20CC" stroke-width="1.5" opacity=".6"/>
+  <circle cx="45" cy="36" r="4" fill="#8B20CC" opacity=".4" style="animation:nekropulse 1.5s ease-in-out infinite"/>
+  <line x1="45" y1="50" x2="45" y2="68" stroke="#8B20CC" stroke-width="1.5" opacity=".4"/>
+  <line x1="38" y1="55" x2="52" y2="55" stroke="#8B20CC" stroke-width="1" opacity=".3"/>
+  <line x1="36" y1="62" x2="54" y2="62" stroke="#8B20CC" stroke-width="1" opacity=".2"/>
+</svg></div>
+  <div class="hero-pre">▶ Diablo 4 · S-Tier · Season of Reckoning</div>
+  <h1 class="hero-title">Shadow <em>Warrior</em></h1>
+  <div class="hero-sub">Necromancer · Season 13 · Minion Build · Lord of Hatred</div>
+  <div class="hero-tags"><span class="htag" style="color:#FFD700;border-color:rgba(255,215,0,.3)">S-TIER</span><span class="htag" style="color:#8B20CC;border-color:#8B20CC4d">28 MINIONS</span><span class="htag" style="color:#60a0ff;border-color:rgba(96,160,255,.3)">SHADOW DMG</span><span class="htag" style="color:#50c8b4;border-color:rgba(80,200,180,.3)">SEASON 13</span></div>
+  <div class="hero-bars"><div class="hb"><div class="hb-val" style="color:#ff6060">5★</div><div class="hb-track"><div class="hb-fill" style="width:90%;background:#ff6060"></div></div><div class="hb-label">DPS</div></div><div class="hb"><div class="hb-val" style="color:#60a0ff">5★</div><div class="hb-track"><div class="hb-fill" style="width:92%;background:#60a0ff"></div></div><div class="hb-label">SURV</div></div><div class="hb"><div class="hb-val" style="color:#40c8b4">3★</div><div class="hb-track"><div class="hb-fill" style="width:65%;background:#40c8b4"></div></div><div class="hb-label">SPD</div></div><div class="hb"><div class="hb-val" style="color:#E8C840">4★</div><div class="hb-track"><div class="hb-fill" style="width:80%;background:#E8C840"></div></div><div class="hb-label">EASE</div></div></div>
+</div>
 <div class="tab-bar-hero">
-  <div class="tab-hero on" data-sec="sec-0" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-    <div class="tab-lbl">Build Overvi…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-1" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Skill Setup</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-2" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
-    <div class="tab-lbl">Book of the …</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-3" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Weapons · Eq…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-4" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Gear Slots ·…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-5" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Talisman · C…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-6" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
-    <div class="tab-lbl">Paragon · Gl…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-7" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Mercenaries …</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-8" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
-    <div class="tab-lbl">Rotation & P…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-9" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Pro Tips</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-10" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Skill Tree ·…</div>
-  </div>
+  <div class="tab-hero on" data-sec="sec-overview" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="tab-lbl">Overview</div></div>
+  <div class="tab-hero" data-sec="sec-skills" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><div class="tab-lbl">Skills</div></div>
+  <div class="tab-hero" data-sec="sec-gear" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tab-lbl">Gear</div></div>
+  <div class="tab-hero" data-sec="sec-talents" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="tab-lbl">Talents</div></div>
+  <div class="tab-hero" data-sec="sec-paragon" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20h20M6 20V10l6-6 6 6v10"/></svg></div><div class="tab-lbl">Paragon</div></div>
+  <div class="tab-hero" data-sec="sec-rotation" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><div class="tab-lbl">Rotation</div></div>
+  <div class="tab-hero" data-sec="sec-tips" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div class="tab-lbl">Pro Tips</div></div>
+</div>
+<div class="div"><div class="div-dot"></div></div>
+<div class="sec on" id="sec-overview"><div class="sec-head"><span class="sec-num">01</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h2 class="sec-title">Build Overview</h2><div class="sec-line"></div></div>
+<div class="info-block"><p><span class="kw">Shadow Warrior</span> runs up to <span class="kw3">28 minions simultaneously</span> — Deathgrip (+6 Warriors) + Undercrown (+6 Mages). Convert ALL minions to Shadow damage → they become Darkness skills → stack +Darkness Skills on all gear.</p><p><span class="kw2">Bloodless Scream</span> applies Chill scaling up to 250% on frozen targets = ×3.5 damage multiplier. <span class="kw2">Army of the Dead</span> on ~10 sec cooldown nukes elite packs for 1350%+ damage. Season 13 Changes: Skeletal Warriors now have Command ability. New Talisman system converts Uniques to Charms.</p></div>
+<div class="sw"><div class="sw-box" style="border-color:#40c06033"><div class="sw-title" style="color:#40c060">✓ Strengths</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Up to 28 active minions simultaneously</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Perma-freeze via Bloodless Scream</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Army of the Dead = massive burst every ~10 sec</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Very tanky — minions absorb all damage</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Excellent in Speed Farm and Pit Push</div></div><div class="sw-box" style="border-color:#e0406033"><div class="sw-title" style="color:#e04060">✗ Weaknesses</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Bloodless Scream required for full power</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>3 of 6 skill slots used by minion skills</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Talisman system requires 6-slot Seal</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Blood Mist required for Overpower stacking</div></div></div>
+</div>
+<div class="sec" id="sec-skills"><div class="sec-head"><span class="sec-num">02</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><h2 class="sec-title">Skill Setup</h2><div class="sec-line"></div></div>
+<div class="note note-warn">⚠ Season 13: All minion skills are in the Skill Tree (not Book of the Dead). You use 3 of 6 slots for minions.</div>
+<div class="skill-list"><div class="sk"><div class="sk-ico">⚔</div><div><div class="sk-name">Skeletal Warriors — Reaper · Command</div><div class="sk-desc">Primary damage dealers. Reaper variant: +50% damage. Use Command to focus-fire elites — increases their damage taken 30–40%.</div></div></div>
+<div class="sk"><div class="sk-ico">🔮</div><div><div class="sk-name">Skeletal Mages — Shadow · Barrier</div><div class="sk-desc">Shadow variant = Darkness skill → synergizes with +Darkness gear stacking. Barrier provides passive damage reduction.</div></div></div>
+<div class="sk"><div class="sk-ico">🗿</div><div><div class="sk-name">Golem — Iron · Gargantua Aura</div><div class="sk-desc">Gargantua upgrade: aura boosts attack speed and movement speed of all other minions. Sacrifice for attack speed bonus.</div></div></div>
+<div class="sk"><div class="sk-ico">💀</div><div><div class="sk-name">Army of the Dead — Prime · Supreme</div><div class="sk-desc">The nuke. With Unyielding Commander: minions deal +50% summon damage +2%/minion. At 25 minions = +100%. 1350%+ damage. Use on every Elite pack.</div></div></div>
+<div class="sk"><div class="sk-ico">⚡</div><div><div class="sk-name">Sever — Mobility</div><div class="sk-desc">Primary movement skill. Creates corpses on cast which Warriors consume. Faster than Teleport in endgame.</div></div></div>
+<div class="sk"><div class="sk-ico">🌫</div><div><div class="sk-name">Blood Mist — Survival + Overpower</div><div class="sk-desc">Get-out-of-jail AND primary way to maintain 4 stacks of Overpower for Dominate Glyph.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-gear"><div class="sec-head"><span class="sec-num">03</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h2 class="sec-title">Weapons & Gear</h2><div class="sec-line"></div></div>
+<div class="note note-warn">⚠ Stat Priority: 1. Attack Speed (100% cap) → 2. Crit Chance (100% cap) → 3. Shadow/Vulnerable multipliers. Minions inherit your stats.</div>
+<div class="gear-list"><div class="gr bis"><span class="gr-slot">Main Hand</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">⭐ Bloodless Scream (BiS)</div><div class="gr-note">Unique Scythe · All Darkness dmg Chills enemies · Chill scaling up to 250% on frozen = ×3.5 damage multiplier. Most powerful item in the build.</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">UNIQUE</span></div>
+<div class="gr"><span class="gr-slot">Main Hand</span><div class="gr-info"><div class="gr-name">Any Scythe + Darkness Skills (Budget)</div><div class="gr-note">Priority affixes: +Darkness Skills · Attack Speed · Crit Chance · Minion Damage. Works well without Bloodless.</div></div><span class="gr-tag" style="color:#8B20CC;border-color:#8B20CC66">SCYTHE</span></div>
+<div class="gr bis"><span class="gr-slot">Helmet</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">⭐ The Undercrown</div><div class="gr-note">Unique · +6 Max Skeletal Mages · Mages summon permanently · Or use as Talisman Charm</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">UNIQUE</span></div>
+<div class="gr bis"><span class="gr-slot">Gloves</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">⭐ Deathgrip</div><div class="gr-note">Unique · +6 Max Skeleton Warriors · Warriors Cleave · 30–40% more Warrior Damage</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">UNIQUE</span></div>
+<div class="gr named"><span class="gr-slot">Pants</span><div class="gr-info"><div class="gr-name" style="color:#c060ff">Blood Moon Breeches</div><div class="gr-note">Legendary · Auto-cast Iron Maiden + Decrepify · Removes need for Curse skill slots</div></div><span class="gr-tag" style="color:#8B20CC;border-color:#8B20CC66">LEGS</span></div>
+<div class="gr"><span class="gr-slot">Chest</span><div class="gr-info"><div class="gr-name">Legendary Chest</div><div class="gr-note">Priority: +Darkness Skills · Attack Speed · Resistances</div></div><span class="gr-tag" style="color:#705090;border-color:#70509066">CHEST</span></div>
+<div class="gr bis"><span class="gr-slot">Amulet</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">⭐ Banished Lord's Talisman</div><div class="gr-note">Unique · Overpower every 3rd attack · +Darkness Skills · Or use as Talisman Charm</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">UNIQUE</span></div>
+<div class="gr bis"><span class="gr-slot">Ring 1</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">⭐ Pact of Bone</div><div class="gr-note">Unique · +Minion Damage · Empowers on minion death · Crit Chance</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">UNIQUE</span></div>
+</div>
+</div>
+<div class="sec" id="sec-talents"><div class="sec-head"><span class="sec-num">04</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h2 class="sec-title">Talisman / Charm System</h2><div class="sec-line"></div></div>
+<div class="note note-gold">💡 <strong>Season 13 Talisman System:</strong> Any Unique can be converted to a Charm. Equip Deathgrip as Gloves AND benefit from a 2nd Unique via Charm slot. Use a Legendary Seal with +1 Charm Slot for 6 total slots.</div>
+<div class="talent-cards"><div class="tc"><div class="tc-ico">🗡</div><div><div class="tc-name" style="color:var(--teal)">Azurewrath Charm — Speed Farm</div><div class="tc-desc">For Speed Farming / Map Clear: massive AoE clear. Convert to Charm + use Bloodless Scream as main weapon. Swap for Red Blessing on difficult Pit.</div></div></div>
+<div class="tc"><div class="tc-ico">💀</div><div><div class="tc-name" style="color:#8B20CC">Bloodless Scream Charm</div><div class="tc-desc">2nd Bloodless as Charm = double Darkness freeze scaling. Very powerful for Pit pushing.</div></div></div>
+<div class="tc"><div class="tc-ico">🛡</div><div><div class="tc-name" style="color:var(--gold)">Black Shroud Charm Set (Priority)</div><div class="tc-desc">Full 5-piece Black Shroud Charm Set takes priority over individual Charms once available.</div></div></div>
+<div class="tc"><div class="tc-ico">💎</div><div><div class="tc-name">Charm Affixes</div><div class="tc-desc">Target: +3 Minion Skills OR +3 Darkness Skills on ALL Charm affixes — they are functionally equivalent and both multiply all minion damage.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-paragon"><div class="sec-head"><span class="sec-num">05</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20h20M6 20V10l6-6 6 6v10"/></svg></div><h2 class="sec-title">Paragon & Glyphs</h2><div class="sec-line"></div></div>
+<div class="note note-info">📈 Priority: Early → Dominate, Deadraiser, Warrior first. Once Uniques + high Crit Chance → Essence and Control.</div>
+<div class="set-table"><div class="st-row"><span class="st-pieces">Dominate (Overpower)</span><span class="st-bonus">Level to 50+ FIRST. Overpower synergy with Blood Mist is 10× stronger than any other glyph.</span></div>
+<div class="st-row"><span class="st-pieces">Deadraiser</span><span class="st-bonus">Early Priority 2 — Level to 25+</span></div>
+<div class="st-row"><span class="st-pieces">Warrior</span><span class="st-bonus">Early Priority 3 — Level to 25+</span></div>
+<div class="st-row"><span class="st-pieces">Essence</span><span class="st-bonus">Endgame (after Uniques) — Level to 50+</span></div>
+<div class="st-row"><span class="st-pieces">Control</span><span class="st-bonus">Endgame (after Uniques) — Level to 50+</span></div>
+<div class="st-row"><span class="st-pieces">Mage (Wither Board)</span><span class="st-bonus">Consistent Speed Farm alternative to Dominate</span></div>
+</div>
+<div class="note note-info">🤝 Mercenaries: Raheir (Primary) — +15% All Resist, enemies take 15% more dmg, you deal 25% more. Varyana (Reinforcement) — Bleed for healing. Bastion reinforcement for Raheir.</div>
+</div>
+<div class="sec" id="sec-rotation"><div class="sec-head"><span class="sec-num">06</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><h2 class="sec-title">Rotation & Playstyle</h2><div class="sec-line"></div></div>
+<div class="note note-tip">🗺 Speed Farm: Use Sever to dash through the map. Warriors auto-raise. Army of the Dead on every Elite pack.</div>
+<div class="rot-steps" style="margin-bottom:12px"><div class="rstep"><div class="rn">1</div><div><div class="rb-skill">Speed Farm: Sever through map</div><div class="rb-desc">Dash through. Warriors auto-raise from corpses every 0.5 sec. Army of the Dead on every Elite.</div></div></div>
+<div class="rstep"><div class="rn">2</div><div><div class="rb-skill">Pit Pushing: Blood Mist first</div><div class="rb-desc">Use Blood Mist to stack 4× Overpower for Dominate Glyph — essential for maximum burst.</div></div></div>
+<div class="rstep"><div class="rn">3</div><div><div class="rb-skill">Blight to group enemies</div><div class="rb-desc">Cast Blight (Whirlpool) to pull enemies together. Warriors' Deathgrip cleave hits all grouped enemies.</div></div></div>
+<div class="rstep"><div class="rn">4</div><div><div class="rb-skill">Warrior Command on main target</div><div class="rb-desc">Increases damage taken by 30–40% for focused burst window.</div></div></div>
+<div class="rstep"><div class="rn" style="border-color:#8B20CC;color:#8B20CC">5</div><div><div class="rb-skill">Army of the Dead — nuke</div><div class="rb-desc">1350%+ damage with Unyielding Commander + minion count multiplier. ~10 sec CDR = near-permanent uptime.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-tips"><div class="sec-head"><span class="sec-num">07</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><h2 class="sec-title">Pro Tips</h2><div class="sec-line"></div></div>
+<div class="tip-cards"><div class="tip-card"><div class="tip-title">🔮 Darkness Conversion is Mandatory</div><div class="tip-text">All minions MUST be Shadow damage for +Darkness Skills stacking to work. Verify: click Bone Mages → back to Shadow → re-summon. If not Shadow: they don't count.</div></div>
+<div class="tip-card"><div class="tip-title">⚔ Attack Speed Cap First</div><div class="tip-text">100% Attack Speed is your absolute first priority — minions inherit it directly. Until you hit 100% AS, ignore all damage multipliers entirely.</div></div>
+<div class="tip-card"><div class="tip-title">⏱ Army of the Dead CDR</div><div class="tip-text">Aim for ~7 sec cooldown reduction. With corpse generation from Warriors (every 0.5 sec) and Sever, you should have near-permanent uptime. This is your biggest DPS lever.</div></div>
+<div class="tip-card"><div class="tip-title">🎭 Talisman Swap Mid-Pit</div><div class="tip-text">You can swap Charm slots mid-Pit run! Use Azurewrath for trash clear, swap to Red Blessing for the boss phase. No restrictions.</div></div>
+</div>
 </div>
 
-<div class="div"></div>
-
-
-<div class="sec on" id="sec-0">
-<section>
-  <div class="sh"><div class="si">💀</div><div class="st">Build <span class="r">Overview</span></div></div>
-  <div class="divider"></div>
-  <div class="sw-grid">
-    <div class="sw-box">
-      <div class="sw-title green">✓ Strengths</div>
-      <div class="sw-item"><span>✓</span>Up to 28 active minions simultaneously</div>
-      <div class="sw-item"><span>✓</span>Passive playstyle — minions do all the work</div>
-      <div class="sw-item"><span>✓</span>Perma-freeze via Bloodless Scream</div>
-      <div class="sw-item"><span>✓</span>Excellent in both Speed Farm and Pit Push</div>
-      <div class="sw-item"><span>✓</span>Army of the Dead = massive burst every ~10 sec</div>
-      <div class="sw-item"><span>✓</span>Very tanky — minions absorb all damage</div>
-    </div>
-    <div class="sw-box">
-      <div class="sw-title red">✗ Weaknesses</div>
-      <div class="sw-item"><span>✗</span>Bloodless Scream required for full power</div>
-      <div class="sw-item"><span>✗</span>3 of 6 skill slots used by minion skills</div>
-      <div class="sw-item"><span>✗</span>Talisman system requires 6-slot Seal</div>
-      <div class="sw-item"><span>✗</span>Blood Mist required for Overpower stacking</div>
-    </div>
-  </div>
-  <p class="body"><strong style="color:#c060ff">Core Mechanic:</strong> Convert all minions to Shadow damage → they become Darkness skills → stack +Darkness Skills on all gear pieces. Bloodless Scream applies Chill scaling up to 250% on frozen targets, providing a ×3.5 damage multiplier. Army of the Dead on a ~10-second cooldown nukes elite packs for 1350%+ damage.</p>
-  <p class="body"><strong style="color:var(--gold)">Season 13 Changes:</strong> Minion skills moved into the Skill Tree (not Book of the Dead). Skeletal Warriors now have an active Command ability. New Uniques Deathgrip (+6 Warriors) and The Undercrown (+6 Mages) allow up to 28 minions simultaneously. New Talisman system converts any Unique into a Charm — wear gloves + helmet AND benefit from both as Talismans.</p>
-</section>
-</div>
-<div class="sec" id="sec-1">
-<section>
-  <div class="sh"><div class="si">⚔️</div><div class="st">Skill <span class="r">Setup</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-r">⚠️ <strong>Important:</strong> With Season 13 all minion skills are in the Skill Tree. You use 3 of 6 skill slots for minions (Warriors, Mages, Golem). The remaining 3 slots are utility/survival.</div>
-
-  <div class="skill-tree-phase">
-    <div class="skill-name-d4">Skeletal Warriors <span class="upgrade-tag">Reaper · Command</span><span class="skill-pts">Active + Passive</span></div>
-    <div class="skill-desc-d4">Primary damage dealers. Choose Reaper variant (+50% damage). Use Command ability to focus-fire elites and bosses — increases their damage taken by 30–40%. This is your main burst tool for single targets.</div>
-  </div>
-  <div class="skill-tree-phase">
-    <div class="skill-name-d4">Skeletal Mages <span class="upgrade-tag">Shadow · Barrier</span><span class="skill-pts">Active + Passive</span></div>
-    <div class="skill-desc-d4">Shadow variant for the Barrier node. Make mages Shadow Darkness skills: click Bone Mages → back to Shadow → summon. This is important for the Darkness stacking synergy. Barrier provides passive damage reduction.</div>
-  </div>
-  <div class="skill-tree-phase">
-    <div class="skill-name-d4">Golem <span class="upgrade-tag">Iron · Gargantua Aura</span><span class="skill-pts">Active + Passive</span></div>
-    <div class="skill-desc-d4">Iron Golem with Gargantua upgrade — increases size and provides an aura that boosts attack speed and movement speed of all other minions. Sacrifice node for attack speed bonus while keeping the Golem.</div>
-  </div>
-  <div class="skill-tree-phase">
-    <div class="skill-name-d4">Army of the Dead <span class="upgrade-tag">Prime · Supreme</span><span class="skill-pts">Ultimate · 5 points</span></div>
-    <div class="skill-desc-d4">Your nuke. With Unyielding Commander aspect: while active minions deal +50% summon damage + 2% per minion owned. At 25 minions = +100% bonus. Total damage floor: 1350%+ per cast. Use on every Elite pack and Boss.</div>
-  </div>
-  <div class="skill-tree-phase">
-    <div class="skill-name-d4">Sever <span class="upgrade-tag">Mobility</span><span class="skill-pts">Movement</span></div>
-    <div class="skill-desc-d4">Primary movement skill — faster than Sorcerer Teleport in endgame. Creates corpses on cast which your Warriors immediately consume. Essential for map traversal.</div>
-  </div>
-  <div class="skill-tree-phase">
-    <div class="skill-name-d4">Blood Mist <span class="upgrade-tag">Survival · Overpower</span><span class="skill-pts">Utility</span></div>
-    <div class="skill-desc-d4">Get-out-of-jail button AND your primary way to maintain 4 stacks of Overpower for the Dominate Glyph. Use when taking heavy damage or when manually stacking Overpower before boss encounters.</div>
-  </div>
-
-  <div class="note-box note-t" style="margin-top:12px">💡 <strong>Cursed Aura Aspect:</strong> Once you have the Aspect of the Cursed Aura, remove Iron Maiden and Decrepify from your skill bar — the Aura applies them automatically. Frees 2 slots for Blood Mist and Blight (Whirlpool for grouping).</div>
-</section>
-</div>
-<div class="sec" id="sec-2">
-<section>
-  <div class="sh"><div class="si">📖</div><div class="st">Book of the Dead <span style="color:#c060ff">· Choices</span></div></div>
-  <div class="divider"></div>
-  <div class="card-grid">
-    <div class="gear-card d4"><div class="d4slot">Skeletal Warriors</div><div class="gear-name">Reaper · Node 2</div><div class="gear-mods"><span class="t-d4">+50% Damage</span><span class="mod-tag">Choose Reaper variant</span><span class="mod-tag">Sacrifice: Shadow Dmg bonus</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Keep 2 Warriors instead of 4 if using Shadow sacrifice. Shadow damage sacrifice bonus synergizes with full Darkness build.</div></div>
-    <div class="gear-card d4"><div class="d4slot">Skeletal Mages</div><div class="gear-name">Shadow · Node 2</div><div class="gear-mods"><span class="t-d4">Barrier</span><span class="mod-tag">Shadow = Darkness skill</span><span class="mod-tag">Coven upgrade: +more mages</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Shadow Mages are Darkness skills — synergizes with +Darkness gear stacking. Barrier node provides passive damage mitigation.</div></div>
-    <div class="gear-card d4"><div class="d4slot">Golem</div><div class="gear-name">Iron · Gargantua</div><div class="gear-mods"><span class="t-d4">Attack Speed Aura</span><span class="mod-tag">Movement Speed Aura</span><span class="mod-tag">Sacrifice: Attack Speed</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Gargantua upgrade provides aura for all minions. Sacrifice for attack speed while keeping the Golem active.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-3">
-<section>
-  <div class="sh"><div class="si">⚔️</div><div class="st">Weapons <span class="r">· Equipment</span></div></div>
-  <div class="divider"></div>
-  <div class="wpn-row">
-    <div class="wpn-card exotic-w">
-      <div class="wpn-lbl">Main Hand · Unique Scythe ⭐ (BiS)</div>
-      <div class="wpn-name">Bloodless Scream</div>
-      <div class="wpn-type">Unique Two-Handed Scythe · Build-Defining</div>
-      <div class="wpn-talent gold-t"><div class="talent-lbl">Darkness Multiplier</div><div class="talent-txt">All Darkness damage Chills enemies. Chill scaling up to 250% on frozen and boss targets. Provides a ×3.5 damage multiplier to all minion damage once enemies are frozen. The most powerful item in the build.</div></div>
-    </div>
-    <div class="wpn-card">
-      <div class="wpn-lbl">Main Hand · Alternative (pre-Bloodless)</div>
-      <div class="wpn-name">Any Scythe with +Darkness Skills</div>
-      <div class="wpn-type">Legendary Scythe</div>
-      <div class="wpn-talent"><div class="talent-lbl">Priority Affixes</div><div class="talent-txt">+Darkness Skills · Attack Speed · Critical Strike Chance · Minion Damage. The build functions well without Bloodless Scream — it just reaches a significantly higher ceiling with it.</div></div>
-    </div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-4">
-<section>
-  <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-r">⚠️ <strong>Stat Priority:</strong> 1. Attack Speed (100% cap) → 2. Critical Strike Chance (100% cap) → 3. Shadow/Vulnerable multipliers. Minions inherit your stats — maxing Attack Speed and Crit first is non-negotiable.</div>
-  <div class="card-grid">
-    <div class="gear-card d4unique"><div class="d4slot">Helmet · Unique ⭐</div><div class="gear-name">The Undercrown</div><div class="gear-mods"><span class="t-g">+6 Max Skeletal Mages</span><span class="mod-tag">Mages summon permanently</span><span class="mod-tag">Or use as Talisman Charm</span></div></div>
-    <div class="gear-card d4"><div class="d4slot">Chest · Legendary</div><div class="gear-name">+Darkness Skills Chest</div><div class="gear-mods"><span class="t-d4">+Darkness Skills</span><span class="mod-tag">Attack Speed</span><span class="mod-tag">Resistances</span></div></div>
-    <div class="gear-card d4unique"><div class="d4slot">Gloves · Unique ⭐</div><div class="gear-name">Deathgrip</div><div class="gear-mods"><span class="t-g">+6 Max Skeleton Warriors</span><span class="t-g">Warriors Cleave</span><span class="mod-tag">30–40% more Warrior Dmg</span></div></div>
-    <div class="gear-card d4"><div class="d4slot">Pants · Legendary</div><div class="gear-name">Blood Moon Breeches</div><div class="gear-mods"><span class="t-d4">Auto-cast Curses</span><span class="mod-tag">Iron Maiden + Decrepify</span><span class="mod-tag">Removes need for Curse skills</span></div></div>
-    <div class="gear-card d4"><div class="d4slot">Boots · Legendary</div><div class="gear-name">+Movement Speed Boots</div><div class="gear-mods"><span class="mod-tag">Movement Speed</span><span class="mod-tag">Resistances</span><span class="mod-tag">Attack Speed</span></div></div>
-    <div class="gear-card d4unique"><div class="d4slot">Amulet · Unique ⭐</div><div class="gear-name">Banished Lord's Talisman</div><div class="gear-mods"><span class="t-g">Overpower every 3rd attack</span><span class="mod-tag">+Darkness Skills</span><span class="mod-tag">Or use as Talisman Charm</span></div></div>
-    <div class="gear-card d4unique"><div class="d4slot">Ring 1 · Unique ⭐</div><div class="gear-name">Pact of Bone</div><div class="gear-mods"><span class="t-g">+Minion Damage</span><span class="t-g">Empowers on minion death</span><span class="mod-tag">Crit Chance</span></div></div>
-    <div class="gear-card d4"><div class="d4slot">Ring 2 · Legendary</div><div class="gear-name">+Darkness Skills Ring</div><div class="gear-mods"><span class="t-d4">+Darkness Skills</span><span class="mod-tag">Crit Strike Chance</span><span class="mod-tag">Attack Speed</span></div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-5">
-<section>
-  <div class="sh"><div class="si">💎</div><div class="st">Talisman <span style="color:#c060ff">· Charm System</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-t">💡 <strong>Season 13 Talisman System:</strong> Any Unique item can be converted to a Talisman/Charm. This lets you equip Deathgrip as Gloves AND benefit from a second Unique via a Charm slot. Use a Legendary Seal with +1 Charm Slot to unlock 6 Charm slots total.</div>
-  <div class="talent-list">
-    <div class="trow gold"><div class="src">Talisman Priority 1</div><div class="tname">Azurewrath Charm</div><div class="tdesc">For Speed Farming / Map Clear: massive AoE clear potential. Convert to Charm and use Bloodless Scream as main weapon. Swap for Red Blessing on difficult Pit content.</div></div>
-    <div class="trow gold"><div class="src">Talisman Priority 2</div><div class="tname">Bloodless Scream Charm</div><div class="tdesc">Alternative Charm slot — if you have a second Bloodless Scream convert one to Charm for double Darkness freeze scaling. Very powerful for Pit pushing.</div></div>
-    <div class="trow"><div class="src">Talisman Priority 3</div><div class="tname">Black Shroud Charm Set</div><div class="tdesc">Full Black Shroud Charm Set (5-piece) takes priority over individual Charms once available. Complete the set before optimizing individual Charm slots.</div></div>
-    <div class="trow"><div class="src">Talisman Tip</div><div class="tname">+3 Minion or +3 Darkness Skills</div><div class="tdesc">All Charm affixes should target +3 Minion Skills OR +3 Darkness Skills — they are functionally equivalent for this build and both multiply all minion damage.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-6">
-<section>
-  <div class="sh"><div class="si">📊</div><div class="st">Paragon <span class="r">· Glyphs</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-g">📈 <strong>Glyph Priority:</strong> Early game → Dominate, Deadraiser, Warrior first. Once you have Uniques and high Crit Chance → Essence and Control take priority over Deadraiser and Warrior. Level Dominate to 50+ first — the Overpower synergy with Blood Mist is 10× stronger than any other glyph.</div>
-  <div class="passive-phase">
-    <div class="pp-row"><div class="pp-name">Dominate (Overpower) — Prio 1</div><div class="pp-pts">Level to 50+</div></div>
-    <div class="pp-row"><div class="pp-name">Deadraiser — Early Prio 2</div><div class="pp-pts">Level to 25+</div></div>
-    <div class="pp-row"><div class="pp-name">Warrior — Early Prio 3</div><div class="pp-pts">Level to 25+</div></div>
-    <div class="pp-row"><div class="pp-name">Essence — Endgame (after Uniques)</div><div class="pp-pts">Level to 50+</div></div>
-    <div class="pp-row"><div class="pp-name">Control — Endgame (after Uniques)</div><div class="pp-pts">Level to 50+</div></div>
-    <div class="pp-row"><div class="pp-name">Mage (Wither Board) — Consistent Speed Farm</div><div class="pp-pts">Alternative to Dominate</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-7">
-<section>
-  <div class="sh"><div class="si">🤝</div><div class="st">Mercenaries <span class="r">· Companions</span></div></div>
-  <div class="divider"></div>
-  <div class="skills-grid">
-    <div class="skill-card"><span class="skill-ico">⚔️</span><div class="skill-name">Raheir (Primary)</div><div class="skill-desc">Best all-round mercenary. Dives in to save you from heavy hits. Provides +15% All Resist, enemies take 15% more damage, you deal 25% more damage. Bastion for Control Impairing reinforcement.</div></div>
-    <div class="skill-card"><span class="skill-ico">🗡️</span><div class="skill-name">Varyana (Reinforcement)</div><div class="skill-desc">Ancient Harpoons or Bloodthirst. Varyana's Bleed is your primary way to recover health alongside Fortify. Especially useful with 25+ minions for sustained healing.</div></div>
-    <div class="skill-card"><span class="skill-ico">🏹</span><div class="skill-name">Aldkin (Alternative)</div><div class="skill-desc">Provides 20% damage reduction when standing in his Field of Languish. Use Haunt until Field of Languish unlocks. Good alternative to Raheir for Pit pushing.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-8">
-<section>
-  <div class="sh"><div class="si">⚡</div><div class="st">Rotation <span class="r">& Playstyle</span></div></div>
-  <div class="divider"></div>
-  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px">🗺 SPEED FARMING (Helltides / Whispers)</p>
-  <p class="body">Use Sever to dash through the map. Spam Decrepify on every pack (until you have Cursed Aura Aspect — then it's automatic). Warriors auto-raise from corpses every 0.5 sec. Army of the Dead on every Elite pack. With Azurewrath Charm: everything dies before you even stop moving.</p>
-
-  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px;margin-top:16px">⚔ PIT PUSHING</p>
-  <div class="rotation-steps">
-    <div class="rstep"><div class="rstep-n">1</div><div class="rstep-body"><div class="rstep-skill">Blood Mist</div><div class="rstep-desc">Use Blood Mist to stack 4× Overpower for Dominate Glyph — essential for maximum damage on the next burst window.</div></div></div>
-    <div class="rstep"><div class="rstep-n">2</div><div class="rstep-body"><div class="rstep-skill">Blight (Whirlpool)</div><div class="rstep-desc">Cast Blight on the enemy group to pull them together. Warriors' Deathgrip cleave hits all grouped enemies simultaneously.</div></div></div>
-    <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Warrior Command</div><div class="rstep-desc">Use Warrior Command on the main target — increases damage taken by 30–40% for focused burst.</div></div></div>
-    <div class="rstep"><div class="rstep-n">4</div><div class="rstep-body"><div class="rstep-skill">Army of the Dead</div><div class="rstep-desc">Activate Army of the Dead — 1350%+ damage nuke with Unyielding Commander + minion count multiplier. With ~10 sec CDR this is nearly permanent.</div></div></div>
-    <div class="rstep"><div class="rstep-n">5</div><div class="rstep-body"><div class="rstep-skill">Repeat</div><div class="rstep-desc">Minions auto-attack constantly. Your only job is Blood Mist for Overpower stacks and Army of the Dead on cooldown.</div></div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-9">
-<section>
-  <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
-  <div class="divider"></div>
-  <div class="tips">
-    <div class="tip gold"><strong class="g">Darkness Conversion is mandatory:</strong> All minions MUST be Shadow damage to benefit from +Darkness Skills gear stacking. Verify: click Bone Mages → back to Shadow → re-summon. If your mages are not Shadow they do not count as Darkness skills.</div>
-    <div class="tip"><strong class="r">Talisman System:</strong> Get a Legendary Seal with +1 Charm Slot ASAP to unlock 6 Charm slots. Use Azurewrath for clear, swap to Red Blessing for Pit boss phases. You can swap Charms mid-Pit!</div>
-    <div class="tip gold"><strong class="g">Attack Speed cap first:</strong> 100% Attack Speed is your absolute first priority — minions inherit it directly. Until you hit 100% AS, ignore damage multipliers entirely. Same applies to 100% Crit Chance.</div>
-    <div class="tip"><strong class="r">Army of the Dead CDR:</strong> Aim for ~7 second cooldown reduction on Army of the Dead. With corpse generation from Warriors (every 0.5 sec) and Sever casting, you should have permanent uptime. This is your single biggest DPS lever.</div>
-    <div class="tip gold"><strong class="g">Without Bloodless Scream:</strong> The build is fully viable for all content up to mid-tier Pit without it. Focus on +Darkness Skills on every gear piece and use Azurewrath as main weapon until Bloodless drops.</div>
-    <div class="tip teal"><strong class="t">Best Content:</strong> Helltides, Whispers (Speed Farm) · Infernal Hordes · Pit Tier 60–100+ (with full gear) · Bossing (Warrior Command + Army of the Dead burst). One of the most versatile builds in Season 13.</div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-10">
-<section>
-  <div class="sh"><div class="si">🌳</div><div class="st">Skill Tree <span class="r">· Level by Level</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box" style="background:rgba(139,32,204,.06);border:1px solid rgba(139,32,204,.25);color:#a060e0;font-size:13px;line-height:1.6;margin-bottom:20px">
-    ℹ <strong style="color:#c060ff">D4 Season 13 Skill Cluster System:</strong> The Skill Tree unlocks in Clusters as you level. Basic skills from Level 1 · Corpse &amp; Macabre Cluster (incl. Skeletal Mages base + Golem base) from Level 2+ · Curse Cluster at <strong>Level 13</strong> · Ultimate Cluster at Level 20+. Note: Skeletal Warriors, Mages and Golem are all available early — their <em>Book of the Dead upgrades</em> (variants and sacrifice options) unlock gradually via the Book menu. Total: 83 skill points (69 from leveling + 14 from Season Rank / Renown).
-  </div>
-
-  <!-- LEVEL 1-3 -->
-  <div class="phase">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:#c060ff;color:#c060ff;background:rgba(139,32,204,.15)">1</div>
-      <div><div class="phase-title">Level 1–3 · Basic Cluster</div><div class="phase-sub" style="color:#c060ff">Hemorrhage as starter · First minion skill points</div></div>
-    </div>
-    <div class="phase-desc">From Level 1 all Basic skills are available. Start with Hemorrhage for Essence generation. Focus on Hemorrhage for Essence generation. Your first minion skill (Skeletal Mages) unlocks at Level 3.</div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 2</div><div class="gem-supports">Hemorrhage (1 pt) — Basic skill, Essence generation, early damage</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 3</div><div class="gem-supports">Skeletal Mages (1 pt) — open Book of the Dead (B), choose Shadow variant immediately</div></div>
-    </div>
-  </div>
-
-  <!-- LEVEL 3-6 -->
-  <div class="phase">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:#c060ff;color:#c060ff;background:rgba(139,32,204,.15)">2</div>
-      <div><div class="phase-title">Level 3–6 · First Minions online</div><div class="phase-sub" style="color:#c060ff">Skeletal Mages at Level 3 · Warriors at Level 4</div></div>
-    </div>
-    <div class="phase-desc">Level 3 unlocks Skeletal Mages — place them on the bar immediately and set Shadow variant in the Book of the Dead. Level 4 unlocks Skeletal Warriors — place on bar and set Reaper variant. Their advanced Book of the Dead upgrades (Upgrade #1, Upgrade #2) unlock later as you level — the base summoning skills are available right away.</div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 3</div><div class="gem-supports">Skeletal Mages (1 pt) — FIRST minion skill. Book of the Dead: Shadow variant (= Darkness skill!)</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 4</div><div class="gem-supports">Skeletal Warriors (1 pt) — place on bar. Book of the Dead: Reaper variant for corpse gen + DPS</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 5</div><div class="gem-supports">Skeletal Warriors (2 pts) — more Reaper Warriors active simultaneously</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 6</div><div class="gem-supports">Skeletal Mages (2 pts) — more Shadow Mages simultaneously</div></div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(139,32,204,.2);color:#8040b0">⚔ Book of the Dead: Mages = Shadow (Darkness skill — synergizes with +Darkness gear stacking). Warriors = Reaper (corpse gen + CDR on kill). Open with B key and configure immediately after placing on bar.</div>
-  </div>
-
-  <!-- LEVEL 7-12 -->
-  <div class="phase">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:#c060ff;color:#c060ff;background:rgba(139,32,204,.15)">3</div>
-      <div><div class="phase-title">Level 7–12 · Golem + Mobility</div><div class="phase-sub" style="color:#c060ff">Golem base available early · Sever for movement</div></div>
-    </div>
-    <div class="phase-desc">Golem is available early in the skill tree — place it on the bar and summon it. The Iron Golem Gargantua upgrade unlocks later via Book of the Dead, but the base Golem is your frontline tank immediately. Sever unlocks around Level 7 for movement. Blood Mist for survivability.</div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 7</div><div class="gem-supports">Golem (1 pt) — place on bar, Book of the Dead: Iron Golem. Gargantua aura upgrade unlocks later.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 8</div><div class="gem-supports">Sever (1 pt) — movement skill, creates corpses on cast. Essential for map traversal.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 9</div><div class="gem-supports">Skeletal Warriors (2 pts) — invest more for a larger Reaper army</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 10</div><div class="gem-supports">Skeletal Mages (2 pts) — more Shadow Mages summoned simultaneously</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 11</div><div class="gem-supports">Skeletal Warriors — Vulnerable Passive (unlock) — 30% chance to make enemies Vulnerable for 4 sec on Warrior hit. Vulnerable = +20% more damage from ALL sources. Best passive for Minion builds.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 11</div><div class="gem-supports">Blood Mist (1 pt) — survival + Overpower stacking for Dominate Glyph endgame</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 12</div><div class="gem-supports">Skeletal Warriors (3 pts) — continue building Reaper army size</div></div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(139,32,204,.2);color:#8040b0">💡 At this point you already have Warriors + Mages + Golem + Sever on the bar. Your army is functional. The Curse Cluster (Iron Maiden, Decrepify) unlocks at Level 13.</div>
-  </div>
-
-  <!-- LEVEL 13-19 -->
-  <div class="phase">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,.15)">4</div>
-      <div><div class="phase-title">Level 13–19 · Curse Cluster Unlocks ⭐</div><div class="phase-sub" style="color:var(--gold)">Iron Maiden + Decrepify available from Level 13</div></div>
-    </div>
-    <div class="phase-desc">Level 13 unlocks the entire Curse Cluster. Iron Maiden and Decrepify are both available immediately — invest 1 point in each (they are 1-point wonders). From now on: Decrepify on bosses, Iron Maiden on dense packs. Continue building the minion army points.</div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 13</div><div class="gem-supports">Iron Maiden (1 pt) — Curse Cluster UNLOCKS. Damage reflection on packs. Use on dense groups.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 14</div><div class="gem-supports">Decrepify (1 pt) — -40% slow + -20% damage dealt. Use on ALL bosses and Elites from now on.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 15</div><div class="gem-supports">Skeletal Warriors (3 pts) — continue building Reaper army size</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 16</div><div class="gem-supports">Skeletal Warriors — Master of Puppets (unlock) — strongest Warrior upgrade for Minion builds. Directly increases army size/control.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 16</div><div class="gem-supports">Skeletal Mages (3 pts) — continue building Shadow Mage army</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 17</div><div class="gem-supports">Skeletal Warriors (4 pts) — approaching max for this phase</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 18</div><div class="gem-supports">Skeletal Mages (4 pts) — continue</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 19</div><div class="gem-supports">Golem (2 pts) — invest in Golem, Gargantua aura upgrade becoming available in Book of the Dead</div></div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(232,168,32,.2);color:#b09040">⚠ Curse Priority from Level 13: Decrepify on bosses/Elites (slows + weakens). Iron Maiden on dense packs (reflect damage). Both stay at 1 point — never invest more.</div>
-  </div>
-
-  <!-- LEVEL 20-29 -->
-  <div class="phase">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,.15)">5</div>
-      <div><div class="phase-title">Level 20–29 · Ultimate Cluster + Army of the Dead</div><div class="phase-sub" style="color:var(--gold)">Level 20 unlocks Ultimate Cluster — Army of the Dead available</div></div>
-    </div>
-    <div class="phase-desc">Level 20 unlocks the Ultimate Cluster. Army of the Dead is your nuke — place it on the bar and invest points immediately. Max out Skeletal Warriors and Mages this phase. Invest in Hellbent Commander (highest priority passive) and Inspiring Leader.</div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 20</div><div class="gem-supports">Army of the Dead (1 pt) — Ultimate Cluster UNLOCKS. Place on bar, use on every Elite pack.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 21</div><div class="gem-supports">Skeletal Warriors (5 pts MAX) — full Reaper Warrior army active</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 22</div><div class="gem-supports">Skeletal Mages (5 pts MAX) — full Shadow Mage army active</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 23</div><div class="gem-supports">Army of the Dead (2 pts) — Prime + Supreme upgrades becoming available</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 24</div><div class="gem-supports">Army of the Dead (3 pts) — continue</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 25</div><div class="gem-supports">Hellbent Commander (1 pt) — HIGHEST priority passive. +% minion damage when near your army.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 26</div><div class="gem-supports">Hellbent Commander (2 pts) — continue</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 27</div><div class="gem-supports">Hellbent Commander (3 pts MAX) — fully maxed, stay near your army at all times</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 28</div><div class="gem-supports">Army of the Dead (4 pts) — near max</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Level 29</div><div class="gem-supports">Army of the Dead (5 pts MAX) — fully maxed ultimate. 1350%+ damage nuke.</div></div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(232,168,32,.2);color:#b09040">💥 Army of the Dead with Unyielding Commander: +50% minion damage while active +2% per minion owned. At 25 minions = +100% bonus. Use on every Elite pack and boss on cooldown.</div>
-  </div>
-
-  <!-- LEVEL 30-50 -->
-  <div class="phase">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--teal);color:var(--teal);background:rgba(47,184,180,.15)">6</div>
-      <div><div class="phase-title">Level 30–50 · Max Golem + Passives</div><div class="phase-sub" style="color:var(--teal)">Golem fully invested · Passive tree buildout</div></div>
-    </div>
-    <div class="phase-desc">Max out Golem to 5 points — the Gargantua aura upgrade should now be available in Book of the Dead. Then invest heavily in passive nodes. Inspiring Leader and Necrotic Carapace are the next priorities.</div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 30</div><div class="gem-supports">Golem (3 pts) — continue, Gargantua upgrade active in Book of the Dead by now</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 31</div><div class="gem-supports">Golem (4 pts)</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Level 32</div><div class="gem-supports">Golem (5 pts MAX) — full Iron Golem with Gargantua aura active</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Level 33–35</div><div class="gem-supports">Inspiring Leader (1→3 pts MAX) — +Attack Speed aura for nearby minions. Stacks with Golem aura.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Level 36–38</div><div class="gem-supports">Necrotic Carapace (1→3 pts) — Fortify on Corpse spawn. Warriors generate corpses constantly = near-permanent Fortify.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Level 39–41</div><div class="gem-supports">Death's Embrace (1→3 pts) — more damage to close enemies, less damage received from close enemies</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Level 42–50</div><div class="gem-supports">Terror (1→3 pts) + Gloom (1→3 pts) + Amplify Damage (1→3 pts) — damage and mitigation passives</div></div>
-    </div>
-  </div>
-
-  <!-- LEVEL 51-70 -->
-  <div class="phase">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--teal);color:var(--teal);background:rgba(47,184,180,.15)">7</div>
-      <div><div class="phase-title">Level 51–70 · Final Passives</div><div class="phase-sub" style="color:var(--teal)">Finality · Titan's Fall · Prepare for Paragon</div></div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Level 51–53</div><div class="gem-supports">Finality (1→3 pts) — Army of the Dead bonus damage passive</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Level 54–56</div><div class="gem-supports">Titan's Fall (1→3 pts) — Overpower damage bonus, synergizes with Blood Mist stacking</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--teal)">Level 57–70</div><div class="gem-supports">Remaining prereq nodes (Bone Armor, Spiked Armor, Reaper's Pursuit) — 1 pt each as needed</div></div>
-    </div>
-  </div>
-
-  <!-- FINAL SKILL BAR -->
-  <div class="phase" style="border-left-color:var(--gold)">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,.15)">★</div>
-      <div><div class="phase-title">Final Skill Bar · Level 70</div><div class="phase-sub" style="color:var(--gold)">All 6 slots locked in — the complete army</div></div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Slot 1 — Skeletal Warriors</div><div class="gem-supports">5 pts · Reaper · Upgrade #1 (more corpses + CDR) · Command = focus-fire Elites</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Slot 2 — Skeletal Mages</div><div class="gem-supports">5 pts · Shadow = Darkness skill · Barrier upgrade (damage reduction for army)</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:#c060ff">Slot 3 — Golem</div><div class="gem-supports">5 pts · Iron · Gargantua Aura (all minions +Atk Speed +Move Speed) · Command = Unstoppable</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Slot 4 — Army of the Dead</div><div class="gem-supports">5 pts · Prime + Supreme · 1350%+ nuke every ~10 sec via Unyielding Commander</div></div>
-      <div class="gem-row"><div class="gem-name">Slot 5 — Sever</div><div class="gem-supports">1 pt · Movement + corpse generation on cast</div></div>
-      <div class="gem-row"><div class="gem-name">Slot 6 — Blood Mist</div><div class="gem-supports">1 pt · Survival + Overpower stacking for Dominate Glyph</div></div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(232,168,32,.2);color:#b09040">
-      ⚡ <strong>Unlock Order at a Glance:</strong><br>
-      Lvl 2 → Hemorrhage &nbsp;·&nbsp; Lvl 3 → Skeletal Mages &nbsp;·&nbsp; Lvl 4 → Skeletal Warriors &nbsp;·&nbsp; Lvl 7 → Golem &nbsp;·&nbsp; Lvl 8 → Sever &nbsp;·&nbsp; Lvl 11 → Blood Mist &nbsp;·&nbsp; <strong style="color:var(--gold)">Lvl 13 → Curses (Iron Maiden + Decrepify)</strong> &nbsp;·&nbsp; <strong style="color:var(--gold)">Lvl 20 → Army of the Dead</strong><br><br>
-      Book of the Dead upgrades (Reaper, Shadow, Gargantua) unlock gradually — check the Book menu (B key) as you level up for new upgrade options.
-    </div>
-  </div>
-</section>
-</div>
-
+<footer style="border-top:1px solid #8B20CC33;padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">DIABLO 4 · SHADOW WARRIOR NECROMANCER · S-TIER · SEASON 13</footer>
 </div>
 <script>
-function ST(el) {
-  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
-  document.getElementById(el.dataset.sec).classList.add('on');
-  window.scrollTo(0, 0);
-}
+function ST(el){document.querySelectorAll('.tab-hero').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.getElementById(el.dataset.sec).classList.add('on');window.scrollTo(0,0)}
 </script>
 </body>
 </html>

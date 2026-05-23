@@ -3,651 +3,248 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>SWTOR – The Mandalorian · Arsenal Mercenary Build</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
-<style>
-
-:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(224,48,96,0.08) 0%,transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(232,168,32,0.05) 0%,transparent 45%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 2px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:0}
-.container{max-width:1100px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
-.back-btn{display:inline-flex;align-items:center;gap:8px;margin:20px 0;padding:8px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:.15s}
-.back-btn:hover{background:rgba(255,255,255,.1);color:#fff}
-header{padding:40px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;display:flex;align-items:center;gap:28px;animation:fadeDown .6s ease both}
-.hemblem{font-size:64px;animation:pulse 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{filter:drop-shadow(0 0 10px rgba(224,48,96,.75))}50%{filter:drop-shadow(0 0 28px rgba(224,48,96,1)) drop-shadow(0 0 40px rgba(232,168,32,.35))}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(24px,4vw,46px);color:var(--bright);text-transform:uppercase;letter-spacing:3px;line-height:1}
-h1 .r{color:var(--red)} h1 .g{color:var(--gold)} h1 .t{color:var(--teal)}
-.subtitle{margin-top:8px;font-size:12px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--red)}
-.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.badge{padding:3px 12px;border:1px solid;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
-.badge-pve{border-color:var(--teal);color:var(--teal)} .badge-dps{border-color:var(--red);color:var(--red)} .badge-tank{border-color:var(--gold);color:var(--gold)} .badge-dot{border-color:#b040f0;color:#b040f0} .badge-shock{border-color:#60c0ff;color:#60c0ff} .badge-meta{border-color:var(--gold);color:var(--gold)}
-section{margin-bottom:44px;animation:fadeUp .5s ease both}
-section:nth-child(2){animation-delay:.06s} section:nth-child(3){animation-delay:.12s} section:nth-child(4){animation-delay:.18s} section:nth-child(5){animation-delay:.24s} section:nth-child(6){animation-delay:.30s} section:nth-child(7){animation-delay:.36s} section:nth-child(8){animation-delay:.42s} section:nth-child(9){animation-delay:.48s} section:nth-child(10){animation-delay:.54s} section:nth-child(11){animation-delay:.60s}
-.sh{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.si{width:36px;height:36px;background:var(--dark4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
-.st{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:3px;color:var(--bright)}
-.st .r{color:var(--red)} .st .g{color:var(--gold)} .st .t{color:var(--teal)}
-.divider{height:1px;background:linear-gradient(90deg,var(--red) 0%,var(--gold) 35%,transparent 65%);margin:8px 0 24px;opacity:.35}
-p.body{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.gear-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px;transition:.2s;position:relative}
-.gear-card:hover{border-color:var(--red);box-shadow:var(--glow)}
-.gear-card.named{border-left-color:var(--gold)} .gear-card.named:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.exotic{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 60%)} .gear-card.exotic:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.blue{border-left-color:var(--teal)} .gear-card.blue:hover{border-color:var(--teal)}
-.gear-card.purple{border-left-color:#b040f0} .gear-card.purple:hover{border-color:#b040f0;box-shadow:0 0 16px rgba(176,64,240,.3)}
-.gear-slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:6px}
-.gear-card.named .gear-slot,.gear-card.exotic .gear-slot{color:var(--gold)} .gear-card.blue .gear-slot{color:var(--teal)} .gear-card.purple .gear-slot{color:#b040f0}
-.gear-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;color:var(--bright);margin-bottom:8px}
-.core-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.core-red{background:rgba(224,48,96,.12);color:var(--red);border:1px solid rgba(224,48,96,.4)}
-.core-named{background:rgba(232,168,32,.12);color:var(--gold);border:1px solid rgba(232,168,32,.4)}
-.core-exotic{background:linear-gradient(90deg,rgba(232,168,32,.15),rgba(224,48,96,.1));color:var(--gold);border:1px solid rgba(232,168,32,.45)}
-.core-blue{background:rgba(47,184,180,.1);color:var(--teal);border:1px solid rgba(47,184,180,.35)}
-.gear-mods{display:flex;flex-wrap:wrap;gap:5px}
-.mod-tag{font-size:10px;padding:2px 7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#8070a0}
-.t-r{font-size:11px;padding:2px 7px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.t-g{font-size:11px;padding:2px 7px;background:rgba(232,168,32,.08);border:1px solid rgba(232,168,32,.2);color:var(--gold)}
-.t-t{font-size:11px;padding:2px 7px;background:rgba(47,184,180,.08);border:1px solid rgba(47,184,180,.2);color:var(--teal)}
-.t-p{font-size:11px;padding:2px 7px;background:rgba(176,64,240,.08);border:1px solid rgba(176,64,240,.2);color:#c060ff}
-.wpn-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:14px}
-.wpn-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.15);padding:14px 16px;transition:.2s}
-.wpn-card:hover{border-color:rgba(255,255,255,.2)}
-.wpn-card.named-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 55%)} .wpn-card.named-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-card.exotic-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.08) 0%,rgba(224,48,96,.04) 55%,var(--dark3) 100%)} .wpn-card.exotic-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#6a5080;margin-bottom:6px}
-.wpn-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--bright);margin-bottom:3px}
-.wpn-type{font-size:12px;color:#6a5080;margin-bottom:10px}
-.wpn-talent{background:var(--dark4);border-left:3px solid var(--red);padding:9px 12px;margin-top:8px}
-.wpn-talent.gold-t{border-left-color:var(--gold)}
-.talent-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:4px}
-.wpn-talent.gold-t .talent-lbl{color:var(--gold)}
-.talent-txt{font-size:12px;line-height:1.55;color:#8070a0}
-.spec-card{background:var(--dark3);border:1px solid var(--border);padding:20px;display:flex;gap:20px;align-items:flex-start}
-.spec-ico{font-size:36px;flex-shrink:0}
-.spec-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--bright);letter-spacing:1px;margin-bottom:8px}
-.spec-desc{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.perks{display:flex;flex-wrap:wrap;gap:6px}
-.perk{font-size:11px;padding:3px 10px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.talent-list{display:flex;flex-direction:column;gap:12px}
-.trow{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;transition:.2s}
-.trow:hover{border-color:var(--red);box-shadow:var(--glow)}
-.trow.gold{border-left-color:var(--gold)} .trow.gold:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.trow .src{font-size:10px;color:#6a5080;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.trow .tname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);margin-bottom:4px}
-.trow.gold .tname{color:var(--gold)}
-.trow .tdesc{font-size:12px;line-height:1.55;color:#8070a0}
-.stats-table{width:100%;border-collapse:collapse;font-size:13px}
-.stats-table th{text-align:left;padding:10px 14px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:11px;border-bottom:1px solid var(--border)}
-.stats-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.stats-table tr:hover td{background:rgba(255,255,255,.02)}
-.sv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red)}
-.sl{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;display:block;margin-top:2px}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.skill-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px;text-align:center}
-.skill-ico{font-size:28px;display:block;margin-bottom:10px}
-.skill-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:6px}
-.skill-desc{font-size:12px;color:#7a6080;line-height:1.5}
-.note-box{padding:13px 16px;font-size:13px;line-height:1.6;margin-bottom:12px}
-.note-r{background:rgba(224,48,96,.06);border:1px solid rgba(224,48,96,.2);color:#c87080} .note-r strong{color:var(--red)}
-.note-g{background:rgba(232,168,32,.06);border:1px solid rgba(232,168,32,.2);color:#b09040} .note-g strong{color:var(--gold)}
-.note-t{background:rgba(47,184,180,.06);border:1px solid rgba(47,184,180,.2);color:#50a09a} .note-t strong{color:var(--teal)}
-.tips{display:flex;flex-direction:column;gap:10px}
-.tip{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;font-size:13px;line-height:1.6}
-.tip.gold{border-left-color:var(--gold)} .tip.teal{border-left-color:var(--teal)}
-.tip strong.r{color:var(--red)} .tip strong.g{color:var(--gold)} .tip strong.t{color:var(--teal)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px}
-.legend-item{display:flex;align-items:center;gap:7px;font-size:12px}
-.ldot{width:10px;height:10px;border-radius:50%}
-/* Cycle boxes */
-.cycle-box{background:var(--dark3);border:1px solid rgba(224,48,96,.3);padding:20px;display:grid;gap:0;position:relative;overflow:hidden}
-.cycle-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,48,96,.05) 0%,transparent 50%,rgba(232,168,32,.03) 100%);pointer-events:none}
-.cycle-step{padding:16px;text-align:center;position:relative}
-.cnum{width:40px;height:40px;border-radius:50%;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--red);margin:0 auto 10px}
-.ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);text-transform:uppercase;letter-spacing:1px}
-.cval{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--gold);margin:4px 0 2px}
-.cdesc{font-size:11px;color:#7a6080;margin-top:5px;line-height:1.5}
-/* strengths/weaknesses */
-.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.sw-box{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px}
-.sw-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
-.sw-title.green{color:#64c864} .sw-title.red{color:var(--red)}
-.sw-item{font-size:12px;line-height:1.6;padding:4px 0;color:var(--text);display:flex;gap:8px}
-.sw-item span{flex-shrink:0}
-/* Leveling phases */
-.phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:16px;margin-bottom:12px}
-.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.phase-num{width:32px;height:32px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red);flex-shrink:0}
-.phase-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);letter-spacing:.5px}
-.phase-sub{font-size:11px;color:var(--gold);margin-top:2px}
-.phase-desc{font-size:12px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.gem-list{display:flex;flex-direction:column;gap:6px}
-.gem-row{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--dark4);border:1px solid rgba(255,255,255,.04)}
-.gem-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);min-width:140px;flex-shrink:0}
-.gem-supports{font-size:11px;color:#8070a0;line-height:1.4}
-.passive-box{background:var(--dark4);border:1px solid rgba(232,168,32,.15);padding:10px 14px;margin-top:10px;font-size:12px;color:#8070a0;line-height:1.6}
-/* Passive tree */
-.passive-phase{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.pp-row{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:var(--dark4);border:1px solid rgba(255,255,255,.04);font-size:12px}
-.pp-name{color:var(--text)}
-.pp-pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:13px}
-/* Ascendancy */
-.asc-list{display:flex;flex-direction:column;gap:10px}
-.asc-item{display:flex;gap:14px;align-items:flex-start;background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px}
-.asc-num{width:28px;height:28px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--red);flex-shrink:0}
-.asc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:4px}
-.asc-when{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.asc-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Rotation */
-.rotation-steps{display:flex;flex-direction:column;gap:8px}
-.rstep{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--dark3);border:1px solid rgba(255,255,255,.04)}
-.rstep-n{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--red);width:24px;flex-shrink:0}
-.rstep-body{}
-.rstep-skill{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);margin-bottom:3px}
-.rstep-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Equipment table */
-.equip-table{width:100%;border-collapse:collapse;font-size:12px}
-.equip-table th{text-align:left;padding:8px 12px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:10px;border-bottom:1px solid var(--border)}
-.equip-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.equip-table tr:hover td{background:rgba(255,255,255,.02)}
-.item-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);display:flex;align-items:center;gap:6px}
-.item-note{font-size:11px;color:#7a6080;margin-top:4px;line-height:1.4}
-.item-badge{font-size:9px;padding:1px 6px;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.3);color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.item-badge.req{background:rgba(224,48,96,.1);border-color:rgba(224,48,96,.3);color:var(--red)}
-footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:#4a3858;letter-spacing:2px;text-transform:uppercase}
-
-:root{--sw:#C87820;--swdim:rgba(200,120,32,0.15);--swborder:rgba(200,120,32,0.35);--swglow:0 0 20px rgba(200,120,32,0.4);--swblue:#4080C0;--swbluedim:rgba(64,128,192,0.15)}
-.badge-sw{border-color:var(--sw);color:var(--sw)}
-.badge-swb{border-color:var(--swblue);color:var(--swblue)}
-.sw-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--sw);padding:14px 16px;transition:.2s}
-.sw-card:hover{border-color:var(--sw);box-shadow:var(--swglow)}
-.sw-slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--sw);margin-bottom:6px}
-.t-sw{font-size:11px;padding:2px 7px;background:rgba(200,120,32,.08);border:1px solid rgba(200,120,32,.2);color:var(--sw)}
-.t-swb{font-size:11px;padding:2px 7px;background:rgba(64,128,192,.08);border:1px solid rgba(64,128,192,.2);color:var(--swblue)}
-.rotation-phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--sw);padding:16px;margin-bottom:12px}
-.rotation-phase.opener{border-left-color:var(--gold)}
-.rp-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:10px;display:flex;align-items:center;gap:10px}
-.rp-tag{font-size:10px;padding:2px 8px;background:rgba(200,120,32,.1);border:1px solid rgba(200,120,32,.25);color:var(--sw);font-weight:600;letter-spacing:1px;text-transform:uppercase}
-.rp-tag.gold{background:rgba(232,168,32,.1);border-color:rgba(232,168,32,.25);color:var(--gold)}
-.ability-row{display:flex;align-items:flex-start;gap:12px;padding:8px 10px;background:var(--dark4);border:1px solid rgba(255,255,255,.04);margin-bottom:4px}
-.ab-order{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--sw);width:20px;flex-shrink:0;text-align:center}
-.ab-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);margin-bottom:2px}
-.ab-note{font-size:11px;color:#8070a0;line-height:1.4}
-.heat-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--dark4);margin-bottom:8px}
-.heat-label{font-size:11px;color:#8070a0;width:80px;flex-shrink:0}
-.heat-fill{height:8px;background:linear-gradient(90deg,var(--sw),var(--red));border-radius:4px;transition:.3s}
-.heat-val{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;color:var(--sw);margin-left:auto}
-.stat-priority{display:flex;flex-direction:column;gap:6px}
-.sp-row{display:flex;align-items:center;gap:14px;padding:10px 14px;background:var(--dark3);border:1px solid rgba(255,255,255,.04)}
-.sp-num{width:28px;height:28px;background:rgba(200,120,32,.15);border:2px solid var(--sw);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--sw);flex-shrink:0}
-.sp-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright)}
-.sp-val{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--gold);margin-left:auto}
-.sp-note{font-size:11px;color:#8070a0;margin-top:2px}
-
-
-/* ── TAB SYSTEM ── */
-.tab-bar-hero{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
-  padding:14px 16px 4px;
-}
-.tab-hero{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:7px 12px;cursor:pointer;flex-shrink:0;
-  border-radius:8px;border:1px solid rgba(0,0,0,.15);
-  background:rgba(255,255,255,.03);
-  border-bottom:2px solid transparent;transition:.2s;
-}
-.tab-hero:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
-.tab-hero.on{border-color:#C8782040;border-bottom-color:#C87820;background:#C8782012}
+<title>The Mandalorian</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{--ac:#C87820;--bg:#060400;--s1:#0c0800;--text:#f0e8d0;--muted:#907840;--muted2:#483808;--gold:#E8C840;--teal:#40c8b4;--green:#40c060;--red:#e04060}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0) 1px,transparent 1px);background-size:44px 44px;animation:bgshift 30s linear infinite;background-image:linear-gradient(#C878200d 1px,transparent 1px),linear-gradient(90deg,#C878200d 1px,transparent 1px)}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 0%,#C878201f 0%,transparent 100%)}
+@keyframes bgshift{from{background-position:0 0}to{background-position:44px 44px}}
+@keyframes dvisor{0%,100%{opacity:.6}50%{opacity:1}}@keyframes jetpulse{0%{transform:translateY(0)}50%{transform:translateY(-2px)}100%{transform:translateY(0)}}
+.wrap{max-width:660px;margin:0 auto;padding:0 16px 60px;position:relative;z-index:1}
+.hero{padding:28px 0 20px;text-align:center}
+.hero-icon{width:90px;height:90px;margin:0 auto 20px}
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:#C8782099;margin-bottom:6px;text-transform:uppercase}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(26px,6vw,40px);font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.hero-title em,.hero-title .t2{color:#C87820;font-style:normal}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.hero-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.htag{font-size:9px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
+.hero-bars{display:flex;justify-content:center;gap:20px}
+.hb{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
+.hb-track{width:48px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.hb-fill{height:100%;border-radius:2px}
+.hb-label{font-size:7px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.hb-val{font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+.tab-bar-hero{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;padding:16px 16px 4px}
+.tab-hero{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px;cursor:pointer;flex-shrink:0;border-radius:8px;border:1px solid #C878201a;background:#C878200a;border-bottom:2px solid transparent;transition:.2s}
+.tab-hero:hover{background:#C878201a;border-color:#C8782099}
+.tab-hero.on{border-color:#C8782099;border-bottom-color:#C87820;background:#C878201a}
 .tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
-.tab-ico svg{width:14px;height:14px;color:#666;transition:.2s}
-.tab-hero.on .tab-ico svg{color:#C87820;filter:drop-shadow(0 0 3px #C8782080)}
-.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
-  color:#444;transition:.2s;white-space:nowrap}
+.tab-ico svg{width:14px;height:14px;color:#483808;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#C87820;filter:drop-shadow(0 0 3px #C87820#C878201f)}
+.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#483808;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
 .tab-hero.on .tab-lbl{color:#C87820}
-.sec{display:none}
-.sec.on{display:block}
-</style>
+.sec{display:none}.sec.on{display:block}
+.div{height:1px;background:linear-gradient(90deg,transparent,#C87820,#C8782099,transparent);margin:20px 0;position:relative}
+.div-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#C87820;border-radius:50%;box-shadow:0 0 8px #C87820}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid #C8782099;background:#C878200a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-ico svg{width:16px;height:16px;color:#C87820}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:#C8782033;letter-spacing:1px}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,#C8782099,transparent)}
+.info-block{background:var(--s1);border:1px solid #C8782033;border-left:3px solid #C87820;border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.info-block::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,#C8782014,transparent 70%);pointer-events:none}
+.info-block p{font-size:12px;color:#f0e8d099;line-height:1.75}
+.info-block p+p{margin-top:8px}
+.kw{color:#C87820;font-weight:700}.kw2{color:#C8782099;font-weight:700}.kw3{color:var(--gold);font-weight:700}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sw-box{background:var(--s1);border:1px solid;border-radius:8px;padding:11px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#907840;line-height:1.5;margin-bottom:3px}
+.sw-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.note{padding:9px 12px;border-radius:6px;font-size:11px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
+.note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#c04060}
+.note-info{background:#C8782014;border-color:#C8782099;color:#C8782099}
+.note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
+.note-gold{background:rgba(232,200,64,.05);border-color:rgba(232,200,64,.3);color:#a08020}
+.cycle{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.cycle-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
+.cycle-n{width:32px;height:32px;border-radius:50%;border:2px solid #C87820;background:#C8782014;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#C87820;flex-shrink:0}
+.cycle-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.cycle-sub{font-size:11px;color:#907840;line-height:1.4}
+.cycle-badge{font-size:9px;padding:2px 8px;border-radius:3px;background:#C8782014;border:1px solid #C8782099;color:#C87820;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start;margin-left:auto}
+.gear-list{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.gr{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px;transition:.15s}
+.gr:hover{border-color:#C8782033}
+.gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
+.gr.named{border-color:rgba(192,96,255,.2)}
+.gr-slot{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);width:60px;flex-shrink:0;padding-top:2px}
+.gr-info{flex:1}
+.gr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.gr.bis .gr-name{color:var(--gold)}.gr.named .gr-name{color:#c060ff}
+.gr-note{font-size:10px;color:var(--muted2);line-height:1.35}
+.gr-tag{font-size:8px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+.talent-cards{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.tc{background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+.tc-ico{font-size:18px;flex-shrink:0;line-height:1.3}
+.tc-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#C87820;margin-bottom:3px}
+.tc-desc{font-size:11px;color:#907840;line-height:1.5}
+.set-table{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.st-row{display:grid;grid-template-columns:80px 1fr;gap:10px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.st-pieces{font-family:'Share Tech Mono',monospace;font-size:10px;color:#C87820;font-weight:700}
+.st-bonus{font-size:11px;color:#f0e8d099;line-height:1.4}
+.skill-list{display:flex;flex-direction:column;gap:5px}
+.sk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:9px;transition:.15s;position:relative;overflow:hidden}
+.sk:hover{border-color:#C8782033}
+.sk-ico{font-size:20px;flex-shrink:0;line-height:1.3}
+.sk-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.sk-desc{font-size:11px;color:#907840;line-height:1.4}
+.stats-table{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.stat-row{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.stat-attr{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#fff}
+.stat-target{font-family:'Share Tech Mono',monospace;font-size:11px;color:#C87820}
+.stat-note{font-size:10px;color:var(--muted2)}
+.lv-track{position:relative;padding-left:22px}
+.lv-track::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,#C87820,#C8782099,transparent)}
+.lv-ph{position:relative;margin-bottom:17px}
+.lv-ph::before{content:'';position:absolute;left:-18px;top:5px;width:8px;height:8px;border-radius:50%;border:2px solid #C87820;background:var(--bg);z-index:1}
+.lv-ph.hi::before{background:#C87820;box-shadow:0 0 7px #C87820}
+.lv-tag{font-size:8px;color:#C8782033;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px}
+.lv-t{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.lv-d{font-size:11px;color:#907840;line-height:1.6;margin-bottom:6px}
+.lv-gems{display:flex;flex-direction:column;gap:3px;margin-bottom:5px}
+.lgr{display:flex;align-items:center;gap:7px;padding:3px 8px;background:rgba(255,255,255,.03);border-radius:4px;border:1px solid rgba(255,255,255,.04)}
+.lgr.hi{border-color:#C8782033;background:#C8782014}
+.lgr-n{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;min-width:120px;color:#fff}
+.lgr-ss{display:flex;flex-wrap:wrap;gap:2px}
+.lgr-s{font-size:8px;padding:1px 4px;border-radius:2px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.lgr-s.gold{border-color:rgba(232,200,64,.3);color:var(--gold)}
+.lv-pts{font-size:9px;color:var(--muted2);border-top:1px solid rgba(255,255,255,.04);padding-top:4px;margin-top:3px}
+.tree-list{display:flex;flex-direction:column;gap:4px}
+.tr{display:flex;align-items:center;gap:12px;padding:7px 10px;background:var(--s1);border-radius:5px;border:1px solid rgba(255,255,255,.04)}
+.tr.hi{border-color:rgba(232,200,64,.18)}
+.tr-range{font-family:'Share Tech Mono',monospace;font-size:10px;color:#C87820;min-width:80px;flex-shrink:0}
+.tr.hi .tr-range{color:var(--gold)}
+.tr-desc{font-size:11px;color:#f0e8d099;flex:1}
+.tr-pts{font-size:9px;color:var(--muted2);flex-shrink:0}
+.rot-block{margin-bottom:16px}
+.rot-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rot-ico{width:22px;height:22px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center}
+.rot-ico svg{width:12px;height:12px}
+.rot-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+.rot-steps{display:flex;flex-direction:column;gap:5px}
+.rstep{display:flex;gap:10px;align-items:flex-start}
+.rn{width:22px;height:22px;border-radius:50%;border:1px solid #C87820;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;color:#C87820;flex-shrink:0;margin-top:1px}
+.rb-skill{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:1px}
+.rb-desc{font-size:11px;color:#907840;line-height:1.4}
+.asc-flow{position:relative;padding-left:20px}
+.asc-flow::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,#C87820,#C8782099,transparent)}
+.asc-item{position:relative;margin-bottom:14px;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.asc-item::before{content:'';position:absolute;left:-14px;top:7px;width:8px;height:8px;border-radius:50%;border:2px solid #C87820;background:var(--bg);z-index:1}
+.asc-item.gold::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px var(--gold)}
+.asc-step{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);line-height:1.4}
+.asc-when{font-size:8px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;font-family:'Share Tech Mono',monospace}
+.asc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
+.asc-desc{font-size:11px;color:#907840;line-height:1.5}
+.tip-cards{display:flex;flex-direction:column;gap:6px}
+.tip-card{background:var(--s1);border:1px solid #C8782033;border-radius:8px;padding:12px 14px}
+.tip-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#C87820;margin-bottom:4px}
+.tip-text{font-size:11px;color:#907840;line-height:1.55}
+.priority-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.pr{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:flex-start;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px}
+.pr-n{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:900;color:#C87820;text-align:center}
+.pr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.pr-desc{font-size:10px;color:#907840;line-height:1.4}
+.pr-badge{font-size:8px;padding:2px 6px;border-radius:3px;border:1px solid #C8782099;color:#C87820;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start}</style>
 </head>
 <body>
-<div class="container">
-<a class="back-btn" href="gaming-builds-app.html">← Back to Build Hub</a>
-
-<header>
-  <div class="hemblem" style="filter:drop-shadow(0 0 20px rgba(200,120,32,0.9));font-size:56px">🚀</div>
-  <div>
-    <h1 style="color:var(--bright)">The <span style="color:var(--sw)">Mandalorian</span></h1>
-    <h1 style="font-size:clamp(14px,2vw,22px);letter-spacing:2px;margin-top:4px"><span style="color:#c060ff">Arsenal</span> Mercenary · Bounty Hunter · SWTOR 7.8</h1>
-    <div class="subtitle">Star Wars: The Old Republic · Arsenal DPS · Patch 7.8 · This is the Way</div>
-    <div class="badges">
-      <span class="badge badge-sw">Bounty Hunter</span>
-      <span class="badge badge-sw">Arsenal DPS</span>
-      <span class="badge badge-swb">Missiles</span>
-      <span class="badge badge-swb">Blasters</span>
-      <span class="badge badge-tank">Heavy Armor</span>
-    </div>
-  </div>
-</header>
-
+<div class="wrap">
+<div class="hero">
+  <div class="hero-icon"><svg viewBox="0 0 90 90" fill="none">
+  <path d="M45 8 L70 20 L70 50 Q70 72 45 82 Q20 72 20 50 L20 20 Z" fill="none" stroke="#C87820" stroke-width="2.5" style="animation:jetpulse 3s ease-in-out infinite"/>
+  <path d="M30 28 L60 28" stroke="#C87820" stroke-width="1.5" opacity=".4"/>
+  <path d="M28 38 Q45 28 62 38" fill="none" stroke="#C87820" stroke-width="2" style="animation:dvisor 2s ease-in-out infinite"/>
+  <path d="M28 38 Q45 46 62 38" fill="#C87820" opacity=".12" style="animation:dvisor 2s ease-in-out infinite"/>
+  <path d="M33 48 L42 52 L42 60 L33 55 Z" fill="#C87820" opacity=".3"/>
+  <path d="M57 48 L48 52 L48 60 L57 55 Z" fill="#C87820" opacity=".3"/>
+  <rect x="38" y="62" width="14" height="4" rx="2" fill="#C87820" opacity=".5"/>
+  <circle cx="45" cy="8" r="3" fill="#C87820" opacity=".6"/>
+</svg></div>
+  <div class="hero-pre">▶ Star Wars: The Old Republic · Arsenal DPS · This is the Way</div>
+  <h1 class="hero-title">The <em>Mandalorian</em></h1>
+  <div class="hero-sub">Arsenal Mercenary · Bounty Hunter · SWTOR Patch 7.8</div>
+  <div class="hero-tags"><span class="htag" style="color:#FFD700;border-color:rgba(255,215,0,.3)">THIS IS THE WAY</span><span class="htag" style="color:#C87820;border-color:#C878204d">ARSENAL DPS</span><span class="htag" style="color:#60a0ff;border-color:rgba(96,160,255,.3)">MISSILES</span><span class="htag" style="color:#50c8b4;border-color:rgba(80,200,180,.3)">PATCH 7.8</span></div>
+  <div class="hero-bars"><div class="hb"><div class="hb-val" style="color:#ff6060">4★</div><div class="hb-track"><div class="hb-fill" style="width:80%;background:#ff6060"></div></div><div class="hb-label">DPS</div></div><div class="hb"><div class="hb-val" style="color:#60a0ff">4★</div><div class="hb-track"><div class="hb-fill" style="width:78%;background:#60a0ff"></div></div><div class="hb-label">SURV</div></div><div class="hb"><div class="hb-val" style="color:#40c8b4">4★</div><div class="hb-track"><div class="hb-fill" style="width:75%;background:#40c8b4"></div></div><div class="hb-label">SPD</div></div><div class="hb"><div class="hb-val" style="color:#E8C840">3★</div><div class="hb-track"><div class="hb-fill" style="width:60%;background:#E8C840"></div></div><div class="hb-label">EASE</div></div></div>
+</div>
 <div class="tab-bar-hero">
-  <div class="tab-hero on" data-sec="sec-0" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-    <div class="tab-lbl">Build Overvi…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-1" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Heat Managem…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-2" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
-    <div class="tab-lbl">Core Abiliti…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-3" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
-    <div class="tab-lbl">Rotation · C…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-4" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
-    <div class="tab-lbl">Defensive Co…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-5" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
-    <div class="tab-lbl">Stat Priority</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-6" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
-    <div class="tab-lbl">Mandalorian …</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-7" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Pro Tips</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-8" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Ability Tree…</div>
-  </div>
+  <div class="tab-hero on" data-sec="sec-overview" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="tab-lbl">Overview</div></div>
+  <div class="tab-hero" data-sec="sec-heat" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><div class="tab-lbl">Heat Mgmt</div></div>
+  <div class="tab-hero" data-sec="sec-ability" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div class="tab-lbl">Abilities</div></div>
+  <div class="tab-hero" data-sec="sec-rotation" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><div class="tab-lbl">Rotation</div></div>
+  <div class="tab-hero" data-sec="sec-stats" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="tab-lbl">Stats</div></div>
+  <div class="tab-hero" data-sec="sec-gear" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tab-lbl">Gear</div></div>
+  <div class="tab-hero" data-sec="sec-tips" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div class="tab-lbl">Pro Tips</div></div>
+</div>
+<div class="div"><div class="div-dot"></div></div>
+<div class="sec on" id="sec-overview"><div class="sec-head"><span class="sec-num">01</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h2 class="sec-title">Build Overview</h2><div class="sec-line"></div></div>
+<div class="info-block"><p><span class="kw">Arsenal Mercenary</span> is a priority-based rotation class. <span class="kw">Tracer Missile</span> builds Tracer Lock (5 stacks) → enables <span class="kw3">Heatseeker Missiles</span> (highest damage) + Rail Shot. Supercharged Gas at 10 stacks opens a 15-second burst window.</p><p>Mandalorian Fantasy: Tracer Missile = wrist-mounted rocket. Heatseeker = shoulder-launched homing rockets. Rail Shot = precision blaster execution. Blazing Bolts = dual-blaster suppression fire. Hydraulic Overrides = jetpack sprint.</p></div>
+<div class="sw"><div class="sw-box" style="border-color:#40c06033"><div class="sw-title" style="color:#40c060">✓ Strengths</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Heavy Armor — tanky enough to solo most content</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Dual blasters + rockets = perfect Mando fantasy</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Strong burst DPS via Heatseeker + Rail Shot</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Most abilities instant-cast or mobile-friendly</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Kolto Overload: emergency self-heal</div></div><div class="sw-box" style="border-color:#e0406033"><div class="sw-title" style="color:#e04060">✗ Weaknesses</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Tracer Missile requires standing still</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Heat management — overheat kills DPS</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Lower sustained DPS vs. Innovative Ordnance spec</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Difficult to fully optimize at top-end Ops</div></div></div>
+</div>
+<div class="sec" id="sec-heat"><div class="sec-head"><span class="sec-num">02</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></div><h2 class="sec-title">Heat Management</h2><div class="sec-line"></div></div>
+<div class="note note-warn">⚠ Heat is your resource. Arsenal has no energy — only Heat (0–100). Heat management IS the skill floor of Arsenal.</div>
+<div class="cycle"><div class="cycle-step"><div class="cycle-n">✅</div><div><div class="cycle-title">Safe Zone 0–40</div><div class="cycle-sub">Normal DPS zone. All abilities available. Stay here as much as possible.</div></div><span class="cycle-badge">0-40</span></div>
+<div class="cycle-step"><div class="cycle-n">⚠</div><div><div class="cycle-title">Caution 40–80</div><div class="cycle-sub">Efficiency drops. Use Vent Heat at 50+ proactively. Do not wait until 80.</div></div><span class="cycle-badge">40-80</span></div>
+<div class="cycle-step"><div class="cycle-n">🔥</div><div><div class="cycle-title">VENT NOW 80+</div><div class="cycle-sub">Immediately use Vent Heat. Any higher = total lockout, massive DPS loss.</div></div><span class="cycle-badge">VENT NOW</span></div>
+</div>
+<div class="talent-cards"><div class="tc"><div class="tc-ico">❄</div><div><div class="tc-name" style="color:#C87820">Vent Heat — Active Cooldown</div><div class="tc-desc">Removes 50 Heat instantly. 45 sec CD. Use proactively at 50+ Heat — never wait until 80+.</div></div></div>
+<div class="tc"><div class="tc-ico">⚡</div><div><div class="tc-name" style="color:#C87820">Thermal Sensor Override</div><div class="tc-desc">Next ability costs 0 Heat. 30 sec CD. Save for Tracer Missile in the Supercharged Gas burst window.</div></div></div>
+<div class="tc"><div class="tc-ico">🚀</div><div><div class="tc-name" style="color:var(--gold)">Supercharged Gas — Burst Window</div><div class="tc-desc">10 Supercharge stacks required. +5% damage + healing · 15 sec · Reduces ability Heat cost. Activate on cooldown.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-ability"><div class="sec-head"><span class="sec-num">03</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h2 class="sec-title">Core Abilities</h2><div class="sec-line"></div></div>
+<div class="skill-list"><div class="sk"><div class="sk-ico">🚀</div><div><div class="sk-name">Tracer Missile — Primary Filler</div><div class="sk-desc">Stacks Tracer Lock (max 5). Enables Rail Shot + Heatseeker. Generates 2 Supercharge stacks. 1.5s cast. Use Power Surge for instant casts.</div></div></div>
+<div class="sk"><div class="sk-ico">🎯</div><div><div class="sk-name">Heatseeker Missiles — Highest Damage</div><div class="sk-desc">Requires 5× Tracer Lock. Highest single-target ability. Use immediately when available. Shoulder-mounted homing rockets.</div></div></div>
+<div class="sk"><div class="sk-ico">⚡</div><div><div class="sk-name">Rail Shot — Secondary Burst</div><div class="sk-desc">Requires any Tracer Lock stack. Instant cast. Use on cooldown. Precision blaster execution.</div></div></div>
+<div class="sk"><div class="sk-ico">🔫</div><div><div class="sk-name">Blazing Bolts — Sustained Fire</div><div class="sk-desc">Channeled dual-blaster. Generates Supercharge. Use while moving or when higher-priority abilities are on cooldown.</div></div></div>
+<div class="sk"><div class="sk-ico">💥</div><div><div class="sk-name">Priming Shot — Debuff + Instant Cast</div><div class="sk-desc">Applies armor debuff + makes next Tracer Missile instant. Use on every cooldown — significant DPS gain many players miss.</div></div></div>
+<div class="sk"><div class="sk-ico">🌐</div><div><div class="sk-name">Sweeping Blasters — AoE</div><div class="sk-desc">360° blaster sweep. Use whenever 3+ enemies nearby. Instant cast, good Heat-to-damage ratio.</div></div></div>
+<div class="sk"><div class="sk-ico">🛡</div><div><div class="sk-name">Kolto Overload — Emergency Heal</div><div class="sk-desc">Auto-heals when HP drops below 35%. Use proactively before heavy damage windows.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-rotation"><div class="sec-head"><span class="sec-num">04</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><h2 class="sec-title">Priority Rotation</h2><div class="sec-line"></div></div>
+<div class="note note-info">⭐ Arsenal is priority-based — always use the highest available ability. This is NOT a fixed sequence.</div>
+<div class="note note-gold">★ Opener: Priming Shot → Tracer Missile ×5 → Supercharged Gas → Heatseeker Missiles → Rail Shot → Continue priority loop.</div>
+<div class="rot-steps" style="margin-bottom:12px"><div class="rstep"><div class="rn">1</div><div><div class="rb-skill">Heatseeker Missiles</div><div class="rb-desc">ALWAYS highest priority when available AND you have 5 Tracer Lock stacks. Never delay this.</div></div></div>
+<div class="rstep"><div class="rn">2</div><div><div class="rb-skill">Rail Shot</div><div class="rb-desc">Instant cast — use on cooldown whenever any Tracer Lock is active.</div></div></div>
+<div class="rstep"><div class="rn">3</div><div><div class="rb-skill">Priming Shot</div><div class="rb-desc">Use on every cooldown. Armor debuff + instant Tracer Missile proc. Never skip.</div></div></div>
+<div class="rstep"><div class="rn">4</div><div><div class="rb-skill">Tracer Missile</div><div class="rb-desc">Primary filler. Build/refresh Tracer Lock stacks. Use Power Surge for instant versions.</div></div></div>
+<div class="rstep"><div class="rn">5</div><div><div class="rb-skill">Blazing Bolts</div><div class="rb-desc">Filler when Tracer is on CD or you must move. Generates Supercharge quickly.</div></div></div>
+<div class="rstep"><div class="rn" style="border-color:#C87820;color:#C87820">6</div><div><div class="rb-skill">Vent Heat at 50+</div><div class="rb-desc">Non-negotiable. Proactive Heat management keeps DPS smooth throughout the fight.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-stats"><div class="sec-head"><span class="sec-num">05</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><h2 class="sec-title">Stat Priority</h2><div class="sec-line"></div></div>
+<div class="note note-info">ℹ SWTOR 7.8 Gearing: Use Mods, Enhancements and Augments to customize stats. Get Item Rating 340+ first, then optimize.</div>
+<div class="stats-table"><div class="stat-row"><span class="stat-attr">Accuracy</span><span class="stat-target">110% (Melee/Ranged)</span><span class="stat-note">FIRST priority — never miss. Without this DPS drops significantly.</span></div>
+<div class="stat-row"><span class="stat-attr">Critical Rating</span><span class="stat-target">~40% Crit Chance</span><span class="stat-note">Soft cap ~2500–3000 rating. After soft cap returns diminish heavily.</span></div>
+<div class="stat-row"><span class="stat-attr">Alacrity Rating</span><span class="stat-target">1900+ (1.4s GCD)</span><span class="stat-note">Reduces GCD and cast times — significant DPS increase per breakpoint.</span></div>
+<div class="stat-row"><span class="stat-attr">Power / Mastery</span><span class="stat-target">Maximize</span><span class="stat-note">Fill remaining stat budget here after hitting Accuracy and Crit.</span></div>
+<div class="stat-row"><span class="stat-attr">Augments</span><span class="stat-target">286 Augments</span><span class="stat-note">All 14 Augment slots. Significant stat boost — do not skip.</span></div>
+</div>
+</div>
+<div class="sec" id="sec-gear"><div class="sec-head"><span class="sec-num">06</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h2 class="sec-title">Gear & Mandalorian Look</h2><div class="sec-line"></div></div>
+<div class="note note-gold">🎨 In SWTOR appearance is separate from gear stats via the Outfit Designer. You can look exactly like the Mandalorian while wearing your fully optimized endgame gear underneath.</div>
+<div class="gear-list"><div class="gr bis"><span class="gr-slot">Armour</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">Mandalorian Enforcer / Aspirant Set</div><div class="gr-note">Cartel Market / GTN · Full Mandalorian look · Full-face Beskar helmet · Use Outfit Designer — stats separate</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">CARTEL</span></div>
+<div class="gr"><span class="gr-slot">Weapons</span><div class="gr-info"><div class="gr-name">Dual Blaster Pistols</div><div class="gr-note">Silver/chrome skins available on GTN · Mercenary uses dual blasters · Cosmetics cost nothing in combat</div></div><span class="gr-tag" style="color:#C87820;border-color:#C8782066">BLASTERS</span></div>
+<div class="gr"><span class="gr-slot">Mount</span><div class="gr-info"><div class="gr-name">Speeder Bike / Basilisk War Droid</div><div class="gr-note">Basilisk War Droid mount available on GTN or Cartel Market · Mandalorian aesthetic</div></div><span class="gr-tag" style="color:#907840;border-color:#90784066">MOUNT</span></div>
+<div class="gr"><span class="gr-slot">Companion</span><div class="gr-info"><div class="gr-name">Blizz (Jawa)</div><div class="gr-note">Bounty Hunter companion · Grogu vibes · Loyal small companion by your side</div></div><span class="gr-tag" style="color:#C87820;border-color:#C8782066">COMPANION</span></div>
+</div>
+</div>
+<div class="sec" id="sec-tips"><div class="sec-head"><span class="sec-num">07</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><h2 class="sec-title">Pro Tips</h2><div class="sec-line"></div></div>
+<div class="tip-cards"><div class="tip-card"><div class="tip-title">🎯 Accuracy First, Always</div><div class="tip-text">110% Accuracy is non-negotiable. Every missed ability is a wasted GCD. Until you hit 110% your DPS is artificially capped. Ignore all other stats until done.</div></div>
+<div class="tip-card"><div class="tip-title">❄ Vent Heat at 50 — Not 80</div><div class="tip-text">Use Vent Heat proactively at 50 Heat. Waiting until 80+ costs more DPS than the extra ability you squeezed in. Heat discipline separates good Arsenal from great.</div></div>
+<div class="tip-card"><div class="tip-title">⚡ Power Surge Timing</div><div class="tip-text">Save Power Surge for Tracer Missile casts during Supercharged Gas burst windows. Instant Tracer Missile during burst = maximum DPS uptime. Never waste it on Blazing Bolts.</div></div>
+<div class="tip-card"><div class="tip-title">🚀 Priming Shot on Cooldown</div><div class="tip-text">Many Arsenal players forget Priming Shot. It applies an armor debuff AND gives you an instant Tracer Missile cast. Use it every time — significant DPS gain.</div></div>
+</div>
 </div>
 
-<div class="div"></div>
-
-
-<div class="sec on" id="sec-0">
-<section>
-  <div class="sh"><div class="si">🚀</div><div class="st">Build <span class="r">Overview</span></div></div>
-  <div class="divider"></div>
-  <div class="sw-grid">
-    <div class="sw-box">
-      <div class="sw-title green">✓ Strengths</div>
-      <div class="sw-item"><span>✓</span>Heavy Armor — tanky enough to solo most content</div>
-      <div class="sw-item"><span>✓</span>Dual blasters + rockets = perfect Mandalorian fantasy</div>
-      <div class="sw-item"><span>✓</span>Strong burst DPS via Heat Seeker + Rail Shot combo</div>
-      <div class="sw-item"><span>✓</span>Excellent target swapping in Operation encounters</div>
-      <div class="sw-item"><span>✓</span>Most abilities instant-cast or mobile-friendly</div>
-      <div class="sw-item"><span>✓</span>Kolto Overload: Emergency self-heal under pressure</div>
-      <div class="sw-item"><span>✓</span>Hydraulic Overrides: Sprint + CC immunity (jetpack!)</div>
-    </div>
-    <div class="sw-box">
-      <div class="sw-title red">✗ Weaknesses</div>
-      <div class="sw-item"><span>✗</span>Tracer Missile (core ability) requires standing still</div>
-      <div class="sw-item"><span>✗</span>Heat management — overheat kills DPS</div>
-      <div class="sw-item"><span>✗</span>Lower sustained DPS vs. Innovative Ordnance spec</div>
-      <div class="sw-item"><span>✗</span>Difficult to fully optimize at top-end Ops content</div>
-    </div>
-  </div>
-  <p class="body" style="margin-top:16px"><strong style="color:var(--sw)">Core Mechanic:</strong> Arsenal generates <strong style="color:var(--red)">Supercharge</strong> by firing abilities — at 10 stacks activate Supercharged Gas for a 15-second damage window. Tracer Missile is the primary filler, applying the Tracer Lock debuff (stacks to 5) which enables your hardest-hitting abilities: <strong style="color:var(--gold)">Heatseeker Missiles</strong> and <strong style="color:var(--gold)">Rail Shot</strong>.</p>
-  <p class="body"><strong style="color:var(--sw)">Mandalorian Fantasy:</strong> Tracer Missile = wrist-mounted rocket. Heatseeker Missiles = shoulder-launched homing rockets. Rail Shot = precision blaster execution. Blazing Bolts = sustained dual-blaster suppression fire. Jet Boost = jetpack knockback. Hydraulic Overrides = jetpack sprint.</p>
-</section>
-</div>
-<div class="sec" id="sec-1">
-<section>
-  <div class="sh"><div class="si">🔥</div><div class="st">Heat <span class="r">Management</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-r">⚠️ <strong>Heat is your resource.</strong> Arsenal has no energy — only Heat (0–100). Above 40 Heat you start losing DPS efficiency. Above 80 Heat: Vent Heat immediately. At 100 Heat: total lockout. Heat management IS the skill of Arsenal.</div>
-  <div class="heat-bar"><div class="heat-label">Safe Zone</div><div class="heat-fill" style="width:40%"></div><div class="heat-val">0–40</div></div>
-  <div class="heat-bar"><div class="heat-label">Caution</div><div class="heat-fill" style="width:60%;background:linear-gradient(90deg,var(--gold),var(--red))"></div><div class="heat-val">40–80</div></div>
-  <div class="heat-bar"><div class="heat-label">VENT NOW</div><div class="heat-fill" style="width:80%;background:var(--red)"></div><div class="heat-val">80+</div></div>
-  <div class="card-grid" style="margin-top:16px">
-    <div class="sw-card"><div class="sw-slot">Vent Heat · Active Cooldown</div><div class="gear-name">Vent Heat</div><div class="gear-mods"><span class="t-sw">Removes 50 Heat instantly</span><span class="mod-tag">45 sec cooldown</span><span class="mod-tag">Use at 50+ Heat proactively</span></div></div>
-    <div class="sw-card"><div class="sw-slot">Thermal Sensor Override · Free Cast</div><div class="gear-name">Thermal Sensor Override</div><div class="gear-mods"><span class="t-sw">Next ability costs 0 Heat</span><span class="mod-tag">30 sec cooldown</span><span class="mod-tag">Save for Tracer Missile in burst</span></div></div>
-    <div class="sw-card"><div class="sw-slot">Supercharged Gas · Burst Window</div><div class="gear-name">Supercharged Gas</div><div class="gear-mods"><span class="t-sw">10 Supercharge stacks required</span><span class="mod-tag">+5% damage + healing 15 sec</span><span class="mod-tag">Reduces Heat cost of abilities</span></div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-2">
-<section>
-  <div class="sh"><div class="si">⚔️</div><div class="st">Core <span class="r">Abilities</span></div></div>
-  <div class="divider"></div>
-  <div class="card-grid">
-    <div class="sw-card"><div class="sw-slot">Primary Filler · Required</div><div class="gear-name">Tracer Missile</div><div class="gear-mods"><span class="t-sw">Stacks Tracer Lock (max 5)</span><span class="mod-tag">Enables Rail Shot + Heatseeker</span><span class="mod-tag">Generates 2 Supercharge stacks</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Your wrist rocket. Core filler ability — 1.5s cast. Use Power Surge to make it instant. Builds all your important stacks.</div></div>
-    <div class="sw-card" style="border-left-color:var(--gold)"><div class="sw-slot" style="color:var(--gold)">Primary Burst · High Damage</div><div class="gear-name">Heatseeker Missiles</div><div class="gear-mods"><span class="t-g">Requires 5× Tracer Lock</span><span class="mod-tag">Highest damage ability</span><span class="mod-tag">Use on cooldown</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Shoulder-mounted homing rockets. Highest single-target damage in the rotation. Use immediately when available at 5 stacks.</div></div>
-    <div class="sw-card" style="border-left-color:var(--gold)"><div class="sw-slot" style="color:var(--gold)">Secondary Burst · Execute</div><div class="gear-name">Rail Shot</div><div class="gear-mods"><span class="t-g">Requires Tracer Lock stack</span><span class="mod-tag">Instant cast</span><span class="mod-tag">Use on cooldown</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Precision blaster execution shot. Instant cast — use off-cooldown as often as possible. The Mandalorian's signature single shot.</div></div>
-    <div class="sw-card"><div class="sw-slot">Sustained Fire · Mobile</div><div class="gear-name">Blazing Bolts</div><div class="gear-mods"><span class="t-sw">Channeled dual-blaster</span><span class="mod-tag">Generates Supercharge</span><span class="mod-tag">Use while moving when needed</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Sustained dual-blaster suppression fire. Use when Tracer Missile is unavailable or you need to move.</div></div>
-    <div class="sw-card"><div class="sw-slot">AoE Damage</div><div class="gear-name">Sweeping Blasters</div><div class="gear-mods"><span class="t-sw">360° blaster sweep</span><span class="mod-tag">Use on 3+ targets</span><span class="mod-tag">Instant cast</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">AoE blaster attack. Use whenever 3+ enemies are nearby — instant cast, no Heat penalty relative to damage output.</div></div>
-    <div class="sw-card"><div class="sw-slot">Damage Buff · On Cooldown</div><div class="gear-name">Priming Shot</div><div class="gear-mods"><span class="t-sw">Debuffs target</span><span class="mod-tag">Makes next Tracer Missile instant</span><span class="mod-tag">Use on cooldown</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Applies armor debuff to target + makes your next Tracer Missile instant cast. Always use on cooldown.</div></div>
-    <div class="sw-card" style="border-left-color:var(--teal)"><div class="sw-slot" style="color:var(--teal)">Defensive · Emergency</div><div class="gear-name">Kolto Overload</div><div class="gear-mods"><span class="t-t">Emergency self-heal</span><span class="mod-tag">Triggers below 35% HP</span><span class="mod-tag">Use proactively in danger</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Auto-heals you when HP drops below 35%. Use proactively before heavy damage — your emergency survival button.</div></div>
-    <div class="sw-card" style="border-left-color:var(--teal)"><div class="sw-slot" style="color:var(--teal)">Defensive · Jetpack Sprint</div><div class="gear-name">Hydraulic Overrides</div><div class="gear-mods"><span class="t-t">+60% Movement Speed</span><span class="mod-tag">8 sec duration · 40 sec CD</span><span class="mod-tag">Partial CC immunity</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">This IS your jetpack. Use to cross distances quickly, avoid mechanics, or sprint through AoE. Partial CC immunity makes you unstoppable while active.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-3">
-<section>
-  <div class="sh"><div class="si">🎯</div><div class="st">Rotation <span class="r">· Combat Flow</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box" style="background:rgba(200,120,32,.06);border:1px solid rgba(200,120,32,.25);color:#c08840;font-size:13px;line-height:1.6;margin-bottom:16px">⚡ <strong style="color:var(--sw)">Priority System:</strong> Arsenal is not a strict rotation — it is a priority-based system. Always ask: which of my available abilities has the highest DPS RIGHT NOW? The order below represents the priority. Use the highest available ability every GCD (1.5 seconds).</div>
-
-  <div class="rotation-phase opener">
-    <div class="rp-title">★ Opener <span class="rp-tag gold">Pre-Pull / First 15 Seconds</span></div>
-    <div class="ability-row"><div class="ab-order">1</div><div><div class="ab-name">Priming Shot</div><div class="ab-note">Apply armor debuff + get instant Tracer Missile proc. Cast before the pull on countdown.</div></div></div>
-    <div class="ability-row"><div class="ab-order">2</div><div><div class="ab-name">Tracer Missile × 5</div><div class="ab-note">Build 5 Tracer Lock stacks. Use Power Surge for instant casts on 2 of these. Watch Heat carefully.</div></div></div>
-    <div class="ability-row"><div class="ab-order">3</div><div><div class="ab-name">Supercharged Gas</div><div class="ab-note">Activate at 10 Supercharge stacks — you should have them by now. 15-second damage window begins.</div></div></div>
-    <div class="ability-row"><div class="ab-order">4</div><div><div class="ab-name">Heatseeker Missiles</div><div class="ab-note">Immediately use — highest damage ability. You now have 5 Tracer Lock stacks active.</div></div></div>
-    <div class="ability-row"><div class="ab-order">5</div><div><div class="ab-name">Rail Shot</div><div class="ab-note">Instant cast — use immediately after Heatseeker. Maximum burst in the Supercharged Gas window.</div></div></div>
-    <div class="ability-row"><div class="ab-order">6</div><div><div class="ab-name">Tracer Missile + Heatseeker loop</div><div class="ab-note">Continue Tracer Missile to rebuild stacks → Heatseeker when available → Rail Shot on cooldown.</div></div></div>
-  </div>
-
-  <div class="rotation-phase">
-    <div class="rp-title">⚙️ Sustained Priority Order <span class="rp-tag">Normal Combat</span></div>
-    <div class="ability-row"><div class="ab-order">1</div><div><div class="ab-name">Heatseeker Missiles</div><div class="ab-note">Always highest priority when available AND you have 5 Tracer Lock stacks. Never delay this.</div></div></div>
-    <div class="ability-row"><div class="ab-order">2</div><div><div class="ab-name">Rail Shot</div><div class="ab-note">Instant cast — use on cooldown whenever Tracer Lock is active (any stacks).</div></div></div>
-    <div class="ability-row"><div class="ab-order">3</div><div><div class="ab-name">Priming Shot</div><div class="ab-note">Use on cooldown — applies debuff and gives you an instant Tracer Missile cast.</div></div></div>
-    <div class="ability-row"><div class="ab-order">4</div><div><div class="ab-name">Tracer Missile</div><div class="ab-note">Primary filler. Cast to build/refresh Tracer Lock stacks. Use Power Surge for instant cast versions.</div></div></div>
-    <div class="ability-row"><div class="ab-order">5</div><div><div class="ab-name">Blazing Bolts</div><div class="ab-note">Filler when Tracer Missile is cooling down or you must move. Channeled dual-blaster fire.</div></div></div>
-    <div class="ability-row"><div class="ab-order">6</div><div><div class="ab-name">Unload</div><div class="ab-note">Channeled ability — use when above priorities are on cooldown. Generates Supercharge stacks quickly.</div></div></div>
-  </div>
-
-  <div class="rotation-phase">
-    <div class="rp-title">🔥 Heat Management Priority <span class="rp-tag">Always Active</span></div>
-    <div class="ability-row"><div class="ab-order">!</div><div><div class="ab-name">Vent Heat at 50+ Heat</div><div class="ab-note">Do not wait until 80+ — use proactively at 50 Heat to never lose a GCD to overheating.</div></div></div>
-    <div class="ability-row"><div class="ab-order">!</div><div><div class="ab-name">Thermal Sensor Override</div><div class="ab-note">Save for high-heat moments during Supercharged Gas burst window — free Tracer Missile cast.</div></div></div>
-    <div class="ability-row"><div class="ab-order">!</div><div><div class="ab-name">Supercharged Gas reduces Heat</div><div class="ab-note">Activate as soon as 10 stacks are ready — the Heat reduction during the window lets you push DPS harder.</div></div></div>
-  </div>
-
-  <div class="rotation-phase">
-    <div class="rp-title">🚶 Movement Solutions <span class="rp-tag">Mandalorian Never Stands Still</span></div>
-    <div class="ability-row"><div class="ab-order">1</div><div><div class="ab-name">Hydraulic Overrides</div><div class="ab-note">Use to cross distances fast. Partial CC immunity — jetpack sprint. Prioritize over everything else for big movements.</div></div></div>
-    <div class="ability-row"><div class="ab-order">2</div><div><div class="ab-name">Rocket Out</div><div class="ab-note">Short burst rocket jump — use for small repositioning. Faster cooldown than Hydraulic Overrides.</div></div></div>
-    <div class="ability-row"><div class="ab-order">3</div><div><div class="ab-name">Priming Shot / Rail Shot while moving</div><div class="ab-note">Both are instant cast — use them while repositioning to never waste a GCD during movement.</div></div></div>
-    <div class="ability-row"><div class="ab-order">4</div><div><div class="ab-name">Blazing Bolts (channel + move trick)</div><div class="ab-note">Start Blazing Bolts channel then move — you can break it early and keep some damage. Better than nothing during forced movement.</div></div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-4">
-<section>
-  <div class="sh"><div class="si">⚙️</div><div class="st">Defensive <span class="r">Cooldowns</span></div></div>
-  <div class="divider"></div>
-  <div class="skills-grid">
-    <div class="skill-card"><span class="skill-ico">🛡️</span><div class="skill-name">Responsive Safeguards</div><div class="skill-desc">Reflects 50% of incoming damage back to attacker for 6 sec (45 sec CD). Use against heavy melee attacks. Not useful against Force abilities.</div></div>
-    <div class="skill-card"><span class="skill-ico">💚</span><div class="skill-name">Kolto Overload</div><div class="skill-desc">Heals you for up to 35% max HP over 8 sec when HP drops below 35% (3 min CD). Use proactively before heavy damage windows — your emergency survival button.</div></div>
-    <div class="skill-card"><span class="skill-ico">🏃</span><div class="skill-name">Hydraulic Overrides</div><div class="skill-desc">+60% movement speed + partial CC immunity for 8 sec (40 sec CD). Your jetpack. Use for mechanics, AoE avoidance, and repositioning.</div></div>
-    <div class="skill-card"><span class="skill-ico">🚫</span><div class="skill-name">Decoy</div><div class="skill-desc">30% defense chance for 6 sec + reflects some damage (45 sec CD). Use during heavy damage phases in Operations.</div></div>
-    <div class="skill-card"><span class="skill-ico">💉</span><div class="skill-name">Supercharged Gas (off-heal)</div><div class="skill-desc">While Supercharged Gas is active: Rapid Shots heals you for a small amount. Use in emergencies to keep yourself alive between healer GCDs.</div></div>
-    <div class="skill-card"><span class="skill-ico">🚀</span><div class="skill-name">Jet Boost</div><div class="skill-desc">Knockback (8 sec CD). Use to push melee enemies away — creates space and interrupts their casts. The Mandalorian's wrist rocket knockback.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-5">
-<section>
-  <div class="sh"><div class="si">📊</div><div class="st">Stat <span class="r">Priority</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-g">ℹ <strong>SWTOR Gearing:</strong> In 7.8 you use Mods, Enhancements and Augments to customize stats. Get your gear to Item Rating 340+ first, then optimize with the stat priorities below.</div>
-  <div class="stat-priority">
-    <div class="sp-row"><div class="sp-num">1</div><div><div class="sp-name">Accuracy</div><div class="sp-note">Required to 110% (Melee/Ranged) — never miss abilities. Without this your DPS drops significantly.</div></div><div class="sp-val">110%</div></div>
-    <div class="sp-row"><div class="sp-num">2</div><div><div class="sp-name">Critical Rating</div><div class="sp-note">Soft cap at ~40% Crit Chance (around 2500–3000 rating). After soft cap returns diminish heavily.</div></div><div class="sp-val">~40%</div></div>
-    <div class="sp-row"><div class="sp-num">3</div><div><div class="sp-name">Alacrity Rating</div><div class="sp-note">1.4s GCD breakpoint (~1900 rating). Reduces GCD and cast times — significant DPS increase per breakpoint hit.</div></div><div class="sp-val">1900+</div></div>
-    <div class="sp-row"><div class="sp-num">4</div><div><div class="sp-name">Power / Mastery</div><div class="sp-note">Raw damage stats. Fill remaining stat budget here after hitting Accuracy and Crit breakpoints.</div></div><div class="sp-val">Maximize</div></div>
-    <div class="sp-row"><div class="sp-num">5</div><div><div class="sp-name">Augments</div><div class="sp-note">Slot 286 Augments (Mastery or Power) in all 14 Augment slots. Significant stat boost — do not skip.</div></div><div class="sp-val">286 Augments</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-6">
-<section>
-  <div class="sh"><div class="si">🪖</div><div class="st">Mandalorian <span class="r">Look & Feel</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box" style="background:rgba(200,120,32,.06);border:1px solid rgba(200,120,32,.25);color:#c08840;font-size:13px;line-height:1.6">🎨 <strong style="color:var(--sw)">Appearance:</strong> To look like the Mandalorian, aim for heavy Mandalorian armor sets available on the Cartel Market or GTN. Key items: Mandalorian Aspirant / Enforcer / Seeker armor sets. Beskar-style silver/grey color schemes with a full-face helmet. Dual blasters as weapons. The Mandalorian's signature look is achievable through the Outfit Designer.</div>
-  <div class="card-grid" style="margin-top:12px">
-    <div class="sw-card"><div class="sw-slot">Armor · Cartel Market / GTN</div><div class="gear-name">Mandalorian Enforcer Set</div><div class="gear-mods"><span class="t-sw">Full Mandalorian armor look</span><span class="mod-tag">Full-face helmet</span><span class="mod-tag">Use Outfit Designer — stats separate</span></div></div>
-    <div class="sw-card"><div class="sw-slot">Weapons</div><div class="gear-name">Dual Blaster Pistols</div><div class="gear-mods"><span class="t-sw">Mercenary uses dual blasters</span><span class="mod-tag">Silver/chrome skins available</span><span class="mod-tag">GTN for specific models</span></div></div>
-    <div class="sw-card"><div class="sw-slot">Companion</div><div class="gear-name">Blizz (Jawa)</div><div class="gear-mods"><span class="t-sw">Bounty Hunter companion</span><span class="mod-tag">Grogu vibes</span><span class="mod-tag">Loyal small companion by your side</span></div></div>
-    <div class="sw-card"><div class="sw-slot">Mount</div><div class="gear-name">Speeder Bike / Basilisk</div><div class="gear-mods"><span class="t-sw">Mandalorian aesthetic</span><span class="mod-tag">Basilisk War Droid mount available</span><span class="mod-tag">GTN or Cartel Market</span></div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-7">
-<section>
-  <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
-  <div class="divider"></div>
-  <div class="tips">
-    <div class="tip gold"><strong class="g">Accuracy First, Always:</strong> 110% Accuracy is non-negotiable. Every missed ability is a wasted GCD. Until you hit 110% your DPS is artificially capped — ignore Crit and Alacrity until this is done.</div>
-    <div class="tip"><strong class="r">Never Overheat:</strong> Use Vent Heat proactively at 50 Heat — never wait until 80+. A GCD lost to overheating costs more DPS than the extra ability you squeezed in. Heat discipline separates good Arsenal players from great ones.</div>
-    <div class="tip gold"><strong class="g">Power Surge Timing:</strong> Save Power Surge for Tracer Missile casts during Supercharged Gas burst windows — instant Tracer Missile during burst = maximum DPS uptime. Never waste it on Blazing Bolts.</div>
-    <div class="tip"><strong class="r">Priming Shot on Cooldown:</strong> Many Arsenal players forget Priming Shot. It applies an armor debuff AND gives you an instant Tracer Missile cast. Use it every time it's available — it's a significant DPS gain.</div>
-    <div class="tip gold"><strong class="g">Outfit Designer for the Look:</strong> In SWTOR your appearance is completely separate from your gear stats via the Outfit Designer. You can look exactly like the Mandalorian with silver Beskar armor while wearing your fully optimized endgame gear underneath. Cosmetics cost nothing in combat performance.</div>
-    <div class="tip teal"><strong class="t">Best Content:</strong> Story + Veteran Flashpoints, Story Operations, Solo Heroics, Open World. Arsenal is very comfortable for all Solo content and accessible Operations. For Veteran/Master Operations the rotation demands are higher but the class carries well in groups.</div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-8">
-<section>
-  <div class="sh"><div class="si">🌳</div><div class="st">Ability Tree <span class="r">· All 8 Choices</span></div></div>
-  <div class="divider"></div>
-
-  <div class="note-box" style="background:rgba(200,120,32,.06);border:1px solid rgba(200,120,32,.25);color:#c08840;font-size:13px;line-height:1.6;margin-bottom:20px">
-    ℹ <strong style="color:var(--sw)">SWTOR 7.6+ Ability Tree System:</strong> There are no longer utility points or talent trees with individual points. Instead you make <strong>8 binary Choices</strong> — each Choice unlocks at a specific level and offers you 1 of 2–3 options. These replace what was previously the "Utility" system. Most of your abilities are automatically granted as you level — the Choices below are the decisions you actively make.
-  </div>
-
-  <!-- CHOICE 1 -->
-  <div class="phase" style="border-left-color:var(--sw);margin-bottom:16px">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--sw);color:var(--sw);background:rgba(200,120,32,.15)">1</div>
-      <div>
-        <div class="phase-title">Choice 1 · Unlocks ~Level 10</div>
-        <div class="phase-sub" style="color:var(--sw)">Mobility Enhancement</div>
-      </div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row" style="border-left:3px solid var(--gold)">
-        <div class="gem-name" style="color:var(--gold)">✅ Power Overrides (RECOMMENDED)</div>
-        <div class="gem-supports" style="color:#8070a0">Reduces cooldown of Concussive Missile and Power Surge by 15 seconds each. Power Surge now grants 2 charges — your next TWO abilities with activation time cast instantly. Essential for the rotation — double instant Tracer Missiles during burst windows.</div>
-      </div>
-      <div class="gem-row">
-        <div class="gem-name" style="color:#6a5080">⬜ Torque Boosters</div>
-        <div class="gem-supports" style="color:#6a5080">Hydraulic Overrides duration +4 seconds (12s total). Only useful in fights with lots of forced movement. Power Overrides is almost always better.</div>
-      </div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(200,120,32,.2);color:#9a7040">🪖 <strong>Mandalorian Reason:</strong> Double-instant Tracer Missile with Power Surge = rapid-fire wrist rockets. That is the Mandalorian way.</div>
-  </div>
-
-  <!-- CHOICE 2 -->
-  <div class="phase" style="border-left-color:var(--sw);margin-bottom:16px">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--sw);color:var(--sw);background:rgba(200,120,32,.15)">2</div>
-      <div>
-        <div class="phase-title">Choice 2 · Unlocks ~Level 14</div>
-        <div class="phase-sub" style="color:var(--sw)">Heat Management</div>
-      </div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row" style="border-left:3px solid var(--gold)">
-        <div class="gem-name" style="color:var(--gold)">✅ Gyroscopic Alignment Jets (RECOMMENDED)</div>
-        <div class="gem-supports" style="color:#8070a0">Recharge 20 Heat when stunned, immobilized or knocked down. Next Tech ability deals +10% damage. Situational but very useful — converts enemy CC into Heat recovery and a damage spike. Strong in content with frequent stuns.</div>
-      </div>
-      <div class="gem-row">
-        <div class="gem-name" style="color:#6a5080">⬜ Jet Escape</div>
-        <div class="gem-supports" style="color:#6a5080">Reduces Rocket Out cooldown. Useful for heavy movement content but generally less valuable than Heat management.</div>
-      </div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(200,120,32,.2);color:#9a7040">🪖 <strong>Mandalorian Reason:</strong> Getting stunned and immediately recovering Heat while dealing a power spike — exactly how Mando shrugs off enemy attacks and keeps fighting.</div>
-  </div>
-
-  <!-- CHOICE 3 -->
-  <div class="phase" style="border-left-color:var(--sw);margin-bottom:16px">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--sw);color:var(--sw);background:rgba(200,120,32,.15)">3</div>
-      <div>
-        <div class="phase-title">Choice 3 · Unlocks ~Level 20</div>
-        <div class="phase-sub" style="color:var(--sw)">AoE Potential</div>
-      </div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row" style="border-left:3px solid var(--gold)">
-        <div class="gem-name" style="color:var(--gold)">✅ Boresights (RECOMMENDED for Solo / AoE)</div>
-        <div class="gem-supports" style="color:#8070a0">+25% damage to Sweeping Blasters. Sweeping Blasters is your primary AoE — this makes it a genuine damage tool in fights with 3+ enemies. Excellent for Heroics and Flashpoints with large trash packs.</div>
-      </div>
-      <div class="gem-row">
-        <div class="gem-name" style="color:#6a5080">⬜ Degauss</div>
-        <div class="gem-supports" style="color:#6a5080">Removes one movement-impairing effect when activating Hydraulic Overrides. Situational — only useful in specific Operations encounters. Boresights is better for general content.</div>
-      </div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(200,120,32,.2);color:#9a7040">🪖 <strong>Mandalorian Reason:</strong> Sweeping Blasters = spinning dual-blaster sweep through enemy groups. With Boresights this deals real damage — pure Mandalorian crowd control aesthetics.</div>
-  </div>
-
-  <!-- CHOICE 4 -->
-  <div class="phase" style="border-left-color:var(--sw);margin-bottom:16px">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--sw);color:var(--sw);background:rgba(200,120,32,.15)">4</div>
-      <div>
-        <div class="phase-title">Choice 4 · Unlocks ~Level 26</div>
-        <div class="phase-sub" style="color:var(--sw)">Burst Damage Enhancement</div>
-      </div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row" style="border-left:3px solid var(--gold)">
-        <div class="gem-name" style="color:var(--gold)">✅ Acquisitions (RECOMMENDED)</div>
-        <div class="gem-supports" style="color:#8070a0">Heatseeker Missiles resets the cooldown on Blazing Bolts. Since Heatseeker is used on cooldown this gives Blazing Bolts significantly more uptime — direct sustained DPS increase. Strong in all content types.</div>
-      </div>
-      <div class="gem-row">
-        <div class="gem-name" style="color:#6a5080">⬜ Stabilizers</div>
-        <div class="gem-supports" style="color:#6a5080">Increases the duration of Responsive Safeguards. Defensive option — only take if you are having serious survival issues. Acquisitions is better in almost all situations.</div>
-      </div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(200,120,32,.2);color:#9a7040">🪖 <strong>Why this matters:</strong> More Blazing Bolts = more dual-blaster suppression fire uptime. Heatseeker → instant Blazing Bolts reset → continuous fire. This is the core DPS loop.</div>
-  </div>
-
-  <!-- CHOICE 5 -->
-  <div class="phase" style="border-left-color:var(--sw);margin-bottom:16px">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--sw);color:var(--sw);background:rgba(200,120,32,.15)">5</div>
-      <div>
-        <div class="phase-title">Choice 5 · Unlocks ~Level 34</div>
-        <div class="phase-sub" style="color:var(--sw)">Survivability</div>
-      </div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row" style="border-left:3px solid var(--gold)">
-        <div class="gem-name" style="color:var(--gold)">✅ Supercharged Defense (RECOMMENDED)</div>
-        <div class="gem-supports" style="color:#8070a0">Activating Supercharged Gas grants 25% AoE damage reduction for 15 seconds. Since Supercharged Gas is used frequently this gives near-permanent AoE DR in multi-target fights. Mandatory in Operations with heavy AoE damage phases.</div>
-      </div>
-      <div class="gem-row">
-        <div class="gem-name" style="color:#6a5080">⬜ Kolto Residue</div>
-        <div class="gem-supports" style="color:#6a5080">Kolto Overload heals you for an additional small amount. Minor upgrade to your emergency heal — generally weaker than passive AoE DR in group content.</div>
-      </div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(200,120,32,.2);color:#9a7040">🪖 <strong>Mandalorian Reason:</strong> Beskar armor deflects everything. Supercharged Defense = the armor plating activating when Mando goes into burst mode. Thematic AND practical.</div>
-  </div>
-
-  <!-- CHOICE 6 -->
-  <div class="phase" style="border-left-color:var(--sw);margin-bottom:16px">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--sw);color:var(--sw);background:rgba(200,120,32,.15)">6</div>
-      <div>
-        <div class="phase-title">Choice 6 · Unlocks ~Level 42</div>
-        <div class="phase-sub" style="color:var(--sw)">Resource Management</div>
-      </div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row" style="border-left:3px solid var(--gold)">
-        <div class="gem-name" style="color:var(--gold)">✅ Hired Muscle (RECOMMENDED)</div>
-        <div class="gem-supports" style="color:#8070a0">Increases the healing received from Kolto Overload and reduces its cooldown by 30 seconds. Your emergency heal becomes more reliable and more frequent — significant quality-of-life improvement for Solo content and reactive survival in Operations.</div>
-      </div>
-      <div class="gem-row">
-        <div class="gem-name" style="color:#6a5080">⬜ Afterburners</div>
-        <div class="gem-supports" style="color:#6a5080">Grants an additional charge of Rocket Out. Useful in very mobile fights but generally weaker than improved survivability from Hired Muscle.</div>
-      </div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(200,120,32,.2);color:#9a7040">🪖 <strong>Solo Tip:</strong> For Solo Heroics and Story content Hired Muscle is essential — Kolto Overload on a shorter cooldown means you can take on much tougher enemies comfortably without a healer.</div>
-  </div>
-
-  <!-- CHOICE 7 -->
-  <div class="phase" style="border-left-color:var(--gold);margin-bottom:16px">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,.15)">7</div>
-      <div>
-        <div class="phase-title">Choice 7 · Unlocks ~Level 52 · Arsenal-Specific</div>
-        <div class="phase-sub" style="color:var(--gold)">Discipline Enhancement A · Blazing Bolts</div>
-      </div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row" style="border-left:3px solid var(--gold)">
-        <div class="gem-name" style="color:var(--gold)">✅ Barrage Surge (RECOMMENDED)</div>
-        <div class="gem-supports" style="color:#8070a0">When Blazing Bolts resets via the Barrage passive, the next Blazing Bolts channel also deals +20% damage. Since Blazing Bolts resets every 8 seconds via Barrage this is effectively a permanent +20% damage buff on your highest-damage channel ability. Significant DPS increase.</div>
-      </div>
-      <div class="gem-row">
-        <div class="gem-name" style="color:#6a5080">⬜ Rapid Discharge</div>
-        <div class="gem-supports" style="color:#6a5080">Reduces the channel time of Blazing Bolts slightly. Theoretically better for movement-heavy fights but in practice Barrage Surge provides more total damage output.</div>
-      </div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(232,168,32,.2);color:#b09040">⭐ <strong>This is the most important DPS choice.</strong> Barrage Surge directly amplifies your highest-damage ability by 20% every 8 seconds. Never skip this — it is the core of Arsenal's burst potential.</div>
-  </div>
-
-  <!-- CHOICE 8 -->
-  <div class="phase" style="border-left-color:var(--gold);margin-bottom:16px">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,.15)">8</div>
-      <div>
-        <div class="phase-title">Choice 8 · Unlocks ~Level 64 · Arsenal-Specific</div>
-        <div class="phase-sub" style="color:var(--gold)">Discipline Enhancement B · Heatseeker Missiles</div>
-      </div>
-    </div>
-    <div class="gem-list">
-      <div class="gem-row" style="border-left:3px solid var(--gold)">
-        <div class="gem-name" style="color:var(--gold)">✅ Seeking Missiles (RECOMMENDED)</div>
-        <div class="gem-supports" style="color:#8070a0">Heatseeker Missiles fires an additional missile to up to 3 nearby enemies affected by your Heat Signature (Tracer Missile debuff). Single-target: no change. 2–4 targets: Heatseeker becomes a powerful cleave ability. Excellent for Flashpoints and multi-target Operations encounters.</div>
-      </div>
-      <div class="gem-row">
-        <div class="gem-name" style="color:#6a5080">⬜ Thermal Catalyst</div>
-        <div class="gem-supports" style="color:#6a5080">Heatseeker Missiles reduces Heat by a small amount. Minor Heat management benefit. Seeking Missiles provides more DPS in virtually all situations with more than one target.</div>
-      </div>
-    </div>
-    <div class="passive-box" style="border-color:rgba(232,168,32,.2);color:#b09040">🚀 <strong>Mandalorian Reason:</strong> Shoulder-launched homing missiles that track MULTIPLE enemies simultaneously. This is Mando firing volleys of Beskar-tipped rockets at an entire squad. Visually spectacular and practically strong.</div>
-  </div>
-
-  <!-- FINAL SUMMARY -->
-  <div class="phase" style="border-left-color:var(--teal);margin-bottom:16px">
-    <div class="phase-header">
-      <div class="phase-num" style="border-color:var(--teal);color:var(--teal);background:rgba(47,184,180,.15)">★</div>
-      <div>
-        <div class="phase-title">Final Ability Tree — All 8 Choices at a Glance</div>
-        <div class="phase-sub" style="color:var(--teal)">The Mandalorian Arsenal Build · Level 80</div>
-      </div>
-    </div>
-    <div class="passive-phase">
-      <div class="pp-row"><div class="pp-name">Choice 1 · Mobility</div><div class="pp-pts" style="color:var(--gold)">Power Overrides</div></div>
-      <div class="pp-row"><div class="pp-name">Choice 2 · Heat Recovery</div><div class="pp-pts" style="color:var(--gold)">Gyroscopic Alignment Jets</div></div>
-      <div class="pp-row"><div class="pp-name">Choice 3 · AoE</div><div class="pp-pts" style="color:var(--gold)">Boresights</div></div>
-      <div class="pp-row"><div class="pp-name">Choice 4 · Burst DPS</div><div class="pp-pts" style="color:var(--gold)">Acquisitions</div></div>
-      <div class="pp-row"><div class="pp-name">Choice 5 · Survivability</div><div class="pp-pts" style="color:var(--gold)">Supercharged Defense</div></div>
-      <div class="pp-row"><div class="pp-name">Choice 6 · Resource / Solo</div><div class="pp-pts" style="color:var(--gold)">Hired Muscle</div></div>
-      <div class="pp-row"><div class="pp-name">Choice 7 · Blazing Bolts ⭐</div><div class="pp-pts" style="color:var(--gold)">Barrage Surge (+20% Blazing Bolts)</div></div>
-      <div class="pp-row"><div class="pp-name">Choice 8 · Heatseeker Missiles</div><div class="pp-pts" style="color:var(--gold)">Seeking Missiles (AoE Heatseeker)</div></div>
-    </div>
-    <div class="note-box note-t" style="margin-top:12px">📋 <strong>Leveling Order:</strong> You unlock choices gradually as you level. Don't stress the order — just pick the recommended option whenever a new Choice unlocks. All 8 choices are automatically available at Level 80. Focus on learning the rotation first, choices second.</div>
-  </div>
-</section>
-</div>
-
+<footer style="border-top:1px solid #C8782033;padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">SWTOR · THE MANDALORIAN · ARSENAL MERCENARY · PATCH 7.8</footer>
 </div>
 <script>
-function ST(el) {
-  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
-  document.getElementById(el.dataset.sec).classList.add('on');
-  window.scrollTo(0, 0);
-}
+function ST(el){document.querySelectorAll('.tab-hero').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.getElementById(el.dataset.sec).classList.add('on');window.scrollTo(0,0)}
 </script>
 </body>
 </html>

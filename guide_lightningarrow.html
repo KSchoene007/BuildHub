@@ -3,427 +3,267 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Path of Exile 2 – Lightning Arrow Deadeye</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
-<style>
-:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(224,48,96,0.08) 0%,transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(232,168,32,0.05) 0%,transparent 45%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 2px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:0}
-.container{max-width:1100px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
-.back-btn{display:inline-flex;align-items:center;gap:8px;margin:20px 0;padding:8px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:.15s}
-.back-btn:hover{background:rgba(255,255,255,.1);color:#fff}
-header{padding:40px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;display:flex;align-items:center;gap:28px;animation:fadeDown .6s ease both}
-.hemblem{font-size:64px;animation:pulse 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{filter:drop-shadow(0 0 10px rgba(224,48,96,.75))}50%{filter:drop-shadow(0 0 28px rgba(224,48,96,1)) drop-shadow(0 0 40px rgba(232,168,32,.35))}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(24px,4vw,46px);color:var(--bright);text-transform:uppercase;letter-spacing:3px;line-height:1}
-h1 .r{color:var(--red)} h1 .g{color:var(--gold)} h1 .t{color:var(--teal)}
-.subtitle{margin-top:8px;font-size:12px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--red)}
-.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.badge{padding:3px 12px;border:1px solid;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
-.badge-pve{border-color:var(--teal);color:var(--teal)} .badge-dps{border-color:var(--red);color:var(--red)} .badge-tank{border-color:var(--gold);color:var(--gold)} .badge-dot{border-color:#b040f0;color:#b040f0} .badge-shock{border-color:#60c0ff;color:#60c0ff} .badge-meta{border-color:var(--gold);color:var(--gold)}
-section{margin-bottom:44px;animation:fadeUp .5s ease both}
-section:nth-child(2){animation-delay:.06s} section:nth-child(3){animation-delay:.12s} section:nth-child(4){animation-delay:.18s} section:nth-child(5){animation-delay:.24s} section:nth-child(6){animation-delay:.30s} section:nth-child(7){animation-delay:.36s} section:nth-child(8){animation-delay:.42s} section:nth-child(9){animation-delay:.48s} section:nth-child(10){animation-delay:.54s} section:nth-child(11){animation-delay:.60s}
-.sh{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.si{width:36px;height:36px;background:var(--dark4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
-.st{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:3px;color:var(--bright)}
-.st .r{color:var(--red)} .st .g{color:var(--gold)} .st .t{color:var(--teal)}
-.divider{height:1px;background:linear-gradient(90deg,var(--red) 0%,var(--gold) 35%,transparent 65%);margin:8px 0 24px;opacity:.35}
-p.body{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.gear-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px;transition:.2s;position:relative}
-.gear-card:hover{border-color:var(--red);box-shadow:var(--glow)}
-.gear-card.named{border-left-color:var(--gold)} .gear-card.named:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.exotic{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 60%)} .gear-card.exotic:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.blue{border-left-color:var(--teal)} .gear-card.blue:hover{border-color:var(--teal)}
-.gear-card.purple{border-left-color:#b040f0} .gear-card.purple:hover{border-color:#b040f0;box-shadow:0 0 16px rgba(176,64,240,.3)}
-.gear-slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:6px}
-.gear-card.named .gear-slot,.gear-card.exotic .gear-slot{color:var(--gold)} .gear-card.blue .gear-slot{color:var(--teal)} .gear-card.purple .gear-slot{color:#b040f0}
-.gear-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;color:var(--bright);margin-bottom:8px}
-.core-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.core-red{background:rgba(224,48,96,.12);color:var(--red);border:1px solid rgba(224,48,96,.4)}
-.core-named{background:rgba(232,168,32,.12);color:var(--gold);border:1px solid rgba(232,168,32,.4)}
-.core-exotic{background:linear-gradient(90deg,rgba(232,168,32,.15),rgba(224,48,96,.1));color:var(--gold);border:1px solid rgba(232,168,32,.45)}
-.core-blue{background:rgba(47,184,180,.1);color:var(--teal);border:1px solid rgba(47,184,180,.35)}
-.gear-mods{display:flex;flex-wrap:wrap;gap:5px}
-.mod-tag{font-size:10px;padding:2px 7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#8070a0}
-.t-r{font-size:11px;padding:2px 7px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.t-g{font-size:11px;padding:2px 7px;background:rgba(232,168,32,.08);border:1px solid rgba(232,168,32,.2);color:var(--gold)}
-.t-t{font-size:11px;padding:2px 7px;background:rgba(47,184,180,.08);border:1px solid rgba(47,184,180,.2);color:var(--teal)}
-.t-p{font-size:11px;padding:2px 7px;background:rgba(176,64,240,.08);border:1px solid rgba(176,64,240,.2);color:#c060ff}
-.wpn-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:14px}
-.wpn-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.15);padding:14px 16px;transition:.2s}
-.wpn-card:hover{border-color:rgba(255,255,255,.2)}
-.wpn-card.named-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 55%)} .wpn-card.named-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-card.exotic-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.08) 0%,rgba(224,48,96,.04) 55%,var(--dark3) 100%)} .wpn-card.exotic-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#6a5080;margin-bottom:6px}
-.wpn-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--bright);margin-bottom:3px}
-.wpn-type{font-size:12px;color:#6a5080;margin-bottom:10px}
-.wpn-talent{background:var(--dark4);border-left:3px solid var(--red);padding:9px 12px;margin-top:8px}
-.wpn-talent.gold-t{border-left-color:var(--gold)}
-.talent-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:4px}
-.wpn-talent.gold-t .talent-lbl{color:var(--gold)}
-.talent-txt{font-size:12px;line-height:1.55;color:#8070a0}
-.spec-card{background:var(--dark3);border:1px solid var(--border);padding:20px;display:flex;gap:20px;align-items:flex-start}
-.spec-ico{font-size:36px;flex-shrink:0}
-.spec-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--bright);letter-spacing:1px;margin-bottom:8px}
-.spec-desc{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.perks{display:flex;flex-wrap:wrap;gap:6px}
-.perk{font-size:11px;padding:3px 10px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.talent-list{display:flex;flex-direction:column;gap:12px}
-.trow{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;transition:.2s}
-.trow:hover{border-color:var(--red);box-shadow:var(--glow)}
-.trow.gold{border-left-color:var(--gold)} .trow.gold:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.trow .src{font-size:10px;color:#6a5080;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.trow .tname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);margin-bottom:4px}
-.trow.gold .tname{color:var(--gold)}
-.trow .tdesc{font-size:12px;line-height:1.55;color:#8070a0}
-.stats-table{width:100%;border-collapse:collapse;font-size:13px}
-.stats-table th{text-align:left;padding:10px 14px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:11px;border-bottom:1px solid var(--border)}
-.stats-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.stats-table tr:hover td{background:rgba(255,255,255,.02)}
-.sv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red)}
-.sl{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;display:block;margin-top:2px}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.skill-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px;text-align:center}
-.skill-ico{font-size:28px;display:block;margin-bottom:10px}
-.skill-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:6px}
-.skill-desc{font-size:12px;color:#7a6080;line-height:1.5}
-.note-box{padding:13px 16px;font-size:13px;line-height:1.6;margin-bottom:12px}
-.note-r{background:rgba(224,48,96,.06);border:1px solid rgba(224,48,96,.2);color:#c87080} .note-r strong{color:var(--red)}
-.note-g{background:rgba(232,168,32,.06);border:1px solid rgba(232,168,32,.2);color:#b09040} .note-g strong{color:var(--gold)}
-.note-t{background:rgba(47,184,180,.06);border:1px solid rgba(47,184,180,.2);color:#50a09a} .note-t strong{color:var(--teal)}
-.tips{display:flex;flex-direction:column;gap:10px}
-.tip{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;font-size:13px;line-height:1.6}
-.tip.gold{border-left-color:var(--gold)} .tip.teal{border-left-color:var(--teal)}
-.tip strong.r{color:var(--red)} .tip strong.g{color:var(--gold)} .tip strong.t{color:var(--teal)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px}
-.legend-item{display:flex;align-items:center;gap:7px;font-size:12px}
-.ldot{width:10px;height:10px;border-radius:50%}
-/* Cycle boxes */
-.cycle-box{background:var(--dark3);border:1px solid rgba(224,48,96,.3);padding:20px;display:grid;gap:0;position:relative;overflow:hidden}
-.cycle-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,48,96,.05) 0%,transparent 50%,rgba(232,168,32,.03) 100%);pointer-events:none}
-.cycle-step{padding:16px;text-align:center;position:relative}
-.cnum{width:40px;height:40px;border-radius:50%;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--red);margin:0 auto 10px}
-.ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);text-transform:uppercase;letter-spacing:1px}
-.cval{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--gold);margin:4px 0 2px}
-.cdesc{font-size:11px;color:#7a6080;margin-top:5px;line-height:1.5}
-/* strengths/weaknesses */
-.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.sw-box{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px}
-.sw-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
-.sw-title.green{color:#64c864} .sw-title.red{color:var(--red)}
-.sw-item{font-size:12px;line-height:1.6;padding:4px 0;color:var(--text);display:flex;gap:8px}
-.sw-item span{flex-shrink:0}
-/* Leveling phases */
-.phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:16px;margin-bottom:12px}
-.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.phase-num{width:32px;height:32px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red);flex-shrink:0}
-.phase-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);letter-spacing:.5px}
-.phase-sub{font-size:11px;color:var(--gold);margin-top:2px}
-.phase-desc{font-size:12px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.gem-list{display:flex;flex-direction:column;gap:6px}
-.gem-row{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--dark4);border:1px solid rgba(255,255,255,.04)}
-.gem-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);min-width:140px;flex-shrink:0}
-.gem-supports{font-size:11px;color:#8070a0;line-height:1.4}
-.passive-box{background:var(--dark4);border:1px solid rgba(232,168,32,.15);padding:10px 14px;margin-top:10px;font-size:12px;color:#8070a0;line-height:1.6}
-/* Passive tree */
-.passive-phase{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.pp-row{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:var(--dark4);border:1px solid rgba(255,255,255,.04);font-size:12px}
-.pp-name{color:var(--text)}
-.pp-pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:13px}
-/* Ascendancy */
-.asc-list{display:flex;flex-direction:column;gap:10px}
-.asc-item{display:flex;gap:14px;align-items:flex-start;background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px}
-.asc-num{width:28px;height:28px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--red);flex-shrink:0}
-.asc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:4px}
-.asc-when{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.asc-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Rotation */
-.rotation-steps{display:flex;flex-direction:column;gap:8px}
-.rstep{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--dark3);border:1px solid rgba(255,255,255,.04)}
-.rstep-n{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--red);width:24px;flex-shrink:0}
-.rstep-body{}
-.rstep-skill{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);margin-bottom:3px}
-.rstep-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Equipment table */
-.equip-table{width:100%;border-collapse:collapse;font-size:12px}
-.equip-table th{text-align:left;padding:8px 12px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:10px;border-bottom:1px solid var(--border)}
-.equip-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.equip-table tr:hover td{background:rgba(255,255,255,.02)}
-.item-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);display:flex;align-items:center;gap:6px}
-.item-note{font-size:11px;color:#7a6080;margin-top:4px;line-height:1.4}
-.item-badge{font-size:9px;padding:1px 6px;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.3);color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.item-badge.req{background:rgba(224,48,96,.1);border-color:rgba(224,48,96,.3);color:var(--red)}
-footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:#4a3858;letter-spacing:2px;text-transform:uppercase}
-
-
-/* ── TAB SYSTEM ── */
-.tab-bar-hero{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
-  padding:14px 16px 4px;
-}
-.tab-hero{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:7px 12px;cursor:pointer;flex-shrink:0;
-  border-radius:8px;border:1px solid rgba(0,0,0,.15);
-  background:rgba(255,255,255,.03);
-  border-bottom:2px solid transparent;transition:.2s;
-}
-.tab-hero:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
-.tab-hero.on{border-color:#4A9AE040;border-bottom-color:#4A9AE0;background:#4A9AE012}
+<title>Lightning Arrow Deadeye</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{--ac:#4A9AE0;--bg:#040810;--s1:#060c14;--text:#d0e8f8;--muted:#507090;--muted2:#203040;--gold:#E8C840;--teal:#40c8b4;--green:#40c060;--red:#e04060}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0) 1px,transparent 1px);background-size:44px 44px;animation:bgshift 30s linear infinite;background-image:linear-gradient(#4A9AE00d 1px,transparent 1px),linear-gradient(90deg,#4A9AE00d 1px,transparent 1px)}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 0%,#4A9AE01f 0%,transparent 100%)}
+@keyframes bgshift{from{background-position:0 0}to{background-position:44px 44px}}
+@keyframes boltflick{0%,88%,100%{opacity:1}91%{opacity:.1}95%{opacity:.9}}@keyframes sparkarc{0%{opacity:0;transform:translate(0,0)}40%{opacity:1}100%{opacity:0;transform:translate(12px,-10px)}}
+.wrap{max-width:660px;margin:0 auto;padding:0 16px 60px;position:relative;z-index:1}
+.hero{padding:28px 0 20px;text-align:center}
+.hero-icon{width:90px;height:90px;margin:0 auto 20px}
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:#4A9AE099;margin-bottom:6px;text-transform:uppercase}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(26px,6vw,40px);font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.hero-title em,.hero-title .t2{color:#4A9AE0;font-style:normal}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.hero-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.htag{font-size:9px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
+.hero-bars{display:flex;justify-content:center;gap:20px}
+.hb{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
+.hb-track{width:48px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.hb-fill{height:100%;border-radius:2px}
+.hb-label{font-size:7px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.hb-val{font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+.tab-bar-hero{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;padding:16px 16px 4px}
+.tab-hero{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px;cursor:pointer;flex-shrink:0;border-radius:8px;border:1px solid #4A9AE01a;background:#4A9AE00a;border-bottom:2px solid transparent;transition:.2s}
+.tab-hero:hover{background:#4A9AE01a;border-color:#4A9AE099}
+.tab-hero.on{border-color:#4A9AE099;border-bottom-color:#4A9AE0;background:#4A9AE01a}
 .tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
-.tab-ico svg{width:14px;height:14px;color:#666;transition:.2s}
-.tab-hero.on .tab-ico svg{color:#4A9AE0;filter:drop-shadow(0 0 3px #4A9AE080)}
-.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
-  color:#444;transition:.2s;white-space:nowrap}
+.tab-ico svg{width:14px;height:14px;color:#203040;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#4A9AE0;filter:drop-shadow(0 0 3px #4A9AE0#4A9AE01f)}
+.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#203040;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
 .tab-hero.on .tab-lbl{color:#4A9AE0}
-.sec{display:none}
-.sec.on{display:block}
-</style>
+.sec{display:none}.sec.on{display:block}
+.div{height:1px;background:linear-gradient(90deg,transparent,#4A9AE0,#4A9AE099,transparent);margin:20px 0;position:relative}
+.div-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#4A9AE0;border-radius:50%;box-shadow:0 0 8px #4A9AE0}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid #4A9AE099;background:#4A9AE00a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-ico svg{width:16px;height:16px;color:#4A9AE0}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:#4A9AE033;letter-spacing:1px}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,#4A9AE099,transparent)}
+.info-block{background:var(--s1);border:1px solid #4A9AE033;border-left:3px solid #4A9AE0;border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.info-block::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,#4A9AE014,transparent 70%);pointer-events:none}
+.info-block p{font-size:12px;color:#d0e8f899;line-height:1.75}
+.info-block p+p{margin-top:8px}
+.kw{color:#4A9AE0;font-weight:700}.kw2{color:#4A9AE099;font-weight:700}.kw3{color:var(--gold);font-weight:700}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sw-box{background:var(--s1);border:1px solid;border-radius:8px;padding:11px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#507090;line-height:1.5;margin-bottom:3px}
+.sw-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.note{padding:9px 12px;border-radius:6px;font-size:11px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
+.note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#c04060}
+.note-info{background:#4A9AE014;border-color:#4A9AE099;color:#4A9AE099}
+.note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
+.note-gold{background:rgba(232,200,64,.05);border-color:rgba(232,200,64,.3);color:#a08020}
+.cycle{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.cycle-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
+.cycle-n{width:32px;height:32px;border-radius:50%;border:2px solid #4A9AE0;background:#4A9AE014;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#4A9AE0;flex-shrink:0}
+.cycle-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.cycle-sub{font-size:11px;color:#507090;line-height:1.4}
+.cycle-badge{font-size:9px;padding:2px 8px;border-radius:3px;background:#4A9AE014;border:1px solid #4A9AE099;color:#4A9AE0;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start;margin-left:auto}
+.gear-list{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.gr{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px;transition:.15s}
+.gr:hover{border-color:#4A9AE033}
+.gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
+.gr.named{border-color:rgba(192,96,255,.2)}
+.gr-slot{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);width:60px;flex-shrink:0;padding-top:2px}
+.gr-info{flex:1}
+.gr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.gr.bis .gr-name{color:var(--gold)}.gr.named .gr-name{color:#c060ff}
+.gr-note{font-size:10px;color:var(--muted2);line-height:1.35}
+.gr-tag{font-size:8px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+.talent-cards{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.tc{background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+.tc-ico{font-size:18px;flex-shrink:0;line-height:1.3}
+.tc-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#4A9AE0;margin-bottom:3px}
+.tc-desc{font-size:11px;color:#507090;line-height:1.5}
+.set-table{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.st-row{display:grid;grid-template-columns:80px 1fr;gap:10px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.st-pieces{font-family:'Share Tech Mono',monospace;font-size:10px;color:#4A9AE0;font-weight:700}
+.st-bonus{font-size:11px;color:#d0e8f899;line-height:1.4}
+.skill-list{display:flex;flex-direction:column;gap:5px}
+.sk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:9px;transition:.15s;position:relative;overflow:hidden}
+.sk:hover{border-color:#4A9AE033}
+.sk-ico{font-size:20px;flex-shrink:0;line-height:1.3}
+.sk-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.sk-desc{font-size:11px;color:#507090;line-height:1.4}
+.stats-table{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.stat-row{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.stat-attr{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#fff}
+.stat-target{font-family:'Share Tech Mono',monospace;font-size:11px;color:#4A9AE0}
+.stat-note{font-size:10px;color:var(--muted2)}
+.lv-track{position:relative;padding-left:22px}
+.lv-track::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,#4A9AE0,#4A9AE099,transparent)}
+.lv-ph{position:relative;margin-bottom:17px}
+.lv-ph::before{content:'';position:absolute;left:-18px;top:5px;width:8px;height:8px;border-radius:50%;border:2px solid #4A9AE0;background:var(--bg);z-index:1}
+.lv-ph.hi::before{background:#4A9AE0;box-shadow:0 0 7px #4A9AE0}
+.lv-tag{font-size:8px;color:#4A9AE033;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px}
+.lv-t{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.lv-d{font-size:11px;color:#507090;line-height:1.6;margin-bottom:6px}
+.lv-gems{display:flex;flex-direction:column;gap:3px;margin-bottom:5px}
+.lgr{display:flex;align-items:center;gap:7px;padding:3px 8px;background:rgba(255,255,255,.03);border-radius:4px;border:1px solid rgba(255,255,255,.04)}
+.lgr.hi{border-color:#4A9AE033;background:#4A9AE014}
+.lgr-n{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;min-width:120px;color:#fff}
+.lgr-ss{display:flex;flex-wrap:wrap;gap:2px}
+.lgr-s{font-size:8px;padding:1px 4px;border-radius:2px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.lgr-s.gold{border-color:rgba(232,200,64,.3);color:var(--gold)}
+.lv-pts{font-size:9px;color:var(--muted2);border-top:1px solid rgba(255,255,255,.04);padding-top:4px;margin-top:3px}
+.tree-list{display:flex;flex-direction:column;gap:4px}
+.tr{display:flex;align-items:center;gap:12px;padding:7px 10px;background:var(--s1);border-radius:5px;border:1px solid rgba(255,255,255,.04)}
+.tr.hi{border-color:rgba(232,200,64,.18)}
+.tr-range{font-family:'Share Tech Mono',monospace;font-size:10px;color:#4A9AE0;min-width:80px;flex-shrink:0}
+.tr.hi .tr-range{color:var(--gold)}
+.tr-desc{font-size:11px;color:#d0e8f899;flex:1}
+.tr-pts{font-size:9px;color:var(--muted2);flex-shrink:0}
+.rot-block{margin-bottom:16px}
+.rot-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rot-ico{width:22px;height:22px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center}
+.rot-ico svg{width:12px;height:12px}
+.rot-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+.rot-steps{display:flex;flex-direction:column;gap:5px}
+.rstep{display:flex;gap:10px;align-items:flex-start}
+.rn{width:22px;height:22px;border-radius:50%;border:1px solid #4A9AE0;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;color:#4A9AE0;flex-shrink:0;margin-top:1px}
+.rb-skill{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:1px}
+.rb-desc{font-size:11px;color:#507090;line-height:1.4}
+.asc-flow{position:relative;padding-left:20px}
+.asc-flow::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,#4A9AE0,#4A9AE099,transparent)}
+.asc-item{position:relative;margin-bottom:14px;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.asc-item::before{content:'';position:absolute;left:-14px;top:7px;width:8px;height:8px;border-radius:50%;border:2px solid #4A9AE0;background:var(--bg);z-index:1}
+.asc-item.gold::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px var(--gold)}
+.asc-step{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);line-height:1.4}
+.asc-when{font-size:8px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;font-family:'Share Tech Mono',monospace}
+.asc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
+.asc-desc{font-size:11px;color:#507090;line-height:1.5}
+.tip-cards{display:flex;flex-direction:column;gap:6px}
+.tip-card{background:var(--s1);border:1px solid #4A9AE033;border-radius:8px;padding:12px 14px}
+.tip-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#4A9AE0;margin-bottom:4px}
+.tip-text{font-size:11px;color:#507090;line-height:1.55}
+.priority-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.pr{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:flex-start;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px}
+.pr-n{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:900;color:#4A9AE0;text-align:center}
+.pr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.pr-desc{font-size:10px;color:#507090;line-height:1.4}
+.pr-badge{font-size:8px;padding:2px 6px;border-radius:3px;border:1px solid #4A9AE099;color:#4A9AE0;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start}</style>
 </head>
 <body>
-<div class="container">
-<a class="back-btn" href="gaming-builds-app.html">← Back to Build Hub</a>
-
-<header>
-  <div class="hemblem" style="filter:drop-shadow(0 0 20px rgba(212,136,58,0.9))">⚡</div>
-  <div>
-    <h1>Lightning <span class="g">Arrow</span></h1>
-    <h1 style="font-size:clamp(14px,2vw,22px);letter-spacing:2px;margin-top:4px"><span style="color:var(--poe)">Deadeye</span> · Ranger · Patch 0.5.0 · S-Tier</h1>
-    <div class="subtitle">Path of Exile 2 · Runes of Aldur League · Return of the Ancients · Most Played Build</div>
-    <div class="badges">
-      <span class="badge badge-poe">Ranger</span>
-      <span class="badge badge-dps">S-Tier</span>
-      <span class="badge badge-pve">League Starter</span>
-      <span class="badge badge-meta">Meta</span>
-      <span class="badge badge-tank">Self-Found Viable</span>
-    </div>
-  </div>
-</header>
-
+<div class="wrap">
+<div class="hero">
+  <div class="hero-icon"><svg viewBox="0 0 90 90" fill="none">
+  <path d="M52 8 L30 48 L46 48 L38 82" fill="#4A9AE0" opacity=".15"/>
+  <path d="M52 8 L30 48 L46 48 L38 82" stroke="#4A9AE0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="animation:boltflick 2.2s ease-in-out infinite"/>
+  <path d="M52 8 L30 48 L46 48 L38 82" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity=".4" style="animation:boltflick 2.2s ease-in-out infinite"/>
+  <circle cx="52" cy="8" r="4" fill="#4A9AE0" style="animation:sparkarc 2.2s ease-out infinite"/>
+  <circle cx="38" cy="82" r="3.5" fill="#4A9AE0" style="animation:sparkarc 2.2s ease-out infinite .6s"/>
+</svg></div>
+  <div class="hero-pre">▶ Path of Exile 2 · S-Tier · Most Played Build</div>
+  <h1 class="hero-title">Lightning <em>Arrow</em> Deadeye</h1>
+  <div class="hero-sub">Ranger · Deadeye · Chain Lightning · Patch 0.5.0</div>
+  <div class="hero-tags"><span class="htag" style="color:#FFD700;border-color:rgba(255,215,0,.3)">S-TIER</span><span class="htag" style="color:#4A9AE0;border-color:#4A9AE04d">CHAIN LIGHTNING</span><span class="htag" style="color:#c060ff;border-color:rgba(192,96,255,.3)">SCREEN CLEAR</span><span class="htag" style="color:#50c8b4;border-color:rgba(80,200,180,.3)">LEAGUE STARTER</span></div>
+  <div class="hero-bars"><div class="hb"><div class="hb-val" style="color:#ff6060">5★</div><div class="hb-track"><div class="hb-fill" style="width:95%;background:#ff6060"></div></div><div class="hb-label">DPS</div></div><div class="hb"><div class="hb-val" style="color:#60a0ff">4★</div><div class="hb-track"><div class="hb-fill" style="width:72%;background:#60a0ff"></div></div><div class="hb-label">SURV</div></div><div class="hb"><div class="hb-val" style="color:#40c8b4">5★</div><div class="hb-track"><div class="hb-fill" style="width:95%;background:#40c8b4"></div></div><div class="hb-label">SPD</div></div><div class="hb"><div class="hb-val" style="color:#E8C840">5★</div><div class="hb-track"><div class="hb-fill" style="width:90%;background:#E8C840"></div></div><div class="hb-label">EASE</div></div></div>
+</div>
 <div class="tab-bar-hero">
-  <div class="tab-hero on" data-sec="sec-0" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-    <div class="tab-lbl">Build Overvi…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-1" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-    <div class="tab-lbl">Ascendancy ·…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-2" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Skills · Gem…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-3" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
-    <div class="tab-lbl">Passive Tree…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-4" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Gear Slots ·…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-5" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
-    <div class="tab-lbl">Rotation · P…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-6" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-    <div class="tab-lbl">Patch Notes …</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-7" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Pro Tips</div>
-  </div>
+  <div class="tab-hero on" data-sec="sec-overview" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="tab-lbl">Overview</div></div>
+  <div class="tab-hero" data-sec="sec-mechanic" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div class="tab-lbl">Mechanic</div></div>
+  <div class="tab-hero" data-sec="sec-skills" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><div class="tab-lbl">Skills</div></div>
+  <div class="tab-hero" data-sec="sec-asc" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div><div class="tab-lbl">Ascendancy</div></div>
+  <div class="tab-hero" data-sec="sec-leveling" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="tab-lbl">Leveling</div></div>
+  <div class="tab-hero" data-sec="sec-tree" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div><div class="tab-lbl">Passive Tree</div></div>
+  <div class="tab-hero" data-sec="sec-gear" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tab-lbl">Gear</div></div>
+  <div class="tab-hero" data-sec="sec-rotation" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><div class="tab-lbl">Rotation</div></div>
+  <div class="tab-hero" data-sec="sec-tips" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div class="tab-lbl">Pro Tips</div></div>
+</div>
+<div class="div"><div class="div-dot"></div></div>
+<div class="sec on" id="sec-overview"><div class="sec-head"><span class="sec-num">01</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h2 class="sec-title">Build Overview</h2><div class="sec-line"></div></div>
+<div class="info-block"><p><span class="kw">Lightning Arrow Deadeye</span> is the #1 Most Played build in PoE2 — S-Tier league starter with the fastest campaign clear in the game. No gear required to start.</p><p>Core Chain Reaction: LA hits → beams arc to 3 nearby enemies → Freeze + Shock → on kill <span class="kw2">Herald of Thunder</span> triggers → explosion → chain reaction clears entire screens. Plant <span class="kw2">Lightning Rods</span> before boss phases for devastating burst damage.</p></div>
+<div class="sw"><div class="sw-box" style="border-color:#40c06033"><div class="sw-title" style="color:#40c060">✓ Strengths</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>S-Tier League Starter — no gear required</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Fastest campaign clear in the game</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Screen-wide clear via chaining lightning beams</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Lightning Rod for massive single-target burst</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Mirage Deadeye = free copy of your attacks</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Reaches red maps on self-found rare gear</div></div><div class="sw-box" style="border-color:#e0406033"><div class="sw-title" style="color:#e04060">✗ Weaknesses</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Kite-dependent defense — never stand still</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Mana sustain requires investment (Sapphire Jewel)</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Lightning Beams no longer chain to same target (0.5 nerf)</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>High-end bow is expensive</div></div></div>
+</div>
+<div class="sec" id="sec-mechanic"><div class="sec-head"><span class="sec-num">02</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h2 class="sec-title">Core Chain Reaction</h2><div class="sec-line"></div></div>
+<div class="cycle"><div class="cycle-step"><div class="cycle-n">⚡</div><div><div class="cycle-title">LA Hits → Beams Arc to 3 Enemies</div><div class="cycle-sub">Each Lightning Arrow hit creates chaining beams that arc to 3 nearby enemies. Freeze + Shock on every hit.</div></div><span class="cycle-badge">CHAIN ×3</span></div>
+<div class="cycle-step"><div class="cycle-n">❄</div><div><div class="cycle-title">Freeze + Shock on All Targets</div><div class="cycle-sub">Frozen enemies take more damage. Shocked enemies take more damage. Both stack on every hit.</div></div><span class="cycle-badge">FREEZE+SHOCK</span></div>
+<div class="cycle-step"><div class="cycle-n">💀</div><div><div class="cycle-title">Kill → Herald of Thunder Triggers</div><div class="cycle-sub">Killing a Shocked enemy fires a massive lightning explosion from Herald of Thunder. Kills more enemies → more triggers.</div></div><span class="cycle-badge">HoT CHAIN</span></div>
+<div class="cycle-step"><div class="cycle-n">🌩</div><div><div class="cycle-title">Chain Reaction = Screen Clear</div><div class="cycle-sub">Multiple HoT explosions chain across the screen. With Mirage Archer firing simultaneously → nothing survives.</div></div></div>
+</div>
+<div class="note note-tip">🎯 <strong>Boss Setup:</strong> Plant Lightning Rods at boss feet, then fire Lightning Arrow at the Rods. Creates devastating burst damage. Tornado Shot + Voltaic Mark for single-target finishing.</div>
+</div>
+<div class="sec" id="sec-skills"><div class="sec-head"><span class="sec-num">03</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><h2 class="sec-title">Skills & Gem Setup</h2><div class="sec-line"></div></div>
+<div class="skill-list"><div class="sk"><div class="sk-ico">⚡</div><div><div class="sk-name">Lightning Arrow — Primary Clear</div><div class="sk-desc">Main skill. Chaining beams to 3 enemies. Supports: Fork · Overpower · Lightning Penetration · Added Lightning Damage</div></div></div>
+<div class="sk"><div class="sk-ico">🔱</div><div><div class="sk-name">Lightning Rod — Boss Skill</div><div class="sk-desc">Plant 2–3 Rods at boss feet, then fire LA at the Rods. Devastating burst in a fixed area. Supports: Conc Effect · Lightning Pen · Increased Crit Damage</div></div></div>
+<div class="sk"><div class="sk-ico">🌪</div><div><div class="sk-name">Tornado Shot — Single Target Finisher</div><div class="sk-desc">Fires a tornado seeking the target. Use with Voltaic Mark. Supports: Added Lightning · Overpower · Lightning Pen</div></div></div>
+<div class="sk"><div class="sk-ico">⛈</div><div><div class="sk-name">Herald of Thunder — Clear Aura</div><div class="sk-desc">Kill Shocked enemy with LA → massive lightning explosion. Always active. What makes map clear godlike.</div></div></div>
+<div class="sk"><div class="sk-ico">🛡</div><div><div class="sk-name">Lightning Aegis — Defense</div><div class="sk-desc">Flat damage reduction on Crit. Deadeye crits constantly = near-permanent 20% less damage taken from Shocked enemies.</div></div></div>
+<div class="sk"><div class="sk-ico">👻</div><div><div class="sk-name">Ghost Dance — Defense</div><div class="sk-desc">Uses Evasion Rating to restore Energy Shield on hit. Essential for survivability without armor.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-asc"><div class="sec-head"><span class="sec-num">04</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div><h2 class="sec-title">Ascendancy — Deadeye</h2><div class="sec-line"></div></div>
+<div class="note note-info">Deadeye is the only Ascendancy for this build. Take in exact order.</div>
+<div class="asc-flow"><div class="asc-item gold"><div class="asc-step">1st</div><div><div class="asc-when">First Pick</div><div class="asc-name" style="color:#4A9AE0">Gathering Winds</div><div class="asc-desc">Tailwind on Kill = +Action Speed. Stacks rapidly in packs. Combined with LA chain kills: permanent high action speed by the 2nd enemy group.</div></div></div>
+<div class="asc-item gold"><div class="asc-step">2nd</div><div><div class="asc-when">Priority</div><div class="asc-name" style="color:#4A9AE0">Mirage Archer</div><div class="asc-desc">Creates a Mirage Deadeye copy that also fires Lightning Arrow. Effectively doubles projectile output for free. One of the strongest Ascendancy nodes in the game.</div></div></div>
+<div class="asc-item"><div class="asc-step">3rd</div><div><div class="asc-when">Bullseye</div><div class="asc-name" style="color:#c060ff">10 Critical Weakness Stacks</div><div class="asc-desc">Applies 10 Crit Weakness stacks on Crit (buffed from 5 in 0.4). Deadeye crits constantly → permanent massive damage multiplier on all targets.</div></div></div>
+<div class="asc-item"><div class="asc-step">4th</div><div><div class="asc-when">Focal Point</div><div class="asc-name" style="color:#c060ff">Projectile Convergence</div><div class="asc-desc">Forces multiple projectiles to converge on the target you aim at. Massive single-target DPS boost — especially with Tornado Shot on bosses.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-leveling"><div class="sec-head"><span class="sec-num">05</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h2 class="sec-title">Leveling Phases</h2><div class="sec-line"></div></div>
+<div class="lv-track"><div class="lv-ph hi"><div class="lv-tag">Acts 1–2 · Lvl 1–22</div><div class="lv-t">Lightning Arrow from Level 1</div><div class="lv-d">Start with Lightning Arrow immediately — it's your main skill the entire game. Add Onslaught Support and Fork early. Take Gathering Winds (1st Ascendancy) after Trial of Sekhemas.</div><div class="lv-gems"><div class="lgr hi"><div class="lgr-n">Lightning Arrow</div><div class="lgr-ss"><span class="lgr-s">Fork</span><span class="lgr-s">Onslaught</span><span class="lgr-s">Added Lightning</span></div></div>
+<div class="lgr"><div class="lgr-n">Herald of Thunder</div><div class="lgr-ss"><span class="lgr-s">Active from Act 2 onwards</span></div></div>
+</div>
+<div class="lv-pts">▸ Lightning Damage nodes · ▸ Crit Chance (Bow cluster) · ▸ Projectile Damage</div></div>
+<div class="lv-ph"><div class="lv-tag">Acts 3–4 · Lvl 22–45</div><div class="lv-t">Mirage Archer + Lightning Rod</div><div class="lv-d">Add Lightning Rods for boss encounters. Take Mirage Archer (2nd Ascendancy). Add Lightning Aegis for defense.</div><div class="lv-gems"><div class="lgr hi"><div class="lgr-n">Lightning Arrow</div><div class="lgr-ss"><span class="lgr-s">Fork</span><span class="lgr-s">Overpower</span><span class="lgr-s">Lightning Pen</span><span class="lgr-s">Added Lightning</span></div></div>
+<div class="lgr"><div class="lgr-n">Lightning Rod</div><div class="lgr-ss"><span class="lgr-s">Conc Effect</span><span class="lgr-s">Lightning Pen</span></div></div>
+<div class="lgr"><div class="lgr-n">Lightning Aegis</div><div class="lgr-ss"><span class="lgr-s">Defensive aura</span></div></div>
+</div>
+<div class="lv-pts">▸ Attack Speed · ▸ Shock Effect · ▸ Lightning Penetration nodes</div></div>
+<div class="lv-ph hi"><div class="lv-tag">Maps / Endgame · Lvl 65+</div><div class="lv-t">Bullseye + Focal Point · Full Setup</div><div class="lv-d">Complete Bullseye and Focal Point (Ascendancy 3+4). Add Tornado Shot + Voltaic Mark for single-target. Upgrade to a 6-linked Lightning Arrow.</div><div class="lv-gems"><div class="lgr hi"><div class="lgr-n">Lightning Arrow</div><div class="lgr-ss"><span class="lgr-s">Fork</span><span class="lgr-s">Overpower</span><span class="lgr-s">Lightning Pen</span><span class="lgr-s">Added Lightning</span><span class="lgr-s">Faster Proj</span></div></div>
+<div class="lgr"><div class="lgr-n">Tornado Shot + Voltaic Mark</div><div class="lgr-ss"><span class="lgr-s">Single-target boss combo</span></div></div>
+<div class="lgr"><div class="lgr-n">Ghost Dance</div><div class="lgr-ss"><span class="lgr-s">Replace if mana is solved</span></div></div>
+</div>
+<div class="lv-pts">▸ Finish crit nodes · ▸ Sapphire Jewel for mana · ▸ Upgrade bow</div></div>
+</div>
+</div>
+<div class="sec" id="sec-tree"><div class="sec-head"><span class="sec-num">06</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div><h2 class="sec-title">Passive Tree Priority</h2><div class="sec-line"></div></div>
+<div class="tree-list"><div class="tr"><span class="tr-range">Early</span><span class="tr-desc">Lightning Damage + Attack Speed nodes (Ranger)</span><span class="tr-pts">~12pts</span></div>
+<div class="tr"><span class="tr-range">Early</span><span class="tr-desc">Critical Strike Chance — Bow cluster</span><span class="tr-pts">~10pts</span></div>
+<div class="tr hi"><span class="tr-range">Mid</span><span class="tr-desc">Shock Effect nodes + Elemental Damage with Attacks</span><span class="tr-pts">~10pts</span></div>
+<div class="tr"><span class="tr-range">Mid</span><span class="tr-desc">Projectile Damage nodes</span><span class="tr-pts">~8pts</span></div>
+<div class="tr"><span class="tr-range">Mid</span><span class="tr-desc">Evasion Rating + Ghost Dance synergy nodes</span><span class="tr-pts">~10pts</span></div>
+<div class="tr"><span class="tr-range">Late</span><span class="tr-desc">Mana Reservation nodes (Herald of Thunder always active)</span><span class="tr-pts">~6pts</span></div>
+<div class="tr hi"><span class="tr-range">Endgame</span><span class="tr-desc">Jewel Sockets · Large Cluster Jewel (Lightning Damage)</span><span class="tr-pts">flex pts</span></div>
+</div>
+</div>
+<div class="sec" id="sec-gear"><div class="sec-head"><span class="sec-num">07</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h2 class="sec-title">Gear Priorities</h2><div class="sec-line"></div></div>
+<div class="gear-list"><div class="gr bis"><span class="gr-slot">Weapon</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">⭐ Lightning Damage Bow (BiS)</div><div class="gr-note">Lightning Damage · Attack Speed · Critical Strike Chance · +Level Socketed Gems · Elemental Damage with Attacks</div></div><span class="gr-tag" style="color:#4A9AE0;border-color:#4A9AE066">BOW</span></div>
+<div class="gr bis"><span class="gr-slot">Special</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">Sapphire Jewel</div><div class="gr-note">Mana Sustain fix. The most important QoL item for this build — prevents constant mana interruption.</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">JEWEL</span></div>
+<div class="gr"><span class="gr-slot">Body</span><div class="gr-info"><div class="gr-name">Evasion + ES Hybrid</div><div class="gr-note">High Evasion Rating · Energy Shield · Resistances capped · +Level of Socketed Gems bonus</div></div><span class="gr-tag" style="color:#507090;border-color:#50709066">ARMOUR</span></div>
+<div class="gr"><span class="gr-slot">Quiver</span><div class="gr-info"><div class="gr-name">Lightning Quiver</div><div class="gr-note">Added Lightning Damage to Attacks · Attack Speed · Crit Chance</div></div><span class="gr-tag" style="color:#4A9AE0;border-color:#4A9AE066">QUIVER</span></div>
+<div class="gr"><span class="gr-slot">Amulet</span><div class="gr-info"><div class="gr-name">Crit / Lightning Amulet</div><div class="gr-note">Critical Strike Chance · Critical Strike Multiplier · Lightning Damage · +Level of Socketed Gems</div></div><span class="gr-tag" style="color:#507090;border-color:#50709066">AMULET</span></div>
+</div>
+</div>
+<div class="sec" id="sec-rotation"><div class="sec-head"><span class="sec-num">08</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><h2 class="sec-title">Rotation & Playstyle</h2><div class="sec-line"></div></div>
+<div class="note note-warn">⚠ Kite-dependent defense — never stand still. Lightning Aegis + Ghost Dance only work if you keep moving.</div>
+<div class="rot-steps" style="margin-bottom:12px"><div class="rstep"><div class="rn">1</div><div><div class="rb-skill">Always be moving</div><div class="rb-desc">Lightning Aegis and Ghost Dance are your defenses. Stationary = dead. Never stop moving.</div></div></div>
+<div class="rstep"><div class="rn">2</div><div><div class="rb-skill">Hold Lightning Arrow — maps</div><div class="rb-desc">The chain reaction clears everything. Just move forward and hold the button.</div></div></div>
+<div class="rstep"><div class="rn">3</div><div><div class="rb-skill">Plant Lightning Rods — bosses</div><div class="rb-desc">Place 2–3 Rods at boss feet before phase transitions for maximum burst windows.</div></div></div>
+<div class="rstep"><div class="rn">4</div><div><div class="rb-skill">Fire LA at Lightning Rods</div><div class="rb-desc">Point Lightning Arrow at the Rods — devastating burst damage in the fixed area.</div></div></div>
+<div class="rstep"><div class="rn" style="border-color:#4A9AE0;color:#4A9AE0">5</div><div><div class="rb-skill">Tornado Shot + Voltaic Mark finish</div><div class="rb-desc">Single-target finisher for bosses. 100% Shock application for maximum multiplier.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-tips"><div class="sec-head"><span class="sec-num">09</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><h2 class="sec-title">Pro Tips</h2><div class="sec-line"></div></div>
+<div class="tip-cards"><div class="tip-card"><div class="tip-title">⚡ Always Be Moving</div><div class="tip-text">This is the most important rule. Lightning Aegis and Ghost Dance scale with movement. Stationary targets die. Mobile targets survive.</div></div>
+<div class="tip-card"><div class="tip-title">🔱 Lightning Rod Placement</div><div class="tip-text">Pre-place Rods before triggering boss phases. The burst window when the boss enters a Rod zone is where all your DPS happens.</div></div>
+<div class="tip-card"><div class="tip-title">💧 Sapphire Jewel for Mana</div><div class="tip-text">Without it you'll constantly interrupt your attack for mana. Get a Sapphire Jewel in a ring or as a passive tree jewel ASAP.</div></div>
+<div class="tip-card"><div class="tip-title">🌩 Herald of Thunder — Always Active</div><div class="tip-text">Never replace it. Even on bosses. The explosion chain is what makes map clear work. Keep mana reserved for it always.</div></div>
+</div>
 </div>
 
-<div class="div"></div>
-
-
-<div class="sec on" id="sec-0">
-<section>
-  <div class="sh"><div class="si">⚡</div><div class="st">Build <span class="r">Overview</span></div></div>
-  <div class="divider"></div>
-  <div class="sw-grid">
-    <div class="sw-box">
-      <div class="sw-title green">✓ Strengths</div>
-      <div class="sw-item"><span>✓</span>S-Tier League Starter — no gear required to start</div>
-      <div class="sw-item"><span>✓</span>Fastest campaign clear in the game</div>
-      <div class="sw-item"><span>✓</span>Screen-wide clear via chaining lightning beams</div>
-      <div class="sw-item"><span>✓</span>Herald of Thunder chain explosions on kill</div>
-      <div class="sw-item"><span>✓</span>Lightning Rod for massive single-target burst</div>
-      <div class="sw-item"><span>✓</span>Surprisingly tanky via Lightning Aegis + Ghost Dance</div>
-      <div class="sw-item"><span>✓</span>Mirage Deadeye = free copy firing your attacks</div>
-      <div class="sw-item"><span>✓</span>Reaches red maps on self-found rare gear</div>
-    </div>
-    <div class="sw-box">
-      <div class="sw-title red">✗ Weaknesses</div>
-      <div class="sw-item"><span>✗</span>Kite-dependent defense — never stand still</div>
-      <div class="sw-item"><span>✗</span>Mana sustain requires investment (Sapphire Jewel)</div>
-      <div class="sw-item"><span>✗</span>Lightning Rod requires stationary target for full DPS</div>
-      <div class="sw-item"><span>✗</span>High-end gear is expensive (bow-specific stats)</div>
-      <div class="sw-item"><span>✗</span>Lightning Beams no longer chain to same target (0.5.0 minor nerf)</div>
-    </div>
-  </div>
-  <p class="body" style="margin-top:16px"><strong style="color:var(--poe)">Core Chain Reaction:</strong> Lightning Arrow hits → Beams arc to 3 nearby enemies → enemies Freeze + Shock → on kill Herald of Thunder triggers → lightning explosion kills more enemies → chain reaction clears entire screens. Plant Lightning Rods before boss phases → fire Lightning Arrow at Rods → devastating burst damage. Tornado Shot + Voltaic Mark for single-target finishing.</p>
-</section>
-</div>
-<div class="sec" id="sec-1">
-<section>
-  <div class="sh"><div class="si">🎯</div><div class="st">Ascendancy <span class="r">· Deadeye</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-t">💡 <strong>Deadeye is the only Ascendancy for this build.</strong> The synergy between Gathering Winds (constant Crits), Mirage Archer (free copy of your attacks), and Bullseye (10 Critical Weakness stacks) is what makes Lightning Arrow reach S-Tier. Take these in order.</div>
-  <div class="card-grid">
-    <div class="gear-card named"><div class="gear-slot">Ascendancy 1 · First Pick</div><div class="gear-name">Gathering Winds</div><div class="gear-mods"><span class="t-g">+Tailwind on Kill</span><span class="mod-tag">+Action Speed stacking</span><span class="mod-tag">Enables constant Crits</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Each kill grants Tailwind (+Action Speed). Stacks rapidly in packs. Combined with Lightning Arrow's chain kills — permanent high action speed by the second enemy group.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Ascendancy 2 · Priority</div><div class="gear-name">Mirage Archer</div><div class="gear-mods"><span class="t-g">Creates Mirage copy</span><span class="mod-tag">Fires your attacks for free</span><span class="mod-tag">No passive investment needed</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">A temporary Mirage Deadeye copy is created that also fires Lightning Arrow. Effectively doubles your projectile output for free. One of the strongest Ascendancy nodes in the game.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Ascendancy 3</div><div class="gear-name">Bullseye</div><div class="gear-mods"><span class="t-g">10 Critical Weakness stacks</span><span class="mod-tag">Doubles Crit payoff</span><span class="mod-tag">Was 5 stacks in 0.4</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Applies 10 Critical Weakness stacks on Crit (buffed from 5 in 0.4). Since Deadeye crits constantly via Gathering Winds, this is a permanent massive damage multiplier on all targets.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Ascendancy 4</div><div class="gear-name">Focal Point</div><div class="gear-mods"><span class="t-g">Projectile Convergence</span><span class="mod-tag">Arrows converge on target</span><span class="mod-tag">Single-target DPS boost</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Forces multiple projectiles to converge on the target you aim at. Massive single-target damage boost — especially powerful with Tornado Shot on bosses.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-2">
-<section>
-  <div class="sh"><div class="si">🎮</div><div class="st">Skills <span class="r">· Gem Setup</span></div></div>
-  <div class="divider"></div>
-  <div class="skills-grid">
-    <div class="skill-card"><span class="skill-ico">⚡</span><div class="skill-name">Lightning Arrow (Primary)</div><div class="skill-desc">Main clear skill. Each hit creates chaining beams that arc to 3 nearby enemies. Freeze + Shock on every hit. Supported by: Fork, Overpower, Lightning Penetration, Added Lightning Damage.</div></div>
-    <div class="skill-card"><span class="skill-ico">🔱</span><div class="skill-name">Lightning Rod</div><div class="skill-desc">Boss skill. Plant 2–3 Rods at the boss's feet, then fire Lightning Arrow at the Rods. Creates devastating burst damage in a fixed area. Supported by: Concentrated Effect, Lightning Penetration, Increased Critical Damage.</div></div>
-    <div class="skill-card"><span class="skill-ico">🌪️</span><div class="skill-name">Tornado Shot</div><div class="skill-desc">Single-target finisher. Fires a tornado that seeks out the target. Use with Voltaic Mark for maximum single-target DPS. Supported by: Added Lightning Damage, Overpower, Lightning Penetration.</div></div>
-    <div class="skill-card"><span class="skill-ico">⛈️</span><div class="skill-name">Herald of Thunder</div><div class="skill-desc">Passive aura. When you kill a Shocked enemy with Lightning Arrow, Herald of Thunder triggers a massive cold/lightning explosion. This is what makes map clear godlike. Always active.</div></div>
-    <div class="skill-card"><span class="skill-ico">🛡️</span><div class="skill-name">Lightning Aegis</div><div class="skill-desc">Defensive aura. Provides flat damage reduction that triggers on Crit. Since Deadeye crits constantly = near-permanent 20% less damage taken from Shocked enemies. Replaces Haste for Spirit efficiency.</div></div>
-    <div class="skill-card"><span class="skill-ico">👻</span><div class="skill-name">Ghost Dance</div><div class="skill-desc">Defensive skill. Uses Evasion Rating to restore Energy Shield on being Hit. Essential for surviving burst damage. Keep maxed for the tanky "glass cannon that isn't really glass" Deadeye feel.</div></div>
-    <div class="skill-card"><span class="skill-ico">🎯</span><div class="skill-name">Voltaic Mark</div><div class="skill-desc">Boss curse. Applies a mark that increases Lightning damage taken. Use before Tornado Shot/Lightning Rod rotation on bosses. Significant single-target DPS increase.</div></div>
-    <div class="skill-card"><span class="skill-ico">❄️</span><div class="skill-name">Freezing Salvo</div><div class="skill-desc">Secondary clear / CC. Fires a salvo of freezing arrows. Use on large packs or tanky rares to ensure Freeze buildup before Lightning Arrow chains. Also useful for Freeze-dependent Herald of Thunder procs.</div></div>
-  </div>
-  <div class="note-box note-r" style="margin-top:12px">⚠️ <strong>0.5.0 Change:</strong> Lightning Arrow Beams can no longer chain to the same target. This slightly reduces single-target DPS from beams but doesn't affect pack clear — beams will simply arc to different targets in a pack instead.</div>
-</section>
-</div>
-<div class="sec" id="sec-3">
-<section>
-  <div class="sh"><div class="si">🌳</div><div class="st">Passive Tree <span class="r">· Priority</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-g">ℹ <strong>Stat Priority for Passive Tree:</strong> Attack Speed → Critical Strike Chance → Lightning Damage → Projectile Damage → Evasion/Energy Shield. Dexterity and Intelligence nodes as needed for gem requirements. Pick up Life nodes wherever they are near your path.</div>
-
-  <div class="phase">
-    <div class="phase-header"><div class="phase-num">1</div><div><div class="phase-title">Early Game (Acts 1–3) · Core Attack Nodes</div><div class="phase-sub">Attack Speed + Crit Chance first</div></div></div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:var(--poe)">Priority 1</div><div class="gem-supports">Acceleration — Attack Speed cluster near Ranger start. Every % Attack Speed = more Lightning Arrow hits = more chains = more Herald procs.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--poe)">Priority 2</div><div class="gem-supports">Precise Technique cluster — Crit Chance + Accuracy. Powers Gathering Winds and Bullseye Ascendancy synergy.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--poe)">Priority 3</div><div class="gem-supports">Life nodes — pick up any 10%+ Life nodes directly on path. Target: 2000+ Life by Act 4.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--poe)">Priority 4</div><div class="gem-supports">Bow Mastery — Projectile Speed + Damage nodes near the Ranger/Deadeye area. Core damage scaling.</div></div>
-    </div>
-  </div>
-
-  <div class="phase">
-    <div class="phase-header"><div class="phase-num">2</div><div><div class="phase-title">Mid Game (Acts 4–6 + Endgame Entry) · Lightning Scaling</div><div class="phase-sub">Lightning Damage + Elemental Penetration</div></div></div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Priority 1</div><div class="gem-supports">Heart of Thunder — Lightning Damage cluster. Every node here multiplies all Lightning Arrow hits and Herald of Thunder explosions.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Priority 2</div><div class="gem-supports">Elemental Overload Keystone — After Critting, all hits deal 40% more Elemental Damage for 4 sec. With constant crits via Deadeye = permanent 40% more damage.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Priority 3</div><div class="gem-supports">Evasion + Energy Shield clusters — powers Ghost Dance. Aim for 5000+ Evasion Rating in endgame.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Priority 4</div><div class="gem-supports">Mana Regeneration nodes — Mana is the build's Achilles heel. Pick up any Mana Regen or Mana on Kill nodes near your path.</div></div>
-    </div>
-  </div>
-
-  <div class="phase" style="border-left-color:var(--gold)">
-    <div class="phase-header"><div class="phase-num" style="border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,.15)">★</div><div><div class="phase-title">Endgame · Keystones + Optimization</div><div class="phase-sub">Point of No Return + Elemental Overload</div></div></div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Keystone 1</div><div class="gem-supports">Elemental Overload — 40% more Elemental Damage after Crit. Non-negotiable for endgame.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Keystone 2</div><div class="gem-supports">Point Blank — 50% more damage at close range. With Deadeye's aggro-clear playstyle, you're often close enough to proc this consistently.</div></div>
-      <div class="gem-row"><div class="gem-name" style="color:var(--gold)">Keystone 3</div><div class="gem-supports">Acrobatics — 30% Dodge Chance. Combined with Ghost Dance and Evasion = very tanky endgame. Take late when near the Evasion clusters.</div></div>
-    </div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-4">
-<section>
-  <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-r">⚠️ <strong>Stat Priority on Gear:</strong> 1. Resistance caps (75% all) → 2. Bow with high Physical/Lightning Damage → 3. Attack Speed → 4. Critical Strike Chance → 5. Life / Evasion / Energy Shield. The bow is the most important item — everything else is secondary.</div>
-  <div class="card-grid">
-    <div class="gear-card named"><div class="gear-slot">Bow · Most Important Slot</div><div class="gear-name">High pDPS Bow (Rare)</div><div class="gear-mods"><span class="t-g">+Lightning Damage</span><span class="mod-tag">Attack Speed</span><span class="mod-tag">Critical Strike Chance</span><span class="mod-tag">Physical Damage (converts)</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">The bow is the centerpiece. Prioritize high Physical DPS with added Lightning Damage. Attack Speed prefix. All other gear slots serve survivability.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Quiver</div><div class="gear-name">Mana on Kill Quiver (Rare)</div><div class="gear-mods"><span class="t-g">+Mana per Kill</span><span class="mod-tag">+Lightning Damage</span><span class="mod-tag">Critical Strike Chance</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Mana on Kill is essential — Mana sustain is the build's biggest challenge. Any quiver with this mod + Lightning/Crit affixes is BiS.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Helmet</div><div class="gear-name">Evasion + Energy Shield (Rare)</div><div class="gear-mods"><span class="mod-tag">Life</span><span class="mod-tag">Resistances</span><span class="mod-tag">Evasion Rating</span></div></div>
-    <div class="gear-card named"><div class="gear-slot">Body Armour</div><div class="gear-name">Evasion + Energy Shield (Rare)</div><div class="gear-mods"><span class="mod-tag">Life</span><span class="mod-tag">Resistances</span><span class="mod-tag">Evasion + ES</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Evasion/Energy Shield hybrid base powers Ghost Dance. Prioritize Life and Resistance capping over anything else on the body.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Gloves</div><div class="gear-name">Attack Speed Gloves (Rare)</div><div class="gear-mods"><span class="t-g">Attack Speed</span><span class="mod-tag">Lightning Damage</span><span class="mod-tag">Resistances</span></div></div>
-    <div class="gear-card named"><div class="gear-slot">Boots</div><div class="gear-name">Movement Speed Boots (Rare)</div><div class="gear-mods"><span class="t-g">Movement Speed</span><span class="mod-tag">Life</span><span class="mod-tag">Resistances</span></div></div>
-    <div class="gear-card named"><div class="gear-slot">Belt</div><div class="gear-name">Resistance Belt (Rare)</div><div class="gear-mods"><span class="mod-tag">Life</span><span class="mod-tag">Resistances</span><span class="mod-tag">Strength (if needed)</span></div></div>
-    <div class="gear-card named"><div class="gear-slot">Rings × 2</div><div class="gear-name">Sapphire Ring (Rare)</div><div class="gear-mods"><span class="t-g">Mana Recover on Kill (2%)</span><span class="mod-tag">Resistances</span><span class="mod-tag">Life</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Sapphire Jewel with Recover 2% Mana on Kill is the easiest Mana fix. Aim for at least 1 ring with this mod.</div></div>
-    <div class="gear-card named"><div class="gear-slot">Amulet</div><div class="gear-name">+Level Amulet (Rare)</div><div class="gear-mods"><span class="t-g">+1 Dex Skills</span><span class="mod-tag">Critical Strike Chance</span><span class="mod-tag">Life</span></div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-5">
-<section>
-  <div class="sh"><div class="si">⚡</div><div class="st">Rotation <span class="r">· Playstyle</span></div></div>
-  <div class="divider"></div>
-  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px">🗺 MAP CLEAR</p>
-  <div class="rotation-steps">
-    <div class="rstep"><div class="rstep-n">1</div><div class="rstep-body"><div class="rstep-skill">Move aggressively forward</div><div class="rstep-desc">Deadeye clears THROUGH packs — not around them. Move into range, shoot, let lightning chains do the work. Gathering Winds stacks Action Speed with every kill.</div></div></div>
-    <div class="rstep"><div class="rstep-n">2</div><div class="rstep-body"><div class="rstep-skill">Lightning Arrow spam</div><div class="rstep-desc">Fire continuously into packs. Each shot chains to 3 enemies — at full Tailwind stacks you fire fast enough to clear full screens before enemies reach you.</div></div></div>
-    <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Herald of Thunder chain</div><div class="rstep-desc">When shocked enemies die, Herald triggers. Let the explosion chain fire automatically — it will clear what Lightning Arrow started. You just keep moving forward.</div></div></div>
-    <div class="rstep"><div class="rstep-n">4</div><div class="rstep-body"><div class="rstep-skill">Freezing Salvo on tanky rares</div><div class="rstep-desc">For rare monsters that survive the initial chain — Freezing Salvo to freeze them, then Lightning Arrow to detonate. Or just Lightning Rod placement and fire.</div></div></div>
-  </div>
-
-  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px;margin-top:20px">⚔ BOSS ROTATION</p>
-  <div class="rotation-steps">
-    <div class="rstep"><div class="rstep-n">1</div><div class="rstep-body"><div class="rstep-skill">Voltaic Mark</div><div class="rstep-desc">Apply Voltaic Mark curse immediately — increases Lightning damage taken. Always first action on any boss.</div></div></div>
-    <div class="rstep"><div class="rstep-n">2</div><div class="rstep-body"><div class="rstep-skill">Plant 2–3 Lightning Rods</div><div class="rstep-desc">Plant Rods at or near the boss position. Stationary bosses take the full burst — mobile bosses require Rods placed in their path. This is your primary burst tool.</div></div></div>
-    <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Lightning Arrow → Rods</div><div class="rstep-desc">Fire Lightning Arrow at the Rods to detonate them — devastating burst. Reapply Rods as they expire (every ~4 sec). This is the core boss loop.</div></div></div>
-    <div class="rstep"><div class="rstep-n">4</div><div class="rstep-body"><div class="rstep-skill">Tornado Shot (off cooldown)</div><div class="rstep-desc">Use between Rod detonations for additional single-target damage. Tornado Shot + Focal Point Ascendancy = significant boss DPS addition.</div></div></div>
-    <div class="rstep"><div class="rstep-n">5</div><div class="rstep-body"><div class="rstep-skill">Keep moving</div><div class="rstep-desc">Never stand still. Use Ghost Dance if hit. Kite boss attacks between your own attack windows. Deadeye defense is mobility — not tankiness.</div></div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-6">
-<section>
-  <div class="sh"><div class="si">📋</div><div class="st">Patch Notes <span class="r">· 0.5.0 Impact</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-g">✅ <strong>Patch 0.5.0 — Return of the Ancients:</strong> Lightning Arrow Deadeye remains S-Tier in 0.5.0. One minor nerf, otherwise unchanged. Bullseye Ascendancy was buffed in 0.4 and carries forward.</div>
-  <div class="talent-list">
-    <div class="trow" style="border-left:3px solid var(--gold)">
-      <div class="src">🟡 MINOR NERF · Lightning Arrow</div>
-      <div class="tname">Beams can no longer chain to the same target</div>
-      <div class="tdesc">Lightning beams now always arc to different targets. Slight reduction in single-target DPS from beams — but in practice irrelevant for pack clear since there are always multiple targets. Against single bosses, Lightning Rod is your primary damage source anyway.</div>
-    </div>
-    <div class="trow" style="border-left:3px solid #50c850">
-      <div class="src">🟢 CARRY-FORWARD BUFF · Bullseye</div>
-      <div class="tname">Still grants 10 Critical Weakness stacks (buffed in 0.4)</div>
-      <div class="tdesc">Bullseye was doubled from 5 to 10 stacks in 0.4. This carries forward into 0.5.0 — permanent massive Crit multiplier on all targets via constant Deadeye crits.</div>
-    </div>
-    <div class="trow" style="border-left:3px solid #50c850">
-      <div class="src">🟢 NEW CONTENT · Runes of Aldur Crafting</div>
-      <div class="tname">Bow crafting significantly improved via Verisium Runeforging</div>
-      <div class="tdesc">The new Runes of Aldur league introduces the Verisium Runeforging system which can add Runic Ward to armours and upgrade gear via Ancient Runes. Weapon-type Ancient Runes (for Bows) can significantly boost your bow stats without relying on trade.</div>
-    </div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-7">
-<section>
-  <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
-  <div class="divider"></div>
-  <div class="tips">
-    <div class="tip gold"><strong class="g">Mana is your #1 early problem:</strong> Until you have a Sapphire Jewel with 2% Mana on Kill, you will run out of Mana constantly. Farm one ASAP or trade for it. A second source on the Quiver solves Mana permanently.</div>
-    <div class="tip"><strong class="r">Keep moving always:</strong> Deadeye defense is mobility. Ghost Dance restores ES when hit — but the best defense is never getting hit. Move after every Lightning Arrow shot. Never let a boss attack animation complete while you're stationary.</div>
-    <div class="tip gold"><strong class="g">Lightning Rod placement:</strong> Plant Rods BEFORE the boss phase starts. On mobile bosses plant them in doorways or chokepoints. The Rod detonation radius is generous — you don't need perfect placement, just roughly near the target.</div>
-    <div class="tip"><strong class="r">Resistance caps first:</strong> 75% all resistances before any damage investment. Deadeye is a glass cannon — if you're not Dodge/Evading a hit, you're taking full damage. Resistance caps cut the damage you do take in half.</div>
-    <div class="tip gold"><strong class="g">Freeze before Herald:</strong> Herald of Thunder only triggers when you kill a SHOCKED enemy. Lightning Arrow automatically Shocks on hit — just make sure enemies are Shocked (yellow outline) before your kill shot. Freezing Salvo can help freeze tanky targets first.</div>
-    <div class="tip teal"><strong class="t">Best Content:</strong> All Maps (fastest clear in PoE2), Pinnacle Bosses (Lightning Rod burst), Breach content, Delirium (speed clears fog before it resets). Self-found viable to red maps — endgame requires trade for a high pDPS bow.</div>
-  </div>
-</section>
-</div>
-
+<footer style="border-top:1px solid #4A9AE033;padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">PATH OF EXILE 2 · LIGHTNING ARROW DEADEYE · S-TIER · LEAGUE STARTER</footer>
 </div>
 <script>
-function ST(el) {
-  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
-  document.getElementById(el.dataset.sec).classList.add('on');
-  window.scrollTo(0, 0);
-}
+function ST(el){document.querySelectorAll('.tab-hero').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.getElementById(el.dataset.sec).classList.add('on');window.scrollTo(0,0)}
 </script>
 </body>
 </html>

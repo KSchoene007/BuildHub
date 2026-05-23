@@ -3,480 +3,274 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Poisonburst Pathfinder – PoE 2 Build Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
-<style>
-:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(224,48,96,0.08) 0%,transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(232,168,32,0.05) 0%,transparent 45%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 2px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:0}
-.container{max-width:1100px;margin:0 auto;padding:0 24px 60px;position:relative;z-index:1}
-.back-btn{display:inline-flex;align-items:center;gap:8px;margin:20px 0;padding:8px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-decoration:none;text-transform:uppercase;cursor:pointer;transition:.15s}
-.back-btn:hover{background:rgba(255,255,255,.1);color:#fff}
-header{padding:40px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;display:flex;align-items:center;gap:28px;animation:fadeDown .6s ease both}
-.hemblem{font-size:64px;animation:pulse 3s ease-in-out infinite}
-@keyframes pulse{0%,100%{filter:drop-shadow(0 0 10px rgba(224,48,96,.75))}50%{filter:drop-shadow(0 0 28px rgba(224,48,96,1)) drop-shadow(0 0 40px rgba(232,168,32,.35))}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-h1{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(24px,4vw,46px);color:var(--bright);text-transform:uppercase;letter-spacing:3px;line-height:1}
-h1 .r{color:var(--red)} h1 .g{color:var(--gold)} h1 .t{color:var(--teal)}
-.subtitle{margin-top:8px;font-size:12px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--red)}
-.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-.badge{padding:3px 12px;border:1px solid;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
-.badge-pve{border-color:var(--teal);color:var(--teal)} .badge-dps{border-color:var(--red);color:var(--red)} .badge-tank{border-color:var(--gold);color:var(--gold)} .badge-dot{border-color:#b040f0;color:#b040f0} .badge-shock{border-color:#60c0ff;color:#60c0ff} .badge-meta{border-color:var(--gold);color:var(--gold)}
-section{margin-bottom:44px;animation:fadeUp .5s ease both}
-section:nth-child(2){animation-delay:.06s} section:nth-child(3){animation-delay:.12s} section:nth-child(4){animation-delay:.18s} section:nth-child(5){animation-delay:.24s} section:nth-child(6){animation-delay:.30s} section:nth-child(7){animation-delay:.36s} section:nth-child(8){animation-delay:.42s} section:nth-child(9){animation-delay:.48s} section:nth-child(10){animation-delay:.54s} section:nth-child(11){animation-delay:.60s}
-.sh{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.si{width:36px;height:36px;background:var(--dark4);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,0 100%)}
-.st{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:3px;color:var(--bright)}
-.st .r{color:var(--red)} .st .g{color:var(--gold)} .st .t{color:var(--teal)}
-.divider{height:1px;background:linear-gradient(90deg,var(--red) 0%,var(--gold) 35%,transparent 65%);margin:8px 0 24px;opacity:.35}
-p.body{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.gear-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px;transition:.2s;position:relative}
-.gear-card:hover{border-color:var(--red);box-shadow:var(--glow)}
-.gear-card.named{border-left-color:var(--gold)} .gear-card.named:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.exotic{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 60%)} .gear-card.exotic:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.gear-card.blue{border-left-color:var(--teal)} .gear-card.blue:hover{border-color:var(--teal)}
-.gear-card.purple{border-left-color:#b040f0} .gear-card.purple:hover{border-color:#b040f0;box-shadow:0 0 16px rgba(176,64,240,.3)}
-.gear-slot{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:6px}
-.gear-card.named .gear-slot,.gear-card.exotic .gear-slot{color:var(--gold)} .gear-card.blue .gear-slot{color:var(--teal)} .gear-card.purple .gear-slot{color:#b040f0}
-.gear-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:17px;color:var(--bright);margin-bottom:8px}
-.core-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.core-red{background:rgba(224,48,96,.12);color:var(--red);border:1px solid rgba(224,48,96,.4)}
-.core-named{background:rgba(232,168,32,.12);color:var(--gold);border:1px solid rgba(232,168,32,.4)}
-.core-exotic{background:linear-gradient(90deg,rgba(232,168,32,.15),rgba(224,48,96,.1));color:var(--gold);border:1px solid rgba(232,168,32,.45)}
-.core-blue{background:rgba(47,184,180,.1);color:var(--teal);border:1px solid rgba(47,184,180,.35)}
-.gear-mods{display:flex;flex-wrap:wrap;gap:5px}
-.mod-tag{font-size:10px;padding:2px 7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#8070a0}
-.t-r{font-size:11px;padding:2px 7px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.t-g{font-size:11px;padding:2px 7px;background:rgba(232,168,32,.08);border:1px solid rgba(232,168,32,.2);color:var(--gold)}
-.t-t{font-size:11px;padding:2px 7px;background:rgba(47,184,180,.08);border:1px solid rgba(47,184,180,.2);color:var(--teal)}
-.t-p{font-size:11px;padding:2px 7px;background:rgba(176,64,240,.08);border:1px solid rgba(176,64,240,.2);color:#c060ff}
-.wpn-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:14px}
-.wpn-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid rgba(255,255,255,.15);padding:14px 16px;transition:.2s}
-.wpn-card:hover{border-color:rgba(255,255,255,.2)}
-.wpn-card.named-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.06) 0%,var(--dark3) 55%)} .wpn-card.named-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-card.exotic-w{border-left-color:var(--gold);background:linear-gradient(135deg,rgba(232,168,32,.08) 0%,rgba(224,48,96,.04) 55%,var(--dark3) 100%)} .wpn-card.exotic-w:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.wpn-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#6a5080;margin-bottom:6px}
-.wpn-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--bright);margin-bottom:3px}
-.wpn-type{font-size:12px;color:#6a5080;margin-bottom:10px}
-.wpn-talent{background:var(--dark4);border-left:3px solid var(--red);padding:9px 12px;margin-top:8px}
-.wpn-talent.gold-t{border-left-color:var(--gold)}
-.talent-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:4px}
-.wpn-talent.gold-t .talent-lbl{color:var(--gold)}
-.talent-txt{font-size:12px;line-height:1.55;color:#8070a0}
-.spec-card{background:var(--dark3);border:1px solid var(--border);padding:20px;display:flex;gap:20px;align-items:flex-start}
-.spec-ico{font-size:36px;flex-shrink:0}
-.spec-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--bright);letter-spacing:1px;margin-bottom:8px}
-.spec-desc{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.perks{display:flex;flex-wrap:wrap;gap:6px}
-.perk{font-size:11px;padding:3px 10px;background:rgba(224,48,96,.08);border:1px solid rgba(224,48,96,.2);color:var(--red)}
-.talent-list{display:flex;flex-direction:column;gap:12px}
-.trow{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;transition:.2s}
-.trow:hover{border-color:var(--red);box-shadow:var(--glow)}
-.trow.gold{border-left-color:var(--gold)} .trow.gold:hover{border-color:var(--gold);box-shadow:var(--gglow)}
-.trow .src{font-size:10px;color:#6a5080;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.trow .tname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);margin-bottom:4px}
-.trow.gold .tname{color:var(--gold)}
-.trow .tdesc{font-size:12px;line-height:1.55;color:#8070a0}
-.stats-table{width:100%;border-collapse:collapse;font-size:13px}
-.stats-table th{text-align:left;padding:10px 14px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:11px;border-bottom:1px solid var(--border)}
-.stats-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.stats-table tr:hover td{background:rgba(255,255,255,.02)}
-.sv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red)}
-.sl{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;display:block;margin-top:2px}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.skill-card{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px;text-align:center}
-.skill-ico{font-size:28px;display:block;margin-bottom:10px}
-.skill-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:6px}
-.skill-desc{font-size:12px;color:#7a6080;line-height:1.5}
-.note-box{padding:13px 16px;font-size:13px;line-height:1.6;margin-bottom:12px}
-.note-r{background:rgba(224,48,96,.06);border:1px solid rgba(224,48,96,.2);color:#c87080} .note-r strong{color:var(--red)}
-.note-g{background:rgba(232,168,32,.06);border:1px solid rgba(232,168,32,.2);color:#b09040} .note-g strong{color:var(--gold)}
-.note-t{background:rgba(47,184,180,.06);border:1px solid rgba(47,184,180,.2);color:#50a09a} .note-t strong{color:var(--teal)}
-.tips{display:flex;flex-direction:column;gap:10px}
-.tip{background:var(--dark3);border:1px solid rgba(255,255,255,.05);border-left:3px solid var(--red);padding:14px 16px;font-size:13px;line-height:1.6}
-.tip.gold{border-left-color:var(--gold)} .tip.teal{border-left-color:var(--teal)}
-.tip strong.r{color:var(--red)} .tip strong.g{color:var(--gold)} .tip strong.t{color:var(--teal)}
-.legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:20px}
-.legend-item{display:flex;align-items:center;gap:7px;font-size:12px}
-.ldot{width:10px;height:10px;border-radius:50%}
-/* Cycle boxes */
-.cycle-box{background:var(--dark3);border:1px solid rgba(224,48,96,.3);padding:20px;display:grid;gap:0;position:relative;overflow:hidden}
-.cycle-box::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(224,48,96,.05) 0%,transparent 50%,rgba(232,168,32,.03) 100%);pointer-events:none}
-.cycle-step{padding:16px;text-align:center;position:relative}
-.cnum{width:40px;height:40px;border-radius:50%;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--red);margin:0 auto 10px}
-.ctitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);text-transform:uppercase;letter-spacing:1px}
-.cval{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:20px;color:var(--gold);margin:4px 0 2px}
-.cdesc{font-size:11px;color:#7a6080;margin-top:5px;line-height:1.5}
-/* strengths/weaknesses */
-.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-.sw-box{background:var(--dark3);border:1px solid rgba(255,255,255,.06);padding:16px}
-.sw-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
-.sw-title.green{color:#64c864} .sw-title.red{color:var(--red)}
-.sw-item{font-size:12px;line-height:1.6;padding:4px 0;color:var(--text);display:flex;gap:8px}
-.sw-item span{flex-shrink:0}
-/* Leveling phases */
-.phase{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:16px;margin-bottom:12px}
-.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.phase-num{width:32px;height:32px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--red);flex-shrink:0}
-.phase-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);letter-spacing:.5px}
-.phase-sub{font-size:11px;color:var(--gold);margin-top:2px}
-.phase-desc{font-size:12px;line-height:1.6;color:var(--text);margin-bottom:12px}
-.gem-list{display:flex;flex-direction:column;gap:6px}
-.gem-row{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--dark4);border:1px solid rgba(255,255,255,.04)}
-.gem-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);min-width:140px;flex-shrink:0}
-.gem-supports{font-size:11px;color:#8070a0;line-height:1.4}
-.passive-box{background:var(--dark4);border:1px solid rgba(232,168,32,.15);padding:10px 14px;margin-top:10px;font-size:12px;color:#8070a0;line-height:1.6}
-/* Passive tree */
-.passive-phase{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.pp-row{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:var(--dark4);border:1px solid rgba(255,255,255,.04);font-size:12px}
-.pp-name{color:var(--text)}
-.pp-pts{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:13px}
-/* Ascendancy */
-.asc-list{display:flex;flex-direction:column;gap:10px}
-.asc-item{display:flex;gap:14px;align-items:flex-start;background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--red);padding:14px 16px}
-.asc-num{width:28px;height:28px;background:rgba(224,48,96,.15);border:2px solid var(--red);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--red);flex-shrink:0}
-.asc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--bright);margin-bottom:4px}
-.asc-when{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.asc-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Rotation */
-.rotation-steps{display:flex;flex-direction:column;gap:8px}
-.rstep{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--dark3);border:1px solid rgba(255,255,255,.04)}
-.rstep-n{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--red);width:24px;flex-shrink:0}
-.rstep-body{}
-.rstep-skill{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);margin-bottom:3px}
-.rstep-desc{font-size:12px;color:#8070a0;line-height:1.4}
-/* Equipment table */
-.equip-table{width:100%;border-collapse:collapse;font-size:12px}
-.equip-table th{text-align:left;padding:8px 12px;background:var(--dark4);color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:10px;border-bottom:1px solid var(--border)}
-.equip-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top}
-.equip-table tr:hover td{background:rgba(255,255,255,.02)}
-.item-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);display:flex;align-items:center;gap:6px}
-.item-note{font-size:11px;color:#7a6080;margin-top:4px;line-height:1.4}
-.item-badge{font-size:9px;padding:1px 6px;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.3);color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.item-badge.req{background:rgba(224,48,96,.1);border-color:rgba(224,48,96,.3);color:var(--red)}
-footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:#4a3858;letter-spacing:2px;text-transform:uppercase}
-
-
-/* ── TAB SYSTEM ── */
-.tab-bar-hero{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
-  padding:14px 16px 4px;
-}
-.tab-hero{
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:7px 12px;cursor:pointer;flex-shrink:0;
-  border-radius:8px;border:1px solid rgba(0,0,0,.15);
-  background:rgba(255,255,255,.03);
-  border-bottom:2px solid transparent;transition:.2s;
-}
-.tab-hero:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
-.tab-hero.on{border-color:#60A03040;border-bottom-color:#60A030;background:#60A03012}
+<title>Poisonburst Pathfinder</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{--ac:#60A030;--bg:#040a04;--s1:#060e04;--text:#d8f0c8;--muted:#508040;--muted2:#203018;--gold:#E8C840;--teal:#40c8b4;--green:#40c060;--red:#e04060}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0) 1px,transparent 1px);background-size:44px 44px;animation:bgshift 30s linear infinite;background-image:linear-gradient(#60A0300d 1px,transparent 1px),linear-gradient(90deg,#60A0300d 1px,transparent 1px)}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 0%,#60A0301f 0%,transparent 100%)}
+@keyframes bgshift{from{background-position:0 0}to{background-position:44px 44px}}
+@keyframes skullpulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}@keyframes poisondrip{0%{opacity:0;transform:translateY(-5px)}50%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
+.wrap{max-width:660px;margin:0 auto;padding:0 16px 60px;position:relative;z-index:1}
+.hero{padding:28px 0 20px;text-align:center}
+.hero-icon{width:90px;height:90px;margin:0 auto 20px}
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:#60A03099;margin-bottom:6px;text-transform:uppercase}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(26px,6vw,40px);font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.hero-title em,.hero-title .t2{color:#60A030;font-style:normal}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.hero-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.htag{font-size:9px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
+.hero-bars{display:flex;justify-content:center;gap:20px}
+.hb{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
+.hb-track{width:48px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.hb-fill{height:100%;border-radius:2px}
+.hb-label{font-size:7px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.hb-val{font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+.tab-bar-hero{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;padding:16px 16px 4px}
+.tab-hero{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px;cursor:pointer;flex-shrink:0;border-radius:8px;border:1px solid #60A0301a;background:#60A0300a;border-bottom:2px solid transparent;transition:.2s}
+.tab-hero:hover{background:#60A0301a;border-color:#60A03099}
+.tab-hero.on{border-color:#60A03099;border-bottom-color:#60A030;background:#60A0301a}
 .tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
-.tab-ico svg{width:14px;height:14px;color:#666;transition:.2s}
-.tab-hero.on .tab-ico svg{color:#60A030;filter:drop-shadow(0 0 3px #60A03080)}
-.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
-  color:#444;transition:.2s;white-space:nowrap}
+.tab-ico svg{width:14px;height:14px;color:#203018;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#60A030;filter:drop-shadow(0 0 3px #60A030#60A0301f)}
+.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#203018;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
 .tab-hero.on .tab-lbl{color:#60A030}
-.sec{display:none}
-.sec.on{display:block}
-</style>
+.sec{display:none}.sec.on{display:block}
+.div{height:1px;background:linear-gradient(90deg,transparent,#60A030,#60A03099,transparent);margin:20px 0;position:relative}
+.div-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#60A030;border-radius:50%;box-shadow:0 0 8px #60A030}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid #60A03099;background:#60A0300a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-ico svg{width:16px;height:16px;color:#60A030}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:#60A03033;letter-spacing:1px}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,#60A03099,transparent)}
+.info-block{background:var(--s1);border:1px solid #60A03033;border-left:3px solid #60A030;border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.info-block::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,#60A03014,transparent 70%);pointer-events:none}
+.info-block p{font-size:12px;color:#d8f0c899;line-height:1.75}
+.info-block p+p{margin-top:8px}
+.kw{color:#60A030;font-weight:700}.kw2{color:#60A03099;font-weight:700}.kw3{color:var(--gold);font-weight:700}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sw-box{background:var(--s1);border:1px solid;border-radius:8px;padding:11px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#508040;line-height:1.5;margin-bottom:3px}
+.sw-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.note{padding:9px 12px;border-radius:6px;font-size:11px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
+.note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#c04060}
+.note-info{background:#60A03014;border-color:#60A03099;color:#60A03099}
+.note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
+.note-gold{background:rgba(232,200,64,.05);border-color:rgba(232,200,64,.3);color:#a08020}
+.cycle{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.cycle-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
+.cycle-n{width:32px;height:32px;border-radius:50%;border:2px solid #60A030;background:#60A03014;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#60A030;flex-shrink:0}
+.cycle-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.cycle-sub{font-size:11px;color:#508040;line-height:1.4}
+.cycle-badge{font-size:9px;padding:2px 8px;border-radius:3px;background:#60A03014;border:1px solid #60A03099;color:#60A030;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start;margin-left:auto}
+.gear-list{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.gr{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px;transition:.15s}
+.gr:hover{border-color:#60A03033}
+.gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
+.gr.named{border-color:rgba(192,96,255,.2)}
+.gr-slot{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);width:60px;flex-shrink:0;padding-top:2px}
+.gr-info{flex:1}
+.gr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.gr.bis .gr-name{color:var(--gold)}.gr.named .gr-name{color:#c060ff}
+.gr-note{font-size:10px;color:var(--muted2);line-height:1.35}
+.gr-tag{font-size:8px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+.talent-cards{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.tc{background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+.tc-ico{font-size:18px;flex-shrink:0;line-height:1.3}
+.tc-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#60A030;margin-bottom:3px}
+.tc-desc{font-size:11px;color:#508040;line-height:1.5}
+.set-table{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.st-row{display:grid;grid-template-columns:80px 1fr;gap:10px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.st-pieces{font-family:'Share Tech Mono',monospace;font-size:10px;color:#60A030;font-weight:700}
+.st-bonus{font-size:11px;color:#d8f0c899;line-height:1.4}
+.skill-list{display:flex;flex-direction:column;gap:5px}
+.sk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:9px;transition:.15s;position:relative;overflow:hidden}
+.sk:hover{border-color:#60A03033}
+.sk-ico{font-size:20px;flex-shrink:0;line-height:1.3}
+.sk-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.sk-desc{font-size:11px;color:#508040;line-height:1.4}
+.stats-table{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.stat-row{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.stat-attr{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#fff}
+.stat-target{font-family:'Share Tech Mono',monospace;font-size:11px;color:#60A030}
+.stat-note{font-size:10px;color:var(--muted2)}
+.lv-track{position:relative;padding-left:22px}
+.lv-track::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,#60A030,#60A03099,transparent)}
+.lv-ph{position:relative;margin-bottom:17px}
+.lv-ph::before{content:'';position:absolute;left:-18px;top:5px;width:8px;height:8px;border-radius:50%;border:2px solid #60A030;background:var(--bg);z-index:1}
+.lv-ph.hi::before{background:#60A030;box-shadow:0 0 7px #60A030}
+.lv-tag{font-size:8px;color:#60A03033;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px}
+.lv-t{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.lv-d{font-size:11px;color:#508040;line-height:1.6;margin-bottom:6px}
+.lv-gems{display:flex;flex-direction:column;gap:3px;margin-bottom:5px}
+.lgr{display:flex;align-items:center;gap:7px;padding:3px 8px;background:rgba(255,255,255,.03);border-radius:4px;border:1px solid rgba(255,255,255,.04)}
+.lgr.hi{border-color:#60A03033;background:#60A03014}
+.lgr-n{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;min-width:120px;color:#fff}
+.lgr-ss{display:flex;flex-wrap:wrap;gap:2px}
+.lgr-s{font-size:8px;padding:1px 4px;border-radius:2px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.lgr-s.gold{border-color:rgba(232,200,64,.3);color:var(--gold)}
+.lv-pts{font-size:9px;color:var(--muted2);border-top:1px solid rgba(255,255,255,.04);padding-top:4px;margin-top:3px}
+.tree-list{display:flex;flex-direction:column;gap:4px}
+.tr{display:flex;align-items:center;gap:12px;padding:7px 10px;background:var(--s1);border-radius:5px;border:1px solid rgba(255,255,255,.04)}
+.tr.hi{border-color:rgba(232,200,64,.18)}
+.tr-range{font-family:'Share Tech Mono',monospace;font-size:10px;color:#60A030;min-width:80px;flex-shrink:0}
+.tr.hi .tr-range{color:var(--gold)}
+.tr-desc{font-size:11px;color:#d8f0c899;flex:1}
+.tr-pts{font-size:9px;color:var(--muted2);flex-shrink:0}
+.rot-block{margin-bottom:16px}
+.rot-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rot-ico{width:22px;height:22px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center}
+.rot-ico svg{width:12px;height:12px}
+.rot-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+.rot-steps{display:flex;flex-direction:column;gap:5px}
+.rstep{display:flex;gap:10px;align-items:flex-start}
+.rn{width:22px;height:22px;border-radius:50%;border:1px solid #60A030;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;color:#60A030;flex-shrink:0;margin-top:1px}
+.rb-skill{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:1px}
+.rb-desc{font-size:11px;color:#508040;line-height:1.4}
+.asc-flow{position:relative;padding-left:20px}
+.asc-flow::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,#60A030,#60A03099,transparent)}
+.asc-item{position:relative;margin-bottom:14px;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.asc-item::before{content:'';position:absolute;left:-14px;top:7px;width:8px;height:8px;border-radius:50%;border:2px solid #60A030;background:var(--bg);z-index:1}
+.asc-item.gold::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px var(--gold)}
+.asc-step{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);line-height:1.4}
+.asc-when{font-size:8px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;font-family:'Share Tech Mono',monospace}
+.asc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
+.asc-desc{font-size:11px;color:#508040;line-height:1.5}
+.tip-cards{display:flex;flex-direction:column;gap:6px}
+.tip-card{background:var(--s1);border:1px solid #60A03033;border-radius:8px;padding:12px 14px}
+.tip-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#60A030;margin-bottom:4px}
+.tip-text{font-size:11px;color:#508040;line-height:1.55}
+.priority-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.pr{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:flex-start;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px}
+.pr-n{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:900;color:#60A030;text-align:center}
+.pr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.pr-desc{font-size:10px;color:#508040;line-height:1.4}
+.pr-badge{font-size:8px;padding:2px 6px;border-radius:3px;border:1px solid #60A03099;color:#60A030;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start}</style>
 </head>
 <body>
-<div class="container">
-<a class="back-btn" onclick="window.history.back()">← Back to Build Hub</a>
-
-<header>
-  <div class="hemblem" style="filter:drop-shadow(0 0 20px rgba(80,200,80,0.8))">☠️</div>
-  <div>
-    <h1>Poisonburst <span class="r">Pathfinder</span></h1>
-    <h1 style="font-size:clamp(14px,2vw,22px);letter-spacing:2px;margin-top:4px">Ranger · <span class="g">Pathfinder</span> · Patch 0.5.0</h1>
-    <div class="subtitle">PoE 2 · "Return of the Ancients" · S-Tier · Map Clear + Bossing</div>
-    <div class="badges">
-      <span class="badge badge-dps">S-Tier</span>
-      <span class="badge badge-dot">Poison DoT</span>
-      <span class="badge badge-pve">Map Clear</span>
-      <span class="badge badge-tank">Bossing</span>
-    </div>
-  </div>
-</header>
-
+<div class="wrap">
+<div class="hero">
+  <div class="hero-icon"><svg viewBox="0 0 90 90" fill="none">
+  <circle cx="45" cy="38" r="26" fill="none" stroke="#60A030" stroke-width="2.5" style="animation:skullpulse 2s ease-in-out infinite"/>
+  <circle cx="37" cy="35" r="5" fill="#60A030" opacity=".7"/>
+  <circle cx="53" cy="35" r="5" fill="#60A030" opacity=".7"/>
+  <path d="M36 48 Q38 52 45 52 Q52 52 54 48" stroke="#60A030" stroke-width="2" fill="none"/>
+  <path d="M41 52 L41 57 M45 52 L45 58 M49 52 L49 57" stroke="#60A030" stroke-width="1.5"/>
+  <circle cx="28" cy="18" r="3" fill="#60A030" opacity=".5" style="animation:poisondrip 2.5s ease-in-out infinite"/>
+  <circle cx="62" cy="22" r="2.5" fill="#60A030" opacity=".5" style="animation:poisondrip 2.5s ease-in-out infinite .8s"/>
+  <circle cx="45" cy="12" r="2" fill="#60A030" opacity=".4" style="animation:poisondrip 2.5s ease-in-out infinite 1.5s"/>
+</svg></div>
+  <div class="hero-pre">▶ Path of Exile 2 · S-Tier · League Starter</div>
+  <h1 class="hero-title">Poison<em>burst</em> Pathfinder</h1>
+  <div class="hero-sub">Ranger · Pathfinder · Poison DoT · Patch 0.5.0</div>
+  <div class="hero-tags"><span class="htag" style="color:#FFD700;border-color:rgba(255,215,0,.3)">S-TIER</span><span class="htag" style="color:#60A030;border-color:#60A0304d">POISON DoT</span><span class="htag" style="color:#c060ff;border-color:rgba(192,96,255,.3)">MAP CLEAR</span><span class="htag" style="color:#50c8b4;border-color:rgba(80,200,180,.3)">LEAGUE START</span></div>
+  <div class="hero-bars"><div class="hb"><div class="hb-val" style="color:#ff6060">5★</div><div class="hb-track"><div class="hb-fill" style="width:88%;background:#ff6060"></div></div><div class="hb-label">DPS</div></div><div class="hb"><div class="hb-val" style="color:#60a0ff">4★</div><div class="hb-track"><div class="hb-fill" style="width:75%;background:#60a0ff"></div></div><div class="hb-label">SURV</div></div><div class="hb"><div class="hb-val" style="color:#40c8b4">5★</div><div class="hb-track"><div class="hb-fill" style="width:90%;background:#40c8b4"></div></div><div class="hb-label">SPD</div></div><div class="hb"><div class="hb-val" style="color:#E8C840">5★</div><div class="hb-track"><div class="hb-fill" style="width:92%;background:#E8C840"></div></div><div class="hb-label">EASE</div></div></div>
+</div>
 <div class="tab-bar-hero">
-  <div class="tab-hero on" data-sec="sec-0" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
-    <div class="tab-lbl">Build Overvi…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-1" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-    <div class="tab-lbl">Leveling Pha…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-2" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
-    <div class="tab-lbl">Support Gem …</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-3" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
-    <div class="tab-lbl">Passive Tree…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-4" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
-    <div class="tab-lbl">Ascendancy –…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-5" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
-    <div class="tab-lbl">Rotation & P…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-6" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-    <div class="tab-lbl">Equipment Pr…</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-7" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
-    <div class="tab-lbl">Pro Tips</div>
-  </div>
-  <div class="tab-hero" data-sec="sec-8" onclick="ST(this)">
-    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-    <div class="tab-lbl">Patch Notes …</div>
-  </div>
+  <div class="tab-hero on" data-sec="sec-overview" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="tab-lbl">Overview</div></div>
+  <div class="tab-hero" data-sec="sec-mechanic" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div class="tab-lbl">Mechanic</div></div>
+  <div class="tab-hero" data-sec="sec-skills" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><div class="tab-lbl">Skills</div></div>
+  <div class="tab-hero" data-sec="sec-leveling" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="tab-lbl">Leveling</div></div>
+  <div class="tab-hero" data-sec="sec-tree" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div><div class="tab-lbl">Passive Tree</div></div>
+  <div class="tab-hero" data-sec="sec-asc" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div><div class="tab-lbl">Ascendancy</div></div>
+  <div class="tab-hero" data-sec="sec-gear" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tab-lbl">Gear</div></div>
+  <div class="tab-hero" data-sec="sec-rotation" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><div class="tab-lbl">Rotation</div></div>
+  <div class="tab-hero" data-sec="sec-tips" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div class="tab-lbl">Pro Tips</div></div>
+</div>
+<div class="div"><div class="div-dot"></div></div>
+<div class="sec on" id="sec-overview"><div class="sec-head"><span class="sec-num">01</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h2 class="sec-title">Build Overview</h2><div class="sec-line"></div></div>
+<div class="info-block"><p><span class="kw">Poisonburst Pathfinder</span> is an S-Tier Poison DoT Ranger — playable from Level 1 to endgame with the same skill. No build swap needed.</p><p>Core Mechanic: Poison scales with Physical + Chaos Hit. <span class="kw2">Overwhelming Toxicity</span> doubles max Poison stacks. <span class="kw2">Herald of Plague</span> spreads strongest Poison to nearby enemies. <span class="kw2">Herald of Blood</span> triggers chain explosions via Bleed — one-button map clear.</p></div>
+<div class="sw"><div class="sw-box" style="border-color:#40c06033"><div class="sw-title" style="color:#40c060">✓ Strengths</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>One-button mapping in endgame</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Immune to all Slow effects (Relentless Pursuit)</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>No budget required to start</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Playable from Level 1, no build swap needed</div><div class="sw-li"><div class="sw-dot" style="background:#40c060"></div>Chaos damage ignores elemental resistances</div></div><div class="sw-box" style="border-color:#e0406033"><div class="sw-title" style="color:#e04060">✗ Weaknesses</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Mana management important early</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Needs a good bow as main weapon</div><div class="sw-li"><div class="sw-dot" style="background:#e04060"></div>Plaguefinger unique for optimal scaling</div></div></div>
+</div>
+<div class="sec" id="sec-mechanic"><div class="sec-head"><span class="sec-num">02</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h2 class="sec-title">Core Mechanic</h2><div class="sec-line"></div></div>
+<div class="cycle"><div class="cycle-step"><div class="cycle-n">☣</div><div><div class="cycle-title">Poison scales with Phys + Chaos Hit</div><div class="cycle-sub">Every hit applies Poison. Both Physical and Chaos damage contribute — stack both on your bow.</div></div><span class="cycle-badge">HIT</span></div>
+<div class="cycle-step"><div class="cycle-n">×2</div><div><div class="cycle-title">Overwhelming Toxicity (Ascendancy)</div><div class="cycle-sub">Doubles the maximum Poison stack count on targets. Massive multiplier from a single Ascendancy node.</div></div><span class="cycle-badge">×2 STACKS</span></div>
+<div class="cycle-step"><div class="cycle-n">🌊</div><div><div class="cycle-title">Herald of Plague — Spread</div><div class="cycle-sub">Automatically spreads the strongest active Poison to nearby enemies on hit. The map-clear engine.</div></div><span class="cycle-badge">SPREAD</span></div>
+<div class="cycle-step"><div class="cycle-n">💥</div><div><div class="cycle-title">Herald of Blood — Chain Explosions</div><div class="cycle-sub">Triggers via Bleed from Bursting Plague support. Poison kill → explosion → chain. One button.</div></div><span class="cycle-badge">CHAIN</span></div>
+</div>
+<div class="note note-tip">⚑ Playable from Level 1 — no build swap needed. Poisonburst Arrow is your main skill from start to finish.</div>
+</div>
+<div class="sec" id="sec-skills"><div class="sec-head"><span class="sec-num">03</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><h2 class="sec-title">Skill & Gem Setup</h2><div class="sec-line"></div></div>
+<div class="skill-list"><div class="sk"><div class="sk-ico">☣</div><div><div class="sk-name">Poisonburst Arrow — Core</div><div class="sk-desc">Main clear skill. Supports by phase: Conc Area · Escalating Poison · Bursting Plague · Bleed III · Scattershot (endgame)</div></div></div>
+<div class="sk"><div class="sk-ico">🌿</div><div><div class="sk-name">Vine Arrow — Single Target</div><div class="sk-desc">Slows + DoT + gets poisoned. Supports: Swift Affliction · Concentrated Area</div></div></div>
+<div class="sk"><div class="sk-ico">☢</div><div><div class="sk-name">Toxic Growth — Boss Burst</div><div class="sk-desc">Pustules deal Poison DoT, detonate with Gas Arrow. Supports: Nova Projectiles · Unleash · Garukhan's Resolve</div></div></div>
+<div class="sk"><div class="sk-ico">💨</div><div><div class="sk-name">Gas Arrow</div><div class="sk-desc">Detonates Toxic Growth pustules. Essential from Acts 3–4 onward.</div></div></div>
+<div class="sk"><div class="sk-ico">🌩</div><div><div class="sk-name">Herald of Plague</div><div class="sk-desc">Spreads strongest Poison to nearby enemies. Always active. No supports needed.</div></div></div>
+<div class="sk"><div class="sk-ico">🩸</div><div><div class="sk-name">Herald of Blood</div><div class="sk-desc">Triggers via Bleed. Each poisoned kill → explosion chain. The one-button clear engine.</div></div></div>
+<div class="sk"><div class="sk-ico">⚡</div><div><div class="sk-name">Stormcaller Arrow + Voltaic Mark</div><div class="sk-desc">100% Shock for Pinnacle bosses.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-leveling"><div class="sec-head"><span class="sec-num">04</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><h2 class="sec-title">Leveling Phases</h2><div class="sec-line"></div></div>
+<div class="lv-track"><div class="lv-ph hi"><div class="lv-tag">Act 1 · Lvl 1–12</div><div class="lv-t">Lightning Arrow → Poisonburst Arrow</div><div class="lv-d">Start with Lightning Arrow (Lvl 1–6). After Clearfell: craft Poisonburst Arrow + Contagion. After King in the Mists: take Withering Presence (Spirit Gem).</div><div class="lv-gems"><div class="lgr hi"><div class="lgr-n">Poisonburst Arrow</div><div class="lgr-ss"><span class="lgr-s">Conc Area</span><span class="lgr-s">Escalating Poison</span><span class="lgr-s">Pierce I</span></div></div>
+<div class="lgr"><div class="lgr-n">Lightning Arrow</div><div class="lgr-ss"><span class="lgr-s">Until Lvl 6 only</span></div></div>
+<div class="lgr"><div class="lgr-n">Withering Presence</div><div class="lgr-ss"><span class="lgr-s">Spirit Gem</span></div></div>
+</div>
+<div class="lv-pts">▸ Poison/Chaos Notables ~6pts · ▸ Evasion Rating ~3pts · ▸ Projectile Dmg ~2pts</div></div>
+<div class="lv-ph hi"><div class="lv-tag">Act 2 · Lvl 12–22</div><div class="lv-t">Herald of Plague · 1st Ascendancy</div><div class="lv-d">Herald of Plague replaces Withering Presence. Complete Trial of Sekhemas → 1st Ascendancy: Overwhelming Toxicity. Add Toxic Growth for bosses.</div><div class="lv-gems"><div class="lgr hi"><div class="lgr-n">Poisonburst Arrow</div><div class="lgr-ss"><span class="lgr-s">Conc Area</span><span class="lgr-s">Escalating Poison</span><span class="lgr-s">Unleash</span></div></div>
+<div class="lgr"><div class="lgr-n">Herald of Plague</div><div class="lgr-ss"><span class="lgr-s">Spirit Gem</span></div></div>
+<div class="lgr"><div class="lgr-n">Toxic Growth</div><div class="lgr-ss"><span class="lgr-s">Nova Projectiles</span><span class="lgr-s">Unleash</span></div></div>
+</div>
+<div class="lv-pts">▸ Poison Magnitude Notable ~5pts · ▸ Poison Duration ~3pts</div></div>
+<div class="lv-ph"><div class="lv-tag">Acts 3–4 · Lvl 22–45</div><div class="lv-t">Gas Arrow · Herald of Blood · 2nd Ascendancy</div><div class="lv-d">Add Bursting Plague Support → activates Herald of Blood. 2nd Ascendancy: Path Seeker.</div><div class="lv-gems"><div class="lgr hi"><div class="lgr-n">Poisonburst Arrow</div><div class="lgr-ss"><span class="lgr-s">Bursting Plague</span><span class="lgr-s">Bleed III</span><span class="lgr-s">Scattershot</span></div></div>
+<div class="lgr"><div class="lgr-n">Herald of Blood</div><div class="lgr-ss"><span class="lgr-s">synergizes with Bursting Plague</span></div></div>
+</div>
+<div class="lv-pts">▸ Crit Strike Chance ~5pts · ▸ Chaos Dmg Multiplier ~4pts · ▸ ES+Evasion hybrid ~5pts</div></div>
+<div class="lv-ph hi"><div class="lv-tag">Maps / Endgame · Lvl 65+</div><div class="lv-t">One-Button Mapping · Pinnacle Bosses</div><div class="lv-d">Complete Trial of Chaos → Relentless Pursuit + Running Assault. Slow-immune. Add Rigwald's Ferocity weapon. Farm Plaguefinger unique.</div><div class="lv-gems"><div class="lgr hi"><div class="lgr-n">Poisonburst Arrow</div><div class="lgr-ss"><span class="lgr-s">Bursting Plague</span><span class="lgr-s">Bleed III</span><span class="lgr-s">Scattershot</span><span class="lgr-s">Conc Area</span></div></div>
+<div class="lgr"><div class="lgr-n">Stormcaller Arrow + Voltaic Mark</div><div class="lgr-ss"><span class="lgr-s">Pinnacle boss setup</span></div></div>
+<div class="lgr"><div class="lgr-n">Rigwald's Ferocity</div><div class="lgr-ss"><span class="lgr-s">Weapon Slot 2 · +30% more dmg</span></div></div>
+</div>
+<div class="lv-pts">▸ Finish passive tree · ▸ Farm Plaguefinger · ▸ 6-link main skill</div></div>
+</div>
+</div>
+<div class="sec" id="sec-tree"><div class="sec-head"><span class="sec-num">05</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div><h2 class="sec-title">Passive Tree Priority</h2><div class="sec-line"></div></div>
+<div class="tree-list"><div class="tr"><span class="tr-range">Early</span><span class="tr-desc">Poison Damage + Poison Magnitude Notables (Ranger start)</span><span class="tr-pts">~15pts</span></div>
+<div class="tr"><span class="tr-range">Early</span><span class="tr-desc">Evasion Rating Notable + Projectile Damage nodes</span><span class="tr-pts">~10pts</span></div>
+<div class="tr"><span class="tr-range">Mid</span><span class="tr-desc">Poison Duration Notable + Chaos Damage nodes</span><span class="tr-pts">~12pts</span></div>
+<div class="tr hi"><span class="tr-range">Mid</span><span class="tr-desc">Critical Strike Chance — Bow cluster</span><span class="tr-pts">~8pts</span></div>
+<div class="tr hi"><span class="tr-range">Mid</span><span class="tr-desc">Chaos Damage Multiplier nodes</span><span class="tr-pts">~8pts</span></div>
+<div class="tr"><span class="tr-range">Late</span><span class="tr-desc">ES + Evasion hybrid defense nodes</span><span class="tr-pts">~10pts</span></div>
+<div class="tr hi"><span class="tr-range">Endgame</span><span class="tr-desc">Jewel Sockets on path + Large Cluster Jewels</span><span class="tr-pts">flex pts</span></div>
+</div>
+</div>
+<div class="sec" id="sec-asc"><div class="sec-head"><span class="sec-num">06</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div><h2 class="sec-title">Ascendancy — Pathfinder</h2><div class="sec-line"></div></div>
+<div class="asc-flow"><div class="asc-item gold"><div class="asc-step">1st</div><div><div class="asc-when">Trial of Sekhemas</div><div class="asc-name" style="color:#60A030">Overwhelming Toxicity</div><div class="asc-desc">Doubles max Poison stack count on targets. Most impactful single node.</div></div></div>
+<div class="asc-item"><div class="asc-step">2nd</div><div><div class="asc-when">Acts 3–4</div><div class="asc-name" style="color:#60A030">Path Seeker</div><div class="asc-desc">+5 extra passive points. Significant damage + survivability.</div></div></div>
+<div class="asc-item gold"><div class="asc-step">3rd</div><div><div class="asc-when">Trial of Chaos</div><div class="asc-name" style="color:#50c8b4">Relentless Pursuit</div><div class="asc-desc">Immune to all Slow effects permanently.</div></div></div>
+<div class="asc-item"><div class="asc-step">4th</div><div><div class="asc-when">Trial of Chaos</div><div class="asc-name" style="color:#50c8b4">Running Assault</div><div class="asc-desc">Sprint immunity vs Heavy Stun. Combined with Relentless Pursuit: nothing stops you.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-gear"><div class="sec-head"><span class="sec-num">07</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h2 class="sec-title">Equipment Priorities</h2><div class="sec-line"></div></div>
+<div class="gear-list"><div class="gr bis"><span class="gr-slot">Weapon</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">⭐ Good Bow (Phys + Chaos)</div><div class="gr-note">Physical Damage T1 · Chaos Damage · Attack Speed · Crit Chance · +Level of Socketed Gems</div></div><span class="gr-tag" style="color:#60A030;border-color:#60A03066">BOW</span></div>
+<div class="gr bis"><span class="gr-slot">Special</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">Plaguefinger Unique (BiS endgame)</div><div class="gr-note">Converts Elemental Damage to Poison scaling. Full damage ceiling.</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">UNIQUE</span></div>
+<div class="gr bis"><span class="gr-slot">Special</span><div class="gr-info"><div class="gr-name" style="color:var(--gold)">Rigwald's Ferocity</div><div class="gr-note">Weapon Slot 2 · +30% More Damage for Poisonburst Arrow</div></div><span class="gr-tag" style="color:var(--gold);border-color:var(--gold)66">UNIQUE</span></div>
+<div class="gr"><span class="gr-slot">Body</span><div class="gr-info"><div class="gr-name">ES + Evasion Hybrid Armour</div><div class="gr-note">High Evasion · Energy Shield for Ghost Dance · Capped Resistances</div></div><span class="gr-tag" style="color:#508040;border-color:#50804066">ARMOUR</span></div>
+<div class="gr"><span class="gr-slot">Quiver</span><div class="gr-info"><div class="gr-name">Chaos Damage Quiver</div><div class="gr-note">Chaos Dmg · Poison Magnitude · Attack Speed · Added Chaos Damage to Attacks</div></div><span class="gr-tag" style="color:#60A030;border-color:#60A03066">QUIVER</span></div>
+</div>
+</div>
+<div class="sec" id="sec-rotation"><div class="sec-head"><span class="sec-num">08</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><h2 class="sec-title">Rotation & Playstyle</h2><div class="sec-line"></div></div>
+<div class="note note-tip">Map Clear: hold Poisonburst Arrow — that's it. Everything below is boss/Pinnacle.</div>
+<div class="rot-steps" style="margin-bottom:12px"><div class="rstep"><div class="rn">1</div><div><div class="rb-skill">Vine Arrow on boss</div><div class="rb-desc">Slows + applies Poison DoT. Then place Toxic Growth pustules at feet.</div></div></div>
+<div class="rstep"><div class="rn">2</div><div><div class="rb-skill">Gas Arrow — detonate pustules</div><div class="rb-desc">Burst all pustules simultaneously. Repeat cycle.</div></div></div>
+<div class="rstep"><div class="rn">3</div><div><div class="rb-skill">Continuous Poisonburst Arrow</div><div class="rb-desc">Maintain Poison stacks. Never stop applying.</div></div></div>
+<div class="rstep"><div class="rn" style="border-color:#60A030;color:#60A030">4</div><div><div class="rb-skill">Stormcaller Arrow + Voltaic Mark</div><div class="rb-desc">Pinnacle bosses only — 100% Shock application for massive multiplier.</div></div></div>
+</div>
+</div>
+<div class="sec" id="sec-tips"><div class="sec-head"><span class="sec-num">09</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><h2 class="sec-title">Pro Tips</h2><div class="sec-line"></div></div>
+<div class="tip-cards"><div class="tip-card"><div class="tip-title">☣ Poison Stack Rate</div><div class="tip-text">Every hit adds a new stack. Overwhelming Toxicity doubles the cap. Focus on rapid hits, not single big hits — fire rate > single-hit damage.</div></div>
+<div class="tip-card"><div class="tip-title">🌊 Herald of Plague Timing</div><div class="tip-text">Build high stacks on one target first. Herald then spreads the strongest one to all nearby — clears entire screens after a single kill.</div></div>
+<div class="tip-card"><div class="tip-title">⚡ Stormcaller for Pinnacle</div><div class="tip-text">Switch to Stormcaller Arrow + Voltaic Mark for Pinnacle bosses. The 100% Shock multiplier is a massive DPS increase on high-HP targets.</div></div>
+<div class="tip-card"><div class="tip-title">💰 Budget to Endgame</div><div class="tip-text">Fully self-found from Level 1. Plaguefinger is the first major gear gate — everything else is secondary. Cheapest S-tier build in PoE2.</div></div>
+</div>
 </div>
 
-<div class="div"></div>
-
-
-<div class="sec on" id="sec-0">
-<section>
-  <div class="sh"><div class="si">☣️</div><div class="st">Build <span class="r">Overview</span></div></div>
-  <div class="divider"></div>
-  <div class="sw-grid">
-    <div class="sw-box">
-      <div class="sw-title green">✓ Strengths</div>
-      <div class="sw-item"><span>✓</span>One-button mapping in endgame</div>
-      <div class="sw-item"><span>✓</span>Immune to all Slow effects (Relentless Pursuit)</div>
-      <div class="sw-item"><span>✓</span>No budget required to start</div>
-      <div class="sw-item"><span>✓</span>Chaos Damage ignores elemental resistances</div>
-      <div class="sw-item"><span>✓</span>Excellent Single Target via Toxic Growth</div>
-      <div class="sw-item"><span>✓</span>Ghost Dance: ES regen on dodge</div>
-    </div>
-    <div class="sw-box">
-      <div class="sw-title red">✗ Weaknesses</div>
-      <div class="sw-item"><span>✗</span>Mana management important early</div>
-      <div class="sw-item"><span>✗</span>Needs a good bow as main weapon</div>
-      <div class="sw-item"><span>✗</span>Boss rotation slightly more complex</div>
-      <div class="sw-item"><span>✗</span>Plaguefinger unique for optimal scaling</div>
-    </div>
-  </div>
-  <p class="body"><strong style="color:var(--gold)">Core Mechanic:</strong> Poison scales with Physical + Chaos Hit Damage. <strong style="color:var(--red)">Overwhelming Toxicity</strong> (Ascendancy) doubles the maximum Poison stack count on targets. Herald of Plague automatically spreads the strongest active Poison to nearby enemies. Herald of Blood triggers via Bleed (from Bursting Plague) to fire chain explosions — that's the "one-button" clear mechanism.</p>
-  <div class="note-box note-g">⚑ <strong>You can play Poison from Level 1 — no build swap needed!</strong> Poisonburst Arrow is your main skill from start to finish.</div>
-</section>
-</div>
-<div class="sec" id="sec-1">
-<section>
-  <div class="sh"><div class="si">↑</div><div class="st">Leveling <span class="r">Phases</span></div></div>
-  <div class="divider"></div>
-
-  <div class="phase">
-    <div class="phase-header"><div class="phase-num">1</div><div><div class="phase-title">Act 1 – Level 1–12</div><div class="phase-sub">Lightning Arrow until Lvl 6 → then Poisonburst Arrow</div></div></div>
-    <div class="phase-desc">Start with Lightning Arrow for pack clear (Level 1–6). After Clearfell: pick up Uncut Skill Gem → craft Poisonburst Arrow. Combine with Contagion to spread Poison to nearby enemies. After "King in the Mists": Spirit Gem → take Withering Presence (Wither stacks for more Chaos Damage).<br><br><em style="font-size:11px;color:var(--gold)">Boss Order Act 1: Devourer → Cold Witch → Hut Witch → Rust King</em></div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name">Poisonburst Arrow ⭐</div><div class="gem-supports">Concentrated Area · Escalating Poison · Pierce I (vs. Packs)</div></div>
-      <div class="gem-row"><div class="gem-name">Lightning Arrow</div><div class="gem-supports">Only until Level 6 · then replace</div></div>
-      <div class="gem-row"><div class="gem-name">Contagion</div><div class="gem-supports">No supports needed · keep until Act 2</div></div>
-      <div class="gem-row"><div class="gem-name">Withering Presence</div><div class="gem-supports">Spirit Gem · needs 1× Int on Gear</div></div>
-    </div>
-    <div class="passive-box">▸ Poison Damage / Chaos Damage Notables (Ranger start) ~6 pts &nbsp;·&nbsp; ▸ Evasion Rating Notable ~3 pts &nbsp;·&nbsp; ▸ Projectile Damage small nodes ~2 pts</div>
-  </div>
-
-  <div class="phase">
-    <div class="phase-header"><div class="phase-num">2</div><div><div class="phase-title">Act 2 – Level 12–22</div><div class="phase-sub">Herald of Plague · Vine Arrow · Trial of Sekhemas → 1st Ascendancy</div></div></div>
-    <div class="phase-desc">Herald of Plague replaces Withering Presence — massive clear upgrade, makes Contagion redundant. Use Vine Arrow for bosses and rare monsters (slows + DoT + gets poisoned). Complete Trial of Sekhemas → 1st Ascendancy: <strong style="color:var(--red)">Overwhelming Toxicity</strong>. Unlock Gas Arrow and use Toxic Growth for bosses.</div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name">Poisonburst Arrow ⭐</div><div class="gem-supports">Concentrated Area · Escalating Poison · Unleash</div></div>
-      <div class="gem-row"><div class="gem-name">Herald of Plague</div><div class="gem-supports">Spirit Gem · no supports</div></div>
-      <div class="gem-row"><div class="gem-name">Vine Arrow</div><div class="gem-supports">Swift Affliction · Concentrated Area</div></div>
-      <div class="gem-row"><div class="gem-name">Toxic Growth</div><div class="gem-supports">Nova Projectiles · Unleash</div></div>
-    </div>
-    <div class="passive-box">▸ Poison Magnitude Notable (highest prio) ~5 pts &nbsp;·&nbsp; ▸ Poison Duration Notable ~3 pts &nbsp;·&nbsp; ▸ Jewel Socket (if on path) ~2 pts</div>
-  </div>
-
-  <div class="phase">
-    <div class="phase-header"><div class="phase-num">3</div><div><div class="phase-title">Acts 3–4 + Interludes – Level 22–45</div><div class="phase-sub">Gas Arrow · Herald of Blood · 2nd Ascendancy</div></div></div>
-    <div class="phase-desc">Gas Arrow from Level 22 to detonate Toxic Growth pustules. Add Bursting Plague Support to Poisonburst Arrow → activates Herald of Blood through the Bleed chain. Act 4: 2nd Ascendancy → <strong style="color:var(--gold)">Path Seeker</strong> (5 extra passive points). Gear focus: high Physical Damage on bow.</div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name">Poisonburst Arrow ⭐</div><div class="gem-supports">Bursting Plague · Bleed III · Scattershot</div></div>
-      <div class="gem-row"><div class="gem-name">Gas Arrow</div><div class="gem-supports">Swift Affliction · Concentrated Area</div></div>
-      <div class="gem-row"><div class="gem-name">Toxic Growth</div><div class="gem-supports">Nova Projectiles · Unleash · Garukhan's Resolve</div></div>
-      <div class="gem-row"><div class="gem-name">Herald of Blood</div><div class="gem-supports">Spirit Gem · synergizes with Bursting Plague</div></div>
-    </div>
-    <div class="passive-box">▸ Critical Strike Chance Notable (Bow cluster) ~5 pts &nbsp;·&nbsp; ▸ Chaos Damage Multiplier ~4 pts &nbsp;·&nbsp; ▸ Energy Shield + Evasion (hybrid defense) ~5 pts</div>
-  </div>
-
-  <div class="phase">
-    <div class="phase-header"><div class="phase-num">4</div><div><div class="phase-title">Maps / Endgame – Level 65+</div><div class="phase-sub">One-Button Mapping · Pinnacle Bossfights · Polish the build</div></div></div>
-    <div class="phase-desc">Complete Trial of Chaos → 3rd + 4th Ascendancy: <strong style="color:var(--red)">Relentless Pursuit</strong> + <strong style="color:var(--red)">Running Assault</strong>. Slow-immune from now on + sprint immunity against Heavy Stun. Add Rigwald's Ferocity in Weapon Slot 2 for Poisonburst → +30% More Damage. Use Stormcaller Arrow + Voltaic Mark for 100% Shock on Pinnacle bosses. Farm/buy Plaguefinger unique for Ele-Damage-to-Poison scaling.</div>
-    <div class="gem-list">
-      <div class="gem-row"><div class="gem-name">Poisonburst Arrow ⭐ CORE</div><div class="gem-supports">Bursting Plague · Bleed III · Scattershot · Swift Affliction · Fork (Weapon Set 2 + Rigwald's)</div></div>
-      <div class="gem-row"><div class="gem-name">Toxic Growth ⭐ BOSS</div><div class="gem-supports">Nova Projectiles · Unleash · Garukhan's Resolve · Swift Affliction</div></div>
-      <div class="gem-row"><div class="gem-name">Gas Arrow</div><div class="gem-supports">Swift Affliction · Concentrated Area · Pierce</div></div>
-      <div class="gem-row"><div class="gem-name">Vine Arrow</div><div class="gem-supports">Concentrated Area · Swift Affliction · Additional Projectiles</div></div>
-      <div class="gem-row"><div class="gem-name">Herald of Plague</div><div class="gem-supports">Spirit Gem · no supports needed · spreads strongest Poison</div></div>
-      <div class="gem-row"><div class="gem-name">Herald of Blood</div><div class="gem-supports">Spirit Gem · triggers via Bleed from Bursting Plague</div></div>
-      <div class="gem-row"><div class="gem-name">Stormcaller Arrow</div><div class="gem-supports">Prolonged Duration II · shoot once before boss → 30s Shock</div></div>
-      <div class="gem-row"><div class="gem-name">Despair</div><div class="gem-supports">Curse · lowers boss Chaos resistance</div></div>
-    </div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-2">
-<section>
-  <div class="sh"><div class="si">◆</div><div class="st">Support Gem <span class="r">Priority</span></div></div>
-  <div class="divider"></div>
-  <div class="talent-list">
-    <div class="trow gold"><div class="src">Prio 1 — Core Mechanic</div><div class="tname">Bursting Plague</div><div class="tdesc">Activates Herald of Blood via the Bleed chain. Without this support gem the "one-button" clear mechanism does not function.</div></div>
-    <div class="trow gold"><div class="src">Prio 2 — Damage</div><div class="tname">Escalating Poison</div><div class="tdesc">Stronger Poison damage with every stack. Essential for both mapping and bossing.</div></div>
-    <div class="trow gold"><div class="src">Prio 3 — AoE</div><div class="tname">Nova Projectiles</div><div class="tdesc">Detonates all Toxic Growth pustules simultaneously. Turns Single Target into AoE burst.</div></div>
-    <div class="trow"><div class="src">Early Game</div><div class="tname">Concentrated Area</div><div class="tdesc">Higher damage at the cost of smaller radius. Use until you have enough Poison Magnitude.</div></div>
-    <div class="trow"><div class="src">Endgame</div><div class="tname">Garukhan's Resolve</div><div class="tdesc">Massive Single Target boost for boss encounters. Replace Concentrated Area at endgame.</div></div>
-    <div class="trow"><div class="src">Endgame</div><div class="tname">Scattershot</div><div class="tdesc">More projectiles = more Poison stacks. Strong endgame multiplier.</div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-3">
-<section>
-  <div class="sh"><div class="si">⊛</div><div class="st">Passive Tree <span class="r">Priority</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-g">ℹ Ranger starts bottom-right in the tree (Dexterity section). Poison nodes are the highest priority from the start. Via Path Seeker (Ascendancy) you can also allocate nodes from the Warrior or Sorceress starting area.</div>
-  <div class="passive-phase">
-    <div class="pp-row"><div class="pp-name">Lvl 2–10 · Poison Damage Notables (directly at Ranger start)</div><div class="pp-pts">~8 pts</div></div>
-    <div class="pp-row"><div class="pp-name">Lvl 10–20 · Evasion Rating Notable · Projectile Damage node</div><div class="pp-pts">~7 pts</div></div>
-    <div class="pp-row"><div class="pp-name">Lvl 20–30 · Chaos Damage Multiplier (toward center of tree)</div><div class="pp-pts">~6 pts</div></div>
-    <div class="pp-row"><div class="pp-name">Lvl 30–40 · Critical Strike Chance Notable · Jewel Socket #1</div><div class="pp-pts">~7 pts</div></div>
-    <div class="pp-row"><div class="pp-name">Lvl 40–55 · Poison Duration Notable · Poison Magnitude Notable</div><div class="pp-pts">~10 pts</div></div>
-    <div class="pp-row"><div class="pp-name">Lvl 55–70 · Ghost Dance (Keystone) · ES+Evasion Hybrid Nodes</div><div class="pp-pts">~10 pts</div></div>
-    <div class="pp-row"><div class="pp-name">Lvl 70–85 · Wind Dancer · Jewel Socket #2 · Attack Speed Notable</div><div class="pp-pts">~10 pts</div></div>
-    <div class="pp-row"><div class="pp-name">Lvl 85–95 · Crit Multiplier · more Chaos/Poison nodes · Res balancing</div><div class="pp-pts">~10 pts</div></div>
-  </div>
-  <div class="gear-card named" style="margin-top:12px"><div class="gear-slot">Keystone</div><div class="gear-name">Ghost Dance</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">Restores Energy Shield based on your Evasion Rating when you dodge a hit. Synergizes perfectly with high Evasion + ES hybrid gear for a strong defensive layer.</div></div>
-</section>
-</div>
-<div class="sec" id="sec-4">
-<section>
-  <div class="sh"><div class="si">🌟</div><div class="st">Ascendancy – <span class="r">Pathfinder</span></div></div>
-  <div class="divider"></div>
-  <div class="asc-list">
-    <div class="asc-item"><div class="asc-num">1</div><div><div class="asc-when">Act 2 Trial</div><div class="asc-name">Overwhelming Toxicity</div><div class="asc-desc">Doubles the maximum Poison stack count on targets (35% Less Duration as downside, compensated by Toxic Growth). Required — without this node the build is half as strong.</div></div></div>
-    <div class="asc-item"><div class="asc-num">2</div><div><div class="asc-when">Act 4 Trial</div><div class="asc-name">Path Seeker</div><div class="asc-desc">Grants 5 extra passive points (including the small node before it). Also enables allocation from the Warrior or Sorceress starting area — enormous build flexibility.</div></div></div>
-    <div class="asc-item"><div class="asc-num">3</div><div><div class="asc-when">Trial of Chaos</div><div class="asc-name">Relentless Pursuit</div><div class="asc-desc">Immune to ALL Slow effects: Chill, Hinder, Temporal Chains, Maim — all ineffective. Makes Temporal Chains and Chill map mods completely irrelevant.</div></div></div>
-    <div class="asc-item"><div class="asc-num">4</div><div><div class="asc-when">Trial of Chaos</div><div class="asc-name">Running Assault</div><div class="asc-desc">50% less movement penalty when casting while moving + immune to Heavy Stun while sprinting. Allows active attacking during movement without losing momentum.</div></div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-5">
-<section>
-  <div class="sh"><div class="si">⚡</div><div class="st">Rotation <span class="r">& Playstyle</span></div></div>
-  <div class="divider"></div>
-  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px">🗺 MAPPING (Standard)</p>
-  <p class="body">Simply shoot Poisonburst Arrow into packs. Herald of Plague automatically spreads the strongest Poison. Bursting Plague triggers Bleed → Herald of Blood explodes → chain explosions offscreen. In endgame: one-button clear, no further actions needed.</p>
-  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px;margin-top:16px">⚔ BOSSES (Standard)</p>
-  <div class="rotation-steps">
-    <div class="rstep"><div class="rstep-n">1</div><div class="rstep-body"><div class="rstep-skill">Pre-place Vine Arrow</div><div class="rstep-desc">Place 3× Vine Arrow on the boss position before engaging. Slows + applies DoT + gets poisoned.</div></div></div>
-    <div class="rstep"><div class="rstep-n">2</div><div class="rstep-body"><div class="rstep-skill">Gas Arrow</div><div class="rstep-desc">Throw Gas Arrow onto the boss. Creates gas cloud for Toxic Growth detonations.</div></div></div>
-    <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Toxic Growth spam</div><div class="rstep-desc">Spam Toxic Growth into the gas cloud until it disperses. Each pustule stores massive poison damage.</div></div></div>
-    <div class="rstep"><div class="rstep-n">4</div><div class="rstep-body"><div class="rstep-skill">Repeat Gas Arrow</div><div class="rstep-desc">Throw Gas Arrow again → continue Toxic Growth spam.</div></div></div>
-    <div class="rstep"><div class="rstep-n">5</div><div class="rstep-body"><div class="rstep-skill">Poisonburst Arrow</div><div class="rstep-desc">Use to refresh Poison stacks between Toxic Growth casts.</div></div></div>
-  </div>
-  <p class="body" style="color:var(--gold);font-weight:600;font-family:'Rajdhani',sans-serif;font-size:15px;letter-spacing:1px;margin-top:16px">👑 PINNACLE BOSSES</p>
-  <div class="rotation-steps">
-    <div class="rstep"><div class="rstep-n">1</div><div class="rstep-body"><div class="rstep-skill">Stormcaller Arrow + Voltaic Mark</div><div class="rstep-desc">~100% Shock on boss (lasts 30 seconds). Massive damage multiplier for the entire fight.</div></div></div>
-    <div class="rstep"><div class="rstep-n">2</div><div class="rstep-body"><div class="rstep-skill">Despair Curse</div><div class="rstep-desc">Lower the boss's Chaos resistance before beginning the damage rotation.</div></div></div>
-    <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Withering Presence</div><div class="rstep-desc">Swap in instead of Herald of Blood for Wither stacks → more Chaos Damage taken by boss.</div></div></div>
-    <div class="rstep"><div class="rstep-n">4–5</div><div class="rstep-body"><div class="rstep-skill">Normal boss loop</div><div class="rstep-desc">Execute the standard Gas → Vine → Toxic Growth spam rotation. Shock doesn't need to be renewed — boss will die before it expires.</div></div></div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-6">
-<section>
-  <div class="sh"><div class="si">⚔</div><div class="st">Equipment <span class="r">Priority</span></div></div>
-  <div class="divider"></div>
-  <table class="equip-table">
-    <tr><th>Slot</th><th>Item</th><th>Notes</th></tr>
-    <tr><td style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Weapon (Bow)</td><td><div class="item-name">Obliterator Bow <span class="item-badge">BiS</span></div><div class="item-note">Highest base damage in the game · Physical DPS priority · Crit Chance suffix</div></td><td>Top priority upgrade</td></tr>
-    <tr><td style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Weapon Alt.</td><td><div class="item-name">Voltaxic Rift</div><div class="item-note">Shock via all damage types · good starter until Obliterator</div></td><td>Start here</td></tr>
-    <tr><td style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Alt. 2 (Mid)</td><td><div class="item-name">Slivertongue</div><div class="item-note">Usable from Act 3 to T15 Maps · very good mid-game bow</div></td><td>Act 3 onwards</td></tr>
-    <tr><td style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Offhand (Slot 2)</td><td><div class="item-name">Rigwald's Ferocity <span class="item-badge">BiS</span></div><div class="item-note">+30% More Damage for Poisonburst Arrow in Weapon Set 2</div></td><td>Endgame required</td></tr>
-    <tr><td>Helm</td><td><div class="item-name">Subterfuge Mask (Base)</div><div class="item-note">Required base for pure ES helms · +% Max ES · Res</div></td><td>+% Max ES priority</td></tr>
-    <tr><td>Body</td><td><div class="item-name">Evasion/ES Hybrid (Rare)</div><div class="item-note">High ES · Evasion Rating · Resistances · Ghost Dance synergy</div></td><td>Hybrid defense</td></tr>
-    <tr><td>Gloves</td><td><div class="item-name">Snakebite / Rare</div><div class="item-note">Snakebite: +1 Max Poison Stack · Alt: Phys Mana Leech on Rare</div></td><td>+1 Max Poison stack</td></tr>
-    <tr><td>Boots</td><td><div class="item-name">Corpsewade / Rare</div><div class="item-note">Corpsewade: Poison spread effect · Alt: MS + ES + Res</div></td><td>Poison spread</td></tr>
-    <tr><td>Amulet</td><td><div class="item-name">Plaguefinger <span class="item-badge">BiS</span></div><div class="item-note">All Elemental Damage scales Poison Magnitude · enormous endgame boost</div></td><td>Endgame upgrade</td></tr>
-    <tr><td>Rings ×2</td><td><div class="item-name">Rare Rings</div><div class="item-note">% Phys Damage Leeched as Mana · Chaos Res · Attributes · ES</div></td><td>Mana sustain</td></tr>
-    <tr><td>Belt</td><td><div class="item-name">Rare Belt</div><div class="item-note">Life · ES · Resistances · Flask Duration optional</div></td><td></td></tr>
-    <tr><td>Jewels</td><td><div class="item-name">Sapphire Jewels</div><div class="item-note">2% Mana on Kill · Poison Magnitude · Chaos Damage · Crit Chance</div></td><td></td></tr>
-  </table>
-</section>
-</div>
-<div class="sec" id="sec-7">
-<section>
-  <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
-  <div class="divider"></div>
-  <div class="tips">
-    <div class="tip gold"><strong class="g">Bow quality is the biggest damage factor.</strong> Always prioritize high Physical Damage as the primary stat on your bow. Other elemental damage types only help once you have Plaguefinger equipped.</div>
-    <div class="tip"><strong class="r">Mana Management:</strong> Use Ultimate Mana Flask with "Increased Mana Recovered". Optional: Considered Casting (3 passive points) for massive mana cost reduction. Alternative: Physical Mana Leech on rings or gloves.</div>
-    <div class="tip gold"><strong class="g">Vendor Regex for shopping:</strong> <code style="background:var(--dark4);padding:2px 6px;font-size:11px">(10|15)% i.+mov|ph.*da|s: bow 1</code></div>
-    <div class="tip"><strong class="r">Stat Priorities when gearing:</strong><br>1. High Physical Damage Bow &nbsp;·&nbsp; 2. Rigwald's Ferocity (Slot 2) &nbsp;·&nbsp; 3. Evasion Rating (Ghost Dance) &nbsp;·&nbsp; 4. Chaos Res ≥ 30–50% &nbsp;·&nbsp; 5. Elemental Res cap (75%) &nbsp;·&nbsp; 6. Phys Mana Leech &nbsp;·&nbsp; 7. Plaguefinger endgame</div>
-  </div>
-</section>
-</div>
-<div class="sec" id="sec-8">
-<section>
-  <div class="sh"><div class="si">📋</div><div class="st">Patch Notes <span class="r">· 0.5.0 Impact</span></div></div>
-  <div class="divider"></div>
-  <div class="note-box note-r">⚠️ <strong>Patch 0.5.0 — Return of the Ancients:</strong> The Poisonburst Pathfinder received significant nerfs to Poison Duration. The build remains viable but requires adjustments to compensate. Read carefully before playing.</div>
-
-  <div class="talent-list">
-    <div class="trow" style="border-left:3px solid var(--red)">
-      <div class="src">🔴 NERF · Poisonburst Arrow</div>
-      <div class="tname">Poison Duration: Now 3 seconds at all Gem levels</div>
-      <div class="tdesc">Previously scaled with Gem level. 3 sec flat duration means less total damage per stack at higher levels. Compensate via +Poison Duration on gear and passive tree. Stack as much Poison Duration as possible to offset this nerf.</div>
-    </div>
-    <div class="trow" style="border-left:3px solid var(--red)">
-      <div class="src">🔴 NERF · Pathfinder Ascendancy — Overwhelming Toxicity</div>
-      <div class="tname">50% less Poison Duration (previously 35%)</div>
-      <div class="tdesc">This is the biggest nerf. Combined with the Poisonburst Arrow duration nerf, total effective Poison Duration is significantly shorter. Priority fix: invest heavily in +Poison Duration nodes on the passive tree and prioritize Poison Duration on jewels and gear.</div>
-    </div>
-    <div class="trow" style="border-left:3px solid var(--gold)">
-      <div class="src">🟡 MINOR NERF · Pathfinder — Running Assault</div>
-      <div class="tname">30% less Movement Speed Penalty (previously 50%)</div>
-      <div class="tdesc">Minor mobility nerf. The build is still mobile but slightly less fluid when using skills while moving. Not build-breaking.</div>
-    </div>
-    <div class="trow" style="border-left:3px solid var(--teal)">
-      <div class="src">🟢 NEUTRAL · Leech Cap Change</div>
-      <div class="tname">Max 40,000 damage considered for Leech calculation</div>
-      <div class="tdesc">If the build relied on Leech for survivability via high hit damage, this caps the Leech benefit from large hits. Mostly irrelevant for a DoT Poison build since Leech is typically tied to hit damage, not DoT.</div>
-    </div>
-  </div>
-
-  <div class="note-box note-t" style="margin-top:16px">
-    💡 <strong>How to adapt post-0.5.0:</strong><br>
-    1. Prioritize <strong>+Poison Duration</strong> on all gear slots — rings, amulet, jewels<br>
-    2. Invest passive tree points into Poison Duration nodes near the Ranger/Pathfinder area<br>
-    3. Consider <strong>Anomalous Poisonburst Arrow</strong> if available for duration quality bonus<br>
-    4. The build is still S-Tier for map clear — single target boss DPS is reduced but manageable<br>
-    5. Apply more stacks per fight by staying engaged longer — maintain maximum hit rate
-  </div>
-</section>
-</div>
-
+<footer style="border-top:1px solid #60A03033;padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">PATH OF EXILE 2 · POISONBURST PATHFINDER · POISON DOT · S-TIER</footer>
 </div>
 <script>
-function ST(el) {
-  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
-  document.getElementById(el.dataset.sec).classList.add('on');
-  window.scrollTo(0, 0);
-}
+function ST(el){document.querySelectorAll('.tab-hero').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.getElementById(el.dataset.sec).classList.add('on');window.scrollTo(0,0)}
 </script>
 </body>
 </html>
