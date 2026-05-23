@@ -10,265 +10,696 @@
 <title>Build Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&family=Cinzel:wght@400;700&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#080810;
   --s1:#0e0e1a;
   --s2:#141425;
   --s3:#1a1a30;
-  --border:rgba(255,255,255,0.08);
-  --border2:rgba(255,255,255,0.14);
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.12);
   --text:#dde0f0;
   --muted:#6a6a88;
   --muted2:#4a4a60;
+  --bright:#ffffff;
+  --red:#e03060;
+  --gold:#E8A820;
+  --teal:#2FB8B4;
   --poe:#d4883a;
-  --poe-dim:rgba(212,136,58,0.15);
   --div:#E8700A;
-  --div-dim:rgba(232,112,10,0.12);
   --d4:#CC2020;
-  --d4-dim:rgba(204,32,32,0.12);
   --sw:#4A9AE0;
-  --sw-dim:rgba(74,154,224,0.12);
   --d2r:#80A040;
-  --d2r-dim:rgba(128,160,64,0.12);
+  --active-color:#E8700A;
+  --theme-glow:rgba(255,255,255,0.03);
+  --theme-scan:rgba(255,255,255,0.01);
   --s-tier:#ffd700;
   --a-tier:#4a9eff;
   --b-tier:#64c864;
   --exotic:#e8a020;
   --named:#c060ff;
   --set:#3a8fff;
-  --gem:#b040f0;
-  --talent:#ff4060;
-  --spec:#20c0b0;
 }
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;overflow:hidden}
-body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);pointer-events:none;z-index:9999}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 0% 0%,var(--theme-glow,rgba(255,255,255,0.03)) 0%,transparent 50%),radial-gradient(ellipse at 100% 100%,var(--theme-glow,rgba(255,255,255,0.02)) 0%,transparent 50%);pointer-events:none;z-index:0}
-#app{display:flex;flex-direction:column;height:100vh;max-width:960px;margin:0 auto}
 
-header{flex-shrink:0;background:linear-gradient(180deg,var(--bg,rgba(8,8,16,0.98)) 0%,rgba(8,8,16,0.92) 100%);border-bottom:1px solid var(--border);transition:background .3s}
-.header-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-icon{width:34px;height:34px;border:1.5px solid var(--div);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;background:rgba(232,112,10,0.12);transition:.3s}
-.logo-text{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:1px;color:#fff}
-.logo-text span{color:var(--div);transition:.3s}
-.icon-btn{width:36px;height:36px;border:1px solid var(--border2);border-radius:9px;background:var(--s2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:16px;transition:.15s}
-.icon-btn:hover{color:var(--text);background:var(--s3)}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:'Exo 2',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:14px;
+  line-height:1.5;
+  transition:background .4s;
+}
 
-.game-tabs-wrap{position:relative;padding:0 18px 14px}
-.game-tabs-wrap::before,.game-tabs-wrap::after{content:'';position:absolute;top:0;bottom:14px;width:32px;pointer-events:none;z-index:2}
-.game-tabs-wrap::before{left:18px;background:linear-gradient(90deg,var(--bg),transparent)}
-.game-tabs-wrap::after{right:18px;background:linear-gradient(270deg,var(--bg),transparent)}
-.game-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 4px;scroll-behavior:smooth}
+/* ─── SCANLINE OVERLAY ─── */
+body::after{
+  content:'';position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 3px);
+  pointer-events:none;z-index:9999;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse at 0% 0%,var(--theme-glow) 0%,transparent 50%),
+    radial-gradient(ellipse at 100% 100%,var(--theme-glow) 0%,transparent 50%);
+  pointer-events:none;z-index:0;transition:background .4s;
+}
+
+/* ─── LAYOUT ─── */
+#app{display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;z-index:1}
+.list-scroll{flex:1;overflow-y:auto;padding:10px 14px 20px;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+.list-scroll::-webkit-scrollbar{width:4px}
+.list-scroll::-webkit-scrollbar-track{background:transparent}
+.list-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* ─── HEADER ─── */
+header{
+  flex-shrink:0;
+  background:linear-gradient(180deg,var(--bg) 0%,rgba(8,8,16,0.95) 100%);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  position:relative;
+  z-index:10;
+}
+header::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--active-color),transparent);
+  opacity:0.4;transition:background .4s;
+}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px}
+
+/* ─── LOGO ─── */
+.logo{display:flex;align-items:center;gap:10px;cursor:default}
+.logo-icon{
+  width:36px;height:36px;border-radius:8px;
+  border:1px solid var(--active-color);
+  background:rgba(255,255,255,0.04);
+  display:flex;align-items:center;justify-content:center;
+  transition:.3s;overflow:hidden;
+  box-shadow:0 0 12px var(--theme-glow);
+}
+.logo-icon svg{width:22px;height:22px;transition:.3s}
+.logo-text{
+  font-family:'Rajdhani',sans-serif;
+  font-size:22px;font-weight:700;
+  color:var(--bright);letter-spacing:1px;
+}
+.logo-text span{color:var(--active-color);transition:color .3s}
+.icon-btn{
+  width:36px;height:36px;border-radius:8px;
+  border:1px solid var(--border);
+  background:var(--s1);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:.2s;color:var(--muted);font-size:16px;
+}
+.icon-btn:hover{border-color:var(--active-color);color:var(--active-color)}
+
+/* ─── GAME TABS ─── */
+.game-tabs-wrap{position:relative;padding:0 14px 12px}
+.game-tabs-wrap::before,.game-tabs-wrap::after{
+  content:'';position:absolute;top:0;bottom:12px;width:28px;
+  pointer-events:none;z-index:2;
+}
+.game-tabs-wrap::before{left:14px;background:linear-gradient(90deg,var(--bg),transparent)}
+.game-tabs-wrap::after{right:14px;background:linear-gradient(270deg,var(--bg),transparent)}
+.game-tabs{
+  display:flex;gap:8px;overflow-x:auto;
+  scrollbar-width:none;padding:2px 2px 2px;
+  scroll-behavior:smooth;
+}
 .game-tabs::-webkit-scrollbar{display:none}
-.gtab{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 16px;border-radius:12px;border:1px solid var(--border);background:var(--s1);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:.2s;min-width:90px;position:relative;overflow:hidden}
-.gtab::before{content:'';position:absolute;inset:0;opacity:0;transition:.2s}
-.gtab:hover::before{opacity:1}
-.gtab-icon{font-size:20px;line-height:1}
-.gtab-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
-.gtab-count{font-size:10px;opacity:0.5;margin-top:1px}
-.gtab.poe.on{background:linear-gradient(135deg,#1a1008,#0e0a06);border-color:#8B6914;color:#C8A040}
-.gtab.div.on{background:linear-gradient(135deg,#101520,#080c10);border-color:#E8700A;color:#E8700A}
-.gtab.div2.on{background:linear-gradient(135deg,#101520,#080c10);border-color:#E8700A;color:#E8700A}
-.gtab.d4.on{background:linear-gradient(135deg,#180b0b,#0c0505);border-color:#CC2020;color:#FF5050}
-.gtab.sw.on{background:linear-gradient(135deg,#0a1020,#02050f);border-color:#4A9AE0;color:#6AB4FF}
-.gtab.d2r.on{background:linear-gradient(135deg,#0e1208,#060808);border-color:#80A040;color:#90C050}
-.gtab:hover:not(.on){background:var(--s2);border-color:var(--border2);color:var(--text)}
+.gtab{
+  flex-shrink:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;
+  padding:8px 14px;border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--s1);
+  color:var(--muted);
+  font-family:'Rajdhani',sans-serif;
+  font-size:12px;font-weight:700;
+  letter-spacing:.5px;cursor:pointer;
+  transition:.2s;min-width:80px;
+  position:relative;overflow:hidden;
+}
+.gtab::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:transparent;transition:.2s;
+}
+.gtab:hover{background:var(--s2);border-color:var(--border2);color:var(--text)}
+.gtab-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.gtab-icon svg{width:22px;height:22px;transition:.3s}
+.gtab-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.gtab-count{font-size:9px;opacity:0.4;margin-top:1px}
 
-.filter-bar-wrap{position:relative;border-bottom:1px solid var(--border);flex-shrink:0}
-.filter-bar-wrap::before,.filter-bar-wrap::after{content:'';position:absolute;top:0;bottom:0;width:24px;pointer-events:none;z-index:2}
+/* Active tab states — per game */
+.gtab.poe.on{background:linear-gradient(135deg,#1a1008,#0e0a06);border-color:#8B6914;color:#C8A040}
+.gtab.poe.on .gtab-icon svg{filter:drop-shadow(0 0 4px rgba(200,160,64,0.6))}
+.gtab.poe.on::after{background:linear-gradient(90deg,transparent,#C8A040,transparent)}
+
+.gtab.div.on,.gtab.div2.on{background:linear-gradient(135deg,#101520,#080c10);border-color:#E8700A;color:#E8700A}
+.gtab.div.on .gtab-icon svg,.gtab.div2.on .gtab-icon svg{filter:drop-shadow(0 0 4px rgba(232,112,10,0.6))}
+.gtab.div.on::after,.gtab.div2.on::after{background:linear-gradient(90deg,transparent,#E8700A,transparent)}
+
+.gtab.d4.on{background:linear-gradient(135deg,#180b0b,#0c0505);border-color:#CC2020;color:#FF5050}
+.gtab.d4.on .gtab-icon svg{filter:drop-shadow(0 0 4px rgba(204,32,32,0.7))}
+.gtab.d4.on::after{background:linear-gradient(90deg,transparent,#CC2020,transparent)}
+
+.gtab.sw.on{background:linear-gradient(135deg,#0a1020,#02050f);border-color:#4A9AE0;color:#6AB4FF}
+.gtab.sw.on .gtab-icon svg{filter:drop-shadow(0 0 4px rgba(74,154,224,0.6))}
+.gtab.sw.on::after{background:linear-gradient(90deg,transparent,#4A9AE0,transparent)}
+
+.gtab.d2r.on{background:linear-gradient(135deg,#0e1208,#060808);border-color:#80A040;color:#90C050}
+.gtab.d2r.on .gtab-icon svg{filter:drop-shadow(0 0 4px rgba(128,160,64,0.5))}
+.gtab.d2r.on::after{background:linear-gradient(90deg,transparent,#80A040,transparent)}
+
+/* ─── FILTER BAR ─── */
+.filter-bar-wrap{
+  position:relative;flex-shrink:0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.filter-bar-wrap::before,.filter-bar-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:20px;
+  pointer-events:none;z-index:2;
+}
 .filter-bar-wrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
 .filter-bar-wrap::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
-.filter-bar{display:flex;padding:8px 18px;gap:6px;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth}
+.filter-bar{
+  display:flex;padding:8px 14px;gap:6px;
+  overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth;
+}
 .filter-bar::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:.15s;font-family:'Rajdhani',sans-serif;letter-spacing:.5px;text-transform:uppercase}
-.chip.on{background:var(--active-color,var(--border2));border-color:var(--active-color,var(--border2));color:#fff}
+.chip{
+  flex-shrink:0;padding:4px 12px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:transparent;
+  color:var(--muted);
+  font-size:11px;font-weight:700;
+  cursor:pointer;transition:.15s;
+  font-family:'Rajdhani',sans-serif;
+  letter-spacing:.5px;text-transform:uppercase;
+}
+.chip.on{
+  background:var(--active-color);
+  border-color:var(--active-color);
+  color:#fff;
+  box-shadow:0 0 8px rgba(var(--active-r,232),var(--active-g,112),var(--active-b,10),0.3);
+}
 .chip:hover:not(.on){background:var(--s2);color:var(--text);border-color:var(--border2)}
 
-.list-scroll{flex:1;overflow-y:auto;padding:14px 18px 24px;scrollbar-width:thin;scrollbar-color:var(--s3) transparent}
-.list-scroll::-webkit-scrollbar{width:3px}
-.list-scroll::-webkit-scrollbar-thumb{background:var(--s3)}
+/* ─── BUILD CARDS ─── */
+.bcard{
+  border-radius:12px;margin-bottom:8px;
+  cursor:pointer;transition:.18s;
+  overflow:hidden;position:relative;
+  border:1px solid var(--border);
+}
+.bcard:hover{transform:translateY(-2px);border-color:rgba(255,255,255,0.1)}
+.bcard:active{transform:scale(0.99)}
 
-.tier-label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);padding:12px 0 6px;display:flex;align-items:center;gap:10px}
-.tier-label::after{content:'';flex:1;height:1px;background:var(--border)}
-.tl-badge{font-size:13px;font-weight:700;padding:2px 8px;border-radius:5px}
-.tl-s{color:var(--s-tier);border:1px solid rgba(255,215,0,.3);background:rgba(255,215,0,.08)}
-.tl-a{color:var(--a-tier);border:1px solid rgba(74,158,255,.3);background:rgba(74,158,255,.08)}
+/* Game-specific card backgrounds */
+.bcard-poe2{background:linear-gradient(135deg,#120d04 0%,#0e0e18 50%,#0a0a14 100%)}
+.bcard-poe2:hover{box-shadow:0 4px 20px rgba(212,136,58,0.12)}
+.bcard-div2{background:linear-gradient(135deg,#0a0f18 0%,#0e0e18 50%,#0a0a14 100%)}
+.bcard-div2:hover{box-shadow:0 4px 20px rgba(232,112,10,0.12)}
+.bcard-d4{background:linear-gradient(135deg,#110606 0%,#0e0e18 50%,#0a0a14 100%)}
+.bcard-d4:hover{box-shadow:0 4px 20px rgba(204,32,32,0.14)}
+.bcard-swtor{background:linear-gradient(135deg,#04081a 0%,#0e0e18 50%,#0a0a14 100%)}
+.bcard-swtor:hover{box-shadow:0 4px 20px rgba(74,154,224,0.12)}
+.bcard-d2r{background:linear-gradient(135deg,#070a04 0%,#0e0e18 50%,#0a0a14 100%)}
 
-/* BUILD CARD */
-.bcard{background:var(--s1);border:1px solid var(--border);border-radius:14px;margin-bottom:9px;cursor:pointer;transition:.18s;overflow:hidden;position:relative}
-/* Game-themed card backgrounds */
-.bcard-div2{background:linear-gradient(135deg,#080c10 0%,var(--s1) 60%)}
-.bcard-poe2{background:linear-gradient(135deg,#0e0a06 0%,var(--s1) 60%)}
-.bcard-d4{background:linear-gradient(135deg,#0c0505 0%,var(--s1) 60%)}
-.bcard-swtor{background:linear-gradient(135deg,#02050f 0%,var(--s1) 60%)}
-.bcard-d2r{background:linear-gradient(135deg,#060808 0%,var(--s1) 60%)}
-/* Decorative elements */
-.bc-hud-corner{position:absolute;top:8px;right:12px;font-size:9px;letter-spacing:3px;font-weight:700;opacity:0.5;font-family:'Rajdhani',sans-serif}
-.bc-scanlines{position:absolute;inset:0;pointer-events:none;z-index:0}
-.bc-rune-deco{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:28px;opacity:0.1;pointer-events:none}
-.bc-skull-deco{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:32px;opacity:0.06;pointer-events:none}
-.bc-hellglow{position:absolute;inset:0;pointer-events:none}
+/* Variant C card layout */
+.bc-top{height:96px;position:relative;display:flex;align-items:flex-end;overflow:hidden}
+.bc-top-inner{display:flex;align-items:center;gap:10px;padding:10px 12px;width:100%;position:relative;z-index:2}
+.bc-icon-wrap{width:52px;height:52px;border-radius:10px;border:1px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bc-icon-wrap svg{width:32px;height:32px}
+.bc-title-area{flex:1;min-width:0}
+.bc-tier-badge{position:absolute;top:8px;left:12px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;border:1px solid;z-index:3;font-family:'Rajdhani',sans-serif;letter-spacing:1px}
+.bc-tier-big{font-size:32px;font-weight:900;font-family:'Rajdhani',sans-serif;letter-spacing:-2px;opacity:0.18;align-self:flex-end;margin-bottom:2px;line-height:1;flex-shrink:0}
+.vc-game{font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;font-weight:700}
+.bc-name{font-size:17px;font-weight:700;line-height:1.1;margin-bottom:2px;letter-spacing:.3px}
+.bc-sub{font-size:12px;color:#4a4a68;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bc-bottom{padding:7px 12px 10px}
+.bc-row{display:flex;align-items:center;gap:8px}
+.bc-tags{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.bc-stats{display:flex;gap:8px;flex-shrink:0}
+.vcs{display:flex;flex-direction:column;align-items:center;gap:2px}
+.vcs-bar{width:26px;height:2px;border-radius:1px;background:rgba(255,255,255,0.06);overflow:hidden}
+.vcs-fill{height:100%;border-radius:1px}
+.vcs-l{font-size:9px;color:#3a3a58;letter-spacing:.3px;text-transform:uppercase}
+.vcs-v{font-size:11px;font-weight:700;font-family:'Rajdhani',sans-serif}
+.bcard-d2r:hover{box-shadow:0 4px 20px rgba(128,160,64,0.1)}
+
+/* Card accent bar */
+.bcard-accent{position:absolute;left:0;top:0;bottom:0;width:3px}
+
+/* Card decorations */
+.bc-hud-corner{
+  position:absolute;top:8px;right:10px;
+  font-size:8px;letter-spacing:3px;font-weight:700;
+  opacity:0.35;font-family:'Rajdhani',sans-serif;
+  text-transform:uppercase;
+}
+.bc-scanlines{position:absolute;inset:0;pointer-events:none;opacity:0.6}
+.bc-deco{position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:0.07}
+.bc-deco svg{width:44px;height:44px}
 .bc-stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .bc-stars span{position:absolute;width:1px;height:1px;background:rgba(255,255,255,0.5);border-radius:50%}
-.bc-holo-bar{position:absolute;bottom:0;left:0;right:0;height:2px;border-top:1px solid}
-.bc-rune-row{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:20px;opacity:0.15;pointer-events:none}
-.bc-game-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:5px;font-weight:700}
-.bcard:hover{border-color:var(--border2);background:var(--s2);transform:translateY(-1px)}
-.bcard:active{transform:scale(0.99)}
-.bcard-accent{position:absolute;left:0;top:0;bottom:0;width:3px}
-.bcard-inner{padding:14px 14px 14px 17px}
-.bcard-top{display:flex;align-items:flex-start;gap:12px}
-.bcard-emblem{width:52px;height:52px;border-radius:10px;border:1px solid;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.bc-holo-bar{position:absolute;bottom:0;left:0;right:0;height:1px}
+.bc-game-label{
+  font-size:8px;letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:4px;font-weight:700;font-family:'Rajdhani',sans-serif;
+}
+
+/* Card inner */
+.bcard-inner{padding:12px 12px 12px 15px;position:relative;z-index:1}
+.bcard-top{display:flex;align-items:flex-start;gap:11px}
+.bcard-emblem{
+  width:48px;height:48px;border-radius:10px;
+  border:1px solid;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+}
+.bcard-emblem svg{width:28px;height:28px}
 .bcard-info{flex:1;min-width:0}
-.bcard-name{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;color:#fff;letter-spacing:.3px;line-height:1.1;margin-bottom:2px}
-.bcard-sub{font-size:12px;color:var(--muted);margin-bottom:8px}
+.bcard-name{
+  font-family:'Rajdhani',sans-serif;
+  font-size:18px;font-weight:700;
+  letter-spacing:.3px;line-height:1.1;
+  margin-bottom:2px;
+}
+.bcard-sub{font-size:11px;color:var(--muted);margin-bottom:5px;letter-spacing:.2px}
 .bcard-tags{display:flex;flex-wrap:wrap;gap:4px}
-.btag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;letter-spacing:.3px;font-family:'Rajdhani',sans-serif}
-.btag-tier-s{background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.3);color:var(--s-tier)}
-.btag-tier-a{background:rgba(74,158,255,.12);border:1px solid rgba(74,158,255,.3);color:var(--a-tier)}
-.btag-boss{background:rgba(200,80,255,.1);border:1px solid rgba(200,80,255,.25);color:#c060ff}
-.btag-map{background:rgba(80,200,180,.1);border:1px solid rgba(80,200,180,.25);color:#50c8b4}
-.btag-dmg{background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.25);color:#ff8080}
-.btag-def{background:rgba(80,150,255,.1);border:1px solid rgba(80,150,255,.25);color:#60a0ff}
-.btag-easy{background:rgba(100,200,100,.1);border:1px solid rgba(100,200,100,.25);color:#64c864}
-.btag-medium{background:rgba(255,180,50,.1);border:1px solid rgba(255,180,50,.25);color:#ffb432}
-.btag-hard{background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.25);color:#ff6464}
-.bcard-arrow{color:var(--muted2);font-size:20px;margin-top:2px}
-.bcard-stats{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;margin-top:11px;padding-top:11px;border-top:1px solid var(--border)}
-.mini-stat{display:flex;align-items:center;gap:6px}
-.mini-lbl{font-size:10px;color:var(--muted);width:44px;font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:.5px;flex-shrink:0}
-.mini-bar{flex:1;height:3px;background:var(--s3);border-radius:3px;overflow:hidden}
-.mini-fill{height:100%;border-radius:3px}
-.mini-val{font-size:10px;font-weight:700;width:22px;text-align:right;flex-shrink:0}
+.bcard-arrow{
+  font-size:22px;color:var(--border2);
+  padding-left:4px;transition:.2s;
+  align-self:center;
+}
+.bcard:hover .bcard-arrow{color:var(--active-color)}
 
-/* DETAIL */
-#detail{position:fixed;inset:0;background:var(--bg);z-index:100;display:none;flex-direction:column;max-width:960px;margin:0 auto}
+/* Mini stat bars */
+.bcard-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:10px}
+.mini-stat{display:flex;flex-direction:column;gap:2px}
+.mini-lbl{font-size:9px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.mini-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.mini-fill{height:100%;border-radius:2px;transition:.3s}
+.mini-val{font-size:10px;font-family:'Rajdhani',sans-serif;font-weight:700}
+
+/* Badges */
+.badge{
+  font-size:10px;padding:2px 7px;border-radius:4px;
+  border:1px solid;font-weight:600;
+  font-family:'Rajdhani',sans-serif;letter-spacing:.5px;
+  text-transform:uppercase;
+}
+.badge-s{border-color:var(--s-tier);color:var(--s-tier);background:rgba(255,215,0,0.06)}
+.badge-a{border-color:var(--a-tier);color:var(--a-tier);background:rgba(74,158,255,0.06)}
+.badge-dps{border-color:var(--red);color:var(--red);background:rgba(224,48,96,0.06)}
+.badge-tank{border-color:var(--teal);color:var(--teal);background:rgba(47,184,180,0.06)}
+.badge-pve{border-color:#60a060;color:#60a060;background:rgba(96,160,96,0.06)}
+.badge-meta{border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,0.06)}
+.badge-dot{border-color:#c060ff;color:#c060ff;background:rgba(192,96,255,0.06)}
+.badge-easy{border-color:#40c040;color:#40c040;background:rgba(64,192,64,0.06)}
+.badge-medium{border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,0.06)}
+.badge-hard{border-color:var(--red);color:var(--red);background:rgba(224,48,96,0.06)}
+.badge-boss{border-color:#ff8040;color:#ff8040;background:rgba(255,128,64,0.06)}
+.badge-map{border-color:var(--teal);color:var(--teal);background:rgba(47,184,180,0.06)}
+.badge-poe{border-color:var(--poe);color:var(--poe);background:rgba(212,136,58,0.06)}
+
+/* ─── DETAIL PANEL ─── */
+#detail{
+  position:fixed;inset:0;
+  background:var(--bg);
+  z-index:100;
+  display:none;flex-direction:column;
+  transition:background .3s;
+}
 #detail.open{display:flex}
-.dh{flex-shrink:0;border-bottom:1px solid var(--border);background:linear-gradient(180deg,var(--s1) 0%,var(--bg) 100%)}
-.dh-top{display:flex;align-items:center;gap:12px;padding:14px 18px 8px}
-.back-btn{width:36px;height:36px;border:1px solid var(--border2);border-radius:9px;background:var(--s2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:20px;flex-shrink:0;transition:.15s}
-.back-btn:hover{color:#fff}
-.dh-name{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:.5px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dh-sub{font-size:12px;color:var(--muted);padding:0 18px 8px}
-.dh-hero{padding:0 18px 12px;display:flex;gap:6px;flex-wrap:wrap}
+.dh{
+  flex-shrink:0;
+  padding:14px 16px 12px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.dh::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--active-color),transparent);
+  opacity:0.3;
+}
+.dh-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.back-btn{
+  padding:6px 12px;border-radius:8px;
+  border:1px solid var(--border2);
+  background:var(--s1);
+  color:var(--text);font-size:18px;
+  cursor:pointer;transition:.2s;line-height:1;
+  font-family:'Rajdhani',sans-serif;font-weight:700;
+}
+.back-btn:hover{border-color:var(--active-color);color:var(--active-color)}
+.dh-name{
+  flex:1;font-family:'Rajdhani',sans-serif;
+  font-size:22px;font-weight:700;color:var(--bright);
+  letter-spacing:.5px;
+}
+.guide-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:8px;
+  border:1px solid var(--active-color);
+  background:rgba(255,255,255,0.03);
+  color:var(--active-color);
+  font-size:12px;font-weight:700;
+  text-decoration:none;
+  font-family:'Rajdhani',sans-serif;letter-spacing:.5px;
+  transition:.2s;text-transform:uppercase;
+}
+.guide-btn:hover{background:rgba(255,255,255,0.06)}
+.dh-sub{font-size:12px;color:var(--muted);margin-bottom:8px;letter-spacing:.3px}
+.dh-hero{display:flex;flex-wrap:wrap;gap:5px}
+.detail-scroll{
+  flex:1;overflow-y:auto;padding:14px 16px 24px;
+  scrollbar-width:thin;scrollbar-color:var(--border2) transparent;
+}
+.detail-scroll::-webkit-scrollbar{width:4px}
+.detail-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 
-.detail-scroll{flex:1;overflow-y:auto;padding:16px 18px 32px;scrollbar-width:thin;scrollbar-color:var(--s3) transparent}
-.detail-scroll::-webkit-scrollbar{width:3px}
-.detail-scroll::-webkit-scrollbar-thumb{background:var(--s3)}
+/* Detail sections */
+.ds{margin-bottom:16px}
+.ds-title{
+  font-family:'Rajdhani',sans-serif;font-size:12px;
+  font-weight:700;text-transform:uppercase;letter-spacing:2px;
+  color:var(--active-color);margin-bottom:8px;
+  padding-bottom:5px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
 
-.ds{margin-bottom:22px}
-.ds-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.ds-title::after{content:'';flex:1;height:1px;background:var(--border)}
+/* ─── SEARCH OVERLAY ─── */
+#search-ov{
+  position:fixed;inset:0;background:rgba(8,8,16,0.96);
+  z-index:200;display:none;flex-direction:column;
+  backdrop-filter:blur(8px);
+}
+#search-ov.open{display:flex}
+.search-bar{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  background:var(--s1);
+  color:var(--muted);
+}
+#srch-in{
+  flex:1;background:transparent;border:none;
+  color:var(--bright);font-size:16px;
+  font-family:'Exo 2',sans-serif;outline:none;
+}
+.srch-cancel{
+  color:var(--active-color);font-size:14px;
+  cursor:pointer;font-family:'Rajdhani',sans-serif;
+  font-weight:700;letter-spacing:.5px;
+}
+#srch-results{flex:1;overflow-y:auto;padding:10px 14px}
 
-/* RATING */
-.rating-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
-.rating-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.rating-label{font-size:12px;color:var(--muted);font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:.5px}
-.rating-stars{font-size:12px;letter-spacing:1px}
-.rating-bar{height:5px;background:var(--s3);border-radius:5px;overflow:hidden}
-.rating-fill{height:100%;border-radius:5px}
-
-/* WEAPON CARD */
-.weapon-card{background:linear-gradient(135deg,var(--s2) 0%,var(--s1) 100%);border-radius:12px;padding:14px;margin-bottom:8px;border:1px solid var(--border2);position:relative;overflow:hidden}
-.weapon-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.weapon-icon-box{width:54px;height:54px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;background:rgba(0,0,0,.3);border:1px solid var(--border2);flex-shrink:0}
-.weapon-name{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:.5px}
-.weapon-type{font-size:11px;color:var(--muted);margin-top:1px}
-.weapon-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:rgba(0,0,0,.25);border-radius:9px;padding:10px;border:1px solid var(--border)}
-.wstat{text-align:center}
-.wstat-val{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff}
-.wstat-lbl{font-size:9px;color:var(--muted);font-family:'Rajdhani',sans-serif;letter-spacing:.5px;text-transform:uppercase}
-.weapon-talent-box{margin-top:10px;background:rgba(255,64,96,.06);border:1px solid rgba(255,64,96,.2);border-radius:8px;padding:9px 12px}
-.wtb-name{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--talent);letter-spacing:.3px;margin-bottom:3px}
-.wtb-desc{font-size:12px;color:#b0b0c8;line-height:1.4}
-
-/* GEAR CARD */
-.gear-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:11px 13px;margin-bottom:7px;display:flex;gap:11px;align-items:flex-start}
-.gear-card:hover{border-color:var(--border2);background:var(--s2)}
-.gear-card-left{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0}
-.gear-slot-icon{width:44px;height:44px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;border:1px solid;flex-shrink:0}
-.ico-exotic{background:rgba(232,160,32,.12);border-color:rgba(232,160,32,.35)}
-.ico-named{background:rgba(192,96,255,.12);border-color:rgba(192,96,255,.35)}
-.ico-set{background:rgba(58,143,255,.12);border-color:rgba(58,143,255,.35)}
-.ico-gem{background:rgba(176,64,240,.12);border-color:rgba(176,64,240,.35)}
-.ico-talent{background:rgba(255,64,96,.12);border-color:rgba(255,64,96,.35)}
-.ico-spec{background:rgba(32,192,176,.12);border-color:rgba(32,192,176,.35)}
-.slot-lbl{font-size:9px;font-weight:700;letter-spacing:.5px;text-align:center;font-family:'Rajdhani',sans-serif;text-transform:uppercase;color:var(--muted);line-height:1.2;max-width:48px}
-.gear-body{flex:1;min-width:0}
-.gear-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px}
-.gear-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;line-height:1.2}
-.gbadge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px;flex-shrink:0;white-space:nowrap}
-.gb-exotic{background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.35);color:var(--exotic)}
-.gb-named{background:rgba(192,96,255,.15);border:1px solid rgba(192,96,255,.35);color:var(--named)}
-.gb-set{background:rgba(58,143,255,.15);border:1px solid rgba(58,143,255,.35);color:var(--set)}
-.gb-gem{background:rgba(176,64,240,.15);border:1px solid rgba(176,64,240,.35);color:var(--gem)}
-.gb-talent{background:rgba(255,64,96,.15);border:1px solid rgba(255,64,96,.35);color:var(--talent)}
-.gb-spec{background:rgba(32,192,176,.15);border:1px solid rgba(32,192,176,.35);color:var(--spec)}
-.gear-talent-lbl{display:inline-block;margin-top:4px;font-size:11px;font-weight:700;font-family:'Rajdhani',sans-serif;letter-spacing:.3px;padding:2px 7px;border-radius:5px;background:rgba(255,64,96,.1);border:1px solid rgba(255,64,96,.2);color:var(--talent)}
-.gear-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-top:5px}
-.gear-mods{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
-.gear-mod{font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted);font-family:'Rajdhani',sans-serif}
-.gear-mod.hot{background:rgba(255,215,0,.08);border-color:rgba(255,215,0,.2);color:#c8a020}
-
-/* ASCENDANCY */
-.asc-list{display:flex;flex-direction:column;gap:6px}
-.asc-item{display:flex;align-items:flex-start;gap:11px;background:var(--s1);border:1px solid var(--border);border-radius:11px;padding:11px 13px}
-.asc-num{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
-.asc-name{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:.3px;margin-bottom:3px}
-.asc-desc{font-size:12px;color:var(--muted);line-height:1.4}
-
-/* MECHANIC */
-.mech-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:13px 14px;margin-bottom:7px}
-.mech-top{display:flex;align-items:center;gap:10px;margin-bottom:7px}
-.mech-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.mech-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:.3px}
-.mech-stack{display:flex;align-items:center;gap:5px;margin-top:4px}
-.mech-pip{width:10px;height:4px;border-radius:2px;background:var(--s3)}
-.mech-pip.on{background:var(--talent)}
+/* ─── MECH CARD / DETAIL WIDGETS ─── */
+.mech-card{background:var(--s2);border:1px solid var(--border);padding:12px;border-radius:8px;margin-bottom:8px}
+.mech-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+.mech-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.mech-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);margin-bottom:4px}
+.mech-stack{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+.mech-pip{width:10px;height:4px;background:var(--border2);border-radius:2px;transition:.2s}
+.mech-pip.on{background:var(--active-color)}
 .mech-desc{font-size:12px;color:var(--muted);line-height:1.5}
 
-/* OPTION CARDS */
-.opt-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:12px 14px;position:relative;overflow:hidden;margin-bottom:7px}
-.opt-card:hover{border-color:var(--border2);background:var(--s2)}
-.opt-card-badge{position:absolute;top:0;right:0;font-size:10px;font-weight:700;padding:4px 10px;border-radius:0 0 0 8px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
-.oc-rec{background:rgba(255,215,0,.15);color:var(--s-tier);border-left:1px solid rgba(255,215,0,.3);border-bottom:1px solid rgba(255,215,0,.3)}
-.oc-alt{background:rgba(74,158,255,.1);color:var(--a-tier);border-left:1px solid rgba(74,158,255,.25);border-bottom:1px solid rgba(74,158,255,.25)}
-.oc-free{background:rgba(100,200,100,.1);color:var(--b-tier);border-left:1px solid rgba(100,200,100,.25);border-bottom:1px solid rgba(100,200,100,.25)}
-.opt-card-title{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px;padding-right:60px}
-.opt-card-desc{font-size:12px;color:var(--muted);line-height:1.5}
+/* Gear cards in detail */
+.gb-set{border-color:var(--set)!important;color:var(--set)!important}
+.gb-named{border-color:var(--named)!important;color:var(--named)!important}
+.gb-exotic{border-color:var(--exotic)!important;color:var(--exotic)!important}
 
-/* NOTES */
-.note-box{border-radius:10px;padding:11px 13px;font-size:12px;line-height:1.6;margin-bottom:7px}
-.note-warn{background:rgba(255,180,0,.06);border:1px solid rgba(255,180,0,.2);color:#c09020}
-.note-warn strong{color:#ffd040}
-.note-info{background:rgba(58,143,255,.06);border:1px solid rgba(58,143,255,.2);color:#6090c0}
-.note-info strong{color:#60a0ff}
-.note-tip{background:rgba(80,200,160,.06);border:1px solid rgba(80,200,160,.2);color:#50a080}
-.note-tip strong{color:#50c8a0}
+/* Note boxes */
+.note-box{padding:10px 12px;border-radius:6px;font-size:12px;line-height:1.5;margin-bottom:8px;border-left:3px solid}
+.note-warn,.note-r{background:rgba(224,48,96,0.06);border-color:var(--red);color:#c05070}
+.note-info,.note-t{background:rgba(47,184,180,0.06);border-color:var(--teal);color:#50a0a0}
+.note-tip,.note-g{background:rgba(64,160,64,0.06);border-color:#50c050;color:#60a060}
 
-/* SEARCH */
-#search-ov{position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(8px);z-index:200;display:none;flex-direction:column;padding:20px;max-width:960px;margin:0 auto}
-#search-ov.open{display:flex}
-.search-bar{display:flex;align-items:center;gap:12px;background:var(--s2);border:1px solid var(--border2);border-radius:12px;padding:12px 16px;margin-bottom:14px}
-.search-bar svg{color:var(--muted);flex-shrink:0}
-#srch-in{background:transparent;border:none;outline:none;color:#fff;font-size:16px;font-family:'Exo 2',sans-serif;flex:1}
-#srch-in::placeholder{color:var(--muted)}
-.srch-cancel{color:var(--muted);font-size:13px;cursor:pointer;font-weight:600;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
-#srch-results{flex:1;overflow-y:auto}
-.empty{text-align:center;padding:50px 20px;color:var(--muted)}
-.empty-ico{font-size:36px;margin-bottom:10px}
-.guide-btn{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:9px;border:1px solid var(--border2);background:var(--s2);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:.15s;text-decoration:none;flex-shrink:0}
-.guide-btn:hover{border-color:var(--div);color:var(--div);background:rgba(232,112,10,0.12)}
-.guide-btn span{font-size:14px}
+/* Weapon cards */
+.wpn-row{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
+.wpn-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:12px}
+.wpn-card.exotic-w{border-color:rgba(232,168,32,0.3);background:linear-gradient(135deg,rgba(232,168,32,0.06),var(--s2))}
+.wpn-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.wpn-name{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:var(--bright);margin-bottom:2px}
+.wpn-type{font-size:11px;color:var(--muted);margin-bottom:8px}
+.wpn-talent{background:var(--s3);border-radius:4px;padding:8px}
+.wpn-talent.gold-t{background:rgba(232,168,32,0.06);border:1px solid rgba(232,168,32,0.15)}
+.talent-lbl{font-size:10px;font-weight:700;color:var(--gold);margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
+.talent-txt{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* Skills grid */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+.skill-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:flex-start}
+.skill-ico{font-size:18px;flex-shrink:0;line-height:1}
+.skill-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);margin-bottom:3px}
+.skill-desc{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* Options / choices */
+.oc-rec{border-color:var(--gold);color:var(--gold);background:rgba(232,168,32,0.06)}
+.oc-alt{border-color:var(--teal);color:var(--teal);background:rgba(47,184,180,0.06)}
+.oc-free{border-color:var(--muted);color:var(--muted);background:rgba(255,255,255,0.03)}
+
+/* Talent list */
+.talent-list{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.trow{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:9px 11px}
+.trow.gold{background:rgba(232,168,32,0.04);border-color:rgba(232,168,32,0.15)}
+.src{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.tname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright);margin-bottom:3px}
+.tdesc{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* Spec card */
+.spec-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:14px;display:flex;gap:12px;margin-bottom:8px}
+.spec-ico{font-size:32px;flex-shrink:0;line-height:1}
+.spec-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--bright);margin-bottom:4px}
+.spec-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:8px}
+.perks{display:flex;flex-wrap:wrap;gap:4px}
+.perk{font-size:10px;padding:2px 7px;border:1px solid var(--border2);border-radius:4px;color:var(--muted);font-family:'Rajdhani',sans-serif}
+
+/* Rotation steps */
+.rotation-steps{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.rstep{display:flex;gap:10px;align-items:flex-start}
+.rstep-n{
+  width:24px;height:24px;border-radius:50%;
+  border:1px solid var(--active-color);
+  background:rgba(255,255,255,0.03);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;
+  color:var(--active-color);flex-shrink:0;margin-top:1px;
+}
+.rstep-body{flex:1}
+.rstep-skill{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);margin-bottom:2px}
+.rstep-desc{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* Tips */
+.tips{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.tip{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:9px 11px;font-size:12px;color:var(--muted);line-height:1.5}
+.tip.gold{background:rgba(232,168,32,0.04);border-color:rgba(232,168,32,0.12)}
+.tip.teal{background:rgba(47,184,180,0.04);border-color:rgba(47,184,180,0.12)}
+.g{color:var(--gold)} .r{color:var(--red)} .t{color:var(--teal)}
+
+/* Card grid */
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+.gear-card{background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--border2);border-radius:6px;padding:9px 10px;transition:.15s}
+.gear-card:hover{border-left-color:var(--active-color)}
+.gear-card.named{border-left-color:var(--named)}
+.gear-card.exotic{border-left-color:var(--exotic);background:rgba(232,168,32,0.04)}
+.gear-slot{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.gear-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);margin-bottom:5px}
+.gear-mods{display:flex;flex-wrap:wrap;gap:3px}
+.mod-tag{font-size:10px;padding:1px 6px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted);border-radius:3px}
+.t-g{font-size:10px;padding:1px 6px;background:rgba(64,192,64,0.06);border:1px solid rgba(64,192,64,0.2);color:#50c050;border-radius:3px}
+.t-r{font-size:10px;padding:1px 6px;background:rgba(224,48,96,0.06);border:1px solid rgba(224,48,96,0.2);color:#e03060;border-radius:3px}
+.t-t{font-size:10px;padding:1px 6px;background:rgba(47,184,180,0.06);border:1px solid rgba(47,184,180,0.2);color:var(--teal);border-radius:3px}
+.core-badge{font-size:9px;padding:1px 6px;border:1px solid;border-radius:3px;margin-bottom:4px;display:inline-block}
+.core-red{border-color:var(--red);color:var(--red)}
+.core-named{border-color:var(--named);color:var(--named)}
+.core-exotic{border-color:var(--exotic);color:var(--exotic)}
+
+/* SW grid */
+.sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.sw-box{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.sw-title.green{color:#50c050} .sw-title.red{color:var(--red)}
+.sw-item{display:flex;gap:6px;font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:3px}
+.sw-item span{color:var(--active-color);flex-shrink:0}
+
+/* Phase boxes */
+.phase{background:var(--s2);border:1px solid var(--border);border-left:3px solid var(--active-color);border-radius:6px;padding:12px;margin-bottom:8px}
+.phase-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.phase-num{width:28px;height:28px;border-radius:50%;border:2px solid var(--active-color);background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--active-color);flex-shrink:0}
+.phase-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--bright)}
+.phase-sub{font-size:11px;color:var(--muted)}
+.phase-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:8px}
+.gem-list{display:flex;flex-direction:column;gap:4px}
+.gem-row{display:flex;gap:8px;align-items:baseline;padding:5px 8px;background:var(--s3);border-radius:4px}
+.gem-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:12px;min-width:60px;flex-shrink:0}
+.gem-supports{font-size:11px;color:var(--muted);line-height:1.4}
+.passive-box{margin-top:8px;padding:7px 10px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:4px;font-size:11px;color:var(--muted);line-height:1.5}
+
+/* Opt rows */
+.opt-row{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;background:var(--s2);border:1px solid var(--border);border-radius:6px;margin-bottom:5px}
+.opt-badge{font-size:9px;padding:2px 6px;border:1px solid;border-radius:3px;font-weight:700;flex-shrink:0;margin-top:1px;font-family:'Rajdhani',sans-serif;letter-spacing:.5px}
+.opt-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright);margin-bottom:2px}
+.opt-desc{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* Weapon card rows */
+.wc-row{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:9px;margin-bottom:5px;display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center}
+.wc-ico{font-size:20px;line-height:1}
+.wc-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:var(--bright)}
+.wc-sub{font-size:10px;color:var(--muted)}
+.wc-tag{font-size:10px;padding:2px 6px;border:1px solid var(--border2);border-radius:3px;color:var(--muted);font-family:'Rajdhani',sans-serif;text-align:center}
+.wc-desc{grid-column:1/-1;font-size:11px;color:var(--muted);line-height:1.4;padding-top:4px;border-top:1px solid var(--border)}
+
+/* ─── NEW DETAIL PANEL ─── */
+#detail{position:fixed;inset:0;background:var(--bg);z-index:100;display:none;flex-direction:column;transition:background .3s}
+#detail.open{display:flex}
+.dh{flex-shrink:0;padding:13px 16px 11px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.05)}
+.dh::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--active-color),transparent);opacity:0.4}
+.dh-atmo{position:absolute;inset:0;pointer-events:none}
+.dh-top{display:flex;align-items:center;gap:9px;margin-bottom:11px;position:relative;z-index:2}
+.back-btn{width:30px;height:30px;border-radius:7px;border:1px solid var(--border2);background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:17px;font-family:'Rajdhani',sans-serif;font-weight:700;transition:.15s;flex-shrink:0}
+.back-btn:hover{border-color:var(--active-color);color:var(--active-color)}
+.dh-name{flex:1;font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--active-color);letter-spacing:.5px}
+.guide-btn{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:7px;border:1px solid;font-size:10px;font-weight:700;text-decoration:none;font-family:'Rajdhani',sans-serif;letter-spacing:.5px;text-transform:uppercase;transition:.15s;flex-shrink:0;border-color:var(--active-color);color:var(--active-color);background:rgba(255,255,255,0.03)}
+.guide-btn:hover{background:rgba(255,255,255,0.07)}
+.dh-hero-row{display:flex;gap:12px;align-items:center;position:relative;z-index:2}
+.build-icon-wrap{width:62px;height:62px;flex-shrink:0;border-radius:13px;border:1px solid;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;background:rgba(255,255,255,0.04)}
+.build-icon-wrap svg{width:40px;height:40px}
+.dh-info{flex:1;min-width:0}
+.dh-class{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:3px;font-weight:700;opacity:0.7}
+.dh-sub{font-size:11px;color:var(--muted);margin-bottom:5px}
+.dh-badges{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}
+.stats-row{display:flex;gap:10px}
+.stat-item{display:flex;flex-direction:column;align-items:center;gap:1px}
+.stat-val{font-size:13px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+.stat-lbl{font-size:7px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+
+/* Detail tabs */
+.detail-tabs{display:flex;flex-shrink:0;border-bottom:1px solid var(--border);background:#060608;overflow-x:auto;scrollbar-width:none}
+.detail-tabs::-webkit-scrollbar{display:none}
+.dtab{flex:1;min-width:50px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+.dtab:hover{background:rgba(255,255,255,0.03)}
+.dtab.on{border-bottom-color:var(--active-color)}
+.dtab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+.dtab-ico svg{width:14px;height:14px;color:var(--muted);transition:.2s}
+.dtab.on .dtab-ico svg{color:var(--active-color)}
+.dtab-lbl{font-size:7px;letter-spacing:.8px;text-transform:uppercase;font-weight:700;color:var(--muted2);transition:.2s;white-space:nowrap}
+.dtab.on .dtab-lbl{color:var(--active-color)}
+
+/* Detail scroll + panes */
+.detail-scroll{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+.detail-scroll::-webkit-scrollbar{width:3px}
+.detail-scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.dpane{display:none;padding:13px 15px 22px}
+.dpane.on{display:block}
+
+/* Section headers */
+.dsec-head{display:flex;align-items:center;gap:7px;margin-bottom:9px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+.dsec-ico{width:26px;height:26px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dsec-ico svg{width:13px;height:13px}
+.dsec-title{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+
+/* Skill rows */
+.dskill{display:flex;align-items:center;gap:8px;padding:7px 9px;background:var(--s1);border:1px solid var(--border);border-radius:8px;margin-bottom:4px;transition:.15s}
+.dskill:hover{border-color:rgba(255,255,255,0.12)}
+.dskill-ico{width:26px;height:26px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dskill-ico svg{width:13px;height:13px}
+.dskill-info{flex:1;min-width:0}
+.dskill-name{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--text);line-height:1.2}
+.dskill-desc{font-size:10px;color:var(--muted);line-height:1.3;margin-top:1px}
+.dskill-tag{flex-shrink:0;font-size:8px;padding:1px 5px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:.5px}
+.gem-chips{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.gem-chip{font-size:8px;padding:1px 5px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:var(--muted);font-family:'Rajdhani',sans-serif}
+
+/* Notes */
+.dnote{padding:8px 10px;border-radius:7px;font-size:10px;line-height:1.5;border-left:3px solid;margin-bottom:6px}
+.dnote-warn{background:rgba(255,64,32,0.06);border-color:#FF4020;color:#c04020}
+.dnote-buff{background:rgba(64,192,64,0.06);border-color:#40c040;color:#40a040}
+.dnote-info{border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.02);color:var(--muted)}
+
+/* Phase/leveling */
+.dphase-track{position:relative;padding-left:20px;margin-bottom:4px}
+.dphase-track::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--active-color),rgba(255,100,30,0.4),transparent)}
+.dphase{position:relative;margin-bottom:10px}
+.dphase::before{content:'';position:absolute;left:-16px;top:5px;width:7px;height:7px;border-radius:50%;border:1.5px solid var(--active-color);background:var(--bg)}
+.dphase-num{font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;color:var(--active-color);letter-spacing:.5px;margin-bottom:1px}
+.dphase-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}
+.dphase-desc{font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:5px}
+.dphase-gems{display:flex;flex-direction:column;gap:2px}
+.dpgem{display:flex;align-items:center;gap:6px;padding:4px 7px;background:var(--s1);border-radius:4px;border:1px solid var(--border)}
+.dpgem-name{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--text);min-width:100px}
+.dpgem-sups{display:flex;flex-wrap:wrap;gap:2px}
+.dpgem-s{font-size:8px;padding:1px 4px;border-radius:2px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.dpgem-s.hi{border-color:rgba(var(--active-r,200),var(--active-g,160),64,0.3);color:var(--active-color)}
+.dphase-passive{font-size:9px;color:var(--muted2);margin-top:4px;padding-left:2px}
+
+/* Gear rows */
+.dgear{display:flex;align-items:center;gap:8px;padding:6px 9px;background:var(--s1);border:1px solid var(--border);border-radius:6px;margin-bottom:3px}
+.dgear.bis{border-color:rgba(255,215,0,0.2);background:rgba(255,215,0,0.02)}
+.dgear-slot{font-size:8px;color:var(--muted2);width:46px;flex-shrink:0;text-transform:uppercase;letter-spacing:.3px}
+.dgear-name{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;flex:1}
+.dgear-note{font-size:9px;color:var(--muted);flex:1}
+.dgear-tag{font-size:8px;padding:1px 5px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0}
+
+/* Rotation */
+.drot-label{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.drot-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.drot-step{display:flex;gap:9px;align-items:flex-start;margin-bottom:5px}
+.drot-n{width:20px;height:20px;border-radius:50%;border:1px solid var(--active-color);background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;color:var(--active-color);flex-shrink:0;margin-top:1px}
+.drot-skill{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:1px}
+.drot-desc{font-size:10px;color:var(--muted);line-height:1.4}
+
+/* Ascendancy grid */
+.dasc-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px}
+.dasc{background:var(--s1);border:1px solid var(--border);border-radius:7px;padding:9px}
+.dasc-num{font-size:8px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.dasc-name{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;margin-bottom:2px}
+.dasc-desc{font-size:9px;color:var(--muted);line-height:1.4}
+
+/* SW/overview grids */
+.dsw-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.dsw-box{background:var(--s1);border:1px solid var(--border);border-radius:7px;padding:9px}
+.dsw-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+
+/* Patch items */
+.dpatch{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;background:var(--s1);border:1px solid var(--border);border-radius:7px;margin-bottom:4px}
+.dpatch-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.dpatch-title{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--text);margin-bottom:2px}
+.dpatch-desc{font-size:9px;color:var(--muted);line-height:1.4}
+
+/* Tree phases */
+.dtree{background:var(--s1);border:1px solid var(--border);border-left:2px solid var(--active-color);border-radius:6px;padding:8px 10px;margin-bottom:4px}
+.dtree-range{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--active-color);margin-bottom:1px}
+.dtree-desc{font-size:10px;color:var(--muted);line-height:1.5}
+.dtree-pts{font-size:8px;color:var(--muted2);margin-top:2px}
+
+/* Animations */
+@keyframes dspin-cw{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes dspin-ccw{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+@keyframes dpulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes dheart{0%,100%{transform:scale(1)}15%{transform:scale(1.1)}30%{transform:scale(.97)}45%{transform:scale(1.06)}60%{transform:scale(1)}}
+@keyframes dbolt{0%,90%,100%{opacity:1}93%{opacity:.2}96%{opacity:1}98%{opacity:.5}}
+@keyframes dspark{0%{opacity:0;transform:translate(0,0)}40%{opacity:1}100%{opacity:0;transform:translate(var(--tx),var(--ty))}}
+@keyframes drotate-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes dglow{0%,100%{filter:drop-shadow(0 0 2px currentColor)}50%{filter:drop-shadow(0 0 6px currentColor)}}
+@keyframes dvisor{0%,100%{opacity:.3}50%{opacity:.8}}
+@keyframes dscroll{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes dpage{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
 </style>
+
 </head>
 <body>
 <div id="app">
   <header>
     <div class="header-top">
       <div class="logo">
-        <div class="logo-icon" id="logoIcon">🎮</div>
+        <div class="logo-icon" id="logoIcon"><svg viewBox="0 0 56 56" fill="none" style="width:22px;height:22px;color:var(--active-color)"><rect x="8" y="16" width="40" height="24" rx="4" stroke="currentColor" stroke-width="2"/><line x1="28" y1="16" x2="28" y2="40" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><line x1="8" y1="28" x2="48" y2="28" stroke="currentColor" stroke-width="1.5" opacity="0.4"/><circle cx="18" cy="28" r="3" fill="currentColor"/><circle cx="38" cy="22" r="1.5" fill="currentColor" opacity="0.7"/><circle cx="38" cy="28" r="1.5" fill="currentColor" opacity="0.7"/><circle cx="38" cy="34" r="1.5" fill="currentColor" opacity="0.7"/></svg></div>
         <div class="logo-text">Build<span id="logoAccentEl">Hub</span></div>
       </div>
       <button class="icon-btn" onclick="openSearch()" title="Search">🔍</button>
@@ -280,15 +711,27 @@ header{flex-shrink:0;background:linear-gradient(180deg,var(--bg,rgba(8,8,16,0.98
 </div>
 
 <div id="detail">
-  <div class="dh">
+  <!-- Header -->
+  <div class="dh" id="dhHeader">
+    <div class="dh-atmo" id="dhAtmo"></div>
     <div class="dh-top">
       <button class="back-btn" onclick="closeDetail()">‹</button>
       <div class="dh-name" id="dhName"></div>
-      <a id="guideBtn" class="guide-btn" target="_blank" style="display:none"><span>📄</span>Full Guide</a>
+      <a id="guideBtn" class="guide-btn" target="_blank" style="display:none">📄 Guide</a>
     </div>
-    <div class="dh-sub" id="dhSub"></div>
-    <div class="dh-hero" id="dhHero"></div>
+    <div class="dh-hero-row">
+      <div class="build-icon-wrap" id="dhIconWrap"><div id="dhAnimIcon"></div></div>
+      <div class="dh-info">
+        <div class="dh-class" id="dhClass"></div>
+        <div class="dh-sub" id="dhSub"></div>
+        <div class="dh-badges" id="dhHero"></div>
+        <div class="stats-row" id="dhStats"></div>
+      </div>
+    </div>
   </div>
+  <!-- Tabs -->
+  <div class="detail-tabs" id="detailTabs"></div>
+  <!-- Content -->
   <div class="detail-scroll" id="detailScroll"></div>
 </div>
 
@@ -342,7 +785,7 @@ function note(cls,html){return `<div class="note-box ${cls}">${html}</div>`;}
 // ── DATA ──
 const BUILDS=[
 // ─── POE 2 ───
-{id:'poe-sc',game:'poe2',tier:'S',name:'Spiraling Conspiracy',icon:'💀',sub:'Witch · Infernalist · Minion',tags:['boss','map'],diff:'medium',accent:'#d4883a',guide:'guide_spiraling.html',
+{id:'poe-sc',game:'poe2',tier:'S',name:'Spiraling Conspiracy',icon:'💀',sub:'Witch · Infernalist · Minion',tags:['boss','map'],diff:'medium',accent:'#8030C0',guide:'guide_spiraling.html',
  stats:[{l:'DPS',v:100,c:'#ff6060'},{l:'Survival',v:75,c:'#60a0ff'},{l:'Speed',v:60,c:'#50c8b4'},{l:'Budget',v:55,c:'#ffd700'}],
  detail:`
   <div class="ds"><div class="ds-title" style="color:#50c850">✅ Patch 0.5.0 Buffs</div>
@@ -375,7 +818,7 @@ const BUILDS=[
     ${note('note-warn','<strong>Cast Speed:</strong> Always keep it low. Every 10ms matters for Spiraling Conspiracy DPS uptime.')}
     ${note('note-info','<strong>Boss Fights:</strong> Summon minions BEFORE the boss room. Never re-summon mid-fight – Hellion buffs will be lost!')}
   </div>`},
-{id:'poe-pb',game:'poe2',tier:'A',name:'Poisonburst Pathfinder',icon:'☠️',sub:'Ranger · Pathfinder · DOT/Poison',tags:['map','dmg'],diff:'hard',accent:'#d4883a',guide:'guide_poisonburst.html',
+{id:'poe-pb',game:'poe2',tier:'A',name:'Poisonburst Pathfinder',icon:'☠️',sub:'Ranger · Pathfinder · DOT/Poison',tags:['map','dmg'],diff:'hard',accent:'#60A030',guide:'guide_poisonburst.html',
  stats:[{l:'DPS',v:95,c:'#ff6060'},{l:'Survival',v:50,c:'#60a0ff'},{l:'Speed',v:100,c:'#50c8b4'},{l:'Budget',v:70,c:'#ffd700'}],
  detail:`
   <div class="ds"><div class="ds-title" style="color:var(--red)">⚠️ Patch 0.5.0 Nerfs</div>
@@ -407,7 +850,7 @@ const BUILDS=[
     ${note('note-info','<strong>Difficulty:</strong> Complex – Flask management and Withering timing are game-defining. Highest mechanical requirement of all builds.')}
   </div>`},
 
-{id:'poe-la',game:'poe2',tier:'S',name:'Lightning Arrow',icon:'⚡',sub:'Deadeye · Ranger · Patch 0.5.0 · League Starter',tags:['boss','map'],diff:'easy',accent:'#d4883a',guide:'guide_lightningarrow.html',
+{id:'poe-la',game:'poe2',tier:'S',name:'Lightning Arrow',icon:'⚡',sub:'Deadeye · Ranger · Patch 0.5.0 · League Starter',tags:['boss','map'],diff:'easy',accent:'#4A9AE0',guide:'guide_lightningarrow.html',
  stats:[{l:'DPS',v:88,c:'#ff6060'},{l:'Survival',v:75,c:'#60a0ff'},{l:'Speed',v:98,c:'#50c8b4'},{l:'Ease',v:90,c:'#ffd700'}],
  detail:`
   <div class="ds"><div class="ds-title">⚡ Core Mechanic</div>
@@ -445,7 +888,7 @@ const BUILDS=[
   </div>`},
 
 // ─── DIVISION 2 ───
-{id:'div-hb',game:'div2',tier:'S',name:'Heartbreaker',icon:'❤️',sub:'AR · Gear Set · DPS + Survival',tags:['boss','dmg','def'],diff:'medium',accent:'#3a8fff',guide:'guide_heartbreaker.html',
+{id:'div-hb',game:'div2',tier:'S',name:'Heartbreaker',icon:'❤️',sub:'AR · Gear Set · DPS + Survival',tags:['boss','dmg','def'],diff:'medium',accent:'#CC2020',guide:'guide_heartbreaker.html',
  stats:[{l:'DPS',v:95,c:'#ff6060'},{l:'Survival',v:90,c:'#60a0ff'},{l:'Mobility',v:55,c:'#50c8b4'},{l:'Group',v:80,c:'#ffd700'}],
  detail:`
   <div class="ds"><div class="ds-title">⚙️ Core Mechanic</div>
@@ -489,7 +932,7 @@ const BUILDS=[
     ${note('note-warn','<strong>⚠️ Exotic Rule:</strong> Only ONE Exotic armor piece allowed! Memento OR Coyote\'s Mask – never both.')}
     ${note('note-info','<strong>Best Content:</strong> Heroic & Legendary, The Summit, Countdown, Iron Horse Raid. Most versatile all-around PvE build in the current meta.')}
   </div>`},
-{id:'div-se',game:'div2',tier:'S',name:"St. Elmo's Engine",icon:'⚡',sub:"SMG · Shock-Build · Top-DPS",tags:['boss','dmg'],diff:'easy',accent:'#3a8fff',guide:'guide_stelmos.html',
+{id:'div-se',game:'div2',tier:'S',name:"St. Elmo's Engine",icon:'⚡',sub:"SMG · Shock-Build · Top-DPS",tags:['boss','dmg'],diff:'easy',accent:'#E8A820',guide:'guide_stelmos.html',
  stats:[{l:'DPS',v:100,c:'#ff6060'},{l:'Survival',v:55,c:'#60a0ff'},{l:'Mobility',v:75,c:'#50c8b4'},{l:'Group',v:95,c:'#ffd700'}],
  detail:`
   <div class="ds"><div class="ds-title">⚡ Exotic Weapon</div>
@@ -505,7 +948,7 @@ const BUILDS=[
     ${gC('👟','set','KNEEPADS','gb-set',"Striker Kneepads",'Set Piece 4','Kneepads','Set piece 4. Completes 4-piece Striker Gamble bonus. Crit Damage + Weapon Damage.','Crit Damage','Weapon Damage')}
   </div>
   </div>`},
-{id:'div-ch',game:'div2',tier:'A',name:'Chameleon',icon:'🦎',sub:'Exotic AR · Striker · Allrounder',tags:['map','dmg'],diff:'easy',accent:'#3a8fff',guide:'guide_chameleon.html',
+{id:'div-ch',game:'div2',tier:'A',name:'Chameleon',icon:'🦎',sub:'Exotic AR · Striker · Allrounder',tags:['map','dmg'],diff:'easy',accent:'#40C0A0',guide:'guide_chameleon.html',
  stats:[{l:'DPS',v:80,c:'#ff6060'},{l:'Survival',v:80,c:'#60a0ff'},{l:'Mobility',v:100,c:'#50c8b4'},{l:'Group',v:60,c:'#ffd700'}],
  detail:`
   <div class="ds"><div class="ds-title">🦎 Exotic Weapon</div>
@@ -529,7 +972,7 @@ const BUILDS=[
     ${note('note-tip','<strong>Best Solo Build:</strong> Chameleon adapts automatically. No swapping, no thinking. Perfect for relaxed farming.')}
     ${note('note-info','<strong>Specialization:</strong> Sharpshooter (Tactical Link: +20% Group WD) or Gunner (Minigun for stack buildup).')}
   </div>`},
-{id:'div-pe',game:'div2',tier:'A',name:'Pestilence',icon:'☣️',sub:'Lengmo · LMG Weapon Damage · Y8S1',tags:['boss','dmg'],diff:'medium',accent:'#3a8fff',guide:'guide_pestilence.html',
+{id:'div-pe',game:'div2',tier:'A',name:'Pestilence',icon:'☣️',sub:'Lengmo · LMG Weapon Damage · Y8S1',tags:['boss','dmg'],diff:'medium',accent:'#60A030',guide:'guide_pestilence.html',
  stats:[{l:'DPS',v:80,c:'#ff6060'},{l:'Survival',v:95,c:'#60a0ff'},{l:'Mobility',v:40,c:'#50c8b4'},{l:'Group',v:100,c:'#ffd700'}],
  detail:`
   <div class="ds"><div class="ds-title">☣️ Core Mechanic</div>
@@ -555,7 +998,7 @@ const BUILDS=[
     ${note('note-info','<strong>Grenade Entry:</strong> Always grenade on room entry. Kill = 2 Backbone stacks instantly. Start every fight at near-max WD.')}
     ${note('note-warn','<strong>Best Content:</strong> Control Points (Heroic), Summit, Countdown, Heroic + Legendary Missions. More enemies = more simultaneous DoT chains.')}
   </div>`},
-{id:'div-bs',game:'div2',tier:'A',name:'Bluescreen',icon:'💻',sub:'Exotic LMG · Tipping Scales · Y8S1',tags:['boss','dmg'],diff:'medium',accent:'#3a8fff',guide:'guide_bluescreen.html',
+{id:'div-bs',game:'div2',tier:'A',name:'Bluescreen',icon:'💻',sub:'Exotic LMG · Tipping Scales · Y8S1',tags:['boss','dmg'],diff:'medium',accent:'#4A9AE0',guide:'guide_bluescreen.html',
  stats:[{l:'DPS',v:90,c:'#ff6060'},{l:'Survival',v:75,c:'#60a0ff'},{l:'Mobility',v:50,c:'#50c8b4'},{l:'Group',v:85,c:'#ffd700'}],
  detail:`
   <div class="ds"><div class="ds-title">💻 Exotic Weapon</div>
@@ -752,21 +1195,43 @@ function setAccent(game){
   document.getElementById('logoIcon').textContent=g.icon;
 }
 
+
+const GAME_SVGS={
+  poe2:'<svg viewBox="0 0 56 56" fill="none"><g transform="translate(28,28)"><circle cx="0" cy="0" r="24" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.5"/><g transform="rotate(0)"><rect x="-2" y="-24" width="4" height="10" rx="1" fill="currentColor"/><rect x="-1" y="-23" width="3" height="9" rx="1" fill="currentColor" opacity="0.3"/></g><g transform="rotate(60)"><rect x="-2" y="-24" width="4" height="10" rx="1" fill="currentColor" opacity="0.75"/></g><g transform="rotate(120)"><rect x="-2" y="-24" width="4" height="10" rx="1" fill="currentColor" opacity="0.5"/></g><g transform="rotate(180)"><rect x="-2" y="-24" width="4" height="10" rx="1" fill="currentColor" opacity="0.5"/></g><g transform="rotate(240)"><rect x="-2" y="-24" width="4" height="10" rx="1" fill="currentColor" opacity="0.75"/></g><g transform="rotate(300)"><rect x="-2" y="-24" width="4" height="10" rx="1" fill="currentColor"/></g><polygon points="0,-14 12,-7 12,7 0,14 -12,7 -12,-7" fill="none" stroke="currentColor" stroke-width="1.8"/><polygon points="0,-8 7,-4 7,4 0,8 -7,4 -7,-4" fill="currentColor" opacity="0.25"/><circle cx="0" cy="0" r="3.5" fill="currentColor"/></g></svg>',
+  div2:'<svg viewBox="0 0 56 56" fill="none"><polygon points="28,4 52,17 52,39 28,52 4,39 4,17" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="1.8"/><polygon points="28,12 46,22 46,34 28,44 10,34 10,22" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.35"/><circle cx="28" cy="28" r="11" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.5"/><line x1="28" y1="5" x2="28" y2="17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="28" y1="39" x2="28" y2="51" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/><line x1="5" y1="28" x2="17" y2="28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="39" y1="28" x2="51" y2="28" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/><line x1="4" y1="17" x2="10" y2="21" stroke="currentColor" stroke-width="1.5" opacity="0.6"/><line x1="52" y1="17" x2="46" y2="21" stroke="currentColor" stroke-width="1.5" opacity="0.6"/><line x1="4" y1="39" x2="10" y2="35" stroke="currentColor" stroke-width="1.2" opacity="0.4"/><line x1="52" y1="39" x2="46" y2="35" stroke="currentColor" stroke-width="1.2" opacity="0.4"/><circle cx="28" cy="28" r="3.5" fill="currentColor"/></svg>',
+  d4:'<svg viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="25" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="1"/><polygon points="28,6 32.9,21.3 49,21.3 36.1,30.5 41,45.7 28,36.5 15,45.7 19.9,30.5 7,21.3 23.1,21.3" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="miter"/><polygon points="29,7 33.9,22.3 50,22.3 37.1,31.5 42,46.7 29,37.5 16,46.7 20.9,31.5 8,22.3 24.1,22.3" stroke="currentColor" stroke-width="1.5" opacity="0.35" fill="none"/><circle cx="28" cy="28" r="4.5" fill="currentColor"/></svg>',
+  swtor:'<svg viewBox="0 0 56 56" fill="none"><rect x="26.5" y="4" width="4" height="38" rx="2" fill="currentColor" opacity="0.92"/><rect x="27" y="5" width="3" height="36" rx="1.5" fill="currentColor" opacity="0.3"/><ellipse cx="28.5" cy="4" rx="2.5" ry="1.5" fill="white" opacity="0.7"/><path d="M21 42 L24 40 L24 38 L32 38 L32 40 L35 42 L32 43 L24 43 Z" fill="currentColor" opacity="0.9"/><path d="M21 42 L24 40 L24 38 L32 38 L32 40 L35 42 L32 43 L24 43 Z" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.5"/><rect x="24" y="43" width="9" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><line x1="24" y1="47" x2="33" y2="47" stroke="currentColor" stroke-width="1" opacity="0.5"/><line x1="24" y1="50" x2="33" y2="50" stroke="currentColor" stroke-width="0.8" opacity="0.35"/><line x1="24" y1="45" x2="20" y2="45" stroke="currentColor" stroke-width="2"/><line x1="33" y1="45" x2="37" y2="45" stroke="currentColor" stroke-width="2"/><line x1="24" y1="52" x2="21" y2="52" stroke="currentColor" stroke-width="1.2" opacity="0.5"/><line x1="33" y1="52" x2="36" y2="52" stroke="currentColor" stroke-width="1.2" opacity="0.5"/><rect x="26" y="54" width="6" height="3" rx="1.5" fill="currentColor" opacity="0.5"/><circle cx="28.5" cy="46" r="2" fill="currentColor" opacity="0.5"/></svg>',
+  d2r:'<svg viewBox="0 0 56 56" fill="none"><path d="M28 4 L32 19 L48 15 L37 26 L44 40 L28 31 L12 40 L19 26 L8 15 L24 19 Z" fill="currentColor" fill-opacity="0.07" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M29 5 L33 20 L49 16 L38 27 L45 41 L29 32 L13 41 L20 27 L9 16 L25 20 Z" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4" stroke-linejoin="round"/><circle cx="29" cy="27" r="8" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><circle cx="28" cy="26" r="8" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="28" cy="26" r="4" fill="currentColor" opacity="0.8"/><circle cx="28" cy="25" r="2.5" fill="currentColor" opacity="0.4"/></svg>'
+};
+
+const BUILD_SVGS={
+  'poe-sc':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bsc1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C060FF"/><stop offset="100%" stop-color="#FF4020"/></linearGradient><linearGradient id="bsc2" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF4020"/><stop offset="100%" stop-color="#C060FF"/></linearGradient></defs><path d="M28 5 C40 5 51 14 51 28 C51 42 40 51 28 51" fill="none" stroke="url(#bsc1)" stroke-width="2.2" stroke-linecap="round"/><path d="M29 6 C41 6 52 15 52 29 C52 43 41 52 29 52" fill="none" stroke="#300860" stroke-width="1.8" stroke-linecap="round" opacity="0.35"/><path d="M28 51 C16 51 5 42 5 28 C5 14 16 5 28 5" fill="none" stroke="url(#bsc2)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/><path d="M28 11 C37 11 45 18 45 28 C45 38 37 45 28 45" fill="none" stroke="#C060FF" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/><path d="M28 45 C19 45 11 38 11 28 C11 18 19 11 28 11" fill="none" stroke="#FF4020" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/><path d="M28 17 C34 17 39 22 39 28 C39 34 34 39 28 39" fill="none" stroke="#A040FF" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/><path d="M28 39 C22 39 17 34 17 28 C17 22 22 17 28 17" fill="none" stroke="#FF6030" stroke-width="1" stroke-linecap="round" opacity="0.4"/><circle cx="29" cy="29" r="5.5" fill="#280650" opacity="0.85"/><circle cx="28" cy="28" r="5.5" fill="#6020A0"/><circle cx="28" cy="27" r="3.5" fill="#FF4020" opacity="0.2"/><circle cx="28" cy="27" r="2" fill="#C060FF" opacity="0.4"/><line x1="51" y1="28" x2="54" y2="22" stroke="#FF4020" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/><line x1="54" y1="22" x2="51" y2="18" stroke="#FF6040" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/><line x1="5" y1="28" x2="2" y2="34" stroke="#C060FF" stroke-width="1" stroke-linecap="round" opacity="0.5"/><line x1="2" y1="34" x2="4" y2="38" stroke="#A040FF" stroke-width="0.8" stroke-linecap="round" opacity="0.3"/></svg>',
+  'poe-pb':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bpb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#90E040"/><stop offset="100%" stop-color="#1A3008"/></linearGradient></defs><ellipse cx="28" cy="28" rx="22" ry="22" fill="#1A3008" opacity="0.15"/><path d="M12 28 C12 14 20 7 28 7 C36 7 44 14 44 28 C44 35 41 38 38 40 L18 40 C15 38 12 35 12 28Z" fill="none" stroke="url(#bpb1)" stroke-width="2.2"/><path d="M13 29 C13 15 21 8 29 8 C37 8 45 15 45 29 C45 36 42 39 39 41 L19 41 C16 39 13 36 13 29Z" fill="none" stroke="#1A3008" stroke-width="1.8" opacity="0.5"/><polygon points="17,22 22,30 12,30" fill="none" stroke="#90E040" stroke-width="1.8" stroke-linejoin="round"/><polygon points="17,22 22,30 12,30" fill="#60B020" opacity="0.2"/><polygon points="39,22 44,30 34,30" fill="none" stroke="#70C030" stroke-width="1.8" stroke-linejoin="round"/><polygon points="39,22 44,30 34,30" fill="#60B020" opacity="0.2"/><path d="M26 33 L28 35 L30 33" fill="none" stroke="#60A020" stroke-width="1.5" stroke-linecap="round"/><path d="M18 40 L18 44 L21 40 L24 46 L27 40 L30 46 L33 40 L36 44 L38 40" fill="none" stroke="url(#bpb1)" stroke-width="1.8" stroke-linejoin="round"/><path d="M19 41 L19 45 L22 41 L25 47 L28 41 L31 47 L34 41 L37 45 L39 41" fill="none" stroke="#1A3008" stroke-width="1.5" opacity="0.4" stroke-linejoin="round"/><path d="M28 9 L26 18 L29 22" fill="none" stroke="#90E040" stroke-width="1" opacity="0.5" stroke-linecap="round"/><path d="M38 14 L34 22" fill="none" stroke="#60A020" stroke-width="0.8" opacity="0.4" stroke-linecap="round"/></svg>',
+  'poe-la':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bla1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#90D0FF"/><stop offset="100%" stop-color="#082060"/></linearGradient></defs><line x1="28" y1="3" x2="26" y2="8" stroke="#4A9AE0" stroke-width="1" opacity="0.7"/><line x1="26" y1="8" x2="30" y2="10" stroke="#4A9AE0" stroke-width="1" opacity="0.5"/><line x1="44" y1="10" x2="42" y2="15" stroke="#6AB4FF" stroke-width="1" opacity="0.6"/><line x1="42" y1="15" x2="46" y2="17" stroke="#4A9AE0" stroke-width="1" opacity="0.4"/><line x1="50" y1="26" x2="46" y2="28" stroke="#4A9AE0" stroke-width="1" opacity="0.6"/><line x1="46" y1="28" x2="49" y2="31" stroke="#6AB4FF" stroke-width="1" opacity="0.4"/><line x1="12" y1="10" x2="14" y2="15" stroke="#6AB4FF" stroke-width="1" opacity="0.5"/><line x1="6" y1="28" x2="10" y2="26" stroke="#4A9AE0" stroke-width="1" opacity="0.6"/><line x1="10" y1="26" x2="8" y2="30" stroke="#6AB4FF" stroke-width="1" opacity="0.4"/><line x1="12" y1="44" x2="15" y2="40" stroke="#4A9AE0" stroke-width="1" opacity="0.5"/><path d="M36 4 L18 30 L30 30 L20 52 L42 26 L28 26 Z" fill="none" stroke="url(#bla1)" stroke-width="2.5" stroke-linejoin="round"/><path d="M37 5 L19 31 L31 31 L21 53 L43 27 L29 27 Z" fill="none" stroke="#041030" stroke-width="2" opacity="0.5" stroke-linejoin="round"/><path d="M36 4 L18 30 L30 30 L20 52 L42 26 L28 26 Z" fill="#4A9AE0" opacity="0.09"/><path d="M34 9 L22 28 L31 28 L23 46 L38 28 L29 28 Z" fill="#4A9AE0" opacity="0.1"/></svg>',
+  'div-hb':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bhb1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF8080"/><stop offset="100%" stop-color="#600020"/></linearGradient></defs><path d="M28 46 C28 46 8 34 8 20 C8 12 14 8 20 8 C24 8 27 10 28 12 C29 10 32 8 36 8 C42 8 48 12 48 20 C48 34 28 46 28 46Z" fill="none" stroke="url(#bhb1)" stroke-width="2.2"/><path d="M29 47 C29 47 9 35 9 21 C9 13 15 9 21 9 C25 9 28 11 29 13 C30 11 33 9 37 9 C43 9 49 13 49 21 C49 35 29 47 29 47Z" fill="none" stroke="#400010" stroke-width="1.8" opacity="0.4"/><path d="M28 46 C28 46 8 34 8 20 C8 12 14 8 20 8 C24 8 27 10 28 12 C29 10 32 8 36 8 C42 8 48 12 48 20 C48 34 28 46 28 46Z" fill="#CC2020" opacity="0.08"/><path d="M28 12 L24 22 L30 22 L25 34" fill="none" stroke="#FF8080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M29 13 L25 23 L31 23 L26 35" fill="none" stroke="#400010" stroke-width="1.5" opacity="0.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  'div-se':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bse1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE060"/><stop offset="100%" stop-color="#603000"/></linearGradient></defs><line x1="28" y1="3" x2="30" y2="7" stroke="#FFD040" stroke-width="1" opacity="0.7"/><line x1="30" y1="7" x2="27" y2="9" stroke="#E8A820" stroke-width="1" opacity="0.5"/><line x1="46" y1="8" x2="44" y2="13" stroke="#FFD040" stroke-width="1" opacity="0.6"/><line x1="44" y1="13" x2="48" y2="15" stroke="#E8A820" stroke-width="1" opacity="0.4"/><line x1="52" y1="24" x2="48" y2="27" stroke="#FFD040" stroke-width="1" opacity="0.6"/><line x1="48" y1="27" x2="51" y2="30" stroke="#E8A820" stroke-width="1" opacity="0.4"/><line x1="10" y1="8" x2="12" y2="13" stroke="#E8A820" stroke-width="1" opacity="0.5"/><line x1="12" y1="13" x2="8" y2="15" stroke="#FFD040" stroke-width="1" opacity="0.3"/><line x1="4" y1="26" x2="8" y2="24" stroke="#FFD040" stroke-width="1" opacity="0.6"/><line x1="8" y1="24" x2="6" y2="28" stroke="#E8A820" stroke-width="1" opacity="0.4"/><line x1="10" y1="46" x2="13" y2="42" stroke="#E8A820" stroke-width="1" opacity="0.5"/><path d="M37 4 L17 30 L31 30 L19 52 L43 26 L27 26 Z" fill="none" stroke="url(#bse1)" stroke-width="2.5" stroke-linejoin="round"/><path d="M38 5 L18 31 L32 31 L20 53 L44 27 L28 27 Z" fill="none" stroke="#301000" stroke-width="2" opacity="0.5" stroke-linejoin="round"/><path d="M37 4 L17 30 L31 30 L19 52 L43 26 L27 26 Z" fill="#E8A820" opacity="0.09"/></svg>',
+  'div-ch':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bch1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF4040"/><stop offset="25%" stop-color="#FFD040"/><stop offset="50%" stop-color="#40D040"/><stop offset="75%" stop-color="#40C0FF"/><stop offset="100%" stop-color="#8040FF"/></linearGradient><linearGradient id="bch2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/><stop offset="100%" stop-color="#000000" stop-opacity="0.25"/></linearGradient></defs><rect x="8" y="14" width="40" height="26" rx="3" fill="none" stroke="url(#bch1)" stroke-width="2.2"/><rect x="9" y="15" width="38" height="24" rx="2" fill="none" stroke="url(#bch2)" stroke-width="1"/><rect x="9" y="15" width="38" height="24" rx="2" fill="url(#bch1)" opacity="0.06"/><rect x="11" y="17" width="7" height="18" rx="1" fill="#FF4040" opacity="0.25"/><rect x="20" y="17" width="7" height="18" rx="1" fill="#FFD040" opacity="0.25"/><rect x="29" y="17" width="7" height="18" rx="1" fill="#40D040" opacity="0.25"/><rect x="38" y="17" width="5" height="18" rx="1" fill="#40C0FF" opacity="0.25"/><rect x="43" y="17" width="4" height="18" rx="1" fill="#8040FF" opacity="0.25"/><rect x="4" y="22" width="5" height="10" rx="2" fill="none" stroke="url(#bch1)" stroke-width="1.5"/><rect x="47" y="22" width="5" height="10" rx="2" fill="none" stroke="url(#bch1)" stroke-width="1.5"/><rect x="23" y="40" width="10" height="4" rx="1" fill="url(#bch1)" opacity="0.5"/><rect x="20" y="44" width="16" height="2.5" rx="1" fill="url(#bch1)" opacity="0.4"/><line x1="12" y1="16" x2="22" y2="16" stroke="white" stroke-width="0.8" opacity="0.25"/></svg>',
+  'div-pe':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bpe1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#80FF40"/><stop offset="100%" stop-color="#204010"/></linearGradient></defs><circle cx="29" cy="29" r="22" fill="none" stroke="#102008" stroke-width="1.5" opacity="0.5"/><circle cx="28" cy="28" r="22" fill="none" stroke="#60A030" stroke-width="1"/><path d="M14 28 Q18 18 28 16 Q38 14 42 22 Q46 30 40 36 Q34 44 28 44 Q20 44 16 38 Q12 32 14 28Z" fill="none" stroke="url(#bpe1)" stroke-width="2"/><path d="M15 29 Q19 19 29 17 Q39 15 43 23 Q47 31 41 37 Q35 45 29 45 Q21 45 17 39 Q13 33 15 29Z" fill="none" stroke="#102008" stroke-width="1.5" opacity="0.4"/><path d="M14 28 Q18 18 28 16 Q38 14 42 22 Q46 30 40 36 Q34 44 28 44 Q20 44 16 38 Q12 32 14 28Z" fill="#40A020" opacity="0.07"/><circle cx="29" cy="22" r="3" fill="#80FF40" opacity="0.6"/><circle cx="28" cy="21" r="2" fill="#E0FFB0" opacity="0.4"/></svg>',
+  'div-bs':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bbs1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#80C0FF"/><stop offset="100%" stop-color="#082040"/></linearGradient></defs><rect x="8" y="20" width="40" height="16" rx="3" fill="none" stroke="url(#bbs1)" stroke-width="2"/><rect x="9" y="21" width="38" height="14" rx="2" fill="none" stroke="#082040" stroke-width="1.5" opacity="0.4"/><rect x="8" y="20" width="40" height="16" rx="3" fill="#4A9AE0" opacity="0.05"/><circle cx="20" cy="28" r="5" fill="none" stroke="#80C0FF" stroke-width="1.5"/><circle cx="20" cy="28" r="2.5" fill="#4A9AE0" opacity="0.8"/><line x1="28" y1="24" x2="28" y2="32" stroke="#80C0FF" stroke-width="1.5" opacity="0.6"/><line x1="32" y1="28" x2="40" y2="28" stroke="#80C0FF" stroke-width="1.5" opacity="0.4"/><circle cx="36" cy="24" r="1.5" fill="#80C0FF" opacity="0.6"/><circle cx="36" cy="32" r="1.5" fill="#80C0FF" opacity="0.6"/><rect x="6" y="26" width="4" height="4" rx="1" fill="#80C0FF" opacity="0.5"/><rect x="46" y="26" width="4" height="4" rx="1" fill="#082040" opacity="0.6"/></svg>',
+  'd4-necro':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bdn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C060FF"/><stop offset="100%" stop-color="#300860"/></linearGradient></defs><path d="M28 6 L32 19 L46 19 L35 27 L39 40 L28 32 L17 40 L21 27 L10 19 L24 19 Z" fill="none" stroke="url(#bdn1)" stroke-width="2" stroke-linejoin="round"/><path d="M29 7 L33 20 L47 20 L36 28 L40 41 L29 33 L18 41 L22 28 L11 20 L25 20 Z" fill="none" stroke="#200840" stroke-width="1.5" opacity="0.4" stroke-linejoin="round"/><path d="M28 6 L32 19 L46 19 L35 27 L39 40 L28 32 L17 40 L21 27 L10 19 L24 19 Z" fill="#8030C0" opacity="0.08"/><line x1="28" y1="40" x2="28" y2="50" stroke="url(#bdn1)" stroke-width="2.5"/><line x1="22" y1="47" x2="34" y2="47" stroke="#C060FF" stroke-width="1.5"/><circle cx="29" cy="27" r="5" fill="#200840" opacity="0.8"/><circle cx="28" cy="26" r="5" fill="#8030C0"/><circle cx="28" cy="25" r="3" fill="#C060FF" opacity="0.3"/></svg>',
+  'sw-mando':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bsm1" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0%" stop-color="#90D0FF"/><stop offset="100%" stop-color="#082040"/></linearGradient></defs><rect x="22" y="7" width="12" height="5" rx="2.5" fill="none" stroke="url(#bsm1)" stroke-width="1.5"/><ellipse cx="28" cy="10" rx="3" ry="2" fill="none" stroke="#90D0FF" stroke-width="1"/><path d="M20 11 Q16 16 17 24 Q18 30 22 32 Q25 34 28 34 Q31 34 34 32 Q38 30 39 24 Q40 16 36 11 L20 11Z" fill="none" stroke="url(#bsm1)" stroke-width="2"/><path d="M21 12 Q17 17 18 25 Q19 31 23 33 Q26 35 29 35 Q32 35 35 33 Q39 31 40 25 Q41 17 37 12 L21 12Z" fill="none" stroke="#082040" stroke-width="1.5" opacity="0.4"/><path d="M20 11 Q16 16 17 24 Q18 30 22 32 Q25 34 28 34 Q31 34 34 32 Q38 30 39 24 Q40 16 36 11 L20 11Z" fill="#4A9AE0" opacity="0.06"/><rect x="17" y="20" width="5" height="3" rx="1" fill="#90D0FF" opacity="0.7"/><rect x="34" y="20" width="5" height="3" rx="1" fill="#4A9AE0" opacity="0.5"/><line x1="22" y1="26" x2="22" y2="30" stroke="#90D0FF" stroke-width="1" opacity="0.6"/><line x1="34" y1="26" x2="34" y2="30" stroke="#4A9AE0" stroke-width="1" opacity="0.5"/><line x1="28" y1="34" x2="28" y2="50" stroke="url(#bsm1)" stroke-width="2"/><line x1="22" y1="44" x2="34" y2="44" stroke="#90D0FF" stroke-width="1.5"/></svg>',
+  'd2r-summon':'<svg viewBox="0 0 56 56" fill="none"><defs><linearGradient id="bds1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C0E070"/><stop offset="100%" stop-color="#203008"/></linearGradient></defs><rect x="14" y="6" width="28" height="34" rx="3" fill="none" stroke="url(#bds1)" stroke-width="2"/><rect x="15" y="7" width="26" height="32" rx="2.5" fill="none" stroke="#203008" stroke-width="1.5" opacity="0.4"/><rect x="14" y="6" width="28" height="10" rx="3" fill="#80A040" opacity="0.1"/><line x1="19" y1="16" x2="37" y2="16" stroke="#C0E070" stroke-width="1.5" opacity="0.8"/><line x1="19" y1="22" x2="37" y2="22" stroke="#80A040" stroke-width="0.8" opacity="0.4"/><line x1="19" y1="27" x2="32" y2="27" stroke="#80A040" stroke-width="0.8" opacity="0.3"/><path d="M21 32 C21 27 25 25 28 27 C31 25 35 27 35 32" fill="none" stroke="url(#bds1)" stroke-width="2"/><path d="M22 33 C22 28 26 26 29 28 C32 26 36 28 36 33" fill="none" stroke="#203008" stroke-width="1.5" opacity="0.4"/><circle cx="29" cy="37" r="3" fill="#203008" opacity="0.8"/><circle cx="28" cy="36" r="3" fill="#C0E070" opacity="0.9"/><line x1="28" y1="40" x2="28" y2="50" stroke="url(#bds1)" stroke-width="2.5"/><line x1="22" y1="47" x2="34" y2="47" stroke="#C0E070" stroke-width="1.5"/><line x1="14" y1="14" x2="10" y2="10" stroke="#C0E070" stroke-width="1.2" opacity="0.5"/><line x1="42" y1="14" x2="46" y2="10" stroke="#C0E070" stroke-width="1.2" opacity="0.5"/></svg>'
+};
+
+
 function renderGameTabs(){
   const counts={}; GAMES.forEach(g=>{counts[g.id]=BUILDS.filter(b=>b.game===g.id).length;});
   document.getElementById('gameTabs').innerHTML=GAMES.map(g=>`
     <button class="gtab ${g.ac}${activeGame===g.id?' on':''}" onclick="setGame('${g.id}')">
-      <div class="gtab-icon">${g.icon}</div>
+      <div class="gtab-icon" style="color:${activeGame===g.id?'currentColor':'var(--muted)'}">${GAME_SVGS[g.id]||g.icon}</div>
       <div class="gtab-label">${g.label}</div>
       <div class="gtab-count">${counts[g.id]} builds</div>
     </button>`).join('');
-  // Scroll active tab into view
   setTimeout(()=>{
     const el=document.querySelector('.gtab.on');
     if(el) el.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
   },50);
 }
-
 function getFilters(){
   const base=[{id:'all',l:'All'},{id:'S',l:'S-Tier'},{id:'A',l:'A-Tier'}];
   const poe=[{id:'boss',l:'Bossing'},{id:'map',l:'Mapping'},{id:'easy',l:'Easy'},{id:'hard',l:'Complex'}];
@@ -791,62 +1256,65 @@ function matches(b){
 function buildCard(b){
   const allTags=[tierBadge(b.tier),diffBadge(b.diff),...b.tags.map(tagBadge)].join('');
   const bars=b.stats.map(s=>`
-    <div class="mini-stat">
-      <div class="mini-lbl">${s.l}</div>
-      <div class="mini-bar"><div class="mini-fill" style="width:${s.v}%;background:${s.c}"></div></div>
-      <div class="mini-val" style="color:${s.c}">${Math.round(s.v/20)}★</div>
+    <div class="vcs">
+      <div class="vcs-bar"><div class="vcs-fill" style="width:${s.v}%;background:${s.c}"></div></div>
+      <div class="vcs-l">${s.l}</div>
+      <div class="vcs-v" style="color:${s.c}">${Math.round(s.v/20)}★</div>
     </div>`).join('');
 
   const ac=b.accent;
+  const buildIcon=BUILD_SVGS[b.id]||GAME_SVGS[b.game]||'';
+  const gameIcon=GAME_SVGS[b.game]||'';
 
-  // Game-specific decorative elements
-  const deco={
-    div2:`<div class="bc-hud-corner" style="color:${ac}">SHD▸${b.tier}</div>
-          <div class="bc-scanlines" style="background:repeating-linear-gradient(0deg,transparent,transparent 3px,${ac}08 3px,${ac}08 4px)"></div>`,
-    poe2:`<div class="bc-rune-deco" style="color:${ac}">✦</div>`,
-    d4:`<div class="bc-skull-deco" style="color:${ac}">☠</div>
-        <div class="bc-hellglow" style="background:radial-gradient(ellipse at 85% 50%,${ac}18 0%,transparent 60%)"></div>`,
-    swtor:`<div class="bc-stars"><span style="top:15%;left:20%"></span><span style="top:60%;left:70%"></span><span style="top:35%;left:85%"></span><span style="top:75%;left:40%"></span></div>
-           <div class="bc-holo-bar" style="border-color:${ac}40;background:${ac}10"></div>`,
-    d2r:`<div class="bc-rune-row" style="border-color:${ac}30;color:${ac}">⊕</div>`
+  const bgDeco={
+    div2:`<div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,${ac}05 3px,${ac}05 4px)"></div>`,
+    poe2:`<div style="position:absolute;right:-8px;top:-5px;width:100px;height:100px;opacity:0.06;color:${ac}">${gameIcon}</div>`,
+    d4:`<div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,${ac}14 0%,transparent 60%)"></div><div style="position:absolute;right:-8px;top:-5px;width:100px;height:100px;opacity:0.06;color:${ac}">${gameIcon}</div>`,
+    swtor:`<div style="position:absolute;inset:0;overflow:hidden"><span style="position:absolute;width:1.5px;height:1.5px;background:rgba(255,255,255,0.6);border-radius:50%;top:20%;left:15%"></span><span style="position:absolute;width:1px;height:1px;background:rgba(255,255,255,0.5);border-radius:50%;top:60%;left:78%"></span><span style="position:absolute;width:1px;height:1px;background:rgba(255,255,255,0.4);border-radius:50%;top:35%;left:88%"></span><span style="position:absolute;width:2px;height:2px;background:${ac}80;border-radius:50%;top:70%;left:40%"></span></div>`,
+    d2r:`<div style="position:absolute;right:-8px;top:-5px;width:100px;height:100px;opacity:0.06;color:${ac}">${gameIcon}</div>`
   }[b.game]||'';
 
-  // Game-specific card class
-  const gameClass=`bcard-${b.game}`;
-
-  // Game-specific name styling
-  const nameStyle={
-    poe2:`font-family:Georgia,serif;color:${ac}`,
-    d2r:`font-family:Georgia,serif;color:${ac}`
-  }[b.game]||`color:#fff`;
-
-  // Game-specific sub label
   const gameLabel={
-    div2:`<div class="bc-game-label" style="color:${ac}88">▶ ACTIVE BUILD</div>`,
-    poe2:`<div class="bc-game-label" style="color:${ac}88;font-style:italic">~ ${b.sub.split('·')[0].trim()} ~</div>`,
-    d4:`<div class="bc-game-label" style="color:${ac}88">⸸ ${b.sub.split('·').pop().trim()}</div>`,
-    swtor:`<div class="bc-game-label" style="color:${ac}88">⬡ ${b.sub.split('·')[0].trim()}</div>`,
-    d2r:`<div class="bc-game-label" style="color:${ac}88;font-family:Georgia,serif">☽ ${b.sub.split('·').pop().trim()}</div>`
+    div2:`<div class="vc-game" style="color:${ac}88">▶ THE DIVISION 2</div>`,
+    poe2:`<div class="vc-game" style="color:${ac}88;font-style:italic">~ PATH OF EXILE 2</div>`,
+    d4:`<div class="vc-game" style="color:${ac}88">⸸ DIABLO 4</div>`,
+    swtor:`<div class="vc-game" style="color:${ac}88">⬡ STAR WARS: TOR</div>`,
+    d2r:`<div class="vc-game" style="color:${ac}88;font-family:Georgia,serif">☽ DIABLO 2: RESURRECTED</div>`
   }[b.game]||'';
 
-  return `<div class="bcard ${gameClass}" onclick="openDetail('${b.id}')" style="border-color:${ac}20">
-    <div class="bcard-accent" style="background:linear-gradient(180deg,${ac},${ac}60)"></div>
-    ${deco}
-    <div class="bcard-inner">
-      ${gameLabel}
-      <div class="bcard-top">
-        <div class="bcard-emblem" style="background:${ac}15;border-color:${ac}40">${b.icon}</div>
-        <div class="bcard-info">
-          <div class="bcard-name" style="${nameStyle}">${b.name}</div>
-          <div class="bcard-sub">${b.sub}</div>
-          <div class="bcard-tags">${allTags}</div>
-        </div>
-        <div class="bcard-arrow" style="color:${ac}">›</div>
-      </div>
-      <div class="bcard-stats">${bars}</div>
-    </div></div>`;
-}
+  const nameFont=(b.game==='poe2'||b.game==='d2r')?'font-family:Georgia,serif':'font-family:Rajdhani,sans-serif';
+  const nameColor=b.game==='poe2'?ac:b.game==='d2r'?ac:'#fff';
 
+  return `<div class="bcard bcard-${b.game}" onclick="openDetail('${b.id}')" style="border-color:${ac}20">
+    <div class="bcard-accent" style="background:linear-gradient(180deg,${ac},${ac}40)"></div>
+
+    <!-- Banner top -->
+    <div class="bc-top" style="background:linear-gradient(135deg,${ac}18 0%,transparent 60%)">
+      ${bgDeco}
+      <div class="bc-tier-badge" style="background:${b.tier==='S'?'rgba(255,215,0,0.1)':'rgba(74,158,255,0.1)'};border-color:${b.tier==='S'?'rgba(255,215,0,0.3)':'rgba(74,158,255,0.3)'};color:${b.tier==='S'?'#FFD700':'#4a9eff'}">${b.tier}-TIER</div>
+      <div class="bc-top-inner">
+        <div class="bc-icon-wrap" style="background:${ac}14;border-color:${ac}35;color:${ac}">${buildIcon}</div>
+        <div class="bc-title-area">
+          ${gameLabel}
+          <div class="bc-name" style="${nameFont};color:${nameColor}">${b.name}</div>
+          <div class="bc-sub">${b.sub}</div>
+        </div>
+        <div class="bc-tier-big" style="color:${ac}">${b.tier}</div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div style="height:1px;background:linear-gradient(90deg,transparent,${ac}40,transparent)"></div>
+
+    <!-- Bottom: tags + stats -->
+    <div class="bc-bottom">
+      <div class="bc-row">
+        <div class="bc-tags">${allTags}</div>
+        <div class="bc-stats">${bars}</div>
+      </div>
+    </div>
+  </div>`;
+}
 function renderList(builds){
   const el=document.getElementById('listScroll');
   if(!builds.length){el.innerHTML=`<div class="empty"><div class="empty-ico">🔍</div>No builds found</div>`;return;}
@@ -856,6 +1324,20 @@ function renderList(builds){
   if(a.length) h+=`<div class="tier-label"><span class="tl-badge tl-a">A</span></div>`+a.map(buildCard).join('');
   el.innerHTML=h;
 }
+
+const DS_DATA={
+  'poe-sc':{"warn": "Lvl 18 Required: Spiraling Conspiracy only works with The Raven's Flock staff equipped.", "mechanic": "Spiraling Conspiracy summons a permanent raven flock dealing Chaos DoT to everything in range. Mad Flight bursts all ravens for massive corridor damage on bosses. The Raven's Flock grants +111% Minion Damage and 34% Spirit Reservation Efficiency.", "strengths": ["Passive mapping — ravens damage automatically", "No complex rotation required", "Gruelling Madness slows enemies", "Budget-friendly to start", "Most beginner-friendly minion build"], "weaknesses": ["The Raven's Flock required (no alt)", "Only available from Level 18", "Low base raven stats", "Weaker vs fast single bosses"], "ascendancy": [["① Act 2", "Hellhound", "Additional minion + damage absorber. Scales with Minion Damage."], ["② Act 2", "Pyromantic Pact", "Replaces Mana with Infernal Flame. No mana issues."], ["③ Act 4", "Bringer of Flame", "All Minion attacks can Ignite — extra DoT stack."], ["④ Trial of Chaos", "Demon Form", "Massive damage at low Infernal Flame. Essential endgame."]], "skills": [["Spiraling Conspiracy", "Persistent raven flock · Chaos DoT · From The Raven's Flock (Lvl 18)", "#8030C0", "CORE", ["Minion Resistances", "Slow Potency", "Unleashed Potential"]], ["Mad Flight", "Burst command · All ravens corridor burst on boss", "#FF4020", "BURST", ["Unleashed Potential"]], ["Pain Offering", "Sacrifice minion → +Minion Damage · Before Mad Flight", "#A040FF", "BUFF", ["Font of Rage", "Persistence"]], ["Raise Spectre", "Best: Powered Zealot or Vaal Guard", "#FF8C00", "MINION", ["Feeding Frenzy", "Minion Speed"]], ["Skeletal Arsonists", "Shoot through Flame Wall for fire buff", "#FF8C00", "MINION", ["Fire Infusion", "Immolate"]], ["Flame Wall", "Place on boss · Arsonist buff", "#50c8b4", "UTILITY", ["Arcane Tempo"]], ["Bone Cage", "CC · Dense packs + mobile bosses", "#8080C0", "CC", ["Magnified Effect"]], ["Flammability", "Boss curse · Lower fire resistance", "#C85050", "CURSE", ["Burning Inscription"]]], "leveling": [["Phase 1", "Act 1 · Lvl 1–12", "Chaos Bolt + Unearth. After King in the Mists: Raging Spirits.", [["Unearth", ["Persistence", "Feeding Frenzy"]], ["Raging Spirits", ["Minion Speed"]], ["Chaos Bolt", ["Velocity"]]], "Minion Damage ~5pts · Energy Shield ~4pts"], ["Phase 2", "Act 2 · Lvl 12–22", "Skeletal Arsonists + Flame Wall. Lvl 18: The Raven's Flock online! 1st Ascendancy: Hellhound.", [["Spiraling Conspiracy ⭐", ["From Lvl 18 Staff"]], ["Skeletal Arsonists", ["Fire Infusion"]], ["Flame Wall", ["Arcane Tempo"]]], "Minion Damage ~5pts · Spirit nodes ~3pts"], ["Phase 3", "Acts 3–4 · Lvl 22–45", "Add Raise Spectre. Mad Flight on bosses. 2nd Ascendancy: Pyromantic Pact.", [["Spiraling Conspiracy ⭐", ["Resistances", "Slow Potency"]], ["Raise Spectre", ["Feeding Frenzy"]], ["Bone Cage", ["Magnified Effect"]]], "Minion Life ~4pts · Chaos/DoT ~5pts"], ["Endgame", "Maps · Lvl 65+", "3rd: Bringer of Flame, 4th: Demon Form. Optimize Spectres + Enfeeble + Flammability.", [["Mad Flight ⭐", ["Unleashed Potential"]], ["Pain Offering", ["Font of Rage"]], ["Flammability", ["Burning Inscription"]]], "Chaos/DoT ~10pts · AoE ~10pts"]], "tree": [["Lvl 2–10", "Minion Damage Notables near Witch start", "~8 pts"], ["Lvl 10–20", "Energy Shield Notable + Mana Regen", "~8 pts"], ["Lvl 20–30", "Spirit nodes (more room for minions)", "~6 pts"], ["Lvl 30–40", "Jewel Socket #1 · Minion Life Notable", "~6 pts"], ["Lvl 40–55", "Chaos / DoT Damage Cluster", "~10 pts"], ["Lvl 55–70", "Area of Effect Notable · Jewel Socket #2", "~10 pts"], ["Lvl 70–85", "Defensive ES · Chaos Resistance nodes", "~10 pts"], ["Lvl 85–95", "Minion Speed · Power Charges · Archon of Undeath (new 0.5.0)", "~10 pts"]], "tree_note": "Witch starts top-left (Intelligence section). Minion Damage Notables have highest priority.", "gear": [["Staff", "The Raven's Flock", "REQUIRED · +111% Minion Dmg · 34% Spirit Res. Eff.", "BiS", "#FFD700", true], ["Helmet", "ES Helm (Rare)", "+% Max ES · +1 Minion Level · Chaos Res", "RARE", "#8030C0", false], ["Body", "ES Armour (Rare)", "High ES · Minions have % Life · Resistances", "RARE", "#8030C0", false], ["Gloves", "ES Gloves (Rare)", "ES · Chaos Res · Intelligence", "RARE", "#8030C0", false], ["Boots", "ES Boots (Rare)", "ES · Movement Speed · Resistances", "RARE", "#8030C0", false], ["Amulet", "Minion Amulet (Rare)", "+1 Minion Skill Gems · ES · Intelligence", "RARE", "#8030C0", false], ["Rings ×2", "Rare Rings", "Mana Regen · ES · Resistances", "RARE", "#8030C0", false], ["Belt", "ES/Hybrid Belt", "Max ES · Life · Resistances", "RARE", "#8030C0", false]], "gear_note": "Stat Priority: The Raven's Flock → +1 Minion Skill Level → Spirit Res. Eff. → Chaos Res ≥60% → Max Energy Shield", "rotation": [["🗺 MAP CLEAR", "#50c8b4", [["Just move", "Ravens deal Chaos DoT to everything in range automatically."], ["Flame Wall briefly", "Arsonists shoot through for fire buff."], ["Bone Cage on dense packs", "Optional CC to speed up clear."]]], ["⚔ BOSS ROTATION", "#FF8C00", [["Flammability", "Apply curse to lower fire resistance."], ["Flame Wall on boss", "Place on boss position for Arsonist buff."], ["Pain Offering", "Sacrifice minion for +Minion Damage. Before Mad Flight."], ["Mad Flight", "All ravens burst on boss — maximum damage."], ["Wait · Repeat", "Ravens return automatically. Repeat."]]], ["👑 PINNACLE BOSSES", "#FFD700", [["Flammability + Enfeeble", "Both curses for max damage + defense."], ["Withering Presence", "Swap in Spirit Gem for Wither stacks."], ["Mad Flight rotation", "Execute loop with short rest phases."]]]], "rot_note": "🐦 Raven Tip: In T15+ maps wait at entrance until flock reaches max size before boss — significantly increases Mad Flight burst.", "patch_note": "✅ Patch 0.5.0 — Spiraling Conspiracy received indirect buffs. No direct nerfs. Build gets stronger.", "patch_class": "dnote-buff", "patch": [["buff", "🟢 New Passive Cluster", "Archon of Undeath — New cluster in Witch area. Invest here after core Minion Damage nodes."], ["buff", "🟢 New Support Gems", "Minion Splash + Minion Splash II — Test on Skeletal Arsonists for improved AoE."], ["buff", "🟢 Minion Management QoL", "Younger Minions removed first on weapon swap. Prevents wasting cooldowns."], ["buff", "🟢 Genesis Tree Crafting", "Minion mods craftable on Rings and Belts via Genesis Tree (Breach)."], ["neutral", "🟡 Leech Cap — Neutral", "Max 40,000 dmg per hit for Leech. Irrelevant for Minion DoT builds."]]},
+  'poe-pb':{"mechanic": "Poison scales with Physical + Chaos Hit Damage. Overwhelming Toxicity doubles maximum Poison stack count. Herald of Plague spreads strongest Poison to nearby enemies. Herald of Blood fires chain explosions on Bleed — the one-button clear. Play Poison from Level 1, no build swap needed.", "strengths": ["One-button mapping in endgame", "Immune to all Slow effects (Relentless Pursuit)", "No budget required to start", "Chaos Damage ignores elemental resistances", "Excellent single target via Toxic Growth"], "weaknesses": ["Mana management important early", "Needs a good bow", "Boss rotation slightly more complex", "Plaguefinger for optimal scaling", "⚠ Nerfed in 0.5.0 — Poison Duration reduced"], "ascendancy": [["① Act 2", "Overwhelming Toxicity", "Doubles maximum Poison stack count. Core of the build."], ["② Act 2", "Relentless Pursuit", "Immune to all Slow effects."], ["③ Act 4", "Path Seeker", "+5 Passive Skill Points."], ["④ Trial of Chaos", "Burning Bright", "Poison spreads to nearby enemies on death."]], "skills": [["Poisonburst Arrow", "Primary clear · Chaos + Physical DoT · Poison stacks", "#60A030", "CORE", ["Concentrated Area", "Escalating Poison", "Pierce"]], ["Toxic Growth", "Boss single target · Pustule DoT clusters", "#60A030", "BOSS", ["Nova Projectiles", "Unleash"]], ["Gas Arrow", "Detonate Toxic Growth pustules · AoE burst", "#60A030", "BURST", ["Conc. Area", "Unleash"]], ["Herald of Plague", "Spreads strongest active Poison to nearby enemies", "#60A030", "PASSIVE", []], ["Herald of Blood", "Chain explosions on Bleed · One-button clear", "#A04040", "PASSIVE", []], ["Vine Arrow", "Slow + DoT + gets poisoned · Use on bosses", "#40A040", "UTILITY", ["Swift Affliction"]]], "gear": [["Weapon", "High pDPS Bow (Rare)", "High Physical DPS + Added Chaos Damage · Attack Speed", "BiS", "#60A030", true], ["Gloves", "Plaguefinger (Unique)", "Grants +2 Poisonburst Arrow · Mandatory for optimal scaling", "BiS", "#FFD700", true], ["Helmet", "Evasion Helm (Rare)", "Evasion Rating · Life · Resistances", "RARE", "#60A030", false], ["Body", "Evasion/ES Armour", "High Evasion · Energy Shield · Resistances", "RARE", "#60A030", false], ["Boots", "Movement Speed Boots", "Movement Speed · Life · Resistances", "RARE", "#60A030", false], ["Rings ×2", "Rare Rings", "Resistances · Mana on Kill · Life", "RARE", "#60A030", false]], "gear_note": "Priority: Plaguefinger Gloves → Mana on Kill → Poison Duration on gear → Chaos Res ≥60% → Max Evasion", "rotation": [["🗺 MAP CLEAR", "#50c8b4", [["Poisonburst Arrow spam", "Herald of Plague spreads poison automatically."], ["Herald of Blood chain", "Bleed triggers chain explosions clearing screens."], ["Move aggressively", "Pathfinder clears through packs."]]], ["⚔ BOSS ROTATION", "#FF8C00", [["Vine Arrow", "Apply to slow and add DoT."], ["Toxic Growth", "Place pustule clusters on boss."], ["Gas Arrow", "Detonate Toxic Growth for burst."], ["Poisonburst Arrow", "Maintain Poison stacks continuously."]]]], "patch_note": "⚠ Patch 0.5.0 — Poisonburst Pathfinder received significant nerfs to Poison Duration.", "patch_class": "dnote-warn", "patch": [["warn", "🔴 NERF · Poisonburst Arrow", "Poison Duration now fixed at 3 seconds at all Gem levels."], ["warn", "🔴 NERF · Overwhelming Toxicity", "50% less Poison Duration (was 35%). Major duration nerf."], ["neutral", "🟡 MINOR · Running Assault", "30% less Movement Speed penalty (was 50%)."]]},
+  'poe-la':{"mechanic": "Lightning Arrow hits → beams arc to 3 enemies → Freeze + Shock → kill → Herald of Thunder chain explosion → clears entire screens. Plant Lightning Rods at boss feet → fire Lightning Arrow at Rods → devastating burst. Mirage Archer fires a free copy of your attacks. #1 most played build in PoE2.", "strengths": ["S-Tier League Starter — no gear required", "Fastest campaign clear in the game", "Screen-wide clear via chaining beams", "Herald of Thunder chain explosions", "Lightning Rod for massive single-target burst", "Mirage Deadeye = free copy of your attacks"], "weaknesses": ["Kite-dependent defense — never stand still", "Mana sustain requires investment", "Lightning Rod requires stationary target", "High-end gear expensive (bow-specific)", "Beams no longer chain same target (0.5.0)"], "ascendancy": [["① First Pick", "Gathering Winds", "Tailwind on Kill = stacking Action Speed. Powers constant crits."], ["② Priority", "Mirage Archer", "Creates copy that fires your attacks for free. Doubles Lightning Arrow output."], ["③ Bullseye", "10 Critical Weakness stacks", "Permanent massive Crit multiplier via constant crits."], ["④ Focal Point", "Projectile Convergence", "Arrows converge on target. Massive single-target DPS boost."]], "skills": [["Lightning Arrow", "Main clear · Chains beams to 3 enemies · Freeze + Shock", "#4A9AE0", "CORE", ["Fork", "Overpower", "Lightning Penetration"]], ["Lightning Rod", "Boss burst · Plant at boss feet · Fire Arrow at Rod", "#4A9AE0", "BOSS", ["Concentrated Effect", "Lightning Penetration"]], ["Tornado Shot", "Single-target finisher · Homing tornado", "#C8A040", "ST", ["Added Lightning", "Overpower"]], ["Herald of Thunder", "Passive · Triggers on shocked kill · Chain explosions", "#4A9AE0", "PASSIVE", []], ["Lightning Aegis", "Damage reduction on Crit — near permanent via Deadeye", "#4A9AE0", "DEFENSE", []], ["Ghost Dance", "Evasion → ES restore on hit · Survival", "#50c8b4", "DEFENSE", []], ["Voltaic Mark", "Boss curse · Increases Lightning damage taken", "#C8A040", "CURSE", []], ["Freezing Salvo", "CC + Freeze buildup for tanky rares", "#80C0FF", "UTILITY", []]], "gear": [["Bow", "High pDPS Bow (Rare)", "High Physical DPS + Added Lightning · Attack Speed · Crit Chance", "BiS", "#4A9AE0", true], ["Quiver", "Mana on Kill Quiver", "Recover 2% Mana on Kill · Lightning Damage · Crit Chance", "BiS", "#4A9AE0", true], ["Helmet", "Evasion + ES Helm", "Life · Resistances · Evasion Rating", "RARE", "#4A9AE0", false], ["Body", "Evasion + ES Body", "Life · Resistances · Evasion + ES hybrid", "RARE", "#4A9AE0", false], ["Gloves", "Attack Speed Gloves", "Attack Speed · Lightning Damage · Resistances", "RARE", "#4A9AE0", false], ["Rings ×2", "Sapphire Ring", "Mana Recover on Kill (2%) · Resistances · Life", "RARE", "#4A9AE0", false]], "gear_note": "Priority: High pDPS Bow → Mana on Kill (Quiver/Ring) → Attack Speed → Crit Chance → Resistance caps (75%)", "rotation": [["🗺 MAP CLEAR", "#50c8b4", [["Move aggressively", "Deadeye clears through packs — not around them."], ["Lightning Arrow spam", "Each shot chains to 3 enemies. Tailwind stacks = godspeed clear."], ["Herald of Thunder chain", "On shocked kill: chain explosion clears the rest."]]], ["⚔ BOSS ROTATION", "#FF8C00", [["Voltaic Mark", "Apply curse first — increases Lightning damage taken."], ["Plant 2–3 Lightning Rods", "At boss position — main damage source."], ["Lightning Arrow → Rods", "Fire at Rods to detonate — devastating burst. Reapply every ~4sec."], ["Tornado Shot", "Between detonations for extra single-target DPS."], ["Keep moving", "Never stand still. Dodge between attack windows."]]]], "rot_note": "💡 Mana Priority: Get 2% Mana on Kill ASAP. This is the build's only real weakness early.", "patch_note": "✅ Patch 0.5.0 — Lightning Arrow Deadeye remains S-Tier. One minor nerf, otherwise unchanged.", "patch_class": "dnote-buff", "patch": [["neutral", "🟡 MINOR NERF · Lightning Arrow", "Beams no longer chain to same target. Irrelevant for pack clear."], ["buff", "🟢 Bullseye carry-forward", "Still grants 10 Critical Weakness stacks."], ["buff", "🟢 Runeforging for Bows", "New Verisium Runeforging adds bow upgrades without trading."]]},
+  'div-hb':{"mechanic": "Heartstopper: headshots mark enemies, every hit grants +1% Bonus Armor and +1% WD (max 100 stacks = +100% BA + +100% WD). Kingbreaker + Linked Laser Pointer = every hit auto-marks. Memento Kill Confirmed adds +30% WD long-term.", "strengths": ["S-Tier DPS + Survivability combined", "Stacks build naturally while shooting", "Kingbreaker Perfect Flatline synergy", "Very high skill ceiling but forgiving baseline"], "weaknesses": ["Kingbreaker is very rare (farm heavy)", "Stack decay — 2 stacks lost per second", "Linked Laser Pointer required on both weapons", "Less effective vs enemies that move"], "ascendancy": [["Specialization", "Technician", "Linked Laser Pointer bonus + extra Skill Tier + 10% Repair Skill."], ["Skill 1", "Pulse", "Headshot marks enemies. With LLP: every hit marks automatically."], ["Skill 2", "Crusader Shield", "Damage + mobility. Boosted by Technician extra Skill Tier."], ["Skill 3", "Artificer Hive", "Repair hive — boosted by Technician."]], "skills": [["Kingbreaker AR", "Primary · Named · Perfect Flatline +20% WD vs marked enemies", "#CC2020", "EXOTIC", ["Long Optics", "Extended Magazine", "Linked Laser Pointer"]], ["ACS-12 Shotgun", "Secondary · Fast stack rebuild", "#FF8080", "SECONDARY", []], ["Pulse", "Auto-marks enemies · Required for stack generation", "#CC2020", "SKILL", []], ["Crusader Shield", "Damage + mobility", "#E8A820", "SKILL", []]], "gear": [["Mask", "Heartbreaker Set", "Set Piece 1 · Red Core · Weapon Damage + Crit Chance", "SET", "#3a8fff", false], ["Chest", "Brand Piece (Obliterate)", "Obliterate talent · +1% WD per Crit hit · Red Core", "BRAND", "#3a8fff", false], ["Backpack", "Memento Exotic", "Kill Confirmed +30% WD · Tri-Core", "EXOTIC", "#FFD700", true], ["Gloves", "Heartbreaker Set", "Set Piece 2 · Red Core · Crit Chance + Crit Damage", "SET", "#3a8fff", false], ["Holster", "Heartbreaker Set", "Set Piece 3 · Red Core", "SET", "#3a8fff", false], ["Kneepads", "Fox's Prayer Named", "Clutch armor restore · Red Core", "NAMED", "#c060ff", false], ["Primary", "Kingbreaker AR", "Perfect Flatline · Linked Laser Pointer (required)", "NAMED", "#c060ff", true], ["Secondary", "ACS-12 Shotgun", "Fast Heartstopper stack rebuild", "AR", "#888", false]], "gear_note": "Linked Laser Pointer REQUIRED on both weapons as Underbarrel mod. Without it the build does not function optimally.", "rotation": [["🗺 MAP CLEAR", "#50c8b4", [["Engage + spray continuously", "Stacks build automatically via LLP."], ["Kill for Memento stacks", "30 kills = +30% WD. Farm trash before boss rooms."]]], ["⚔ BOSS ROTATION", "#FF8C00", [["Build 100 stacks on trash first", "Enter boss room with full Heartstopper."], ["Spray Kingbreaker continuously", "Never stop — 2 stack decay per second."], ["ACS-12 on reload", "Fast stack rebuild on secondary."]]]], "patch_note": "📋 Current as of Year 8 Season 1 (2026). No major changes to Heartbreaker.", "patch_class": "dnote-info", "patch": [["neutral", "📋 Y8S1 Status", "Heartbreaker remains top-tier S-Tier. No nerfs in recent seasons."]]},
+  'div-se':{"mechanic": "Actum Est: every hit grants +1 stack. At 100 stacks the next magazine loads with shock rounds that stun enemies and deal additional damage. Striker's Gamble stacks (+5% WD per kill up to +200%) provide sustained high weapon damage. 70+1 round magazine = largest in the game. #1 PvE DPS Build in The Division 2 (2026 Meta).", "strengths": ["#1 PvE DPS Build (2026 Meta)", "St. Elmo's + Striker = strongest DPS combination", "70+1 round magazine = largest in game", "Shock rounds stun enemies + 50% armor ignore", "Works in Legendary, Summit, Countdown"], "weaknesses": ["St. Elmo's is an Exotic — 1-exotic rule applies", "100 stack buildup before shock round window", "Less tanky than survivability builds"], "ascendancy": [["Specialization", "Gunner", "Increased LMG/AR handling · Armor on kills · Fire Rate on kills."], ["Talent", "Thunder Strike", "+30% damage on stunned enemies — pairs with shock rounds."], ["Skill 1", "Assault Turret", "Additional DPS platform for stationary bosses."], ["Skill 2", "Ballistic Shield", "Alternative for Legendary survivability."]], "skills": [["St. Elmo's Engine", "Primary · Exotic SMG · Actum Est shock mechanic · 70+1 Magazine", "#E8A820", "EXOTIC", []], ["Backup AR", "Secondary · GR9 · Thunder Strike or Fast Hands", "#E8A820", "SECONDARY", []], ["Assault Turret", "Auto-attack DPS platform", "#E8A820", "SKILL", []]], "gear": [["Primary", "St. Elmo's Engine", "Exotic SMG · Actum Est · 70+1 Mag · Shock Rounds at 100 stacks", "EXOTIC", "#FFD700", true], ["Secondary", "GR9 or any AR", "Thunder Strike or Fast Hands · Backup weapon", "AR", "#E8A820", false], ["Mask", "Striker's Battlegear", "Set Piece 1 · Red Core · Weapon Damage + Crit Chance", "SET", "#3a8fff", false], ["Chest", "Brand Piece (Obliterate)", "Obliterate talent (+1% WD per Crit) · Red Core", "BRAND", "#3a8fff", false], ["Backpack", "Memento Exotic", "Kill Confirmed +30% WD · Tri-Core", "EXOTIC", "#FFD700", true], ["Gloves", "Striker's Battlegear", "Set Piece 2 · Red Core · Crit Chance + Crit Damage", "SET", "#3a8fff", false], ["Holster", "Striker's Battlegear", "Set Piece 3 · Red Core", "SET", "#3a8fff", false], ["Kneepads", "Striker's Battlegear", "Set Piece 4 · Red Core · Crit Damage + WD", "SET", "#3a8fff", false]], "gear_note": "St. Elmo's from: Jefferson Trade Center SHD Mission (Manhunt: Captain Lewis). After that: Exotic Caches + LMG Targeted Loot.", "rotation": [["🗺 MAP CLEAR", "#50c8b4", [["Fire St. Elmo's continuously", "Build Striker stacks with every kill (+5% WD per kill up to +200%)."], ["Build Actum Est stacks", "100 hits → shock round magazine auto-loads."], ["Shock rounds stun packs", "Stunned enemies take +30% damage via Thunder Strike."]]], ["⚔ BOSS ROTATION", "#FF8C00", [["Activate Assault Turret", "Auto-attack DPS platform while you maneuver."], ["Build to 100 Actum Est stacks", "Fire continuously to trigger shock round magazine."], ["Shock round burst", "70+1 shock rounds: stun + 50% armor ignore."], ["Reload → repeat", "Rebuild stacks for next shock magazine."]]]], "patch_note": "🏆 Y8S1 Meta: St. Elmo's + Striker remains the #1 PvE DPS combination as of 2026.", "patch_class": "dnote-buff", "patch": [["buff", "🟢 Y8S1 Status", "Striker's Gamble adjustments benefiting SMG builds."], ["neutral", "📋 Meta Position", "#1 DPS build in Legendary missions, The Summit, and Countdown as of Y8S1."]]},
+  'div-ch':{"mechanic": "Adaptive Instinct: hit all body areas (head, body, legs) to activate three simultaneous buffs — +20% Crit Chance, +90-100% Weapon Damage, +150% Reload Speed. All buffs last 45 seconds and stack simultaneously. High RPM (up to 1035) = fastest Striker stacking. Close-range oriented.", "strengths": ["Three simultaneous WD buffs", "Very high RPM — fastest Striker stacking", "All-rounder — good at everything", "No headshot-only requirement"], "weaknesses": ["Requires close-range playstyle", "Exotic weapon dependency", "Adaptive Instinct needs consistent aiming"], "ascendancy": [["Specialization", "Technician", "+1 Skill Tier · +10% Repair Skill · Linked Laser Pointer synergy."], ["Skill 1", "Crusader Shield", "Damage + mobility."], ["Skill 2", "Artificer Hive", "Repair hive — synergizes with Technician."], ["Talent", "Obliterate", "+1% WD per Crit hit on chest brand piece."]], "skills": [["Chameleon AR", "Primary · Exotic · Adaptive Instinct 3-buff system · 900 RPM", "#40C0A0", "EXOTIC", []], ["SMG Secondary", "Secondary · 21% Crit Damage baseline", "#40C0A0", "SECONDARY", []], ["Crusader Shield", "Damage + mobility", "#40C0A0", "SKILL", []], ["Artificer Hive", "Passive repair", "#40C0A0", "SKILL", []]], "gear": [["Primary", "Chameleon Assault Rifle", "Exotic · Adaptive Instincts · 900 RPM · 50-Round Magazine", "EXOTIC", "#FFD700", true], ["Secondary", "Any SMG", "21% Crit Damage · Fast Hands or Frenzy", "SMG", "#40C0A0", false], ["Mask", "Striker's Battlegear", "Set Piece 1 · Red Core · WD + Crit Chance", "SET", "#3a8fff", false], ["Chest", "Brand Piece (Obliterate)", "Obliterate (+1% WD per Crit) · Red Core", "BRAND", "#3a8fff", false], ["Backpack", "Memento Exotic", "Kill Confirmed +30% WD · Tri-Core", "EXOTIC", "#FFD700", true], ["Gloves", "Striker's Battlegear", "Set Piece 2 · Red Core · Crit Chance + Crit Damage", "SET", "#3a8fff", false], ["Holster", "Striker's Battlegear", "Set Piece 3 · Red Core", "SET", "#3a8fff", false], ["Kneepads", "Striker's Battlegear", "Set Piece 4 · Red Core", "SET", "#3a8fff", false]], "gear_note": "Tip: All three Adaptive Instinct buffs trigger automatically through normal shooting. Just fire at enemies.", "rotation": [["🗺 MAP CLEAR", "#50c8b4", [["Fire Chameleon at enemies", "Hit head/body/legs automatically — all 3 buffs activate over time."], ["Maintain buff timers (45s)", "Keep shooting to refresh the 45-second buff duration."], ["High RPM stacks Striker fast", "Every kill = +5% WD. Fastest Striker stacking."]]], ["⚔ BOSS ROTATION", "#FF8C00", [["Pre-stack Memento on trash", "30 kills before boss room for +30% WD."], ["Activate Crusader Shield", "Burst window immediately."], ["Fire continuously at boss", "All three Adaptive Instinct buffs = maximum damage."]]]], "patch_note": "📋 Chameleon remains a solid A-Tier all-rounder in Year 8 Season 1.", "patch_class": "dnote-info", "patch": [["neutral", "📋 Y8S1 Status", "Chameleon remains a reliable all-round performer. No major changes."]]},
+  'div-pe':{"mechanic": "Plague of the Outcasts: every hit applies 100% WD as DoT over 10 seconds (max 50 stacks). On enemy death the full DoT transfers to nearest enemy within 25m — chain cascade. Core Strength 4-piece cross-scales Armor and WD simultaneously. Backbone Named Backpack stacks up to +35% WD via kills.", "strengths": ["Massive DoT cascade — one kill chains to entire groups", "Core Strength cross-scales Armor + WD simultaneously", "Backbone kill stacks up to +35% WD", "Excellent for Solo Legendary — tanky + hard-hitting"], "weaknesses": ["DoT calculated at time of application — need full stacks first", "Physical Immune enemies reduce DoT", "Mid-range cover-based playstyle"], "ascendancy": [["Specialization", "Gunner", "Largest LMG magazine · Armor on kills · Fire Rate on kills."], ["Core Gear", "Core Strength 4-piece", "75% of any Core Attribute value granted to all other Core Attributes."], ["Backpack", "Backbone Named", "Kill stacking up to +35% WD via kills."], ["Gloves", "Overdogs Exotic", "Crit Chance + Crit Damage as Exotic slot."]], "skills": [["Pestilence LMG", "Primary · Exotic · Plague of the Outcasts DoT", "#60A030", "EXOTIC", []], ["MK46 / Any LMG", "Secondary · ~300 rounds · Frenzy + Measured talents", "#60A030", "SECONDARY", []], ["Deployable Cover", "Cover for Solo Legendary survivability", "#60A030", "SKILL", []]], "gear": [["Primary", "Pestilence LMG", "Exotic · Plague of the Outcasts · High Magazine", "EXOTIC", "#FFD700", true], ["Secondary", "MK46 LMG (~300 rounds)", "Frenzy + Measured · Perfect magazine size", "LMG", "#60A030", false], ["Mask", "Core Strength Set", "Set Piece 1 · Tri-Core · WD + Armor", "SET", "#3a8fff", false], ["Chest", "Core Strength Set", "Set Piece 2 · Tri-Core", "SET", "#3a8fff", false], ["Backpack", "Backbone Named", "+35% WD via kills · Named Backpack", "NAMED", "#c060ff", false], ["Gloves", "Overdogs Exotic", "Crit Chance + Crit Damage · Exotic slot", "EXOTIC", "#FFD700", true], ["Holster", "Core Strength Set", "Set Piece 3 · Tri-Core", "SET", "#3a8fff", false], ["Kneepads", "Core Strength Set", "Set Piece 4 · Tri-Core", "SET", "#3a8fff", false]], "gear_note": "Key Insight: DoT damage calculated at WD when applied. Keep Backbone stacks active before engaging.", "rotation": [["🗺 MAP CLEAR", "#50c8b4", [["Spray Pestilence continuously", "Every bullet applies DoT. 50 stacks = massive damage over time."], ["Kill one poisoned enemy", "Full DoT transfers to nearest within 25m — cascade begins."], ["Let ticks finish rest", "DoT clears the entire group after chain transfer."]]], ["⚔ BOSS ROTATION", "#FF8C00", [["Grenade on entry", "2 instant Backbone stacks."], ["Spray Pestilence at full stacks", "50 DoT stacks at maximum WD = enormous tick damage."], ["Deploy cover if needed", "Solo Legendary survivability."]]]], "patch_note": "📋 Pestilence Core Strength remains a strong A-Tier solo build in Year 8 Season 1.", "patch_class": "dnote-info", "patch": [["neutral", "📋 Y8S1 Status", "Core Strength + Pestilence remains reliable for Solo Legendary. No major changes."]]},
+  'div-bs':{"mechanic": "Disruptor Rounds: every bullet marks the target and adds +1 stack (max 50). At 50 stacks detonate via any non-shield skill or kill — all marked enemies within 10m simultaneously disrupted. Tipping Scales set amplifies weapon damage multiplicatively with every kill — snowballs in dense groups. Y8S1 Meta Pick.", "strengths": ["Y8S1 #1 Meta LMG build", "Tipping Scales = strongest new set in Y8S1", "Disruptor AoE crowd control + damage", "Snowballs in dense enemy groups"], "weaknesses": ["Bluescreen Exotic required (specific farm)", "50 stack buildup before detonation", "Less effective vs isolated single targets"], "ascendancy": [["Specialization", "Gunner", "Increased magazine capacity · Armor on kills · Fire Rate bonuses."], ["Talent", "Savage & Merciless", "+15% WD when hitting enemies below 50% health."], ["Skill 1", "Assault Turret", "Auto-DPS for stationary bosses."], ["Core Gear", "Tipping Scales", "Multiplicative WD on kill. Stack kills rapidly in dense groups."]], "skills": [["Bluescreen LMG", "Primary · Exotic · Disruptor Rounds · 200-Round Magazine", "#4A9AE0", "EXOTIC", []], ["MK46 ~300 rounds", "Secondary · Frenzy + Measured · ~300 round magazine", "#4A9AE0", "SECONDARY", []], ["Assault Turret", "Auto-DPS for bosses", "#4A9AE0", "SKILL", []]], "gear": [["Primary", "Bluescreen LMG", "Exotic · Disruptor Rounds · 200-Round Magazine · 580 RPM", "EXOTIC", "#FFD700", true], ["Secondary", "MK46 / Any LMG (~300 rounds)", "Frenzy + Measured · ~300 round magazine critical", "LMG", "#4A9AE0", false], ["Mask", "Tinkerer Named or Tipping Scales", "Named Mask for offense or Set Mask", "NAMED", "#c060ff", false], ["Chest", "Tipping Scales Set", "Set Piece 2 · Red Core · Weapon Damage", "SET", "#3a8fff", false], ["Backpack", "Tipping Scales Set", "Set Piece 3 · Red Core", "SET", "#3a8fff", false], ["Gloves", "Tipping Scales Set", "Set Piece 4 · Red Core · Crit Chance", "SET", "#3a8fff", false], ["Holster", "Salvo Named or Tipping Scales", "Named for offense or Set Holster", "NAMED", "#c060ff", false], ["Kneepads", "Tipping Scales Set", "Set Piece · Red Core", "SET", "#3a8fff", false]], "gear_note": "Tip: Killing ANY marked enemy at any stack count triggers detonation immediately — don't wait for 50.", "rotation": [["🗺 MAP CLEAR", "#50c8b4", [["Fire Bluescreen at enemies", "Every bullet marks + adds Disruptor stack."], ["Kill one marked enemy", "Triggers AoE detonation — all 10m marked enemies disrupted."], ["Tipping Scales snowballs", "Every kill adds WD stack. Rapidly escalates."]]], ["⚔ BOSS ROTATION", "#FF8C00", [["Deploy Assault Turret", "Auto-attack DPS while you build stacks."], ["Fire to 50 Disruptor stacks", "Then use any skill to trigger detonation."], ["Manage secondary for Frenzy", "~300 round mag: Frenzy at start, Measured at end."], ["Rinse and repeat", "Disruptor resets after detonation."]]]], "patch_note": "🏆 Y8S1 Meta: Tipping Scales + Bluescreen is the strongest new LMG setup in Year 8 Season 1.", "patch_class": "dnote-buff", "patch": [["buff", "🟢 Tipping Scales (NEW Y8S1)", "New gear set introduced in Y8S1. Currently strongest LMG setup."], ["buff", "🟢 Bluescreen positioning", "Disruptor Rounds synergizes perfectly with Tipping Scales kill-stacking."]]},
+  'd4-necro':{"mechanic": "All minions converted to Shadow (Darkness) damage — stack +Darkness Skills on all gear for simultaneous buff to all 28 minions. Bloodless Scream applies Chill scaling to 250% on frozen targets = ×3.5 damage multiplier and perma-freezes everything. Army of the Dead nukes elite packs for 1350%+ damage every ~10 seconds.", "strengths": ["Up to 28 active minions simultaneously", "Passive playstyle — minions do all the work", "Perma-freeze via Bloodless Scream", "Excellent Speed Farm and Pit Push", "Army of the Dead = massive burst every ~10 sec", "Very tanky — minions absorb all damage"], "weaknesses": ["Bloodless Scream required for full power", "3 of 6 skill slots used by minion skills", "Talisman system requires 6-slot Seal", "Blood Mist required for Overpower stacking"], "ascendancy": [["Passive 1", "Vulnerable (Lvl 11)", "30% chance Warriors make enemies Vulnerable for 4 sec. +20% more damage from all sources."], ["Upgrade 1", "Master of Puppets (Lvl 16)", "Skeletal Warriors upgrade — enhances army control."], ["Keystone", "Hellbent Commander", "Highest priority passive — +% minion damage when near army. Max 3 points."], ["Ultimate", "Army of the Dead (Lvl 20)", "1350%+ damage nuke every ~10 sec. With Unyielding Commander: +50% minion damage + 2% per minion."]], "skills": [["Skeletal Warriors", "Reaper variant · Command = focus-fire elites (+30-40% dmg taken)", "#8B20CC", "CORE", []], ["Skeletal Mages", "Shadow variant = Darkness skill · Barrier upgrade", "#8B20CC", "CORE", []], ["Golem", "Iron · Gargantua Aura (all minions +Atk Speed +Move Speed)", "#8B20CC", "CORE", []], ["Army of the Dead", "Ultimate · 5pts · Prime + Supreme · 1350%+ nuke every ~10 sec", "#FFD700", "ULTIMATE", []], ["Sever", "Movement skill · Creates corpses on cast", "#8B20CC", "MOVE", []], ["Blood Mist", "Survival + Overpower stacking for Dominate Glyph", "#8B20CC", "SURVIVAL", []]], "gear": [["Weapon", "Bloodless Scream (Unique)", "Required · ×3.5 damage multiplier on Chill · Perma-freeze everything", "BiS", "#FFD700", true], ["Helm", "Rare Helm", "+1 Minion Skill Gems · +Darkness Skills · Intelligence", "RARE", "#8B20CC", false], ["Chest", "Rare Chest Armour", "High Life · +Darkness Skills · Resistances", "RARE", "#8B20CC", false], ["Gloves", "Rare Gloves", "+Darkness Skills · Life · Resistances", "RARE", "#8B20CC", false], ["Boots", "Rare Boots", "Movement Speed · Life · Resistances", "RARE", "#8B20CC", false], ["Amulet", "Rare Amulet", "+Darkness Skills · Crit Strike Chance · Life", "RARE", "#8B20CC", false], ["Rings ×2", "Rare Rings", "+Darkness Skills · Life · Resistances", "RARE", "#8B20CC", false], ["Talisman", "6-slot Seal Required", "Converts 2 Uniques to Charms — wear as Talisman simultaneously", "BiS", "#FFD700", true]], "gear_note": "Stat Priority: Bloodless Scream → +Darkness Skills on all pieces → Life → Resistance caps. +Darkness Skills buffs ALL 28 minions.", "rotation": [["🗺 MAP CLEAR", "#50c8b4", [["Use Sever for movement", "Fastest movement skill. Creates corpses."], ["Let minions do the work", "28 minions clear everything passively."], ["Army of the Dead on Elite packs", "Use on cooldown. 1350%+ damage nuke."]]], ["⚔ BOSS ROTATION", "#FF8C00", [["Decrepify on boss", "-40% slow + -20% damage dealt. Always first."], ["Skeletal Warriors Command", "Focus-fire the boss (+30-40% damage taken)."], ["Army of the Dead", "Primary nuke every ~10 sec."], ["Stay near minions", "Hellbent Commander: stay near army for +% minion damage."]]]], "patch_note": "🏆 Season 13 Meta: Minion Necromancer reached S-Tier after the Lord of Hatred rework.", "patch_class": "dnote-buff", "patch": [["buff", "🟢 Lord of Hatred Rework", "All minion skills moved to Skill Tree. New Command abilities."], ["buff", "🟢 New Uniques", "Deathgrip (+6 Warriors) + The Undercrown (+6 Mages) = up to 28 minions simultaneously."], ["buff", "🟢 Talisman System", "Any Unique can be converted to Charm — wear gloves + helmet AND benefit from both."]]},
+  'sw-mando':{"mechanic": "Arsenal generates Supercharge by firing abilities — at 10 stacks activate Supercharged Gas for a 15-second damage window. Tracer Missile is the primary filler applying Tracer Lock (stacks to 5) which enables your hardest-hitting abilities: Heatseeker Missiles and Rail Shot. Heat management (0–100) is the core skill of Arsenal.", "strengths": ["Heavy Armor — tanky enough to solo most content", "Dual blasters + rockets = perfect Mandalorian fantasy", "Strong burst DPS via Heat Seeker + Rail Shot combo", "Most abilities instant-cast or mobile-friendly", "Kolto Overload: emergency self-heal"], "weaknesses": ["Tracer Missile requires standing still (1.5sec cast)", "Heat management — overheat kills DPS", "Lower sustained DPS vs Innovative Ordnance spec", "Difficult to fully optimize at top-end Ops"], "ascendancy": [["Ability Choice 1", "Power Overrides", "Makes Tracer Missile instant-cast for 6 sec. Critical for mobility."], ["Ability Choice 2", "Gyroscopic Alignment Jets", "Reduces Jetpack Boost cooldown. More mobility."], ["Ability Choice 5", "Supercharged Defense", "Supercharged Gas additionally reduces damage taken by 30%."], ["Ability Choice 7", "Barrage Surge", "Increases Barrage damage. Major DPS cooldown enhancement."]], "skills": [["Tracer Missile", "Primary filler · Builds Tracer Lock (max 5) · 2 Supercharge stacks", "#C87820", "FILLER", []], ["Heatseeker Missiles", "Requires 5× Tracer Lock · Highest damage ability · Use on cooldown", "#C87820", "BURST", []], ["Rail Shot", "Requires Tracer Lock · Execute at low HP · High precision burst", "#C87820", "BURST", []], ["Blazing Bolts", "Channel · Dual-blaster sustained suppression fire", "#C87820", "CHANNEL", []], ["Supercharged Gas", "10 Supercharge stacks · +5% dmg + healing · 15sec window", "#C87820", "COOLDOWN", []], ["Vent Heat", "Removes 50 Heat instantly · Use at 50+ Heat proactively", "#C87820", "UTILITY", []], ["Kolto Overload", "Emergency self-heal · Use when below 30% HP", "#C87820", "SURVIVAL", []]], "gear": [["Weapon", "Advanced Assault Cannon (340+)", "High Aim stat · Best from Veteran Flashpoints or Raids", "BiS", "#C87820", true], ["Tactical", "Artillery Command Tactical", "Heatseeker Missiles fire twice. Single biggest DPS upgrade.", "BiS", "#FFD700", true], ["Armor Set", "4-piece Class Set", "Set Bonus: additional Supercharge per ability. Drops from Operations.", "SET", "#3a8fff", false], ["Implants", "Legendary Implants", "Variable Trauma Mod is BiS for Arsenal DPS.", "LEGENDARY", "#FFD700", true], ["Relics", "Serendipitous Assault + Focused Retribution", "Both relics = maximum passive stat proc uptime.", "BiS", "#C87820", true]], "gear_note": "Stat Priority: Accuracy 110% → Alacrity 1.4s GCD cap → Critical 40-50% → Power. Never sacrifice Accuracy below 110%.", "rotation": [["🔥 HEAT MANAGEMENT", "#FF6030", [["Safe Zone 0–40", "Normal rotation. Full DPS output."], ["Caution 40–80", "Slow down Tracer spam. Use Blazing Bolts channel."], ["VENT NOW at 80+", "Vent Heat immediately — removes 50 Heat."]]], ["⚔ STANDARD ROTATION", "#C87820", [["Tracer Missile ×5", "Build 5 Tracer Lock stacks."], ["Heatseeker Missiles", "Use immediately at 5 Tracer Lock stacks."], ["Rail Shot", "After Heatseeker for execute damage."], ["Blazing Bolts", "Channel if Heat is climbing above 40."], ["Supercharged Gas at 10 stacks", "15-second damage + healing window."]]]], "patch_note": "⬡ Current as of SWTOR Patch 7.8. Arsenal Mercenary remains a solid A-Tier DPS spec.", "patch_class": "dnote-info", "patch": [["buff", "🟢 Patch 7.8", "Arsenal received minor balance adjustments. Supercharged Gas window slightly extended."], ["neutral", "📋 Meta Position", "Arsenal is A-Tier DPS. More mobile and easier than Innovative Ordnance."]]},
+  'd2r-summon':{"mechanic": "Raise Skeleton builds your primary army (max 16). Amplify Damage curse doubles minion damage vs physical-immune monsters. Corpse Explosion deals 70–120% of corpse's max life as damage — clearing entire screens with one click. Decrepify slows and weakens bosses. The army does the work — you manage curses and position.", "strengths": ["Up to 44 minions simultaneously (with Revives)", "Extremely safe — minions absorb all damage", "Best beginner build in D2R — no gear required", "Ideal for Hardcore mode", "Corpse Explosion clears screens instantly", "Scales from zero budget to endgame"], "weaknesses": ["Slow vs Physical Immune enemies (need Mages)", "Enigma required for max efficiency (expensive)", "Army management — skeletons can scatter", "Cold damage shatters corpses (no CE)"], "ascendancy": [["Summon Tree", "Raise Skeleton (max 20pts)", "Primary army builder. At 20 points: up to 16 skeletons."], ["Summon Tree", "Skeletal Mage (max 20pts)", "Secondary damage for Physical Immune enemies."], ["Curse Tree", "Amplify Damage (1pt)", "Doubles minion damage on physical-immune enemies."], ["Curse Tree", "Decrepify (1pt)", "Slows boss 75% + weakens attacks. Essential boss curse."]], "skills": [["Raise Skeleton", "Primary army · 16 skeletons at max", "#C8A060", "CORE", ["Max 20 pts · Synergy: Skeleton Mastery"]], ["Skeleton Mastery", "Passive · Boosts all Skeleton damage and life", "#C8A060", "PASSIVE", ["Max 20 pts"]], ["Skeletal Mage", "Counters Physical Immune · Poison/Cold variants", "#80C060", "MAGE", ["Max 20 pts for end content"]], ["Corpse Explosion", "AoE nuke · 70-120% corpse life as damage", "#FF8060", "AoE", ["1 pt minimum"]], ["Amplify Damage", "Curse · Doubles minion damage vs physical immune", "#C8A060", "CURSE", ["1pt wonder"]], ["Decrepify", "Boss curse · -75% movement + -50% damage dealt", "#C8A060", "CURSE", ["1pt wonder"]], ["Clay Golem", "Tank golem · Slows enemies on hit", "#A08060", "GOLEM", []]], "gear": [["Weapon", "Heart of the Oak or Spirit", "+3 Necromancer Skills · FCR · Resistances", "BiS", "#C8A060", true], ["Shield", "Homunculus Unique Shield", "+2 Necromancer Skills · High Block · Resistances", "BiS", "#FFD700", true], ["Helm", "Harlequin Crest (Shako)", "All Skills +2 · Life · Reduced Damage", "BiS", "#FFD700", true], ["Body", "Enigma (Rune Word)", "Teleport + +2 all skills · Strength · Resistances", "BiS", "#FFD700", true], ["Amulet", "Mara's Kaleidoscope", "+2 All Skills · 20-30% All Resistances", "BiS", "#FFD700", true], ["Rings", "2× Nagelring or SoJ", "Nagel: +MF · SoJ: +1 Skills + mana", "RARE", "#C8A060", false], ["Gloves", "Magefist", "+1 Fire Skills · 20% FCR · Mana Regen", "RARE", "#C8A060", false], ["Boots", "Silkweave", "+1 Max Stamina · Mana per Kill · Fast Run/Walk", "RARE", "#C8A060", false]], "gear_note": "Budget Path: Spirit Sword → Homunculus → Shako → then Enigma. Insight on Merc for Meditation aura (infinite mana).", "rotation": [["🗺 MAP / TERROR ZONES", "#50c8b4", [["Position behind skeleton army", "Your skeletons form a wall. Stay behind them."], ["Amplify Damage on immune packs", "1pt curse doubles minion damage vs physical immunes."], ["Corpse Explosion on first corpse", "One click = entire screen cleared."]]], ["⚔ UBER BOSSES", "#FF8C00", [["Decrepify on boss", "Apply curse immediately — -75% movement, -50% damage."], ["Let skeletons attack", "16 skeletons + 9 mages + 1 golem + revives = massive DPS."], ["Corpse Explosion on any corpse", "Adds burst damage if minion dies."], ["Teleport to reposition (Enigma)", "Stay safe. Teleport skeletons back to boss if scattered."]]]], "patch_note": "🏆 Season 13 (Patch 3.0) — Summonmancer remains S-Tier. One of the most iconic builds in D2R history.", "patch_class": "dnote-buff", "patch": [["buff", "🟢 Season 13 Changes", "Ladder reset with new Terror Zones. Summonmancer excels in all Terror Zones."], ["buff", "🟢 Revive Enhancement", "Revived monsters now retain 100% of original abilities."], ["neutral", "📋 Meta Position", "#1 recommended beginner + Hardcore build. Best safety/effectiveness ratio in D2R."]]}
+};
 
 function renderAll(){
   setAccent(activeGame);
@@ -873,23 +1355,372 @@ function toggleFilter(f){
 
 function openDetail(id){
   const b=BUILDS.find(x=>x.id===id);if(!b) return;
+  const ac=b.accent;
+
+  // Set CSS var
+  document.getElementById('detail').style.setProperty('--active-color',ac);
+
+  // Update header
   document.getElementById('dhName').textContent=b.name;
+  document.getElementById('dhName').style.color=ac;
+  document.getElementById('dhClass').textContent=GAME_LABELS[b.game]||b.game.toUpperCase();
+  document.getElementById('dhClass').style.color=ac;
   document.getElementById('dhSub').textContent=b.sub;
-  document.getElementById('dhHero').innerHTML=[tierBadge(b.tier),diffBadge(b.diff),...b.tags.map(tagBadge)].join('');
+
+  // Atmospheric bg
+  const atmo=document.getElementById('dhAtmo');
+  atmo.style.background=`radial-gradient(ellipse at 100% 0%,${ac}20 0%,transparent 50%),radial-gradient(ellipse at 0% 100%,${ac}10 0%,transparent 50%)`;
+
+  // Header border
+  document.querySelector('#detail .dh').style.borderBottomColor=`${ac}30`;
+
+  // Guide button
   const btn=document.getElementById('guideBtn');
-  if(b.guide){btn.href=b.guide;btn.style.display='flex';}else{btn.style.display='none';}
-  const accentColor = b.accent;
-  btn.style.setProperty('--div', accentColor);
-  btn.style.setProperty('--div-dim', accentColor+'22');
-  const ratingHtml=`<div class="ds"><div class="ds-title">📊 Rating</div>
-    <div class="rating-grid">${b.stats.map(s=>`
-      <div><div class="rating-row"><span class="rating-label">${s.l}</span><span class="rating-stars" style="color:${s.c}">${'★'.repeat(Math.round(s.v/20))}${'☆'.repeat(5-Math.round(s.v/20))}</span></div>
-      <div class="rating-bar"><div class="rating-fill" style="width:${s.v}%;background:${s.c}"></div></div></div>`).join('')}
-    </div></div>`;
-  document.getElementById('detailScroll').innerHTML=ratingHtml+b.detail;
-  document.getElementById('detailScroll').scrollTop=0;
+  if(b.guide){btn.href=b.guide;btn.style.display='flex';btn.style.borderColor=`${ac}50`;btn.style.color=ac;}
+  else{btn.style.display='none';}
+
+  // Build icon wrap
+  const wrap=document.getElementById('dhIconWrap');
+  wrap.style.borderColor=`${ac}40`;
+  wrap.style.background=`${ac}12`;
+
+  // Animated icon
+  document.getElementById('dhAnimIcon').innerHTML=getBuildAnimIcon(b.id,ac);
+
+  // Badges
+  document.getElementById('dhHero').innerHTML=[tierBadge(b.tier),diffBadge(b.diff),...b.tags.map(tagBadge)].join('');
+
+  // Stats
+  document.getElementById('dhStats').innerHTML=b.stats.map(s=>`
+    <div class="stat-item">
+      <div class="stat-val" style="color:${s.c}">${Math.round(s.v/20)}★</div>
+      <div class="stat-lbl">${s.l}</div>
+    </div>`).join('');
+
+  // Build tabs + content
+  buildDetailContent(b,ac);
+
+  // Show
   document.getElementById('detail').classList.add('open');
+  window.scrollTo(0,0);
 }
+
+const GAME_LABELS={
+  poe2:'⬡ PATH OF EXILE 2',
+  div2:'▶ THE DIVISION 2',
+  d4:'⸸ DIABLO 4',
+  swtor:'⬡ STAR WARS: TOR',
+  d2r:'☽ DIABLO 2: RESURRECTED'
+};
+
+function getBuildAnimIcon(id,ac){
+  const dark=ac+'22';
+  const mid=ac+'60';
+  const icons={
+    'poe-sc':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <g style="animation:dspin-cw 10s linear infinite;transform-origin:28px 28px">
+        <path d="M28 5 C40 5 51 14 51 28 C51 42 40 51 28 51" fill="none" stroke="${ac}" stroke-width="2" stroke-linecap="round" opacity="0.65"/>
+        <path d="M28 51 C16 51 5 42 5 28 C5 14 16 5 28 5" fill="none" stroke="#FF4020" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+      </g>
+      <g style="animation:dspin-ccw 6s linear infinite;transform-origin:28px 28px">
+        <path d="M28 11 C37 11 45 19 45 28 C45 37 37 45 28 45" fill="none" stroke="${ac}" stroke-width="1.5" stroke-linecap="round" opacity="0.55"/>
+        <path d="M28 45 C19 45 11 37 11 28 C11 19 19 11 28 11" fill="none" stroke="#FF6030" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+      </g>
+      <g style="animation:dspin-cw 3.5s linear infinite;transform-origin:28px 28px">
+        <path d="M28 17 C34 17 39 23 39 28 C39 34 34 39 28 39" fill="none" stroke="${ac}" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+        <path d="M28 39 C22 39 17 34 17 28 C17 23 22 17 28 17" fill="none" stroke="#FF4020" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+      </g>
+      <circle cx="28" cy="28" r="5.5" fill="${dark}"/>
+      <circle cx="28" cy="28" r="5" fill="${ac}" style="animation:dpulse 2.5s ease-in-out infinite"/>
+      <circle cx="28" cy="27" r="2" fill="${ac}" opacity="0.5"/>
+    </svg>`,
+    'poe-pb':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <g style="animation:dpulse 1.2s ease-in-out infinite;transform-origin:28px 28px">
+        <path d="M12 28 C12 14 20 7 28 7 C36 7 44 14 44 28 C44 35 41 38 38 40 L18 40 C15 38 12 35 12 28Z" fill="none" stroke="${ac}" stroke-width="2"/>
+        <polygon points="17,22 22,30 12,30" fill="${ac}" opacity="0.3" stroke="${ac}" stroke-width="1.5"/>
+        <polygon points="39,22 44,30 34,30" fill="${ac}" opacity="0.3" stroke="${ac}" stroke-width="1.5"/>
+      </g>
+      <path d="M18 40 L18 44 L21 40 L24 46 L27 40 L30 46 L33 40 L36 44 L38 40" fill="none" stroke="${ac}" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="18" cy="22" r="2" fill="${ac}" style="animation:dpulse 1.5s ease-in-out infinite"/>
+      <circle cx="38" cy="22" r="2" fill="${ac}" style="animation:dpulse 1.5s ease-in-out infinite .3s"/>
+    </svg>`,
+    'poe-la':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <g style="animation:dbolt 3s ease-in-out infinite">
+        <path d="M36 4 L18 30 L30 30 L20 52 L42 26 L28 26 Z" fill="none" stroke="${ac}" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M36 4 L18 30 L30 30 L20 52 L42 26 L28 26 Z" fill="${ac}" opacity="0.09"/>
+      </g>
+      <circle cx="10" cy="14" r="1.5" fill="${ac}" style="animation:dspark 2s ease-out infinite;--tx:-4px;--ty:-5px"/>
+      <circle cx="48" cy="20" r="1.2" fill="${ac}" style="animation:dspark 2.3s ease-out infinite .5s;--tx:5px;--ty:-4px"/>
+      <circle cx="8" cy="30" r="1.2" fill="${ac}" style="animation:dspark 1.8s ease-out infinite 1s;--tx:-5px;--ty:3px"/>
+      <circle cx="50" cy="34" r="1.2" fill="${ac}" style="animation:dspark 2.1s ease-out infinite .3s;--tx:4px;--ty:4px"/>
+    </svg>`,
+    'div-hb':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <g style="animation:dheart 1.4s ease-in-out infinite;transform-origin:28px 24px">
+        <path d="M28 46 C28 46 8 34 8 20 C8 12 14 8 20 8 C24 8 27 10 28 12 C29 10 32 8 36 8 C42 8 48 12 48 20 C48 34 28 46 28 46Z" fill="${ac}" opacity="0.1" stroke="${ac}" stroke-width="2.2"/>
+      </g>
+      <path d="M28 12 L24 22 L30 22 L25 34" fill="none" stroke="${ac}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:dpulse 1.4s ease-in-out infinite"/>
+    </svg>`,
+    'div-se':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <g style="animation:dbolt 1.8s ease-in-out infinite">
+        <path d="M37 4 L17 30 L31 30 L19 52 L43 26 L27 26 Z" fill="none" stroke="${ac}" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M37 4 L17 30 L31 30 L19 52 L43 26 L27 26 Z" fill="${ac}" opacity="0.09"/>
+      </g>
+      <circle cx="8" cy="14" r="1.5" fill="${ac}" style="animation:dspark 2s ease-out infinite;--tx:-4px;--ty:-4px"/>
+      <circle cx="50" cy="18" r="1.2" fill="${ac}" style="animation:dspark 2.2s ease-out infinite .4s;--tx:4px;--ty:-5px"/>
+      <circle cx="6" cy="32" r="1.2" fill="${ac}" style="animation:dspark 1.9s ease-out infinite .8s;--tx:-5px;--ty:3px"/>
+      <circle cx="52" cy="36" r="1.2" fill="${ac}" style="animation:dspark 2.1s ease-out infinite .2s;--tx:5px;--ty:4px"/>
+      <circle cx="10" cy="48" r="1.2" fill="${ac}" style="animation:dspark 2.4s ease-out infinite 1s;--tx:-3px;--ty:5px"/>
+    </svg>`,
+    'div-ch':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <defs>
+        <linearGradient id="ach1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF4040"/><stop offset="25%" stop-color="#FFD040"/><stop offset="50%" stop-color="#40D040"/><stop offset="75%" stop-color="#40C0FF"/><stop offset="100%" stop-color="#8040FF"/></linearGradient>
+      </defs>
+      <rect x="8" y="14" width="40" height="26" rx="3" fill="none" stroke="url(#ach1)" stroke-width="2.2" style="animation:dpulse 3s ease-in-out infinite"/>
+      <rect x="11" y="17" width="7" height="18" rx="1" fill="#FF4040" opacity="0.3" style="animation:dpulse 3s ease-in-out infinite"/>
+      <rect x="20" y="17" width="7" height="18" rx="1" fill="#FFD040" opacity="0.3" style="animation:dpulse 3s ease-in-out infinite .4s"/>
+      <rect x="29" y="17" width="7" height="18" rx="1" fill="#40D040" opacity="0.3" style="animation:dpulse 3s ease-in-out infinite .8s"/>
+      <rect x="38" y="17" width="8" height="18" rx="1" fill="#4080FF" opacity="0.3" style="animation:dpulse 3s ease-in-out infinite 1.2s"/>
+    </svg>`,
+    'div-pe':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <circle cx="28" cy="28" r="22" fill="none" stroke="${ac}" stroke-width="1" style="animation:dspin-cw 12s linear infinite;transform-origin:28px 28px"/>
+      <path d="M14 28 Q18 18 28 16 Q38 14 42 22 Q46 30 40 36 Q34 44 28 44 Q20 44 16 38 Q12 32 14 28Z" fill="${ac}" opacity="0.08" stroke="${ac}" stroke-width="2"/>
+      <circle cx="28" cy="21" r="3" fill="${ac}" style="animation:dpulse 2s ease-in-out infinite"/>
+      <circle cx="28" cy="21" r="1.5" fill="white" opacity="0.3" style="animation:dpulse 2s ease-in-out infinite .5s"/>
+    </svg>`,
+    'div-bs':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <rect x="8" y="20" width="40" height="16" rx="3" fill="none" stroke="${ac}" stroke-width="2" style="animation:dpulse 4s ease-in-out infinite"/>
+      <circle cx="20" cy="28" r="5" fill="none" stroke="${ac}" stroke-width="1.5"/>
+      <circle cx="20" cy="28" r="2.5" fill="${ac}" style="animation:dpulse 1.5s ease-in-out infinite"/>
+      <line x1="28" y1="24" x2="28" y2="32" stroke="${ac}" stroke-width="1.5" style="animation:dpulse 2s ease-in-out infinite"/>
+      <line x1="32" y1="28" x2="40" y2="28" stroke="${ac}" stroke-width="1.5" style="animation:dpulse 2s ease-in-out infinite .5s"/>
+      <rect x="6" y="26" width="4" height="4" rx="1" fill="${ac}" opacity="0.5" style="animation:dpulse 3s ease-in-out infinite"/>
+      <rect x="46" y="26" width="4" height="4" rx="1" fill="${ac}" opacity="0.3" style="animation:dpulse 3s ease-in-out infinite .5s"/>
+    </svg>`,
+    'd4-necro':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <g style="animation:drotate-slow 20s linear infinite;transform-origin:28px 28px">
+        <path d="M28 6 L32 19 L46 19 L35 27 L39 40 L28 32 L17 40 L21 27 L10 19 L24 19 Z" fill="${ac}" opacity="0.08" stroke="${ac}" stroke-width="2" stroke-linejoin="round"/>
+      </g>
+      <circle cx="28" cy="26" r="6" fill="${dark}" stroke="${ac}" stroke-width="1.5"/>
+      <circle cx="28" cy="26" r="4" fill="${ac}" style="animation:dpulse 2s ease-in-out infinite"/>
+      <line x1="28" y1="32" x2="28" y2="48" stroke="${ac}" stroke-width="2.5" style="animation:dpulse 2.5s ease-in-out infinite"/>
+      <line x1="22" y1="45" x2="34" y2="45" stroke="${ac}" stroke-width="1.5"/>
+    </svg>`,
+    'sw-mando':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <rect x="22" y="7" width="12" height="5" rx="2.5" fill="none" stroke="${ac}" stroke-width="1.5"/>
+      <ellipse cx="28" cy="10" rx="3" ry="2" fill="none" stroke="${ac}" stroke-width="1"/>
+      <path d="M20 11 Q16 16 17 24 Q18 30 22 32 Q25 34 28 34 Q31 34 34 32 Q38 30 39 24 Q40 16 36 11 L20 11Z" fill="${ac}" opacity="0.07" stroke="${ac}" stroke-width="2"/>
+      <rect x="17" y="20" width="5" height="3" rx="1" fill="${ac}" opacity="0.7"/>
+      <rect x="34" y="20" width="5" height="3" rx="1" fill="${ac}" opacity="0.5"/>
+      <rect x="20" y="24" width="4" height="1.5" rx="0.7" fill="${ac}" opacity="0.4"/>
+      <rect x="32" y="24" width="4" height="1.5" rx="0.7" fill="${ac}" opacity="0.4"/>
+      <!-- Visor glow -->
+      <ellipse cx="28" cy="22" rx="5" ry="3" fill="${ac}" opacity="0" style="animation:dvisor 2s ease-in-out infinite"/>
+      <line x1="28" y1="34" x2="28" y2="50" stroke="${ac}" stroke-width="2"/>
+      <line x1="22" y1="44" x2="34" y2="44" stroke="${ac}" stroke-width="1.5"/>
+    </svg>`,
+    'd2r-summon':`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px">
+      <g style="animation:dscroll 3s ease-in-out infinite;transform-origin:28px 24px">
+        <rect x="14" y="6" width="28" height="34" rx="3" fill="${ac}" opacity="0.07" stroke="${ac}" stroke-width="2"/>
+        <rect x="14" y="6" width="28" height="10" rx="3" fill="${ac}" opacity="0.1"/>
+        <line x1="19" y1="16" x2="37" y2="16" stroke="${ac}" stroke-width="1.5" opacity="0.8"/>
+        <line x1="19" y1="22" x2="37" y2="22" stroke="${ac}" stroke-width="0.8" opacity="0.4"/>
+        <line x1="19" y1="27" x2="32" y2="27" stroke="${ac}" stroke-width="0.8" opacity="0.3"/>
+      </g>
+      <path d="M21 32 C21 27 25 25 28 27 C31 25 35 27 35 32" fill="none" stroke="${ac}" stroke-width="2"/>
+      <circle cx="28" cy="37" r="3" fill="${ac}" style="animation:dpulse 2s ease-in-out infinite"/>
+      <line x1="28" y1="40" x2="28" y2="50" stroke="${ac}" stroke-width="2.5"/>
+      <line x1="22" y1="47" x2="34" y2="47" stroke="${ac}" stroke-width="1.5"/>
+    </svg>`,
+  };
+  return icons[id]||`<svg viewBox="0 0 56 56" fill="none" style="width:40px;height:40px"><circle cx="28" cy="28" r="20" fill="none" stroke="${ac}" stroke-width="2"/></svg>`;
+}
+
+function buildDetailContent(b,ac){
+  // Build tabs
+  const TABS=[
+    {id:'overview',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>',label:'Overview'},
+    {id:'skills',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',label:'Skills'},
+    {id:'leveling',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',label:'Leveling'},
+    {id:'tree',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg>',label:'Tree'},
+    {id:'gear',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',label:'Gear'},
+    {id:'rotation',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>',label:'Rotation'},
+    {id:'patch',icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',label:'Patch'},
+  ];
+  document.getElementById('detailTabs').innerHTML=TABS.map((t,i)=>`
+    <div class="dtab${i===0?' on':''}" onclick="switchDTab(this,'${t.id}')" data-pane="${t.id}">
+      <div class="dtab-ico">${t.icon}</div>
+      <div class="dtab-lbl">${t.label}</div>
+    </div>`).join('');
+
+  // Build panes
+  const scroll=document.getElementById('detailScroll');
+  scroll.innerHTML=TABS.map(t=>`<div class="dpane${t.id==='overview'?' on':''}" id="dpane-${t.id}"></div>`).join('');
+
+  // Load ds data
+  b.ds=DS_DATA[b.id]||{};
+  // Fill each pane
+  fillOverview(b,ac);
+  fillSkills(b,ac);
+  fillLeveling(b,ac);
+  fillTree(b,ac);
+  fillGear(b,ac);
+  fillRotation(b,ac);
+  fillPatch(b,ac);
+  scroll.scrollTop=0;
+}
+
+function switchDTab(el,paneId){
+  const detail=document.getElementById('detail');
+  const ac=getComputedStyle(detail).getPropertyValue('--active-color').trim();
+  detail.querySelectorAll('.dtab').forEach(t=>{
+    t.classList.remove('on');
+    const svg=t.querySelector('.dtab-ico svg');
+    if(svg) svg.style.color='var(--muted)';
+  });
+  el.classList.add('on');
+  const svg=el.querySelector('.dtab-ico svg');
+  if(svg) svg.style.color=ac;
+  detail.querySelectorAll('.dpane').forEach(p=>p.classList.remove('on'));
+  const pane=document.getElementById('dpane-'+paneId);
+  if(pane){pane.classList.add('on');}
+  document.getElementById('detailScroll').scrollTop=0;
+}
+
+/* ─ Helper renderers ─ */
+function secHead(title,icon,ac){
+  return `<div class="dsec-head">
+    <div class="dsec-ico" style="border-color:${ac}30;background:${ac}08;color:${ac}">${icon}</div>
+    <div class="dsec-title" style="color:${ac}">${title}</div>
+  </div>`;}
+
+function fillOverview(b,ac){
+  const el=document.getElementById('dpane-overview');
+  if(!el) return;
+  const ds=b.ds||{};
+  const mechanic=ds.mechanic||b.sub;
+  const str=ds.strengths||[];
+  const wk=ds.weaknesses||[];
+  const asc=ds.ascendancy||[];
+  let h='';
+  if(ds.warn) h+=`<div class="dnote dnote-warn" style="margin-bottom:10px">⚠ ${ds.warn}</div>`;
+  h+=secHead('Core Mechanic','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22C12 22 4 16 4 10a8 8 0 0 1 16 0c0 6-8 12-8 12z"/></svg>',ac);
+  h+=`<p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:12px;padding:0 2px">${mechanic}</p>`;
+  if(str.length||wk.length){
+    h+=secHead('Strengths & Weaknesses','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',ac);
+    h+=`<div class="dsw-grid" style="margin-bottom:12px">
+      <div class="dsw-box"><div class="dsw-title" style="color:#40c040">✓ Strengths</div><div style="font-size:10px;color:var(--muted);line-height:1.7">${str.map(s=>s+'<br>').join('')}</div></div>
+      <div class="dsw-box"><div class="dsw-title" style="color:#FF4020">✗ Weaknesses</div><div style="font-size:10px;color:var(--muted);line-height:1.7">${wk.map(w=>w+'<br>').join('')}</div></div>
+    </div>`;}
+  if(asc.length){
+    h+=secHead('Ascendancy','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',ac);
+    h+=`<div class="dasc-grid">${asc.map(([num,name,desc])=>`
+      <div class="dasc"><div class="dasc-num">${num}</div>
+      <div class="dasc-name" style="color:${ac}">${name}</div>
+      <div class="dasc-desc">${desc}</div></div>`).join('')}</div>`;}
+  if(ds.extra) h+=`<div class="dnote dnote-info">${ds.extra}</div>`;
+  el.innerHTML=h;
+}
+
+function fillSkills(b,ac){
+  const el=document.getElementById('dpane-skills');
+  if(!el) return;
+  const ds=b.ds||{};
+  const skills=ds.skills||[];
+  let h=secHead('Active Skills','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',ac);
+  skills.forEach(([name,desc,color,tag,gems])=>{
+    h+=`<div class="dskill">
+      <div class="dskill-ico" style="border-color:${color}40;background:${color}10;color:${color}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      <div class="dskill-info">
+        <div class="dskill-name">${name}</div>
+        <div class="dskill-desc">${desc}</div>
+        ${gems&&gems.length?`<div class="gem-chips">${gems.map(g=>`<span class="gem-chip">${g}</span>`).join('')}</div>`:''}
+      </div>
+      <span class="dskill-tag" style="color:${color};border-color:${color}30">${tag}</span>
+    </div>`; });
+  if(ds.skill_note) h+=`<div class="dnote dnote-info" style="margin-top:8px">💡 ${ds.skill_note}</div>`;
+  el.innerHTML=h;
+}
+
+function fillLeveling(b,ac){
+  const el=document.getElementById('dpane-leveling');
+  if(!el) return;
+  const phases=(b.ds&&b.ds.leveling)||[];
+  if(!phases.length){el.innerHTML=`<div class="dnote dnote-info">See Full Guide for detailed leveling information.</div>`;return;}
+  let h=`<div class="dphase-track">`;
+  phases.forEach(([num,title,desc,gems,passive])=>{
+    h+=`<div class="dphase">
+      <div class="dphase-num">${num}</div>
+      <div class="dphase-title">${title}</div>
+      <div class="dphase-desc">${desc}</div>
+      <div class="dphase-gems">${gems.map(([name,sups])=>`
+        <div class="dpgem">
+          <div class="dpgem-name">${name}</div>
+          <div class="dpgem-sups">${sups.map(s=>`<span class="dpgem-s">${s}</span>`).join('')}</div>
+        </div>`).join('')}</div>
+      ${passive?`<div class="dphase-passive">▸ ${passive}</div>`:''}
+    </div>`; });
+  h+='</div>';
+  el.innerHTML=h;
+}
+
+function fillTree(b,ac){
+  const el=document.getElementById('dpane-tree');
+  if(!el) return;
+  const tree=(b.ds&&b.ds.tree)||[];
+  let h=secHead('Passive Tree Priority','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg>',ac);
+  if(b.ds&&b.ds.tree_note) h+=`<div class="dnote dnote-info" style="margin-bottom:10px">ℹ ${b.ds.tree_note}</div>`;
+  tree.forEach(([range,desc,pts])=>{
+    h+=`<div class="dtree"><div class="dtree-range" style="color:${ac}">${range}</div><div class="dtree-desc">${desc}</div>${pts?`<div class="dtree-pts">${pts}</div>`:''}</div>`;});
+  el.innerHTML=h;
+}
+
+function fillGear(b,ac){
+  const el=document.getElementById('dpane-gear');
+  if(!el) return;
+  const gear=(b.ds&&b.ds.gear)||[];
+  let h=secHead('Equipment','<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',ac);
+  gear.forEach(([slot,name,note,tag,color,bis])=>{
+    h+=`<div class="dgear${bis?' bis':''}">
+      <div class="dgear-slot">${slot}</div>
+      <div><div class="dgear-name" style="color:${bis?'#E8C840':color}">${name}</div><div class="dgear-note">${note}</div></div>
+      <span class="dgear-tag" style="color:${color};border-color:${color}30">${tag}</span>
+    </div>`;});
+  if(b.ds&&b.ds.gear_note) h+=`<div class="dnote dnote-info" style="margin-top:8px">📊 ${b.ds.gear_note}</div>`;
+  el.innerHTML=h;
+}
+
+function fillRotation(b,ac){
+  const el=document.getElementById('dpane-rotation');
+  if(!el) return;
+  const rot=(b.ds&&b.ds.rotation)||[];
+  let h='';
+  rot.forEach(([label,color,steps])=>{
+    h+=`<div class="drot-label" style="color:${color}">${label}</div>`;
+    steps.forEach(([skill,desc],i)=>{
+      h+=`<div class="drot-step"><div class="drot-n" style="border-color:${color};color:${color}">${i+1}</div>
+        <div><div class="drot-skill">${skill}</div><div class="drot-desc">${desc}</div></div></div>`;});
+    h+='<div style="margin-bottom:12px"></div>';});
+  if(b.ds&&b.ds.rot_note) h+=`<div class="dnote dnote-info">${b.ds.rot_note}</div>`;
+  el.innerHTML=h;
+}
+
+function fillPatch(b,ac){
+  const el=document.getElementById('dpane-patch');
+  if(!el) return;
+  const items=(b.ds&&b.ds.patch)||[];
+  const note=(b.ds&&b.ds.patch_note)||'';
+  const cls=(b.ds&&b.ds.patch_class)||'dnote-info';
+  let h='';
+  if(note) h+=`<div class="dnote ${cls}" style="margin-bottom:10px">${note}</div>`;
+  items.forEach(([type,title,desc])=>{
+    const col=type==='buff'?'#40c040':type==='warn'?'#FF4020':'#888';
+    h+=`<div class="dpatch"><div class="dpatch-dot" style="background:${col}"></div>
+      <div><div class="dpatch-title">${title}</div><div class="dpatch-desc">${desc}</div></div></div>`;});
+  el.innerHTML=h;
+}
+
 function closeDetail(){document.getElementById('detail').classList.remove('open');}
 
 function openSearch(){

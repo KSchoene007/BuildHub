@@ -111,3 +111,16 @@
 - Most played build in PoE2 (34% of top players, 80% chose Lightning Arrow)
 - Guide includes: Ascendancy priority, full skill gem setup, passive tree phases, gear priority, boss + map rotation, 0.5.0 patch impact
 - PoE2 now has 3 builds: Poisonburst (nerfed A-Tier), Spiraling (buffed), Lightning Arrow (S-Tier)
+
+## v3.1 – 2026-05-23
+- Final: Alle 15 custom SVG Icons eingebaut (5 Spiel-Tabs + 10 Build-Icons)
+- Final: Build Cards auf Variante C Banner-Design umgestellt
+- Icons: Div2=Crosshair+Hexagon, PoE2=Rune Sigil, D4=Pentagramm, SWTOR=Lightsaber D, D2R=Dark Star
+- Build Icons: Spiraling=Lila-Feuer Vortex, Poisonburst=Böser Skull, Lightning=Pfeil+Blitz, u.a.
+
+## v3.2 – 2026-05-23
+- New: Detail Panel vollständig überarbeitet — Tab-Navigation für alle 11 Builds
+- Tabs: Overview / Skills / Leveling / Tree / Gear / Rotation / Patch Notes
+- Animierte Build-Icons im Header (permanent): Vortex, Herz-Puls, Blitz-Flackern, Elektro-Funken, Mandalorian Visier-Glow, Grimoire-Scroll, Nekro-Stern-Rotation etc.
+- Alle 11 Builds mit vollständigen Daten aus den Guides befüllt
+- Spiel-spezifische Akzentfarben + atmosphärische Hintergründe im Header
