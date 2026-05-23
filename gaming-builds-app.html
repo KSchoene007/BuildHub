@@ -23,8 +23,14 @@
   --muted2:#4a4a60;
   --poe:#d4883a;
   --poe-dim:rgba(212,136,58,0.15);
-  --div:#3a8fff;
-  --div-dim:rgba(58,143,255,0.12);
+  --div:#E8700A;
+  --div-dim:rgba(232,112,10,0.12);
+  --d4:#CC2020;
+  --d4-dim:rgba(204,32,32,0.12);
+  --sw:#4A9AE0;
+  --sw-dim:rgba(74,154,224,0.12);
+  --d2r:#80A040;
+  --d2r-dim:rgba(128,160,64,0.12);
   --s-tier:#ffd700;
   --a-tier:#4a9eff;
   --b-tier:#64c864;
@@ -37,30 +43,47 @@
 }
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;overflow:hidden}
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);pointer-events:none;z-index:9999}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 0% 0%,var(--theme-glow,rgba(255,255,255,0.03)) 0%,transparent 50%),radial-gradient(ellipse at 100% 100%,var(--theme-glow,rgba(255,255,255,0.02)) 0%,transparent 50%);pointer-events:none;z-index:0}
 #app{display:flex;flex-direction:column;height:100vh;max-width:960px;margin:0 auto}
 
-header{flex-shrink:0;background:linear-gradient(180deg,rgba(8,8,16,0.98) 0%,rgba(8,8,16,0.9) 100%);border-bottom:1px solid var(--border)}
+header{flex-shrink:0;background:linear-gradient(180deg,var(--bg,rgba(8,8,16,0.98)) 0%,rgba(8,8,16,0.92) 100%);border-bottom:1px solid var(--border);transition:background .3s}
 .header-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px}
 .logo{display:flex;align-items:center;gap:10px}
-.logo-icon{width:34px;height:34px;border:1.5px solid var(--div);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--div-dim);transition:.3s}
+.logo-icon{width:34px;height:34px;border:1.5px solid var(--div);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;background:rgba(232,112,10,0.12);transition:.3s}
 .logo-text{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:1px;color:#fff}
 .logo-text span{color:var(--div);transition:.3s}
 .icon-btn{width:36px;height:36px;border:1px solid var(--border2);border-radius:9px;background:var(--s2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:16px;transition:.15s}
 .icon-btn:hover{color:var(--text);background:var(--s3)}
 
-.game-tabs{display:flex;padding:0 18px 12px;gap:8px;overflow-x:auto;scrollbar-width:none}
+.game-tabs-wrap{position:relative;padding:0 18px 14px}
+.game-tabs-wrap::before,.game-tabs-wrap::after{content:'';position:absolute;top:0;bottom:14px;width:32px;pointer-events:none;z-index:2}
+.game-tabs-wrap::before{left:18px;background:linear-gradient(90deg,var(--bg),transparent)}
+.game-tabs-wrap::after{right:18px;background:linear-gradient(270deg,var(--bg),transparent)}
+.game-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 4px;scroll-behavior:smooth}
 .game-tabs::-webkit-scrollbar{display:none}
-.gtab{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;letter-spacing:.5px;cursor:pointer;transition:.2s}
-.gtab-count{background:rgba(255,255,255,0.1);border-radius:4px;padding:1px 6px;font-size:11px}
-.gtab.poe.on{background:var(--poe-dim);border-color:var(--poe);color:var(--poe)}
-.gtab.div2.on{background:var(--div-dim);border-color:var(--div);color:var(--div)}
-.gtab:hover:not(.on){background:var(--s2);color:var(--text)}
+.gtab{flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:10px 16px;border-radius:12px;border:1px solid var(--border);background:var(--s1);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:.2s;min-width:90px;position:relative;overflow:hidden}
+.gtab::before{content:'';position:absolute;inset:0;opacity:0;transition:.2s}
+.gtab:hover::before{opacity:1}
+.gtab-icon{font-size:20px;line-height:1}
+.gtab-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.gtab-count{font-size:10px;opacity:0.5;margin-top:1px}
+.gtab.poe.on{background:linear-gradient(135deg,#1a1008,#0e0a06);border-color:#8B6914;color:#C8A040}
+.gtab.div.on{background:linear-gradient(135deg,#101520,#080c10);border-color:#E8700A;color:#E8700A}
+.gtab.div2.on{background:linear-gradient(135deg,#101520,#080c10);border-color:#E8700A;color:#E8700A}
+.gtab.d4.on{background:linear-gradient(135deg,#180b0b,#0c0505);border-color:#CC2020;color:#FF5050}
+.gtab.sw.on{background:linear-gradient(135deg,#0a1020,#02050f);border-color:#4A9AE0;color:#6AB4FF}
+.gtab.d2r.on{background:linear-gradient(135deg,#0e1208,#060808);border-color:#80A040;color:#90C050}
+.gtab:hover:not(.on){background:var(--s2);border-color:var(--border2);color:var(--text)}
 
-.filter-bar{display:flex;padding:8px 18px;gap:6px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.filter-bar-wrap{position:relative;border-bottom:1px solid var(--border);flex-shrink:0}
+.filter-bar-wrap::before,.filter-bar-wrap::after{content:'';position:absolute;top:0;bottom:0;width:24px;pointer-events:none;z-index:2}
+.filter-bar-wrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.filter-bar-wrap::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.filter-bar{display:flex;padding:8px 18px;gap:6px;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth}
 .filter-bar::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;padding:5px 11px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:.15s;font-family:'Rajdhani',sans-serif;letter-spacing:.3px}
-.chip.on{background:rgba(255,255,255,0.08);border-color:var(--border2);color:#fff}
-.chip:hover:not(.on){background:var(--s2);color:var(--text)}
+.chip{flex-shrink:0;padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;transition:.15s;font-family:'Rajdhani',sans-serif;letter-spacing:.5px;text-transform:uppercase}
+.chip.on{background:var(--active-color,var(--border2));border-color:var(--active-color,var(--border2));color:#fff}
+.chip:hover:not(.on){background:var(--s2);color:var(--text);border-color:var(--border2)}
 
 .list-scroll{flex:1;overflow-y:auto;padding:14px 18px 24px;scrollbar-width:thin;scrollbar-color:var(--s3) transparent}
 .list-scroll::-webkit-scrollbar{width:3px}
@@ -74,6 +97,23 @@ header{flex-shrink:0;background:linear-gradient(180deg,rgba(8,8,16,0.98) 0%,rgba
 
 /* BUILD CARD */
 .bcard{background:var(--s1);border:1px solid var(--border);border-radius:14px;margin-bottom:9px;cursor:pointer;transition:.18s;overflow:hidden;position:relative}
+/* Game-themed card backgrounds */
+.bcard-div2{background:linear-gradient(135deg,#080c10 0%,var(--s1) 60%)}
+.bcard-poe2{background:linear-gradient(135deg,#0e0a06 0%,var(--s1) 60%)}
+.bcard-d4{background:linear-gradient(135deg,#0c0505 0%,var(--s1) 60%)}
+.bcard-swtor{background:linear-gradient(135deg,#02050f 0%,var(--s1) 60%)}
+.bcard-d2r{background:linear-gradient(135deg,#060808 0%,var(--s1) 60%)}
+/* Decorative elements */
+.bc-hud-corner{position:absolute;top:8px;right:12px;font-size:9px;letter-spacing:3px;font-weight:700;opacity:0.5;font-family:'Rajdhani',sans-serif}
+.bc-scanlines{position:absolute;inset:0;pointer-events:none;z-index:0}
+.bc-rune-deco{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:28px;opacity:0.1;pointer-events:none}
+.bc-skull-deco{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:32px;opacity:0.06;pointer-events:none}
+.bc-hellglow{position:absolute;inset:0;pointer-events:none}
+.bc-stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.bc-stars span{position:absolute;width:1px;height:1px;background:rgba(255,255,255,0.5);border-radius:50%}
+.bc-holo-bar{position:absolute;bottom:0;left:0;right:0;height:2px;border-top:1px solid}
+.bc-rune-row{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:20px;opacity:0.15;pointer-events:none}
+.bc-game-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:5px;font-weight:700}
 .bcard:hover{border-color:var(--border2);background:var(--s2);transform:translateY(-1px)}
 .bcard:active{transform:scale(0.99)}
 .bcard-accent{position:absolute;left:0;top:0;bottom:0;width:3px}
@@ -219,7 +259,7 @@ header{flex-shrink:0;background:linear-gradient(180deg,rgba(8,8,16,0.98) 0%,rgba
 .empty{text-align:center;padding:50px 20px;color:var(--muted)}
 .empty-ico{font-size:36px;margin-bottom:10px}
 .guide-btn{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:9px;border:1px solid var(--border2);background:var(--s2);color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:.15s;text-decoration:none;flex-shrink:0}
-.guide-btn:hover{border-color:var(--div);color:var(--div);background:var(--div-dim)}
+.guide-btn:hover{border-color:var(--div);color:var(--div);background:rgba(232,112,10,0.12)}
 .guide-btn span{font-size:14px}
 </style>
 </head>
@@ -233,9 +273,9 @@ header{flex-shrink:0;background:linear-gradient(180deg,rgba(8,8,16,0.98) 0%,rgba
       </div>
       <button class="icon-btn" onclick="openSearch()" title="Search">🔍</button>
     </div>
-    <div class="game-tabs" id="gameTabs"></div>
+    <div class="game-tabs-wrap"><div class="game-tabs" id="gameTabs"></div></div>
   </header>
-  <div class="filter-bar" id="filterBar"></div>
+  <div class="filter-bar-wrap"><div class="filter-bar" id="filterBar"></div></div>
   <div class="list-scroll" id="listScroll"></div>
 </div>
 
@@ -305,6 +345,9 @@ const BUILDS=[
 {id:'poe-sc',game:'poe2',tier:'S',name:'Spiraling Conspiracy',icon:'💀',sub:'Witch · Infernalist · Minion',tags:['boss','map'],diff:'medium',accent:'#d4883a',guide:'guide_spiraling.html',
  stats:[{l:'DPS',v:100,c:'#ff6060'},{l:'Survival',v:75,c:'#60a0ff'},{l:'Speed',v:60,c:'#50c8b4'},{l:'Budget',v:55,c:'#ffd700'}],
  detail:`
+  <div class="ds"><div class="ds-title" style="color:#50c850">✅ Patch 0.5.0 Buffs</div>
+    ${note('note-tip','<strong>New:</strong> Archon of Undeath passive cluster (Witch area) — invest here. Minion Splash Support Gems for AoE. Minion mods now craftable on Rings/Belts via Genesis Tree. No nerfs.')}
+  </div>
   <div class="ds"><div class="ds-title">⚔️ Main Skill</div>
     ${wC('💀','Spiraling Conspiracy','Minion Explosion · Chaos','—','—','Spirit','Core Mechanic','Minions explode as a spiraling ring around the player. Combined with Infernalist: Minions take Hellform (+25% damage) and detonate with increased Chaos AoE. Minimize cast time for maximum DPS uptime.')}
   </div>
@@ -335,6 +378,9 @@ const BUILDS=[
 {id:'poe-pb',game:'poe2',tier:'A',name:'Poisonburst Pathfinder',icon:'☠️',sub:'Ranger · Pathfinder · DOT/Poison',tags:['map','dmg'],diff:'hard',accent:'#d4883a',guide:'guide_poisonburst.html',
  stats:[{l:'DPS',v:95,c:'#ff6060'},{l:'Survival',v:50,c:'#60a0ff'},{l:'Speed',v:100,c:'#50c8b4'},{l:'Budget',v:70,c:'#ffd700'}],
  detail:`
+  <div class="ds"><div class="ds-title" style="color:var(--red)">⚠️ Patch 0.5.0 Nerfs</div>
+    ${note('note-warn','<strong>Poisonburst Arrow:</strong> Poison Duration now fixed at 3 sec (was scaling). <strong>Overwhelming Toxicity:</strong> 50% less Poison Duration (was 35%). Compensate via +Poison Duration on gear and passive tree.')}
+  </div>
   <div class="ds"><div class="ds-title">🎯 Main Skills</div>
     ${wC('🏹','Viper Strike / Caustic Arrow','Bow · Poison DOT','—','15 Stacks','Phys→Chaos','Core Gem','Main skill for poison stack buildup. Viper Strike (Single Target), Caustic Arrow (AoE Mapping). Always build Withering stacks first.')}
     ${wC('🧪','Plague Bearer','Active Skill · AoE Explosion','—','AoE Radius','Chaos','Explosion Gem','Stores poison damage from kills and releases as AoE explosion. Trigger with 15× Withering stacks before detonating = maximum burst!')}
@@ -646,9 +692,22 @@ function diffBadge(d){
 }
 
 function setAccent(game){
-  const color=game==='poe2'?'#d4883a':'#3a8fff';
-  const dim=game==='poe2'?'rgba(212,136,58,0.15)':'rgba(58,143,255,0.12)';
+  const themes={
+    poe2:  {color:'#d4883a',dim:'rgba(212,136,58,0.15)',bg:'#0e0a06',s1:'#140e08',s2:'#1a1208',glow:'rgba(212,136,58,0.06)',scan:'rgba(212,136,58,0.025)'},
+    div2:  {color:'#E8700A',dim:'rgba(232,112,10,0.12)',bg:'#080c10',s1:'#0c1018',s2:'#101520',glow:'rgba(232,112,10,0.05)',scan:'rgba(232,112,10,0.02)'},
+    d4:    {color:'#CC2020',dim:'rgba(204,32,32,0.12)',bg:'#0c0505',s1:'#120808',s2:'#180b0b',glow:'rgba(204,32,32,0.07)',scan:'rgba(204,32,32,0.02)'},
+    swtor: {color:'#4A9AE0',dim:'rgba(74,154,224,0.12)',bg:'#02050f',s1:'#060a16',s2:'#0a1020',glow:'rgba(74,154,224,0.06)',scan:'rgba(74,154,224,0.02)'},
+    d2r:   {color:'#80A040',dim:'rgba(128,160,64,0.12)',bg:'#060808',s1:'#0a0e08',s2:'#0e1208',glow:'rgba(128,160,64,0.05)',scan:'rgba(128,160,64,0.02)'}
+  };
+  const t=themes[game]||themes.div2;
+  const color=t.color, dim=t.dim;
   document.documentElement.style.setProperty('--active-color',color);
+  document.documentElement.style.setProperty('--bg',t.bg);
+  document.documentElement.style.setProperty('--s1',t.s1);
+  document.documentElement.style.setProperty('--s2',t.s2);
+  document.documentElement.style.setProperty('--s3',t.s2);
+  document.documentElement.style.setProperty('--theme-glow',t.glow);
+  document.body.style.background=t.bg;
   document.querySelector('.logo-icon').style.borderColor=color;
   document.querySelector('.logo-icon').style.background=dim;
   document.getElementById('logoAccentEl').style.color=color;
@@ -657,11 +716,18 @@ function setAccent(game){
 }
 
 function renderGameTabs(){
-  const counts={poe2:BUILDS.filter(b=>b.game==='poe2').length,div2:BUILDS.filter(b=>b.game==='div2').length};
+  const counts={}; GAMES.forEach(g=>{counts[g.id]=BUILDS.filter(b=>b.game===g.id).length;});
   document.getElementById('gameTabs').innerHTML=GAMES.map(g=>`
     <button class="gtab ${g.ac}${activeGame===g.id?' on':''}" onclick="setGame('${g.id}')">
-      ${g.icon} ${g.label}<span class="gtab-count">${counts[g.id]}</span>
+      <div class="gtab-icon">${g.icon}</div>
+      <div class="gtab-label">${g.label}</div>
+      <div class="gtab-count">${counts[g.id]} builds</div>
     </button>`).join('');
+  // Scroll active tab into view
+  setTimeout(()=>{
+    const el=document.querySelector('.gtab.on');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  },50);
 }
 
 function getFilters(){
@@ -693,17 +759,52 @@ function buildCard(b){
       <div class="mini-bar"><div class="mini-fill" style="width:${s.v}%;background:${s.c}"></div></div>
       <div class="mini-val" style="color:${s.c}">${Math.round(s.v/20)}★</div>
     </div>`).join('');
-  return `<div class="bcard" onclick="openDetail('${b.id}')">
-    <div class="bcard-accent" style="background:${b.accent}"></div>
+
+  const ac=b.accent;
+
+  // Game-specific decorative elements
+  const deco={
+    div2:`<div class="bc-hud-corner" style="color:${ac}">SHD▸${b.tier}</div>
+          <div class="bc-scanlines" style="background:repeating-linear-gradient(0deg,transparent,transparent 3px,${ac}08 3px,${ac}08 4px)"></div>`,
+    poe2:`<div class="bc-rune-deco" style="color:${ac}">✦</div>`,
+    d4:`<div class="bc-skull-deco" style="color:${ac}">☠</div>
+        <div class="bc-hellglow" style="background:radial-gradient(ellipse at 85% 50%,${ac}18 0%,transparent 60%)"></div>`,
+    swtor:`<div class="bc-stars"><span style="top:15%;left:20%"></span><span style="top:60%;left:70%"></span><span style="top:35%;left:85%"></span><span style="top:75%;left:40%"></span></div>
+           <div class="bc-holo-bar" style="border-color:${ac}40;background:${ac}10"></div>`,
+    d2r:`<div class="bc-rune-row" style="border-color:${ac}30;color:${ac}">⊕</div>`
+  }[b.game]||'';
+
+  // Game-specific card class
+  const gameClass=`bcard-${b.game}`;
+
+  // Game-specific name styling
+  const nameStyle={
+    poe2:`font-family:Georgia,serif;color:${ac}`,
+    d2r:`font-family:Georgia,serif;color:${ac}`
+  }[b.game]||`color:#fff`;
+
+  // Game-specific sub label
+  const gameLabel={
+    div2:`<div class="bc-game-label" style="color:${ac}88">▶ ACTIVE BUILD</div>`,
+    poe2:`<div class="bc-game-label" style="color:${ac}88;font-style:italic">~ ${b.sub.split('·')[0].trim()} ~</div>`,
+    d4:`<div class="bc-game-label" style="color:${ac}88">⸸ ${b.sub.split('·').pop().trim()}</div>`,
+    swtor:`<div class="bc-game-label" style="color:${ac}88">⬡ ${b.sub.split('·')[0].trim()}</div>`,
+    d2r:`<div class="bc-game-label" style="color:${ac}88;font-family:Georgia,serif">☽ ${b.sub.split('·').pop().trim()}</div>`
+  }[b.game]||'';
+
+  return `<div class="bcard ${gameClass}" onclick="openDetail('${b.id}')" style="border-color:${ac}20">
+    <div class="bcard-accent" style="background:linear-gradient(180deg,${ac},${ac}60)"></div>
+    ${deco}
     <div class="bcard-inner">
+      ${gameLabel}
       <div class="bcard-top">
-        <div class="bcard-emblem" style="background:${b.accent}22;border-color:${b.accent}44">${b.icon}</div>
+        <div class="bcard-emblem" style="background:${ac}15;border-color:${ac}40">${b.icon}</div>
         <div class="bcard-info">
-          <div class="bcard-name">${b.name}</div>
+          <div class="bcard-name" style="${nameStyle}">${b.name}</div>
           <div class="bcard-sub">${b.sub}</div>
           <div class="bcard-tags">${allTags}</div>
         </div>
-        <div class="bcard-arrow">›</div>
+        <div class="bcard-arrow" style="color:${ac}">›</div>
       </div>
       <div class="bcard-stats">${bars}</div>
     </div></div>`;

@@ -92,3 +92,16 @@
 - Curse Cluster (Iron Maiden + Decrepify) korrekt bei Level 13
 - Ultimate Cluster (Army of the Dead) bei Level 20
 - Jeder Level einzeln aufgeführt mit exakter Skill-Entscheidung
+
+## v2.3 – 2026-05-22
+### Patch 0.5.0 — Return of the Ancients
+- Updated: Poisonburst Pathfinder — Patch 0.5.0 Nerfs dokumentiert
+  - Poisonburst Arrow: Poison Duration jetzt fix 3 sec (war skalierend)
+  - Overwhelming Toxicity: 50% less Poison Duration (war 35%)
+  - Running Assault: 30% less Move Penalty (war 50%)
+  - Empfehlung: +Poison Duration auf Gear und Passive Tree priorisieren
+- Updated: Spiraling Conspiracy — Patch 0.5.0 Buffs dokumentiert
+  - Neuer Archon of Undeath Passive Cluster (Witch/Sorceress Bereich)
+  - Neue Minion Splash + Minion Splash II Support Gems
+  - Minion Mods jetzt craftbar auf Rings/Belts via Genesis Tree
+  - Minion Management: Jüngere Minions werden zuerst entfernt (QoL)
