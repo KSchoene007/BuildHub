@@ -15,7 +15,7 @@
   --border:rgba(204,32,32,.15);--border2:rgba(204,32,32,.3);
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;min-height:100vh}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(rgba(204,32,32,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(204,32,32,.05) 1px,transparent 1px);
   background-size:44px 44px;animation:bgshift 30s linear infinite}
@@ -35,18 +35,18 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .hbeat{animation:hbeat 1.4s ease-in-out infinite}
 .hcrack{animation:crackglow 1.4s ease-in-out infinite}
 
-.hero-pre{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:4px;color:rgba(204,32,32,.7);margin-bottom:6px;text-transform:uppercase}
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:4px;color:rgba(204,32,32,.7);margin-bottom:6px;text-transform:uppercase}
 .hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(28px,7vw,44px);font-weight:900;color:#fff;line-height:1;letter-spacing:1px;margin-bottom:4px}
 .hero-title em{color:#FF4040;font-style:normal}
-.hero-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
 .hero-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px}
-.htag{font-size:9px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
+.htag{font-size:11px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
 .hero-bars{display:flex;justify-content:center;gap:20px}
 .hb{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
 .hb-track{width:48px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
 .hb-fill{height:100%;border-radius:2px}
-.hb-label{font-size:7px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
-.hb-val{font-size:12px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+.hb-label{font-size:9px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.hb-val{font-size:14px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
 
 /* TABS */
 .tab-bar-hero{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;padding:16px 16px 4px}
@@ -56,7 +56,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
 .tab-ico svg{width:14px;height:14px;color:#664040;transition:.2s}
 .tab-hero.on .tab-ico svg{color:var(--ac);filter:drop-shadow(0 0 3px rgba(204,32,32,.6))}
-.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#442020;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
+.tab-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#442020;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
 .tab-hero.on .tab-lbl{color:var(--ac)}
 .sec{display:none}.sec.on{display:block}
 
@@ -69,29 +69,29 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid var(--border2);background:rgba(204,32,32,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sec-ico svg{width:16px;height:16px;color:var(--ac)}
 .sec-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff;letter-spacing:.5px}
-.sec-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(204,32,32,.5);letter-spacing:1px}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(204,32,32,.5);letter-spacing:1px}
 .sec-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(204,32,32,.4),transparent)}
 
 /* MECHANIC / INFO BLOCK */
 .info-block{background:var(--s1);border:1px solid rgba(204,32,32,.2);border-left:3px solid var(--ac);border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
 .info-block::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 100% 0%,rgba(204,32,32,.08),transparent 70%);pointer-events:none}
-.info-block p{font-size:12px;color:#c0a0a0;line-height:1.75}
+.info-block p{font-size:14px;color:#c0a0a0;line-height:1.75}
 .info-block p+p{margin-top:8px}
 .kw{color:#FF4040;font-weight:700}.kw2{color:#FF8060;font-weight:700}.kw3{color:var(--gold);font-weight:700}
 
 /* CYCLE CARDS */
 .cycle{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
 .cycle-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
-.cycle-n{width:32px;height:32px;border-radius:50%;border:2px solid var(--ac);background:rgba(204,32,32,.1);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--ac);flex-shrink:0}
-.cycle-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
-.cycle-sub{font-size:10px;color:#907070;line-height:1.4}
-.cycle-badge{font-size:9px;padding:2px 8px;border-radius:3px;background:rgba(204,32,32,.15);border:1px solid rgba(204,32,32,.3);color:var(--ac);font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start;margin-left:auto}
+.cycle-n{width:32px;height:32px;border-radius:50%;border:2px solid var(--ac);background:rgba(204,32,32,.1);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--ac);flex-shrink:0}
+.cycle-title{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.cycle-sub{font-size:12px;color:#907070;line-height:1.4}
+.cycle-badge{font-size:11px;padding:2px 8px;border-radius:3px;background:rgba(204,32,32,.15);border:1px solid rgba(204,32,32,.3);color:var(--ac);font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start;margin-left:auto}
 
 /* S/W */
 .sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
 .sw-box{background:var(--s1);border:1px solid;border-radius:8px;padding:11px}
-.sw-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
-.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#907070;line-height:1.5;margin-bottom:3px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:13px;color:#907070;line-height:1.5;margin-bottom:3px}
 .sw-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
 
 /* WEAPONS */
@@ -102,11 +102,11 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .weapon-card.alt::before{background:rgba(204,32,32,.4)}
 .weapon-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
 .weapon-ico{font-size:20px;flex-shrink:0}
-.weapon-name{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.weapon-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
 .weapon-name.gold{color:var(--gold)}
-.weapon-type{font-size:10px;color:var(--muted);margin-bottom:2px}
-.weapon-talent{font-size:11px;color:#FF6040;font-weight:600}
-.weapon-desc{font-size:11px;color:#907070;line-height:1.5}
+.weapon-type{font-size:12px;color:var(--muted);margin-bottom:2px}
+.weapon-talent{font-size:13px;color:#FF6040;font-weight:600}
+.weapon-desc{font-size:13px;color:#907070;line-height:1.5}
 
 /* GEAR TABLE */
 .gear-list{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
@@ -114,27 +114,27 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .gr:hover{border-color:rgba(204,32,32,.2)}
 .gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
 .gr.named{border-color:rgba(192,96,255,.2)}
-.gr-slot{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);width:60px;flex-shrink:0;padding-top:2px}
+.gr-slot{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted2);width:60px;flex-shrink:0;padding-top:2px}
 .gr-info{flex:1}
-.gr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.gr-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
 .gr.bis .gr-name{color:var(--gold)}
 .gr.named .gr-name{color:#c060ff}
-.gr-note{font-size:10px;color:var(--muted2);line-height:1.35}
-.gr-tag{font-size:8px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+.gr-note{font-size:12px;color:var(--muted2);line-height:1.35}
+.gr-tag{font-size:10px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
 
 /* TALENT CARDS */
 .talent-cards{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
 .tc{background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
 .tc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:8px 0 0 8px}
-.tc-ico{font-size:18px;flex-shrink:0;line-height:1.3}
-.tc-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#FF6040;margin-bottom:3px}
-.tc-desc{font-size:11px;color:#907070;line-height:1.5}
+.tc-ico{font-size:19px;flex-shrink:0;line-height:1.3}
+.tc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#FF6040;margin-bottom:3px}
+.tc-desc{font-size:13px;color:#907070;line-height:1.5}
 
 /* SET BONUSES */
 .set-table{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
 .st-row{display:grid;grid-template-columns:80px 1fr;gap:10px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
-.st-pieces{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--ac);font-weight:700}
-.st-bonus{font-size:11px;color:#c0a0a0;line-height:1.4}
+.st-pieces{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--ac);font-weight:700}
+.st-bonus{font-size:13px;color:#c0a0a0;line-height:1.4}
 
 /* SKILLS */
 .skill-list{display:flex;flex-direction:column;gap:5px}
@@ -142,30 +142,30 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .sk::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:9px 0 0 9px}
 .sk:hover{border-color:rgba(204,32,32,.2);background:var(--s2)}
 .sk-ico{font-size:20px;flex-shrink:0;line-height:1.3}
-.sk-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
-.sk-desc{font-size:11px;color:#907070;line-height:1.4}
+.sk-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.sk-desc{font-size:13px;color:#907070;line-height:1.4}
 
 /* STATS TABLE */
 .stats-table{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
 .stat-row{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
-.stat-attr{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#fff}
-.stat-target{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--ac)}
-.stat-note{font-size:10px;color:var(--muted2)}
+.stat-attr{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff}
+.stat-target{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--ac)}
+.stat-note{font-size:12px;color:var(--muted2)}
 
 /* ROTATION */
 .rot-block{margin-bottom:16px}
 .rot-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
 .rot-ico{width:22px;height:22px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center}
 .rot-ico svg{width:12px;height:12px}
-.rot-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+.rot-title{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
 .rot-steps{display:flex;flex-direction:column;gap:5px}
 .rstep{display:flex;gap:10px;align-items:flex-start}
-.rn{width:22px;height:22px;border-radius:50%;border:1px solid var(--ac);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;color:var(--ac);flex-shrink:0;margin-top:1px}
-.rb-skill{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:1px}
-.rb-desc{font-size:11px;color:#907070;line-height:1.4}
+.rn{width:22px;height:22px;border-radius:50%;border:1px solid var(--ac);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--ac);flex-shrink:0;margin-top:1px}
+.rb-skill{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:1px}
+.rb-desc{font-size:13px;color:#907070;line-height:1.4}
 
 /* NOTE */
-.note{padding:9px 12px;border-radius:6px;font-size:11px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
+.note{padding:9px 12px;border-radius:6px;font-size:13px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
 .note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#c04060}
 .note-info{background:rgba(204,32,32,.06);border-color:rgba(204,32,32,.4);color:#c07070}
 .note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
@@ -174,16 +174,16 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 /* TIP CARDS */
 .tip-cards{display:flex;flex-direction:column;gap:6px}
 .tip-card{background:var(--s1);border:1px solid rgba(204,32,32,.18);border-radius:8px;padding:12px 14px}
-.tip-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--ac);margin-bottom:4px}
-.tip-text{font-size:11px;color:#907070;line-height:1.55}
+.tip-title{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--ac);margin-bottom:4px}
+.tip-text{font-size:13px;color:#907070;line-height:1.55}
 
 /* EXOTIC COMBO CARDS */
 .exotic-cards{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
 .ec{background:var(--s1);border:1px solid rgba(255,255,255,.05);border-radius:10px;padding:12px;position:relative;overflow:hidden}
 .ec::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.ec-title{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:5px;display:flex;align-items:center;gap:8px}
-.ec-badge{font-size:8px;padding:2px 7px;border-radius:3px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:.5px}
-.ec-desc{font-size:11px;color:#907070;line-height:1.55}
+.ec-title{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.ec-badge{font-size:10px;padding:2px 7px;border-radius:3px;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:.5px}
+.ec-desc{font-size:13px;color:#907070;line-height:1.55}
 </style>
 </head>
 <body>
