@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Diablo 2 Resurrected – Summonmancer · Minion Necromancer</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
 <style>
+
 :root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
@@ -211,6 +212,30 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
 /* Merc */
 .merc-box{background:var(--dark3);border:1px solid var(--d2rborder);padding:18px;display:flex;gap:18px}
 .merc-ico{font-size:36px;flex-shrink:0}
+
+
+/* ── TAB SYSTEM ── */
+.tab-bar-hero{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
+  padding:14px 16px 4px;
+}
+.tab-hero{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:7px 12px;cursor:pointer;flex-shrink:0;
+  border-radius:8px;border:1px solid rgba(0,0,0,.15);
+  background:rgba(255,255,255,.03);
+  border-bottom:2px solid transparent;transition:.2s;
+}
+.tab-hero:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
+.tab-hero.on{border-color:#C8A06040;border-bottom-color:#C8A060;background:#C8A06012}
+.tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+.tab-ico svg{width:14px;height:14px;color:#666;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#C8A060;filter:drop-shadow(0 0 3px #C8A06080)}
+.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
+  color:#444;transition:.2s;white-space:nowrap}
+.tab-hero.on .tab-lbl{color:#C8A060}
+.sec{display:none}
+.sec.on{display:block}
 </style>
 </head>
 <body>
@@ -233,10 +258,61 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   </div>
 </header>
 
-<div class="note-box" style="background:rgba(200,160,96,.06);border:1px solid rgba(200,160,96,.25);color:#b09040;font-size:13px;line-height:1.6;margin-bottom:12px">
-  ☠️ <strong style="color:var(--bone)">The Summonmancer (also called "Fishymancer")</strong> is one of the most iconic builds in Diablo 2 history. You raise an army of up to 16 Skeletons, 9 Skeletal Mages, 1 Golem and up to 18 Revives — a screen-filling horde of undead that destroys everything in your path while you stay safely behind cursing enemies. <strong style="color:var(--gold)">Ideal for beginners, hardcore players and endgame farming alike.</strong>
+<div class="tab-bar-hero">
+  <div class="tab-hero on" data-sec="sec-0" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+    <div class="tab-lbl">Build Overvi…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-1" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
+    <div class="tab-lbl">Stat Allocat…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-2" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+    <div class="tab-lbl">Skill Tree ·…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-3" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+    <div class="tab-lbl">Level by Lev…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-4" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="tab-lbl">Runewords · …</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-5" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="tab-lbl">Gear Slots ·…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-6" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="tab-lbl">Budget Gear …</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-7" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <div class="tab-lbl">Mercenary · …</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-8" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <div class="tab-lbl">Charms · Inv…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-9" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+    <div class="tab-lbl">Playstyle & …</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-10" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <div class="tab-lbl">Best Farming…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-11" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <div class="tab-lbl">Pro Tips</div>
+  </div>
 </div>
 
+<div class="div"></div>
+
+
+<div class="sec on" id="sec-0">
 <section>
   <div class="sh"><div class="si">💀</div><div class="st">Build <span class="r">Overview</span></div></div>
   <div class="divider"></div>
@@ -262,7 +338,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   </div>
   <p class="body" style="margin-top:16px"><strong style="color:var(--bone)">Core Mechanic:</strong> Raise Skeleton builds your primary army (max 16). Amplify Damage curse makes all physical-immune monsters vulnerable and doubles minion damage. Corpse Explosion is your AoE nuke — it deals 70–120% of a corpse's max life as physical/fire damage in a large radius, clearing entire screens with one click. Decrepify slows and weakens bosses. The army does the work — you manage curses and position.</p>
 </section>
-
+</div>
+<div class="sec" id="sec-1">
 <section>
   <div class="sh"><div class="si">📊</div><div class="st">Stat <span class="r">Allocation</span></div></div>
   <div class="divider"></div>
@@ -276,7 +353,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="stat-row"><div class="stat-name">Energy</div><div class="stat-val">Base (25)</div><div class="stat-note">Never invest points here. Mana is managed through gear (+mana on gear, Insight Runeword on merc provides Meditation aura). Base energy is sufficient.</div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-2">
 <section>
   <div class="sh"><div class="si">🌳</div><div class="st">Skill Tree <span class="r">· Point Distribution</span></div></div>
   <div class="divider"></div>
@@ -318,7 +396,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <strong style="color:var(--gold)">Total: 89 pts used · 21 flex points for prerequisites and optional skills</strong>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-3">
 <section>
   <div class="sh"><div class="si">🎮</div><div class="st">Level by Level <span class="r">Skill Order</span></div></div>
   <div class="divider"></div>
@@ -385,7 +464,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     </div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-4">
 <section>
   <div class="sh"><div class="si">⚔️</div><div class="st">Runewords <span class="r">· Weapons & Armor</span></div></div>
   <div class="divider"></div>
@@ -470,7 +550,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     </div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-5">
 <section>
   <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
   <div class="divider"></div>
@@ -491,7 +572,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="d2r-card unique"><div class="d2r-slot">Ring 2 · Optional</div><div class="gear-name">Bul-Kathos' Wedding Band</div><div class="gear-mods"><span class="t-bone">+1 All Skills</span><span class="t-bone">+Life stolen</span><span class="mod-tag">+50 Life</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Second +1 Skills ring for maximum skill bonus. Alternative: Second SoJ, or a rare ring with FCR + resistances + life.</div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-6">
 <section>
   <div class="sh"><div class="si">⚔️</div><div class="st">Budget Gear <span class="r">· Ladder Start</span></div></div>
   <div class="divider"></div>
@@ -507,7 +589,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="d2r-card unique"><div class="d2r-slot">Amulet · Budget</div><div class="gear-name">Tal Rasha's Adjudication</div><div class="gear-mods"><span class="t-bone">+2 All Necro Skills</span><span class="mod-tag">+33–50 Life</span><span class="mod-tag">Mana after kill +11</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">+2 Necro Skills. Much cheaper than Mara's. Good budget amulet until you find or trade Mara's Kaleidoscope.</div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-7">
 <section>
   <div class="sh"><div class="si">⚔️</div><div class="st">Mercenary <span class="r">· The Might Merc</span></div></div>
   <div class="divider"></div>
@@ -531,7 +614,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     </div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-8">
 <section>
   <div class="sh"><div class="si">💎</div><div class="st">Charms <span class="r">· Inventory</span></div></div>
   <div class="divider"></div>
@@ -542,7 +626,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="d2r-card"><div class="d2r-slot">Sunder Charm · Endgame</div><div class="gear-name">Physical Sunder Charm</div><div class="gear-mods"><span class="t-bone">Breaks Physical Immunity</span><span class="mod-tag">Farm: Hell Terror Zones</span><span class="mod-tag">Season 13/14 more accessible</span></div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-9">
 <section>
   <div class="sh"><div class="si">⚡</div><div class="st">Playstyle <span class="r">& Rotation</span></div></div>
   <div class="divider"></div>
@@ -577,7 +662,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="rstep"><div class="rstep-n">3</div><div class="rstep-body"><div class="rstep-skill">Lower Resist + Mages</div><div class="rstep-desc">For elemental immune enemies — cast Lower Resist to reduce their elemental resistances, then let Mages deal elemental damage. Handles most situations.</div></div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-10">
 <section>
   <div class="sh"><div class="si">🌾</div><div class="st">Best Farming <span class="r">Locations</span></div></div>
   <div class="divider"></div>
@@ -590,7 +676,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="d2r-card"><div class="d2r-slot">Uber Content</div><div class="gear-name">Uber Tristram</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">With Enigma + Beast: Decrepify the Uber bosses, army tanks, CE clears minions. Lifetap wand (charges) keeps army alive. Drop: Hellfire Torch charm.</div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-11">
 <section>
   <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
   <div class="divider"></div>
@@ -603,8 +690,17 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="tip teal"><strong class="t">Season 14 Note:</strong> Season 14 launches May 22–23, 2026. Necromancer receives no nerfs in Patch 3.2 — the Summonmancer remains S-tier and fully unchanged. Latent Sunder Charms are more accessible, making Physical Immune breaking even easier.</div>
   </div>
 </section>
-
-<footer>Diablo 2: Resurrected · Summonmancer Build Guide · Season 13 / Patch 3.0 · Updated May 2026</footer>
 </div>
+
+</div>
+<script>
+function ST(el) {
+  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+  document.getElementById(el.dataset.sec).classList.add('on');
+  window.scrollTo(0, 0);
+}
+</script>
 </body>
 </html>

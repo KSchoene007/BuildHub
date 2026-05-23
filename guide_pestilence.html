@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>The Division 2 – Pestilence Build (Core Strength · Y8S1)</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
-<style>:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
+<style>
+:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(224,48,96,0.08) 0%,transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(232,168,32,0.05) 0%,transparent 45%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 2px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:0}
@@ -157,6 +158,30 @@ p.body{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px}
 .item-badge{font-size:9px;padding:1px 6px;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.3);color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase}
 .item-badge.req{background:rgba(224,48,96,.1);border-color:rgba(224,48,96,.3);color:var(--red)}
 footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:#4a3858;letter-spacing:2px;text-transform:uppercase}
+
+
+/* ── TAB SYSTEM ── */
+.tab-bar-hero{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
+  padding:14px 16px 4px;
+}
+.tab-hero{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:7px 12px;cursor:pointer;flex-shrink:0;
+  border-radius:8px;border:1px solid rgba(0,0,0,.15);
+  background:rgba(255,255,255,.03);
+  border-bottom:2px solid transparent;transition:.2s;
+}
+.tab-hero:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
+.tab-hero.on{border-color:#60A03040;border-bottom-color:#60A030;background:#60A03012}
+.tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+.tab-ico svg{width:14px;height:14px;color:#666;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#60A030;filter:drop-shadow(0 0 3px #60A03080)}
+.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
+  color:#444;transition:.2s;white-space:nowrap}
+.tab-hero.on .tab-lbl{color:#60A030}
+.sec{display:none}
+.sec.on{display:block}
 </style>
 </head>
 <body>
@@ -178,10 +203,57 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   </div>
 </header>
 
-<div class="note-box note-g">
-  💡 <strong>Why Core Strength 4-piece?</strong> The 4-piece bonus grants 75% of any Core Attribute value to all other Core Attributes automatically. With Backbone Named Backpack stacking up to +35% WD via kills, and Overdogs Exotic Gloves providing Crit stats — Core Strength cross-scales everything simultaneously. Perfect balance of DPS and survivability for Solo play.
+<div class="tab-bar-hero">
+  <div class="tab-hero on" data-sec="sec-0" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+    <div class="tab-lbl">Build Overvi…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-1" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+    <div class="tab-lbl">Plague of th…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-2" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="tab-lbl">Weapon Slots</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-3" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+    <div class="tab-lbl">Specializati…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-4" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="tab-lbl">Gear Slots ·…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-5" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="tab-lbl">Core Strengt…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-6" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+    <div class="tab-lbl">Key Talents</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-7" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+    <div class="tab-lbl">Skills / Abi…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-8" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
+    <div class="tab-lbl">Target Stats</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-9" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <div class="tab-lbl">Farming Key …</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-10" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <div class="tab-lbl">Pro Tips</div>
+  </div>
 </div>
 
+<div class="div"></div>
+
+
+<div class="sec on" id="sec-0">
 <section>
   <div class="sh"><div class="si">☣️</div><div class="st">Build <span class="r">Overview</span></div></div>
   <div class="divider"></div>
@@ -189,7 +261,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   <p class="body"><strong style="color:var(--gold)">Core Synergy:</strong> 4× Core Strength cross-scales Armor and WD simultaneously via the 4-piece bonus. Backbone Named Backpack adds up to +35% WD via kill stacks. Overdogs Exotic Gloves provide Crit Chance and Crit Damage. Together this gives you a build that is both tanky enough for Solo Legendary and hits hard enough to melt groups.</p>
   <p class="body"><strong style="color:var(--gold)">Playstyle:</strong> Mid-range cover-based. Spray Pestilence to apply DoT stacks → kill one poisoned enemy to chain the DoT to nearby targets → let ticks finish the rest. Use grenades on room entry for 2 instant Backbone stacks. Keep shooting, keep killing, keep stacks active.</p>
 </section>
-
+</div>
+<div class="sec" id="sec-1">
 <section>
   <div class="sh"><div class="si">🔋</div><div class="st">Plague of the Outcasts <span class="r">Mechanic</span></div></div>
   <div class="divider"></div>
@@ -215,7 +288,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   </div>
   <div class="note-box note-r" style="margin-top:12px">⚠️ <strong>Key Insight:</strong> DoT damage is calculated from your WD at the moment of application. Keep Backbone stacks active before engaging — grenade on entry, then spray Pestilence at full stack WD.</div>
 </section>
-
+</div>
+<div class="sec" id="sec-2">
 <section>
   <div class="sh"><div class="si">🔫</div><div class="st"><span class="r">Weapon</span> Slots</div></div>
   <div class="divider"></div>
@@ -234,7 +308,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     </div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-3">
 <section>
   <div class="sh"><div class="si">🔬</div><div class="st"><span class="r">Specialization</span></div></div>
   <div class="divider"></div>
@@ -253,7 +328,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     </div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-4">
 <section>
   <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
   <div class="divider"></div>
@@ -268,7 +344,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="gear-card named"><div class="gear-slot">Kneepads · Set Piece 4</div><div class="gear-name">Core Strength</div><span class="core-badge core-red">Red Core · Set</span><div class="gear-mods"><span class="mod-tag">Weapon Damage</span><span class="mod-tag">Crit Damage</span><span class="t-r">Fixed Set Talent</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Completes 4-piece Core Strength bonus. 75% cross-scaling between all Core Attributes activates here.</div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-5">
 <section>
   <div class="sh"><div class="si">⚙️</div><div class="st">Core Strength <span class="r">Set Bonuses</span></div></div>
   <div class="divider"></div>
@@ -280,7 +357,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   </table>
   <div class="note-box note-g" style="margin-top:12px">💡 <strong>Practical Example:</strong> With 1.0M Armor as your base: 75% = 750K added to WD. With 100K WD red core: 75K added back to Armor. Everything scales together — you get tankiness AND damage from the same investment.</div>
 </section>
-
+</div>
+<div class="sec" id="sec-6">
 <section>
   <div class="sh"><div class="si">🌟</div><div class="st">Key <span class="r">Talents</span></div></div>
   <div class="divider"></div>
@@ -290,7 +368,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="trow"><div class="src">Secondary LMG · Choosable Talent</div><div class="tname">Frenzy + Measured</div><div class="tdesc">Frenzy (+15% WD + Fire Rate) at start of magazine. Measured (stability + damage) at end. ~300 round magazine keeps both active with minimal downtime. Keeps DPS high during Pestilence reloads and helps refresh Backbone stacks.</div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-7">
 <section>
   <div class="sh"><div class="si">⚙️</div><div class="st">Skills <span class="r">/ Abilities</span></div></div>
   <div class="divider"></div>
@@ -300,7 +379,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="skill-card"><span class="skill-ico">🤖</span><div class="skill-name">Striker Drone (Alt.)</div><div class="skill-desc">For Group play. Additional sustained DPS and target distraction while DoT chains tick down.</div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-8">
 <section>
   <div class="sh"><div class="si">📊</div><div class="st">Target <span class="r">Stats</span></div></div>
   <div class="divider"></div>
@@ -314,7 +394,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <tr><td><span class="sv" style="font-size:13px">Gear Mods</span></td><td><span style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-weight:700">Crit Chance / Crit Dmg</span></td><td>All free mod slots</td></tr>
   </table>
 </section>
-
+</div>
+<div class="sec" id="sec-9">
 <section>
   <div class="sh"><div class="si">🌾</div><div class="st">Farming <span class="g">Key Items</span></div></div>
   <div class="divider"></div>
@@ -325,7 +406,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="gear-card named"><div class="gear-slot">Pestilence Exotic LMG · Priority 4</div><div class="gear-name">Hyena Control Points / Exotic Caches</div><div style="font-size:12px;color:#8070a0;line-height:1.4;margin-top:6px">One of the most common Exotic drops. Hyena-controlled Control Points and Exotic Caches. Very accessible — most players already have it.</div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-10">
 <section>
   <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
   <div class="divider"></div>
@@ -338,8 +420,17 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="tip teal"><strong class="t">Best Content:</strong> Control Points (Heroic), The Summit, Countdown, Heroic + Legendary Missions. Exceptional in dense enemy areas — the more enemies in a room the more DoT chains you trigger simultaneously.</div>
   </div>
 </section>
-
-<footer>The Division 2 · Pestilence Build Guide (Core Strength · Y8S1) · Updated 2026 (Year 8, Season 1)</footer>
 </div>
+
+</div>
+<script>
+function ST(el) {
+  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+  document.getElementById(el.dataset.sec).classList.add('on');
+  window.scrollTo(0, 0);
+}
+</script>
 </body>
 </html>

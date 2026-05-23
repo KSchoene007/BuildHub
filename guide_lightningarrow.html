@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Path of Exile 2 – Lightning Arrow Deadeye</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&display=swap" rel="stylesheet">
-<style>:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
+<style>
+:root{--red:#E03060;--gold:#E8A820;--teal:#2FB8B4;--dark:#0c080e;--dark2:#130c18;--dark3:#1a1020;--dark4:#221530;--border:rgba(224,48,96,0.28);--text:#c4bece;--bright:#eae4f2;--glow:0 0 20px rgba(224,48,96,0.35);--gglow:0 0 16px rgba(232,168,32,0.4)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--dark);color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 0%,rgba(224,48,96,0.08) 0%,transparent 45%),radial-gradient(ellipse at 90% 100%,rgba(232,168,32,0.05) 0%,transparent 45%),repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.007) 2px,rgba(255,255,255,0.007) 4px);pointer-events:none;z-index:0}
@@ -157,6 +158,30 @@ p.body{font-size:13px;line-height:1.8;color:var(--text);margin-bottom:14px}
 .item-badge{font-size:9px;padding:1px 6px;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.3);color:var(--gold);font-weight:700;letter-spacing:1px;text-transform:uppercase}
 .item-badge.req{background:rgba(224,48,96,.1);border-color:rgba(224,48,96,.3);color:var(--red)}
 footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:11px;color:#4a3858;letter-spacing:2px;text-transform:uppercase}
+
+
+/* ── TAB SYSTEM ── */
+.tab-bar-hero{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
+  padding:14px 16px 4px;
+}
+.tab-hero{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:7px 12px;cursor:pointer;flex-shrink:0;
+  border-radius:8px;border:1px solid rgba(0,0,0,.15);
+  background:rgba(255,255,255,.03);
+  border-bottom:2px solid transparent;transition:.2s;
+}
+.tab-hero:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}
+.tab-hero.on{border-color:#4A9AE040;border-bottom-color:#4A9AE0;background:#4A9AE012}
+.tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+.tab-ico svg{width:14px;height:14px;color:#666;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#4A9AE0;filter:drop-shadow(0 0 3px #4A9AE080)}
+.tab-lbl{font-size:7px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
+  color:#444;transition:.2s;white-space:nowrap}
+.tab-hero.on .tab-lbl{color:#4A9AE0}
+.sec{display:none}
+.sec.on{display:block}
 </style>
 </head>
 <body>
@@ -179,10 +204,45 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   </div>
 </header>
 
-<div class="note-box" style="background:rgba(212,136,58,0.06);border:1px solid rgba(212,136,58,0.25);color:#b07828;font-size:13px;line-height:1.6;margin-bottom:12px">
-  ⚡ <strong style="color:var(--poe)">The #1 Most Played Build in PoE2.</strong> Over 34% of top players chose Deadeye, and 80% of those run Lightning Arrow. Shoots lightning-chaining arrows that freeze and shock entire screens, triggering Herald of Thunder explosions. Fast, safe, satisfying — and fully viable on self-found gear from day 1.
+<div class="tab-bar-hero">
+  <div class="tab-hero on" data-sec="sec-0" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+    <div class="tab-lbl">Build Overvi…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-1" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+    <div class="tab-lbl">Ascendancy ·…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-2" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+    <div class="tab-lbl">Skills · Gem…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-3" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
+    <div class="tab-lbl">Passive Tree…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-4" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="tab-lbl">Gear Slots ·…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-5" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+    <div class="tab-lbl">Rotation · P…</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-6" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+    <div class="tab-lbl">Patch Notes …</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-7" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <div class="tab-lbl">Pro Tips</div>
+  </div>
 </div>
 
+<div class="div"></div>
+
+
+<div class="sec on" id="sec-0">
 <section>
   <div class="sh"><div class="si">⚡</div><div class="st">Build <span class="r">Overview</span></div></div>
   <div class="divider"></div>
@@ -209,7 +269,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   </div>
   <p class="body" style="margin-top:16px"><strong style="color:var(--poe)">Core Chain Reaction:</strong> Lightning Arrow hits → Beams arc to 3 nearby enemies → enemies Freeze + Shock → on kill Herald of Thunder triggers → lightning explosion kills more enemies → chain reaction clears entire screens. Plant Lightning Rods before boss phases → fire Lightning Arrow at Rods → devastating burst damage. Tornado Shot + Voltaic Mark for single-target finishing.</p>
 </section>
-
+</div>
+<div class="sec" id="sec-1">
 <section>
   <div class="sh"><div class="si">🎯</div><div class="st">Ascendancy <span class="r">· Deadeye</span></div></div>
   <div class="divider"></div>
@@ -221,7 +282,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="gear-card named"><div class="gear-slot">Ascendancy 4</div><div class="gear-name">Focal Point</div><div class="gear-mods"><span class="t-g">Projectile Convergence</span><span class="mod-tag">Arrows converge on target</span><span class="mod-tag">Single-target DPS boost</span></div><div style="font-size:11px;color:#7a6080;margin-top:8px;line-height:1.4">Forces multiple projectiles to converge on the target you aim at. Massive single-target damage boost — especially powerful with Tornado Shot on bosses.</div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-2">
 <section>
   <div class="sh"><div class="si">🎮</div><div class="st">Skills <span class="r">· Gem Setup</span></div></div>
   <div class="divider"></div>
@@ -237,7 +299,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
   </div>
   <div class="note-box note-r" style="margin-top:12px">⚠️ <strong>0.5.0 Change:</strong> Lightning Arrow Beams can no longer chain to the same target. This slightly reduces single-target DPS from beams but doesn't affect pack clear — beams will simply arc to different targets in a pack instead.</div>
 </section>
-
+</div>
+<div class="sec" id="sec-3">
 <section>
   <div class="sh"><div class="si">🌳</div><div class="st">Passive Tree <span class="r">· Priority</span></div></div>
   <div class="divider"></div>
@@ -272,7 +335,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     </div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-4">
 <section>
   <div class="sh"><div class="si">🛡️</div><div class="st">Gear Slots <span class="r">· Equipment</span></div></div>
   <div class="divider"></div>
@@ -289,7 +353,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="gear-card named"><div class="gear-slot">Amulet</div><div class="gear-name">+Level Amulet (Rare)</div><div class="gear-mods"><span class="t-g">+1 Dex Skills</span><span class="mod-tag">Critical Strike Chance</span><span class="mod-tag">Life</span></div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-5">
 <section>
   <div class="sh"><div class="si">⚡</div><div class="st">Rotation <span class="r">· Playstyle</span></div></div>
   <div class="divider"></div>
@@ -310,7 +375,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="rstep"><div class="rstep-n">5</div><div class="rstep-body"><div class="rstep-skill">Keep moving</div><div class="rstep-desc">Never stand still. Use Ghost Dance if hit. Kite boss attacks between your own attack windows. Deadeye defense is mobility — not tankiness.</div></div></div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-6">
 <section>
   <div class="sh"><div class="si">📋</div><div class="st">Patch Notes <span class="r">· 0.5.0 Impact</span></div></div>
   <div class="divider"></div>
@@ -333,7 +399,8 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     </div>
   </div>
 </section>
-
+</div>
+<div class="sec" id="sec-7">
 <section>
   <div class="sh"><div class="si">💡</div><div class="st">Pro <span class="r">Tips</span></div></div>
   <div class="divider"></div>
@@ -346,8 +413,17 @@ footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-
     <div class="tip teal"><strong class="t">Best Content:</strong> All Maps (fastest clear in PoE2), Pinnacle Bosses (Lightning Rod burst), Breach content, Delirium (speed clears fog before it resets). Self-found viable to red maps — endgame requires trade for a high pDPS bow.</div>
   </div>
 </section>
-
-<footer>Path of Exile 2 · Lightning Arrow Deadeye · Runes of Aldur League · Patch 0.5.0 · Updated May 2026</footer>
 </div>
+
+</div>
+<script>
+function ST(el) {
+  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+  document.getElementById(el.dataset.sec).classList.add('on');
+  window.scrollTo(0, 0);
+}
+</script>
 </body>
 </html>
