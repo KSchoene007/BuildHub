@@ -231,6 +231,7 @@ html,body{font-size:20px!important}
   <div class="tab-hero" data-sec="sec-talents" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="tab-lbl">Talents</div></div>
   <div class="tab-hero" data-sec="sec-paragon" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20h20M6 20V10l6-6 6 6v10"/></svg></div><div class="tab-lbl">Paragon</div></div>
   <div class="tab-hero" data-sec="sec-rotation" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><div class="tab-lbl">Rotation</div></div>
+  <div class="tab-hero" data-sec="sec-leveling" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="tab-lbl">Leveling</div></div>
   <div class="tab-hero" data-sec="sec-tips" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div class="tab-lbl">Pro Tips</div></div>
 </div>
 <div class="div"><div class="div-dot"></div></div>
@@ -294,10 +295,25 @@ html,body{font-size:20px!important}
 <div class="tip-card"><div class="tip-title">⏱ Army of the Dead CDR</div><div class="tip-text">Aim for ~7 sec cooldown reduction. With corpse generation from Warriors (every 0.5 sec) and Sever, you should have near-permanent uptime. This is your biggest DPS lever.</div></div>
 <div class="tip-card"><div class="tip-title">🎭 Talisman Swap Mid-Pit</div><div class="tip-text">You can swap Charm slots mid-Pit run! Use Azurewrath for trash clear, swap to Red Blessing for the boss phase. No restrictions.</div></div>
 </div>
-</div>
+
+
 
 <footer style="border-top:1px solid #8B20CC33;padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">DIABLO 4 · SHADOW WARRIOR NECROMANCER · S-TIER · SEASON 13</footer>
 </div>
+
+<div class="sec" id="sec-leveling">
+  <div class="sec-head"><span class="sec-num">08</span><span class="sec-title">Leveling Guide · 1–60</span></div>
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;gap:16px">
+    <div style="font-size:40px">🚧</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:22px;color:#8B20CC">Coming Soon</div>
+    <div style="font-size:15px;color:#6a4a88;max-width:360px;line-height:1.6">
+      This leveling guide is currently being updated for the <strong style="color:#c060ff">Lord of Hatred</strong> expansion and will be available in a future update.
+    </div>
+    <div style="background:rgba(139,32,204,.08);border:1px solid rgba(139,32,204,.25);border-radius:8px;padding:10px 20px;font-size:13px;color:#8B20CC;letter-spacing:1px;font-family:'Rajdhani',sans-serif;font-weight:700">GUIDE TEMPORARILY UNAVAILABLE</div>
+  </div>
+</div>
+
+
 <script>
 function ST(el){document.querySelectorAll('.tab-hero').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.getElementById(el.dataset.sec).classList.add('on');window.scrollTo(0,0)}
 </script>
