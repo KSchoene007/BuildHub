@@ -8,11 +8,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ac:#2060C0;--ac2:#FF4020;--bg:#06040e;
+  --ac:#1a7a9a;--ac2:#FF4020;--bg:#06040e;
   --s1:#0e0818;--s2:#160d28;--s3:#1e1238;
   --text:#dde0f0;--muted:#6a5a90;--muted2:#3a2860;
   --gold:#E8C840;--teal:#40c8b4;--green:#40c060;--red:#e04060;
-  --border:rgba(32,96,192,0.15);--border2:rgba(32,96,192,0.3);
+  --border:rgba(26,122,154,0.15);--border2:rgba(26,122,154,0.3);
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;min-height:100vh}
@@ -20,8 +20,8 @@ body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-
 /* ── ANIMATED GRID BG ── */
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:linear-gradient(rgba(32,96,192,0.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(32,96,192,0.05) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(26,122,154,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(26,122,154,0.05) 1px,transparent 1px);
   background-size:44px 44px;
   animation:bgshift 30s linear infinite;
 }
@@ -29,7 +29,7 @@ body::before{
 
 /* Radial center glow */
 body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(32,96,192,0.12) 0%,transparent 100%)}
+  background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(26,122,154,0.12) 0%,transparent 100%)}
 
 .wrap{max-width:660px;margin:0 auto;padding:0 16px 80px;position:relative;z-index:1}
 
@@ -54,7 +54,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .vs3{animation:vspark 2.8s ease-in-out infinite 1.4s}
 .vs4{animation:vspark 2.8s ease-in-out infinite 2.1s}
 
-.hero-pre{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:4px;color:rgba(32,96,192,0.7);margin-bottom:6px;text-transform:uppercase}
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:4px;color:rgba(26,122,154,0.7);margin-bottom:6px;text-transform:uppercase}
 .hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(28px,7vw,44px);font-weight:900;color:#fff;line-height:1;letter-spacing:1px;margin-bottom:4px}
 .hero-title em{color:#C060FF;font-style:normal}
 .hero-sub{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
@@ -70,21 +70,21 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .hb-val{font-size:14px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
 
 /* ── DIVIDER ── */
-.div{height:1px;background:linear-gradient(90deg,transparent,rgba(32,96,192,.6),rgba(255,64,32,.4),transparent);margin:24px 0;position:relative}
+.div{height:1px;background:linear-gradient(90deg,transparent,rgba(26,122,154,.6),rgba(255,64,32,.4),transparent);margin:24px 0;position:relative}
 .div-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px var(--ac)}
 
 /* ── SECTION ── */
 .sec{margin-bottom:30px}
 .sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.sec-num{font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(32,96,192,.5);letter-spacing:1px}
-.sec-bar{flex:1;height:1px;background:linear-gradient(90deg,rgba(32,96,192,.4),transparent)}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(26,122,154,.5);letter-spacing:1px}
+.sec-bar{flex:1;height:1px;background:linear-gradient(90deg,rgba(26,122,154,.4),transparent)}
 .sec-title{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;color:#fff;letter-spacing:.5px}
-.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid var(--border2);background:rgba(32,96,192,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid var(--border2);background:rgba(26,122,154,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sec-ico svg{width:16px;height:16px;color:var(--ac)}
 
 /* ── MECHANIC BLOCK ── */
 .mech{background:var(--s1);border:1px solid var(--border);border-left:3px solid var(--ac);border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
-.mech::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 100% 0%,rgba(32,96,192,.1) 0%,transparent 100%);pointer-events:none}
+.mech::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 100% 0%,rgba(26,122,154,.1) 0%,transparent 100%);pointer-events:none}
 .mech p{font-size:14px;color:#b0a0d0;line-height:1.75}
 .mech p+p{margin-top:8px}
 .kw{color:#C060FF;font-weight:700}
@@ -101,7 +101,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 /* ── NOTE ── */
 .note{padding:9px 12px;border-radius:6px;font-size:13px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
 .note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#b04060}
-.note-info{background:rgba(32,96,192,.06);border-color:rgba(32,96,192,.35);color:#9070c0}
+.note-info{background:rgba(26,122,154,.06);border-color:rgba(26,122,154,.35);color:#9070c0}
 .note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
 
 /* ── ASC FLOW ── */
@@ -120,14 +120,14 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .skills{display:flex;flex-direction:column;gap:5px}
 .sc{display:flex;align-items:flex-start;gap:9px;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;transition:.15s;position:relative;overflow:hidden}
 .sc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:8px 0 0 8px}
-.sc:hover{border-color:rgba(32,96,192,.2);background:var(--s2)}
+.sc:hover{border-color:rgba(26,122,154,.2);background:var(--s2)}
 .sc-ico{width:28px;height:28px;border-radius:7px;border:1px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sc-ico svg{width:14px;height:14px}
 .sc-body{flex:1;min-width:0}
 .sc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:1px}
 .sc-desc{font-size:12px;color:#7a6a9a;line-height:1.4;margin-bottom:4px}
 .sc-gems{display:flex;flex-wrap:wrap;gap:3px}
-.gem{font-size:10px;padding:1px 5px;border-radius:3px;background:rgba(32,96,192,.07);border:1px solid rgba(32,96,192,.18);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.gem{font-size:10px;padding:1px 5px;border-radius:3px;background:rgba(26,122,154,.07);border:1px solid rgba(26,122,154,.18);color:var(--muted);font-family:'Rajdhani',sans-serif}
 .gem.hi{border-color:rgba(232,200,64,.3);color:var(--gold)}
 .sc-tag{flex-shrink:0;font-size:10px;padding:2px 6px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:.5px;text-transform:uppercase;align-self:flex-start}
 
@@ -137,12 +137,12 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .phase{position:relative;margin-bottom:18px}
 .phase::before{content:'';position:absolute;left:-19px;top:6px;width:9px;height:9px;border-radius:50%;border:2px solid var(--ac);background:var(--bg);z-index:1;transition:.2s}
 .phase.key::before{background:var(--ac);box-shadow:0 0 8px var(--ac)}
-.phase-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(32,96,192,.6);letter-spacing:1px;margin-bottom:2px}
+.phase-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(26,122,154,.6);letter-spacing:1px;margin-bottom:2px}
 .phase-title{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:5px}
 .phase-desc{font-size:13px;color:#8a7ab0;line-height:1.6;margin-bottom:7px}
 .phase-gems{display:flex;flex-direction:column;gap:3px;margin-bottom:6px}
 .pgrow{display:flex;align-items:center;gap:8px;padding:4px 8px;background:var(--s1);border-radius:4px;border:1px solid rgba(255,255,255,.04)}
-.pgrow.hi{border-color:rgba(32,96,192,.25);background:rgba(32,96,192,.05)}
+.pgrow.hi{border-color:rgba(26,122,154,.25);background:rgba(26,122,154,.05)}
 .pgr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;min-width:110px}
 .pgr-sups{display:flex;flex-wrap:wrap;gap:3px}
 .pgr-s{font-size:10px;padding:1px 5px;border-radius:2px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);color:var(--muted);font-family:'Rajdhani',sans-serif}
@@ -161,7 +161,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 /* ── GEAR ── */
 .gear-list{display:flex;flex-direction:column;gap:4px}
 .gr{display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px;transition:.15s}
-.gr:hover{border-color:rgba(32,96,192,.18)}
+.gr:hover{border-color:rgba(26,122,154,.18)}
 .gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
 .gr-slot{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted2);width:52px;flex-shrink:0}
 .gr-info{flex:1;min-width:0}
@@ -205,18 +205,18 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .tab-hero{
   display:flex;flex-direction:column;align-items:center;gap:3px;
   padding:7px 12px;cursor:pointer;flex-shrink:0;
-  border-radius:8px;border:1px solid rgba(32,96,192,.15);
-  background:rgba(32,96,192,.04);
+  border-radius:8px;border:1px solid rgba(26,122,154,.15);
+  background:rgba(26,122,154,.04);
   border-bottom:2px solid transparent;transition:.2s;
 }
-.tab-hero:hover{background:rgba(32,96,192,.1);border-color:rgba(32,96,192,.3)}
-.tab-hero.on{border-color:rgba(32,96,192,.4);border-bottom-color:#2060C0;background:rgba(32,96,192,.1)}
+.tab-hero:hover{background:rgba(26,122,154,.1);border-color:rgba(26,122,154,.3)}
+.tab-hero.on{border-color:rgba(26,122,154,.4);border-bottom-color:#1a7a9a;background:rgba(26,122,154,.1)}
 .tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
 .tab-ico svg{width:14px;height:14px;color:#6a5a90;transition:.2s}
-.tab-hero.on .tab-ico svg{color:#2060C0;filter:drop-shadow(0 0 3px rgba(32,96,192,.6))}
+.tab-hero.on .tab-ico svg{color:#1a7a9a;filter:drop-shadow(0 0 3px rgba(26,122,154,.6))}
 .tab-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
   color:#3a2860;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
-.tab-hero.on .tab-lbl{color:#2060C0}
+.tab-hero.on .tab-lbl{color:#1a7a9a}
 
 /* hide non-active sections; show only active */
 .sec{display:none}
@@ -283,20 +283,74 @@ html,body{font-size:20px!important}
 
 <div class="hero">
   <!-- Animated Vortex Icon -->
-  <div class="hero-icon"><svg width="90" height="90" viewBox="0 0 56 56" fill="none"><defs><radialGradient id="ma_bg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#001828"/><stop offset="100%" stop-color="#000c18"/></radialGradient><radialGradient id="ma_rim2" cx="42%" cy="28%" r="72%"><stop offset="0%" stop-color="#60c0ff"/><stop offset="45%" stop-color="#2060C0"/><stop offset="100%" stop-color="#081840"/></radialGradient><radialGradient id="ma_inn2" cx="40%" cy="32%" r="65%"><stop offset="0%" stop-color="#0a1830"/><stop offset="100%" stop-color="#040c18"/></radialGradient></defs><circle cx="28" cy="28" r="27" fill="url(#ma_bg2)"/><circle cx="28" cy="28" r="23" fill="url(#ma_rim2)"/><circle cx="28" cy="28" r="17" fill="url(#ma_inn2)"/><ellipse cx="19" cy="16" rx="6" ry="2.5" fill="white" opacity=".1" transform="rotate(-32 19 16)"/><g opacity=".4"><animateTransform attributeName="transform" type="translate" values="0,0;0,-1;0,0" dur="4s" repeatCount="indefinite" begin="0.5s"/><path d="M14,38 Q12,30 16,25 Q18,22 20,25 Q22,22 24,25 Q24,38 Q20,39 Z" fill="#1a2a40" stroke="#2060C0" stroke-width=".8"/><ellipse cx="17" cy="28" rx="1.2" ry="1.4" fill="#4080ff" opacity=".8"/><ellipse cx="20" cy="28" rx="1.2" ry="1.4" fill="#4080ff" opacity=".8"/></g><g opacity=".4"><animateTransform attributeName="transform" type="translate" values="0,0;0,-1.5;0,0" dur="3.5s" repeatCount="indefinite" begin="1.2s"/><path d="M32,38 Q30,30 34,25 Q36,22 38,25 Q40,22 42,25 Q42,38 Q38,39 Z" fill="#1a2a40" stroke="#2060C0" stroke-width=".8"/><ellipse cx="35" cy="28" rx="1.2" ry="1.4" fill="#4080ff" opacity=".8"/><ellipse cx="38" cy="28" rx="1.2" ry="1.4" fill="#4080ff" opacity=".8"/></g><g opacity=".9"><animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="3s" repeatCount="indefinite"/><path d="M20,42 Q17,32 21,26 Q23,22 28,24 Q33,22 35,26 Q39,32 36,42 Q33,44 28,43 Q23,44 20,42Z" fill="#0e2040" stroke="#2060C0" stroke-width="1.2"/><line x1="28" y1="30" x2="28" y2="40" stroke="#4080ff" stroke-width=".8" opacity=".5"/><line x1="24" y1="32" x2="32" y2="32" stroke="#4080ff" stroke-width=".8" opacity=".5"/><ellipse cx="25" cy="29" rx="2" ry="2.2" fill="#60a0ff"><animate attributeName="opacity" values=".6;1;.6" dur="1.8s" repeatCount="indefinite"/></ellipse><ellipse cx="31" cy="29" rx="2" ry="2.2" fill="#60a0ff"><animate attributeName="opacity" values=".6;1;.6" dur="1.8s" begin=".3s" repeatCount="indefinite"/></ellipse><ellipse cx="25" cy="29" rx="1" ry="1.2" fill="white" opacity=".9"/><ellipse cx="31" cy="29" rx="1" ry="1.2" fill="white" opacity=".9"/></g><ellipse cx="28" cy="44" rx="16" ry="3" fill="#2060C0" opacity=".12"><animate attributeName="rx" values="14;18;14" dur="2.5s" repeatCount="indefinite"/></ellipse></svg></div>
+  <div class="hero-icon"><svg width="90" height="90" viewBox="0 0 56 56" fill="none"><defs>
+<linearGradient id="hx1f" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06141e"/><stop offset="100%" stop-color="#020c14"/></linearGradient>
+<linearGradient id="hx1e" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#80c8e8"/><stop offset="50%" stop-color="#1a7a9a"/><stop offset="100%" stop-color="#051c28"/></linearGradient>
+<radialGradient id="hx1g" cx="50%" cy="65%" r="55%"><stop offset="0%" stop-color="#1a7a9a" stop-opacity=".38"/><stop offset="100%" stop-color="#1a7a9a" stop-opacity="0"/></radialGradient>
+<radialGradient id="hx1cg" cx="50%" cy="30%" r="50%"><stop offset="0%" stop-color="#2898b8" stop-opacity=".3"/><stop offset="100%" stop-color="#2898b8" stop-opacity="0"/></radialGradient>
+</defs>
+<polygon points="28,2 51,15 51,41 28,54 5,41 5,15" fill="url(#hx1f)" stroke="url(#hx1e)" stroke-width="2"/>
+<line x1="28" y1="2" x2="28" y2="54" stroke="#0e2a38" stroke-width=".5" opacity=".3"/>
+<line x1="5" y1="15" x2="51" y2="41" stroke="#0e2a38" stroke-width=".5" opacity=".22"/>
+<line x1="51" y1="15" x2="5" y2="41" stroke="#0e2a38" stroke-width=".5" opacity=".22"/>
+<polygon points="28,2 51,15 28,28" fill="white" opacity=".06"/>
+<polygon points="28,54 5,41 28,47 51,41" fill="url(#hx1g)"/>
+<polygon points="28,2 51,15 28,20 5,15" fill="url(#hx1cg)"/>
+<circle cx="28" cy="2" r="1.8" fill="#60c0e0"><animate attributeName="opacity" values=".4;1;.4" dur="2.5s" repeatCount="indefinite"/></circle>
+<circle cx="51" cy="15" r="1.5" fill="#40a8c8"><animate attributeName="opacity" values=".4;.9;.4" dur="2.5s" repeatCount="indefinite" begin=".4s"/></circle>
+<circle cx="51" cy="41" r="1.5" fill="#40a8c8"><animate attributeName="opacity" values=".4;.9;.4" dur="2.5s" repeatCount="indefinite" begin=".8s"/></circle>
+<circle cx="28" cy="54" r="1.8" fill="#60c0e0"><animate attributeName="opacity" values=".4;1;.4" dur="2.5s" repeatCount="indefinite" begin="1.2s"/></circle>
+<circle cx="5" cy="41" r="1.5" fill="#40a8c8"><animate attributeName="opacity" values=".4;.9;.4" dur="2.5s" repeatCount="indefinite" begin="1.6s"/></circle>
+<circle cx="5" cy="15" r="1.5" fill="#40a8c8"><animate attributeName="opacity" values=".4;.9;.4" dur="2.5s" repeatCount="indefinite" begin="2s"/></circle>
+<path d="M17,24 Q28,19 39,24" fill="none" stroke="#28a0b8" stroke-width="1.4" stroke-linecap="round" opacity=".85"/>
+<path d="M17,24 L15,14 L20,22Z" fill="#0e5878" opacity=".92"/>
+<path d="M22,22 L22.5,11 L26,21Z" fill="#1a7a9a" opacity=".97"/>
+<path d="M28,21 L28,8 L31,21Z" fill="#1e8aaa" opacity=".99"/>
+<path d="M30,21 L34,11 L34.5,22Z" fill="#1a7a9a" opacity=".97"/>
+<path d="M37,22 L41,14 L39,24Z" fill="#0e5878" opacity=".92"/>
+<circle cx="15" cy="14" r="1.8" fill="#50c0e0"><animate attributeName="opacity" values=".5;1;.5" dur="2.1s" repeatCount="indefinite"/></circle>
+<circle cx="28" cy="8" r="2.3" fill="#80e0f8"><animate attributeName="opacity" values=".6;1;.6" dur="1.7s" repeatCount="indefinite"/></circle>
+<circle cx="41" cy="14" r="1.8" fill="#50c0e0"><animate attributeName="opacity" values=".5;1;.5" dur="2.1s" begin=".5s" repeatCount="indefinite"/></circle>
+<g opacity=".32"><animateTransform attributeName="transform" type="translate" values="0,0;0,-1;0,0" dur="4.2s" repeatCount="indefinite" begin=".8s"/>
+  <path d="M13,49 Q11,43 13.5,39 Q15,37 16.5,39 Q18,37 19.5,39 Q22,43 20,49Z" fill="#082838"/>
+  <ellipse cx="14.8" cy="42" rx=".9" ry="1.1" fill="#40a8c8"/><ellipse cx="18" cy="42" rx=".9" ry="1.1" fill="#40a8c8"/>
+</g>
+<g opacity=".32"><animateTransform attributeName="transform" type="translate" values="0,0;0,-1;0,0" dur="4s" repeatCount="indefinite" begin="1.2s"/>
+  <path d="M36.5,49 Q34.5,43 37,39 Q38.5,37 40,39 Q41.5,37 43,39 Q45.5,43 43.5,49Z" fill="#061e2c"/>
+  <ellipse cx="38.3" cy="42" rx=".9" ry="1.1" fill="#40a8c8"/><ellipse cx="41.5" cy="42" rx=".9" ry="1.1" fill="#40a8c8"/>
+</g>
+<g opacity=".58"><animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="3.4s" repeatCount="indefinite" begin=".4s"/>
+  <path d="M17,46 Q15,38 18,33 Q20,30 22,33 Q24,30 26,33 Q28,38 26,46Z" fill="#0a3848"/>
+  <ellipse cx="19.5" cy="37" rx="1.3" ry="1.5" fill="#40b8d8"><animate attributeName="opacity" values=".6;1;.6" dur="2s" repeatCount="indefinite"/></ellipse>
+  <ellipse cx="23.5" cy="37" rx="1.3" ry="1.5" fill="#40b8d8"><animate attributeName="opacity" values=".6;1;.6" dur="2s" begin=".25s" repeatCount="indefinite"/></ellipse>
+</g>
+<g opacity=".58"><animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="3.7s" repeatCount="indefinite" begin=".9s"/>
+  <path d="M30,46 Q28,38 31,33 Q33,30 35,33 Q37,30 39,33 Q41,38 39,46Z" fill="#083040"/>
+  <ellipse cx="32.5" cy="37" rx="1.3" ry="1.5" fill="#38a8c8"><animate attributeName="opacity" values=".6;1;.6" dur="2s" repeatCount="indefinite" begin=".4s"/></ellipse>
+  <ellipse cx="36.5" cy="37" rx="1.3" ry="1.5" fill="#38a8c8"><animate attributeName="opacity" values=".6;1;.6" dur="2s" begin=".6s" repeatCount="indefinite"/></ellipse>
+</g>
+<g opacity=".95"><animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2.8s" repeatCount="indefinite"/>
+  <path d="M22,46 Q19,36 23,29 Q25,25 28,27 Q31,25 33,29 Q37,36 34,46 Q31,49 28,48 Q25,49 22,46Z" fill="#062838" stroke="#1888a8" stroke-width="1"/>
+  <line x1="28" y1="33" x2="28" y2="44" stroke="#20a0c0" stroke-width=".8" opacity=".5"/>
+  <line x1="24" y1="35" x2="32" y2="35" stroke="#20a0c0" stroke-width=".8" opacity=".5"/>
+  <ellipse cx="25.5" cy="34" rx="2" ry="2.2" fill="#28b0d0"><animate attributeName="opacity" values=".7;1;.7" dur="1.8s" repeatCount="indefinite"/></ellipse>
+  <ellipse cx="30.5" cy="34" rx="2" ry="2.2" fill="#28b0d0"><animate attributeName="opacity" values=".7;1;.7" dur="1.8s" begin=".3s" repeatCount="indefinite"/></ellipse>
+  <ellipse cx="25.5" cy="34" rx="1" ry="1.2" fill="white" opacity=".95"/>
+  <ellipse cx="30.5" cy="34" rx="1" ry="1.2" fill="white" opacity=".95"/>
+</g></svg></div>
 
   <div class="hero-pre">⬡ Path of Exile 2 · Runes of Aldur</div>
   <h1 class="hero-title">Spirit Army <em>Witch</em></h1>
   <div class="hero-sub">Witch · Infernalist · 0.5 Meta · Minion Army</div>
   <div class="hero-tags">
     <span class="htag" style="color:#ffd700;border-color:rgba(255,215,0,.3)">S-TIER</span>
-    <span class="htag" style="color:#2060C0;border-color:rgba(32,96,192,.3)">MINION ARMY</span>
-    <span class="htag" style="color:#60a0ff;border-color:rgba(32,96,192,.3)">SPECTRE</span>
+    <span class="htag" style="color:#1a7a9a;border-color:rgba(26,122,154,.3)">MINION ARMY</span>
+    <span class="htag" style="color:#40c8e8;border-color:rgba(26,122,154,.3)">SPECTRE</span>
     <span class="htag" style="color:#40c060;border-color:rgba(64,192,96,.3)">SSF FRIENDLY</span>
   </div>
   <div class="hero-bars">
     <div class="hb"><div class="hb-val" style="color:#ff6060">4★</div><div class="hb-track"><div class="hb-fill" style="width:85%;background:#ff6060"></div></div><div class="hb-label">DPS</div></div>
-    <div class="hb"><div class="hb-val" style="color:#60a0ff">5★</div><div class="hb-track"><div class="hb-fill" style="width:90%;background:#60a0ff"></div></div><div class="hb-label">SURV</div></div>
+    <div class="hb"><div class="hb-val" style="color:#40c8e8">5★</div><div class="hb-track"><div class="hb-fill" style="width:90%;background:#40c8e8"></div></div><div class="hb-label">SURV</div></div>
     <div class="hb"><div class="hb-val" style="color:var(--teal)">4★</div><div class="hb-track"><div class="hb-fill" style="width:80%;background:var(--teal)"></div></div><div class="hb-label">SPD</div></div>
     <div class="hb"><div class="hb-val" style="color:var(--gold)">5★</div><div class="hb-track"><div class="hb-fill" style="width:95%;background:var(--gold)"></div></div><div class="hb-label">EASE</div></div>
   </div>
@@ -355,14 +409,14 @@ html,body{font-size:20px!important}
   <div class="ds-warn">⚠️ <strong>Act 3 Milestone:</strong> The build fully comes online when you raise <strong>Power Zealot Spectres</strong> in the Crematorium. Before Act 3: Skeletal Warriors + Raging Spirits carry you through the campaign.</div>
 
   <div class="sw-cards">
-    <div class="sw-card" style="border-color:rgba(32,96,192,.2)">
-      <div class="sw-title" style="color:#60a0ff">✓ Strengths</div>
-      <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>#2 Minion Build in 0.5 — fully unaffected by Infernal Legion nerf</div>
-      <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>Power Zealot Spectre = massive single-target DPS</div>
-      <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>Army absorbs all damage — extremely safe playstyle</div>
-      <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>SSF-friendly from day 1 without trading</div>
-      <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>Amanamu's Tithe Warriors — major 0.5 power boost</div>
-      <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>Runeforging crafting reduces gear dependency</div>
+    <div class="sw-card" style="border-color:rgba(26,122,154,.2)">
+      <div class="sw-title" style="color:#40c8e8">✓ Strengths</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>#2 Minion Build in 0.5 — fully unaffected by Infernal Legion nerf</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>Power Zealot Spectre = massive single-target DPS</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>Army absorbs all damage — extremely safe playstyle</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>SSF-friendly from day 1 without trading</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>Amanamu's Tithe Warriors — major 0.5 power boost</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>Runeforging crafting reduces gear dependency</div>
     </div>
     <div class="sw-card" style="border-color:rgba(224,64,96,.2)">
       <div class="sw-title" style="color:var(--red)">✗ Weaknesses</div>
@@ -375,7 +429,7 @@ html,body{font-size:20px!important}
 
   <div class="stat-row">
     <div class="stat-item"><div class="stat-val" style="color:#ff6060">5★</div><div class="stat-lbl">DPS</div></div>
-    <div class="stat-item"><div class="stat-val" style="color:#60a0ff">5★</div><div class="stat-lbl">Survival</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:#40c8e8">5★</div><div class="stat-lbl">Survival</div></div>
     <div class="stat-item"><div class="stat-val" style="color:#50c8b4">3★</div><div class="stat-lbl">Speed</div></div>
     <div class="stat-item"><div class="stat-val" style="color:#ffd700">4★</div><div class="stat-lbl">Budget</div></div>
   </div>
@@ -392,24 +446,24 @@ html,body{font-size:20px!important}
   <div style="background:rgba(50,180,80,.1);border-left:3px solid rgba(50,180,80,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">✅ Infernalist is chosen for Pyromantic Pact (infinite resource sustain) and Loyalty from Infernal Hound (10% permanent damage reduction). Do NOT invest in Infernal Legion nodes.</div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-    <div style="background:rgba(32,96,192,.06);border:1px solid rgba(32,96,192,.35);border-radius:10px;padding:13px">
-      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff;margin-bottom:4px">① First — Loyalty</div>
-      <div style="font-size:12px;color:#2060C0;margin-bottom:6px">Infernal Hound</div>
+    <div style="background:rgba(26,122,154,.06);border:1px solid rgba(26,122,154,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8;margin-bottom:4px">① First — Loyalty</div>
+      <div style="font-size:12px;color:#1a7a9a;margin-bottom:6px">Infernal Hound</div>
       <div style="font-size:13px;color:#c0a0d8">Infernal Hound reduces damage you take by 10% while near you (Loyalty buff). Essential passive survivability for the entire game. Always keep the Hound alive.</div>
     </div>
-    <div style="background:rgba(32,96,192,.06);border:1px solid rgba(32,96,192,.35);border-radius:10px;padding:13px">
-      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff;margin-bottom:4px">② Priority — Pyromantic Pact</div>
-      <div style="font-size:12px;color:#2060C0;margin-bottom:6px">Infinite Resource Sustain</div>
+    <div style="background:rgba(26,122,154,.06);border:1px solid rgba(26,122,154,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8;margin-bottom:4px">② Priority — Pyromantic Pact</div>
+      <div style="font-size:12px;color:#1a7a9a;margin-bottom:6px">Infinite Resource Sustain</div>
       <div style="font-size:13px;color:#c0a0d8">Removes mana — replaces with Infernal Flame. When full, damages you (inverted with Recoup tech). Enables infinite casting with no resource management.</div>
     </div>
-    <div style="background:rgba(32,96,192,.06);border:1px solid rgba(32,96,192,.35);border-radius:10px;padding:13px">
-      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff;margin-bottom:4px">③ Damage — Hellbound</div>
-      <div style="font-size:12px;color:#2060C0;margin-bottom:6px">Minion Damage Multiplier</div>
+    <div style="background:rgba(26,122,154,.06);border:1px solid rgba(26,122,154,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8;margin-bottom:4px">③ Damage — Hellbound</div>
+      <div style="font-size:12px;color:#1a7a9a;margin-bottom:6px">Minion Damage Multiplier</div>
       <div style="font-size:13px;color:#c0a0d8">Minions deal more damage when near you. Stay close to your army during combat. Pairs with Hellbent Commander passive for stacked multipliers.</div>
     </div>
-    <div style="background:rgba(32,96,192,.06);border:1px solid rgba(32,96,192,.35);border-radius:10px;padding:13px">
-      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff;margin-bottom:4px">④ Defense — Soul Eater</div>
-      <div style="font-size:12px;color:#2060C0;margin-bottom:6px">Kill Stacks → Bonus Stats</div>
+    <div style="background:rgba(26,122,154,.06);border:1px solid rgba(26,122,154,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8;margin-bottom:4px">④ Defense — Soul Eater</div>
+      <div style="font-size:12px;color:#1a7a9a;margin-bottom:6px">Kill Stacks → Bonus Stats</div>
       <div style="font-size:13px;color:#c0a0d8">Gain stacks from minion kills — bonus damage and movement speed. Excellent during map clear, reaches high stack counts quickly with a full army.</div>
     </div>
   </div>
@@ -427,74 +481,74 @@ html,body{font-size:20px!important}
 
   <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Skill bar (endgame): Volcano · Raise Spectre · Skeletal Warriors · Pain Offering · Elemental Weakness · Frost Bomb</div>
 
-  <div style="margin-bottom:10px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:10px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-    <div style="width:10px;height:10px;border-radius:50%;background:#60a0ff;flex-shrink:0;box-shadow:0 0 6px #60a0ff"></div>
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#60a0ff">Volcano</div>
-    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);color:#60a0ff;font-family:monospace">CORE</span>
+    <div style="width:10px;height:10px;border-radius:50%;background:#40c8e8;flex-shrink:0;box-shadow:0 0 6px #40c8e8"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#40c8e8">Volcano</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);color:#40c8e8;font-family:monospace">CORE</span>
   </div>
   <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Core 0.5 change — replaces Flame Wall. Cast to spawn Raging Spirits that apply ignite automatically. Much easier and faster than manually igniting enemies. Cast on cooldown throughout all content.</div>
-  <div><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Pain Offering</span><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Damage</span><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Unleash</span></div>
+  <div><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Pain Offering</span><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Damage</span><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Unleash</span></div>
 </div>
-  <div style="margin-bottom:10px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:10px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
     <div style="width:10px;height:10px;border-radius:50%;background:#e060ff;flex-shrink:0;box-shadow:0 0 6px #e060ff"></div>
     <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#e060ff">Raise Spectre</div>
-    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);color:#60a0ff;font-family:monospace">CARRY</span>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);color:#40c8e8;font-family:monospace">CARRY</span>
   </div>
   <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Summon Power Zealot Spectres (found in Act 3 Crematorium). These are your primary single-target and AoE DPS. Use Uul-Netol's Embrace in endgame for massive Spectre DPS boost. Keep 2–3 active at all times.</div>
-  <div><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Uul-Netol's Embrace</span><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Damage</span><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Feeding Frenzy</span></div>
+  <div><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Uul-Netol's Embrace</span><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Damage</span><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Feeding Frenzy</span></div>
 </div>
-  <div style="margin-bottom:10px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:10px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
     <div style="width:10px;height:10px;border-radius:50%;background:#c050f0;flex-shrink:0;box-shadow:0 0 6px #c050f0"></div>
     <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#c050f0">Skeletal Warriors</div>
-    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);color:#60a0ff;font-family:monospace">FRONT</span>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);color:#40c8e8;font-family:monospace">FRONT</span>
   </div>
   <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Frontline tanks. With Amanamu's Tithe support (new in 0.5) these deal significant damage on top of tanking. Active command sends all Warriors leaping onto target — use on elites and bosses.</div>
-  <div><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Amanamu's Tithe</span><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Speed</span><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Splash I</span></div>
+  <div><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Amanamu's Tithe</span><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Speed</span><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Splash I</span></div>
 </div>
-  <div style="margin-bottom:10px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:10px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
     <div style="width:10px;height:10px;border-radius:50%;background:#a040e0;flex-shrink:0;box-shadow:0 0 6px #a040e0"></div>
     <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#a040e0">Skeletal Storm Mages</div>
-    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);color:#60a0ff;font-family:monospace">UTIL</span>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);color:#40c8e8;font-family:monospace">UTIL</span>
   </div>
   <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Apply Shock to all enemies, causing them to take 20% more damage from all sources. Critical for increasing the entire army's effective DPS. Shock uptime is near 100% with enough Mages.</div>
-  <div><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Inspiration</span><span style="display:inline-block;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Damage</span></div>
+  <div><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Inspiration</span><span style="display:inline-block;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Damage</span></div>
 </div>
-  <div style="margin-bottom:10px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:10px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
     <div style="width:10px;height:10px;border-radius:50%;background:#c060ff;flex-shrink:0;box-shadow:0 0 6px #c060ff"></div>
     <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#c060ff">Infernal Hound</div>
-    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);color:#60a0ff;font-family:monospace">PASSIVE</span>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);color:#40c8e8;font-family:monospace">PASSIVE</span>
   </div>
   <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Provides the Loyalty buff — 10% reduced damage taken while near the Hound. Also taunts enemies and generates corpses on kills. Never let it die. Active ability makes it Unstoppable and enrages nearby minions.</div>
   
 </div>
-  <div style="margin-bottom:10px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:10px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-    <div style="width:10px;height:10px;border-radius:50%;background:#2060C0;flex-shrink:0;box-shadow:0 0 6px #2060C0"></div>
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#2060C0">Pain Offering</div>
-    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);color:#60a0ff;font-family:monospace">BUFF</span>
+    <div style="width:10px;height:10px;border-radius:50%;background:#1a7a9a;flex-shrink:0;box-shadow:0 0 6px #1a7a9a"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#1a7a9a">Pain Offering</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);color:#40c8e8;font-family:monospace">BUFF</span>
   </div>
   <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Cast after every Volcano to buff your entire army +40% attack speed for 8 seconds. Most important buff in your rotation. On bosses: refresh every 7 seconds.</div>
   
 </div>
-  <div style="margin-bottom:10px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:10px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
     <div style="width:10px;height:10px;border-radius:50%;background:#9030c0;flex-shrink:0;box-shadow:0 0 6px #9030c0"></div>
     <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#9030c0">Elemental Weakness</div>
-    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);color:#60a0ff;font-family:monospace">CURSE</span>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);color:#40c8e8;font-family:monospace">CURSE</span>
   </div>
   <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Primary curse — applies -20% to all enemy resistances. Cast on every pack and boss. Highest priority utility skill.</div>
   
 </div>
-  <div style="margin-bottom:10px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:10px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
     <div style="width:10px;height:10px;border-radius:50%;background:#7020a0;flex-shrink:0;box-shadow:0 0 6px #7020a0"></div>
     <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#7020a0">Frost Bomb</div>
-    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);color:#60a0ff;font-family:monospace">BOSS</span>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);color:#40c8e8;font-family:monospace">BOSS</span>
   </div>
   <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Boss-only skill. Reduces enemy life regen by 90% and applies Cold Exposure (-25% cold resistance). Essential for endgame boss fights where life regen would otherwise be an issue.</div>
   
@@ -511,9 +565,9 @@ html,body{font-size:20px!important}
   </div>
   <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Goal: build your minion army as quickly as possible. By Act 2 you should be hands-off — your skeletons clear everything while you manage curses.</div>
 
-  <div style="margin-bottom:12px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:12px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-    <div style="background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60a0ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 1</div>
+    <div style="background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#40c8e8;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 1</div>
     <div style="flex:1">
       <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#a0d0ff">Start with Bone Spear</div>
       <div style="font-size:11px;color:#6a4a88">Damage + corpse generation</div>
@@ -523,9 +577,9 @@ html,body{font-size:20px!important}
   <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 First priority: find a sceptre with +1 to Minion Skill Gems. Even a low-level version more than doubles early army damage.</div>
 </div>
 
-  <div style="margin-bottom:12px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:12px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-    <div style="background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60a0ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 1–2</div>
+    <div style="background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#40c8e8;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 1–2</div>
     <div style="flex:1">
       <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#a0d0ff">Unlock Raise Skeleton + Skeletal Mages</div>
       <div style="font-size:11px;color:#6a4a88">Army foundation</div>
@@ -535,9 +589,9 @@ html,body{font-size:20px!important}
   <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Infernal Hound: use its active ability on Elite monsters to taunt them. Keeps dangerous enemies from reaching you while your army destroys them.</div>
 </div>
 
-  <div style="margin-bottom:12px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:12px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-    <div style="background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60a0ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 2</div>
+    <div style="background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#40c8e8;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 2</div>
     <div style="flex:1">
       <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#a0d0ff">Unlock Pain Offering</div>
       <div style="font-size:11px;color:#6a4a88">Core buff skill online</div>
@@ -547,9 +601,9 @@ html,body{font-size:20px!important}
   <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Rotation from here: spawn minions → cast Pain Offering → let army clear. Refresh Pain Offering every 8 seconds.</div>
 </div>
 
-  <div style="margin-bottom:12px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:12px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-    <div style="background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60a0ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 3</div>
+    <div style="background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#40c8e8;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 3</div>
     <div style="flex:1">
       <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#a0d0ff">Find Power Zealot Spectres</div>
       <div style="font-size:11px;color:#6a4a88">Main carry unlocked</div>
@@ -559,9 +613,9 @@ html,body{font-size:20px!important}
   <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 You can only have 1–2 Spectres early without Spirit investment. Prioritize Spirit on gear to unlock a third Spectre slot ASAP.</div>
 </div>
 
-  <div style="margin-bottom:12px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:12px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-    <div style="background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60a0ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 3</div>
+    <div style="background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#40c8e8;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 3</div>
     <div style="flex:1">
       <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#a0d0ff">Replace Flame Wall with Volcano</div>
       <div style="font-size:11px;color:#6a4a88">0.5 update</div>
@@ -571,9 +625,9 @@ html,body{font-size:20px!important}
   
 </div>
 
-  <div style="margin-bottom:12px;border:1px solid rgba(32,96,192,.2);border-radius:10px;padding:12px;background:rgba(32,96,192,.06)">
+  <div style="margin-bottom:12px;border:1px solid rgba(26,122,154,.2);border-radius:10px;padding:12px;background:rgba(26,122,154,.06)">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-    <div style="background:rgba(32,96,192,.13);border:1px solid rgba(32,96,192,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60a0ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Endgame</div>
+    <div style="background:rgba(26,122,154,.13);border:1px solid rgba(26,122,154,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#40c8e8;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Endgame</div>
     <div style="flex:1">
       <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#a0d0ff">Transition: Uul-Netol's Embrace</div>
       <div style="font-size:11px;color:#6a4a88">Spectre DPS leap</div>
@@ -594,9 +648,9 @@ html,body{font-size:20px!important}
   </div>
   <div class="note note-info">ℹ Witch starts top-left (Intelligence section). Path toward Minion Damage clusters first, then survivability nodes.</div>
   <div class="tree-list">
-    <div class="tr"><div class="tr-dot" style="background:#2060C0"></div><div><div class="tr-title">① Minion Damage Notables</div><div class="tr-desc">Highest priority from level 1. Every Minion Damage notable near the Witch start multiplies the damage of all 10+ minions simultaneously. Take all reachable notables before branching out.</div></div></div>
-    <div class="tr"><div class="tr-dot" style="background:#60a0ff"></div><div><div class="tr-title">② Hellbent Commander ×3</div><div class="tr-desc">Large [x] multiplier to all minion damage while near your army. Must-have. Max all 3 points as soon as available. Always stay near your minions during combat to maintain the buff.</div></div></div>
-    <div class="tr"><div class="tr-dot" style="background:#60a0ff"></div><div><div class="tr-title">③ Inspiring Leader ×3</div><div class="tr-desc">Minion Attack Speed — increases how fast Skeletal Warriors, Mages, and Spectres attack. Directly multiplies DPS of the entire army.</div></div></div>
+    <div class="tr"><div class="tr-dot" style="background:#1a7a9a"></div><div><div class="tr-title">① Minion Damage Notables</div><div class="tr-desc">Highest priority from level 1. Every Minion Damage notable near the Witch start multiplies the damage of all 10+ minions simultaneously. Take all reachable notables before branching out.</div></div></div>
+    <div class="tr"><div class="tr-dot" style="background:#40c8e8"></div><div><div class="tr-title">② Hellbent Commander ×3</div><div class="tr-desc">Large [x] multiplier to all minion damage while near your army. Must-have. Max all 3 points as soon as available. Always stay near your minions during combat to maintain the buff.</div></div></div>
+    <div class="tr"><div class="tr-dot" style="background:#40c8e8"></div><div><div class="tr-title">③ Inspiring Leader ×3</div><div class="tr-desc">Minion Attack Speed — increases how fast Skeletal Warriors, Mages, and Spectres attack. Directly multiplies DPS of the entire army.</div></div></div>
     <div class="tr"><div class="tr-dot" style="background:#a040e0"></div><div><div class="tr-title">④ Minion Life Nodes</div><div class="tr-desc">Prevents your army from dying — especially important for Spectres who cannot auto-resummon. Path through Life nodes near minion clusters.</div></div></div>
     <div class="tr"><div class="tr-dot" style="background:#9030c0"></div><div><div class="tr-title">⑤ Spirit Investment</div><div class="tr-desc">Spirit allows more minions to be active simultaneously. Path toward Spirit nodes to unlock a 3rd Spectre slot and more Skeletal Warriors/Mages.</div></div></div>
     <div class="tr"><div class="tr-dot" style="background:#7020a0"></div><div><div class="tr-title">⑥ Death's Embrace ×3</div><div class="tr-desc">Shadow damage bonus when near enemies. Synergizes with staying close to your army (Hellbent Commander area). Take after core minion nodes.</div></div></div>
@@ -617,69 +671,69 @@ html,body{font-size:20px!important}
 
   <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 <strong>Stat Priority:</strong> +1 Minion Skill Gems → Spirit (more minion slots) → Runic Ward via Verisium → Resistance caps (75%) → Life/ES</div>
 
-  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(32,96,192,.2);border-radius:8px;background:rgba(32,96,192,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(26,122,154,.2);border-radius:8px;background:rgba(26,122,154,.06);margin-bottom:8px;align-items:flex-start">
   <div style="width:50px;flex-shrink:0;text-align:center">
-    <div style="font-size:10px;color:#2060C0;font-family:monospace;font-weight:700;letter-spacing:1px">BiS</div>
+    <div style="font-size:10px;color:#1a7a9a;font-family:monospace;font-weight:700;letter-spacing:1px">BiS</div>
     <div style="font-size:10px;color:#666;margin-top:2px">Weapon</div>
   </div>
   <div style="flex:1">
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff">Omen Sceptre (Rare) <span style="color:#ffd700;font-size:10px">★ REQUIRED</span></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8">Omen Sceptre (Rare) <span style="color:#ffd700;font-size:10px">★ REQUIRED</span></div>
     <div style="font-size:12px;color:#8a6aa8;margin-top:2px">+1 to Minion Skill Gems · +Minion Damage · Cast Speed · Minion Speed</div>
   </div>
 </div>
-  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(32,96,192,.2);border-radius:8px;background:rgba(32,96,192,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(26,122,154,.2);border-radius:8px;background:rgba(26,122,154,.06);margin-bottom:8px;align-items:flex-start">
   <div style="width:50px;flex-shrink:0;text-align:center">
-    <div style="font-size:10px;color:#2060C0;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#1a7a9a;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
     <div style="font-size:10px;color:#666;margin-top:2px">Offhand</div>
   </div>
   <div style="flex:1">
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff">Leyline Focus (Rare)</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8">Leyline Focus (Rare)</div>
     <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Spell Suppression · Life · Resistances · Chance to Block</div>
   </div>
 </div>
-  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(32,96,192,.2);border-radius:8px;background:rgba(32,96,192,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(26,122,154,.2);border-radius:8px;background:rgba(26,122,154,.06);margin-bottom:8px;align-items:flex-start">
   <div style="width:50px;flex-shrink:0;text-align:center">
-    <div style="font-size:10px;color:#2060C0;font-family:monospace;font-weight:700;letter-spacing:1px">BiS</div>
+    <div style="font-size:10px;color:#1a7a9a;font-family:monospace;font-weight:700;letter-spacing:1px">BiS</div>
     <div style="font-size:10px;color:#666;margin-top:2px">Helm</div>
   </div>
   <div style="flex:1">
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff">Sorcerous Tiara (Rare)</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8">Sorcerous Tiara (Rare)</div>
     <div style="font-size:12px;color:#8a6aa8;margin-top:2px">+1 to Minion Skill Gems · Minion Life · Energy Shield · Runic Ward</div>
   </div>
 </div>
-  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(32,96,192,.2);border-radius:8px;background:rgba(32,96,192,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(26,122,154,.2);border-radius:8px;background:rgba(26,122,154,.06);margin-bottom:8px;align-items:flex-start">
   <div style="width:50px;flex-shrink:0;text-align:center">
-    <div style="font-size:10px;color:#2060C0;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#1a7a9a;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
     <div style="font-size:10px;color:#666;margin-top:2px">Body</div>
   </div>
   <div style="flex:1">
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff">Wolfskin Mantle (Rare)</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8">Wolfskin Mantle (Rare)</div>
     <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Energy Shield · Resistances · Runic Ward via Verisium (compensates 0.5 ES nerf)</div>
   </div>
 </div>
-  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(32,96,192,.2);border-radius:8px;background:rgba(32,96,192,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(26,122,154,.2);border-radius:8px;background:rgba(26,122,154,.06);margin-bottom:8px;align-items:flex-start">
   <div style="width:50px;flex-shrink:0;text-align:center">
-    <div style="font-size:10px;color:#2060C0;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#1a7a9a;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
     <div style="font-size:10px;color:#666;margin-top:2px">Gloves</div>
   </div>
   <div style="flex:1">
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff">Bound Cuffs (Rare)</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8">Bound Cuffs (Rare)</div>
     <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Minion Damage · Life · Resistances · Attack/Cast Speed</div>
   </div>
 </div>
-  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(32,96,192,.2);border-radius:8px;background:rgba(32,96,192,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(26,122,154,.2);border-radius:8px;background:rgba(26,122,154,.06);margin-bottom:8px;align-items:flex-start">
   <div style="width:50px;flex-shrink:0;text-align:center">
-    <div style="font-size:10px;color:#2060C0;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#1a7a9a;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
     <div style="font-size:10px;color:#666;margin-top:2px">Boots</div>
   </div>
   <div style="flex:1">
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff">Bound Sandals (Rare)</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8">Bound Sandals (Rare)</div>
     <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Movement Speed · Life · Resistances</div>
   </div>
 </div>
-  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(32,96,192,.2);border-radius:8px;background:rgba(32,96,192,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(26,122,154,.2);border-radius:8px;background:rgba(26,122,154,.06);margin-bottom:8px;align-items:flex-start">
   <div style="width:50px;flex-shrink:0;text-align:center">
-    <div style="font-size:10px;color:#2060C0;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#1a7a9a;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
     <div style="font-size:10px;color:#666;margin-top:2px">Ring 1</div>
   </div>
   <div style="flex:1">
@@ -687,9 +741,9 @@ html,body{font-size:20px!important}
     <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Chaos Resistance · Life · Minion Damage · Resistances</div>
   </div>
 </div>
-  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(32,96,192,.2);border-radius:8px;background:rgba(32,96,192,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(26,122,154,.2);border-radius:8px;background:rgba(26,122,154,.06);margin-bottom:8px;align-items:flex-start">
   <div style="width:50px;flex-shrink:0;text-align:center">
-    <div style="font-size:10px;color:#2060C0;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#1a7a9a;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
     <div style="font-size:10px;color:#666;margin-top:2px">Ring 2</div>
   </div>
   <div style="flex:1">
@@ -697,19 +751,19 @@ html,body{font-size:20px!important}
     <div style="font-size:12px;color:#8a6aa8;margin-top:2px">All Resistances · Life · Minion Damage</div>
   </div>
 </div>
-  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(32,96,192,.2);border-radius:8px;background:rgba(32,96,192,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(26,122,154,.2);border-radius:8px;background:rgba(26,122,154,.06);margin-bottom:8px;align-items:flex-start">
   <div style="width:50px;flex-shrink:0;text-align:center">
-    <div style="font-size:10px;color:#2060C0;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#1a7a9a;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
     <div style="font-size:10px;color:#666;margin-top:2px">Amulet</div>
   </div>
   <div style="flex:1">
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60a0ff">Pearlescent Amulet (Rare)</div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#40c8e8">Pearlescent Amulet (Rare)</div>
     <div style="font-size:12px;color:#8a6aa8;margin-top:2px">+1 to Intelligence Skill Gems · Life · Minion Damage</div>
   </div>
 </div>
 
-  <div style="margin-top:14px;padding:12px;background:rgba(32,96,192,.06);border:1px solid rgba(32,96,192,.35);border-radius:10px">
-    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:#60a0ff;margin-bottom:6px">🔮 0.5 Runeforging Upgrades</div>
+  <div style="margin-top:14px;padding:12px;background:rgba(26,122,154,.06);border:1px solid rgba(26,122,154,.35);border-radius:10px">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:#40c8e8;margin-bottom:6px">🔮 0.5 Runeforging Upgrades</div>
     <div style="font-size:13px;color:#c0a0d8;line-height:1.6">Destroy Unique items with relevant properties → create Runes inheriting those stats → socket into your best gear. Priority: Runic Ward on Body Armour (compensates ES nerf) → Minion Damage runes on Sceptre/Helm. Farm <strong>Enfolding Dawn</strong> (100 Spirit) and destroy for Rune crafting materials.</div>
   </div>
 </div>
@@ -724,25 +778,25 @@ html,body{font-size:20px!important}
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-    <div style="background:rgba(32,96,192,.06);border:1px solid rgba(32,96,192,.35);border-radius:10px;padding:13px">
+    <div style="background:rgba(26,122,154,.06);border:1px solid rgba(26,122,154,.35);border-radius:10px;padding:13px">
       <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#50c8b4;margin-bottom:8px">🗺 MAP CLEAR</div>
       <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#c0a0d8">
-        <div><span style="color:#60a0ff;font-weight:700">1.</span> Cast <strong>Volcano</strong> — Raging Spirits spawn and ignite enemies</div>
-        <div><span style="color:#60a0ff;font-weight:700">2.</span> Cast <strong>Pain Offering</strong> immediately after — +40% army attack speed</div>
-        <div><span style="color:#60a0ff;font-weight:700">3.</span> Cast <strong>Elemental Weakness</strong> on packs — -20% resistances</div>
-        <div><span style="color:#60a0ff;font-weight:700">4.</span> <strong>Move forward</strong> — Spectres and Warriors clear everything passively</div>
-        <div><span style="color:#60a0ff;font-weight:700">5.</span> <strong>Refresh Volcano</strong> every ~8s to maintain Raging Spirit count</div>
+        <div><span style="color:#40c8e8;font-weight:700">1.</span> Cast <strong>Volcano</strong> — Raging Spirits spawn and ignite enemies</div>
+        <div><span style="color:#40c8e8;font-weight:700">2.</span> Cast <strong>Pain Offering</strong> immediately after — +40% army attack speed</div>
+        <div><span style="color:#40c8e8;font-weight:700">3.</span> Cast <strong>Elemental Weakness</strong> on packs — -20% resistances</div>
+        <div><span style="color:#40c8e8;font-weight:700">4.</span> <strong>Move forward</strong> — Spectres and Warriors clear everything passively</div>
+        <div><span style="color:#40c8e8;font-weight:700">5.</span> <strong>Refresh Volcano</strong> every ~8s to maintain Raging Spirit count</div>
       </div>
     </div>
-    <div style="background:rgba(32,96,192,.06);border:1px solid rgba(32,96,192,.35);border-radius:10px;padding:13px">
+    <div style="background:rgba(26,122,154,.06);border:1px solid rgba(26,122,154,.35);border-radius:10px;padding:13px">
       <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#FF8C00;margin-bottom:8px">⚔ BOSS ROTATION</div>
       <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#c0a0d8">
-        <div><span style="color:#60a0ff;font-weight:700">1.</span> <strong>Frost Bomb</strong> on boss — cold exposure + -90% life regen</div>
-        <div><span style="color:#60a0ff;font-weight:700">2.</span> <strong>Elemental Weakness</strong> — resistance shred</div>
-        <div><span style="color:#60a0ff;font-weight:700">3.</span> <strong>Volcano</strong> to refresh Raging Spirits</div>
-        <div><span style="color:#60a0ff;font-weight:700">4.</span> <strong>Pain Offering</strong> immediately after</div>
-        <div><span style="color:#60a0ff;font-weight:700">5.</span> <strong>Command Warriors</strong> onto boss — focus-attack burst</div>
-        <div><span style="color:#60a0ff;font-weight:700">6.</span> Refresh Volcano + Pain Offering every 7–8s</div>
+        <div><span style="color:#40c8e8;font-weight:700">1.</span> <strong>Frost Bomb</strong> on boss — cold exposure + -90% life regen</div>
+        <div><span style="color:#40c8e8;font-weight:700">2.</span> <strong>Elemental Weakness</strong> — resistance shred</div>
+        <div><span style="color:#40c8e8;font-weight:700">3.</span> <strong>Volcano</strong> to refresh Raging Spirits</div>
+        <div><span style="color:#40c8e8;font-weight:700">4.</span> <strong>Pain Offering</strong> immediately after</div>
+        <div><span style="color:#40c8e8;font-weight:700">5.</span> <strong>Command Warriors</strong> onto boss — focus-attack burst</div>
+        <div><span style="color:#40c8e8;font-weight:700">6.</span> Refresh Volcano + Pain Offering every 7–8s</div>
       </div>
     </div>
   </div>
@@ -815,7 +869,7 @@ html,body{font-size:20px!important}
   
 </div>
 
-<footer style="border-top:1px solid rgba(32,96,192,.15);padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">PATH OF EXILE 2 · SPIRIT ARMY WITCH · INFERNALIST · PATCH 0.5.0</footer>
+<footer style="border-top:1px solid rgba(26,122,154,.15);padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">PATH OF EXILE 2 · SPIRIT ARMY WITCH · INFERNALIST · PATCH 0.5.0</footer>
 </div>
 
 <script>
@@ -829,14 +883,14 @@ function ST(el) {
 </script>
 </body>
 </html><div class="sw-cards">
-  <div class="sw-card" style="border-color:rgba(32,96,192,.2)">
-    <div class="sw-title" style="color:#60a0ff">✓ Strengths</div>
-    <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>#2 Minion Build in PoE2 0.5 — fully tested</div>
-    <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>Unaffected by Infernal Legion nerf</div>
-    <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>Power Zealot Spectre = massive single-target DPS</div>
-    <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>Army absorbs all damage — extremely safe</div>
-    <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>SSF-friendly from day 1, no trading required</div>
-    <div class="sw-li"><div class="sw-dot" style="background:#2060C0"></div>Amanamu's Tithe Warriors — major 0.5 buff</div>
+  <div class="sw-card" style="border-color:rgba(26,122,154,.2)">
+    <div class="sw-title" style="color:#40c8e8">✓ Strengths</div>
+    <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>#2 Minion Build in PoE2 0.5 — fully tested</div>
+    <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>Unaffected by Infernal Legion nerf</div>
+    <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>Power Zealot Spectre = massive single-target DPS</div>
+    <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>Army absorbs all damage — extremely safe</div>
+    <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>SSF-friendly from day 1, no trading required</div>
+    <div class="sw-li"><div class="sw-dot" style="background:#1a7a9a"></div>Amanamu's Tithe Warriors — major 0.5 buff</div>
   </div>
   <div class="sw-card" style="border-color:rgba(224,64,96,.2)">
     <div class="sw-title" style="color:var(--red)">✗ Weaknesses</div>
@@ -847,7 +901,7 @@ function ST(el) {
   </div>
 </div>
 
-<footer style="border-top:1px solid rgba(32,96,192,.15);padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">PATH OF EXILE 2 · SPIRIT ARMY WITCH · INFERNALIST · PATCH 0.5.0</footer>
+<footer style="border-top:1px solid rgba(26,122,154,.15);padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">PATH OF EXILE 2 · SPIRIT ARMY WITCH · INFERNALIST · PATCH 0.5.0</footer>
 </div>
 
 <script>
