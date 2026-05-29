@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spirit Army Witch — V1 Neon Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ac:#9B30DC;--ac2:#FF4020;--bg:#06040e;
+  --s1:#0e0818;--s2:#160d28;--s3:#1e1238;
+  --text:#dde0f0;--muted:#6a5a90;--muted2:#3a2860;
+  --gold:#E8C840;--teal:#40c8b4;--green:#40c060;--red:#e04060;
+  --border:rgba(155,48,220,0.15);--border2:rgba(155,48,220,0.3);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+
+/* ── ANIMATED GRID BG ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(155,48,220,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(155,48,220,0.05) 1px,transparent 1px);
+  background-size:44px 44px;
+  animation:bgshift 30s linear infinite;
+}
+@keyframes bgshift{from{background-position:0 0}to{background-position:44px 44px}}
+
+/* Radial center glow */
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(155,48,220,0.12) 0%,transparent 100%)}
+
+.wrap{max-width:660px;margin:0 auto;padding:0 16px 80px;position:relative;z-index:1}
+
+/* ── HERO ── */
+.hero{padding:28px 0 24px;position:relative;text-align:center}
+
+/* Vortex animation */
+@keyframes vx1{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes vx2{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
+@keyframes vx3{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes vpulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes vspark{0%,100%{opacity:0}40%,60%{opacity:1}}
+@keyframes vflicker{0%,88%,100%{opacity:1}90%{opacity:.15}94%{opacity:.9}97%{opacity:.4}}
+.vortex{width:120px;height:120px;margin:0 auto 20px;position:relative}
+.vortex svg{width:120px;height:120px}
+.vr1{animation:vx1 12s linear infinite;transform-origin:60px 60px}
+.vr2{animation:vx2 7s linear infinite;transform-origin:60px 60px}
+.vr3{animation:vx3 3.5s linear infinite;transform-origin:60px 60px}
+.vc{animation:vpulse 2.5s ease-in-out infinite}
+.vs1{animation:vspark 2.8s ease-in-out infinite}
+.vs2{animation:vspark 2.8s ease-in-out infinite .7s}
+.vs3{animation:vspark 2.8s ease-in-out infinite 1.4s}
+.vs4{animation:vspark 2.8s ease-in-out infinite 2.1s}
+
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:4px;color:rgba(155,48,220,0.7);margin-bottom:6px;text-transform:uppercase}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(28px,7vw,44px);font-weight:900;color:#fff;line-height:1;letter-spacing:1px;margin-bottom:4px}
+.hero-title em{color:#C060FF;font-style:normal}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.hero-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.htag{font-size:11px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
+
+/* stat bars */
+.hero-bars{display:flex;justify-content:center;gap:20px}
+.hb{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
+.hb-track{width:48px;height:4px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.hb-fill{height:100%;border-radius:2px}
+.hb-label{font-size:9px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.hb-val{font-size:14px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+
+/* ── DIVIDER ── */
+.div{height:1px;background:linear-gradient(90deg,transparent,rgba(155,48,220,.6),rgba(255,64,32,.4),transparent);margin:24px 0;position:relative}
+.div-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:var(--ac);border-radius:50%;box-shadow:0 0 8px var(--ac)}
+
+/* ── SECTION ── */
+.sec{margin-bottom:30px}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(155,48,220,.5);letter-spacing:1px}
+.sec-bar{flex:1;height:1px;background:linear-gradient(90deg,rgba(155,48,220,.4),transparent)}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;color:#fff;letter-spacing:.5px}
+.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid var(--border2);background:rgba(155,48,220,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-ico svg{width:16px;height:16px;color:var(--ac)}
+
+/* ── MECHANIC BLOCK ── */
+.mech{background:var(--s1);border:1px solid var(--border);border-left:3px solid var(--ac);border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.mech::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 100% 0%,rgba(155,48,220,.1) 0%,transparent 100%);pointer-events:none}
+.mech p{font-size:14px;color:#b0a0d0;line-height:1.75}
+.mech p+p{margin-top:8px}
+.kw{color:#C060FF;font-weight:700}
+.kw2{color:#FF8040;font-weight:700}
+.kw3{color:var(--gold);font-weight:700}
+
+/* ── S/W GRID ── */
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sw-box{background:var(--s1);border:1px solid;border-radius:8px;padding:11px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:13px;color:#9080b0;line-height:1.5;margin-bottom:3px}
+.sw-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+
+/* ── NOTE ── */
+.note{padding:9px 12px;border-radius:6px;font-size:13px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
+.note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#b04060}
+.note-info{background:rgba(155,48,220,.06);border-color:rgba(155,48,220,.35);color:#9070c0}
+.note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
+
+/* ── ASC FLOW ── */
+.asc-flow{position:relative;padding-left:20px}
+.asc-flow::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--ac),rgba(255,64,32,.3),transparent)}
+.asc-item{position:relative;margin-bottom:14px;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.asc-item::before{content:'';position:absolute;left:-14px;top:7px;width:8px;height:8px;border-radius:50%;border:2px solid var(--ac);background:var(--bg);z-index:1}
+.asc-item.gold::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px var(--gold)}
+.asc-step{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);line-height:1.4}
+.asc-body{}
+.asc-when{font-size:10px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;font-family:'Share Tech Mono',monospace}
+.asc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
+.asc-desc{font-size:13px;color:#8a7ab0;line-height:1.5}
+
+/* ── SKILL CARDS ── */
+.skills{display:flex;flex-direction:column;gap:5px}
+.sc{display:flex;align-items:flex-start;gap:9px;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;transition:.15s;position:relative;overflow:hidden}
+.sc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:8px 0 0 8px}
+.sc:hover{border-color:rgba(155,48,220,.2);background:var(--s2)}
+.sc-ico{width:28px;height:28px;border-radius:7px;border:1px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sc-ico svg{width:14px;height:14px}
+.sc-body{flex:1;min-width:0}
+.sc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:1px}
+.sc-desc{font-size:12px;color:#7a6a9a;line-height:1.4;margin-bottom:4px}
+.sc-gems{display:flex;flex-wrap:wrap;gap:3px}
+.gem{font-size:10px;padding:1px 5px;border-radius:3px;background:rgba(155,48,220,.07);border:1px solid rgba(155,48,220,.18);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.gem.hi{border-color:rgba(232,200,64,.3);color:var(--gold)}
+.sc-tag{flex-shrink:0;font-size:10px;padding:2px 6px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:.5px;text-transform:uppercase;align-self:flex-start}
+
+/* ── LEVELING TIMELINE ── */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--ac),rgba(255,64,32,.4),transparent)}
+.phase{position:relative;margin-bottom:18px}
+.phase::before{content:'';position:absolute;left:-19px;top:6px;width:9px;height:9px;border-radius:50%;border:2px solid var(--ac);background:var(--bg);z-index:1;transition:.2s}
+.phase.key::before{background:var(--ac);box-shadow:0 0 8px var(--ac)}
+.phase-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(155,48,220,.6);letter-spacing:1px;margin-bottom:2px}
+.phase-title{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:5px}
+.phase-desc{font-size:13px;color:#8a7ab0;line-height:1.6;margin-bottom:7px}
+.phase-gems{display:flex;flex-direction:column;gap:3px;margin-bottom:6px}
+.pgrow{display:flex;align-items:center;gap:8px;padding:4px 8px;background:var(--s1);border-radius:4px;border:1px solid rgba(255,255,255,.04)}
+.pgrow.hi{border-color:rgba(155,48,220,.25);background:rgba(155,48,220,.05)}
+.pgr-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;min-width:110px}
+.pgr-sups{display:flex;flex-wrap:wrap;gap:3px}
+.pgr-s{font-size:10px;padding:1px 5px;border-radius:2px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.pgr-s.gold{border-color:rgba(232,200,64,.3);color:var(--gold)}
+.phase-pts{font-size:11px;color:var(--muted2);font-family:'Share Tech Mono',monospace;border-top:1px solid rgba(255,255,255,.04);padding-top:5px;margin-top:4px}
+
+/* ── TREE ── */
+.tree-list{display:flex;flex-direction:column;gap:4px}
+.tr{display:flex;align-items:center;gap:10px;padding:7px 10px;background:var(--s1);border-radius:5px;border:1px solid rgba(255,255,255,.04)}
+.tr.highlight{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
+.tr-range{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--ac);min-width:78px;flex-shrink:0}
+.tr.highlight .tr-range{color:var(--gold)}
+.tr-desc{font-size:13px;color:#b0a0d0;flex:1;line-height:1.4}
+.tr-pts{font-size:11px;color:var(--muted2);flex-shrink:0;font-family:'Share Tech Mono',monospace}
+
+/* ── GEAR ── */
+.gear-list{display:flex;flex-direction:column;gap:4px}
+.gr{display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px;transition:.15s}
+.gr:hover{border-color:rgba(155,48,220,.18)}
+.gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
+.gr-slot{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted2);width:52px;flex-shrink:0}
+.gr-info{flex:1;min-width:0}
+.gr-name{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:1px}
+.gr.bis .gr-name{color:var(--gold)}
+.gr-note{font-size:11px;color:var(--muted2);line-height:1.3}
+.gr-tag{font-size:10px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+
+/* ── ROTATION ── */
+.rot-block{margin-bottom:18px}
+.rot-header{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.rot-header-ico{width:22px;height:22px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rot-header-ico svg{width:12px;height:12px}
+.rot-header-title{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+.rot-steps{display:flex;flex-direction:column;gap:5px}
+.rstep{display:flex;align-items:flex-start;gap:9px}
+.rn{width:20px;height:20px;border-radius:50%;border:1px solid;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.rb{flex:1}
+.rb-skill{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:1px}
+.rb-desc{font-size:12px;color:#7a6a9a;line-height:1.4}
+
+/* ── PATCH ── */
+.patch-ok{background:rgba(64,192,80,.06);border:1px solid rgba(64,192,80,.2);border-radius:7px;padding:11px;margin-bottom:11px;font-size:13px;color:#50a060;line-height:1.55}
+.patch-items{display:flex;flex-direction:column;gap:5px}
+.pi{display:flex;gap:9px;align-items:flex-start;padding:9px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px}
+.pi-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.pi-title{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:2px}
+.pi-desc{font-size:12px;color:#7a6a9a;line-height:1.4}
+
+/* ── TIPS ── */
+.tip-cards{display:flex;flex-direction:column;gap:6px}
+.tip-card{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:11px 13px}
+.tip-title{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:3px}
+.tip-text{font-size:13px;color:#8a7ab0;line-height:1.55}
+
+/* ── TABS ── */
+.tab-bar-hero{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
+  padding:14px 16px 4px;
+}
+.tab-hero{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:7px 12px;cursor:pointer;flex-shrink:0;
+  border-radius:8px;border:1px solid rgba(155,48,220,.15);
+  background:rgba(155,48,220,.04);
+  border-bottom:2px solid transparent;transition:.2s;
+}
+.tab-hero:hover{background:rgba(155,48,220,.1);border-color:rgba(155,48,220,.3)}
+.tab-hero.on{border-color:rgba(155,48,220,.4);border-bottom-color:#9B30DC;background:rgba(155,48,220,.1)}
+.tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+.tab-ico svg{width:14px;height:14px;color:#6a5a90;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#9B30DC;filter:drop-shadow(0 0 3px rgba(155,48,220,.6))}
+.tab-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700;
+  color:#3a2860;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
+.tab-hero.on .tab-lbl{color:#9B30DC}
+
+/* hide non-active sections; show only active */
+.sec{display:none}
+.sec.on{display:block}
+
+  /* ── iPad / Tablet (768px+) ── */
+  
+</style>
+<style id="ipad-override">
+@media (min-width:768px){
+html,body{font-size:20px!important}
+.logo-text{font-size:32px!important}
+.icon-btn{font-size:22px!important}
+.gtab{font-size:19px!important;min-width:100px!important;padding:10px 6px!important}
+.gtab-label{font-size:17px!important}
+.gtab-count{font-size:15px!important}
+.chip{font-size:16px!important;padding:6px 14px!important}
+.badge{font-size:14px!important}
+.bc-tier-badge,.core-badge,.opt-badge,.dskill-tag,.dgear-tag,.gem-chip,.src{font-size:13px!important}
+.mod-tag{font-size:14px!important}
+.bc-name{font-size:24px!important}
+.bc-sub{font-size:18px!important}
+.bc-hud-corner,.bc-game-label,.vc-game{font-size:14px!important}
+.vcs-l,.mini-lbl{font-size:14px!important}
+.vcs-v,.mini-val{font-size:16px!important}
+.bcard-name{font-size:26px!important}
+.bcard-sub{font-size:18px!important}
+.bcard-arrow{font-size:30px!important}
+.dh-name{font-size:30px!important}
+.dh-sub,.guide-btn,.ds-title{font-size:18px!important}
+.dh-class{font-size:15px!important}
+.guide-btn{padding:12px 22px!important}
+.back-btn{font-size:24px!important}
+.mech-name{font-size:20px!important}
+.mech-desc,.note-box,.tip{font-size:18px!important}
+.wpn-lbl,.talent-lbl,.gear-slot,.dgear-slot,.dtab-lbl,.stat-lbl{font-size:14px!important}
+.wpn-name{font-size:22px!important}
+.wpn-type{font-size:16px!important}
+.talent-txt{font-size:16px!important}
+.skill-name,.tname,.rstep-skill,.phase-title,.dphase-title,.dasc-name,.drot-skill,.dgear-name,.dskill-name,.opt-name,.wc-name{font-size:19px!important}
+.skill-desc,.tdesc,.rstep-desc,.phase-desc,.dphase-desc,.drot-desc,.dskill-desc,.opt-desc,.wc-desc{font-size:17px!important}
+.spec-name{font-size:22px!important}
+.spec-desc{font-size:18px!important}
+.perk{font-size:15px!important}
+.rstep-n,.drot-label,.drot-n{font-size:15px!important}
+.gear-name{font-size:19px!important}
+.sw-title,.dsw-title,.gem-name,.dpgem-name{font-size:18px!important}
+.sw-item{font-size:17px!important}
+.phase-num{font-size:18px!important}
+.phase-sub,.gem-supports,.passive-box{font-size:16px!important}
+.wc-sub,.wc-tag{font-size:15px!important}
+.stat-val{font-size:20px!important}
+.dsec-title,.dpatch-title{font-size:18px!important}
+.dnote{font-size:17px!important}
+.dpgem-s,.dphase-passive,.dgear-note,.dphase-num,.dasc-num,.dtree-pts{font-size:14px!important}
+.dpatch-desc,.dtree-desc,.dtree-range,.dasc-desc{font-size:16px!important}
+#srch-in{font-size:20px!important}
+.srch-cancel{font-size:18px!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <!-- Animated Vortex Icon -->
+  <div class="hero-icon"><svg width="90" height="90" viewBox="0 0 56 56" fill="none"><defs><radialGradient id="sc_bg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a0440"/><stop offset="100%" stop-color="#060210"/></radialGradient><radialGradient id="sc_h" cx="35%" cy="30%" r="55%"><stop offset="0%" stop-color="#c060ff" stop-opacity=".35"/><stop offset="100%" stop-color="#9B30DC" stop-opacity="0"/></radialGradient></defs><circle cx="28" cy="28" r="27" fill="url(#sc_bg)"/><circle cx="28" cy="28" r="27" fill="url(#sc_h)"/><circle cx="28" cy="28" r="24" fill="none" stroke="#9B30DC" stroke-width="2.5" opacity=".9"/><ellipse cx="28" cy="28.5" rx="18" ry="16" fill="none" stroke="#7020b8" stroke-width="1.8" stroke-dasharray="52 5"><animateTransform attributeName="transform" type="rotate" from="0 28 28" to="360 28 28" dur="6s" repeatCount="indefinite"/></ellipse><ellipse cx="28" cy="29" rx="13" ry="10.5" fill="none" stroke="#6010a8" stroke-width="1.5"><animateTransform attributeName="transform" type="rotate" from="360 28 28" to="0 28 28" dur="4s" repeatCount="indefinite"/></ellipse><ellipse cx="28" cy="29.5" rx="8.5" ry="6" fill="none" stroke="#5010a0" stroke-width="1.3"><animateTransform attributeName="transform" type="rotate" from="0 28 28" to="360 28 28" dur="2.8s" repeatCount="indefinite"/></ellipse><ellipse cx="28" cy="30" rx="4.5" ry="2.8" fill="#08001a"/><circle cx="28" cy="28" r="1.8" fill="#c060ff"><animate attributeName="opacity" values=".4;1;.4" dur="2s" repeatCount="indefinite"/></circle><circle cx="28" cy="6" r="2" fill="#e090ff"><animateTransform attributeName="transform" type="rotate" from="0 28 28" to="360 28 28" dur="3s" repeatCount="indefinite"/></circle><circle cx="28" cy="6" r="1.5" fill="#c060ff"><animateTransform attributeName="transform" type="rotate" from="120 28 28" to="480 28 28" dur="3s" repeatCount="indefinite"/></circle></svg></div>
+
+  <div class="hero-pre">⬡ Path of Exile 2 · Runes of Aldur</div>
+  <h1 class="hero-title">Spirit Army <em>Conspiracy</em></h1>
+  <div class="hero-sub">Witch · Infernalist · Patch 0.5.0 · Minion DoT</div>
+  <div class="hero-tags">
+    <span class="htag" style="color:#4a9eff;border-color:rgba(74,158,255,.3)">A-TIER</span>
+    <span class="htag" style="color:#9B30DC;border-color:rgba(155,48,220,.3)">MINION</span>
+    <span class="htag" style="color:var(--teal);border-color:rgba(64,200,180,.3)">CHAOS DOT</span>
+    <span class="htag" style="color:#40c060;border-color:rgba(64,192,96,.3)">BEGINNER OK</span>
+  </div>
+  <div class="hero-bars">
+    <div class="hb"><div class="hb-val" style="color:#ff6060">4★</div><div class="hb-track"><div class="hb-fill" style="width:85%;background:#ff6060"></div></div><div class="hb-label">DPS</div></div>
+    <div class="hb"><div class="hb-val" style="color:#60a0ff">5★</div><div class="hb-track"><div class="hb-fill" style="width:90%;background:#60a0ff"></div></div><div class="hb-label">SURV</div></div>
+    <div class="hb"><div class="hb-val" style="color:var(--teal)">4★</div><div class="hb-track"><div class="hb-fill" style="width:80%;background:var(--teal)"></div></div><div class="hb-label">SPD</div></div>
+    <div class="hb"><div class="hb-val" style="color:var(--gold)">5★</div><div class="hb-track"><div class="hb-fill" style="width:95%;background:var(--gold)"></div></div><div class="hb-label">EASE</div></div>
+  </div>
+</div>
+
+<div class="tab-bar-hero">
+  <div class="tab-hero on" data-sec="sec-overview" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+    <div class="tab-lbl">Overview</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-ascendancy" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+    <div class="tab-lbl">Ascendancy</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-skills" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+    <div class="tab-lbl">Skills</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-leveling" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+    <div class="tab-lbl">Leveling</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-tree" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
+    <div class="tab-lbl">Tree</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-gear" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="tab-lbl">Gear</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-rotation" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+    <div class="tab-lbl">Rotation</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-patch" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+    <div class="tab-lbl">Patch 0.5</div>
+  </div>
+  <div class="tab-hero" data-sec="sec-tips" onclick="ST(this)">
+    <div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <div class="tab-lbl">Pro Tips</div>
+  </div>
+</div>
+
+<div class="div"><div class="div-dot"></div></div>
+
+<!-- ═══ OVERVIEW ═══ -->
+<div class="sec on" id="sec-overview">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+    <h2 class="sec-title">Build Overview</h2>
+    <div class="sec-bar"></div>
+  </div>
+  <div class="ds"><strong>Spirit Army Witch</strong> is the premier Infernalist Minion build for PoE2 0.5 Return of the Ancients. It commands a full specialized undead army — Power Zealot Spectres as the main DPS carry, Raging Spirits summoned via Volcano for AoE clear, Skeletal Warriors with Amanamu's Tithe on the frontline, and Skeletal Storm Mages to apply Shock. You stay behind the army casting Volcano, Pain Offering, and curses. Ranked <strong>#2 Minion Build overall in 0.5</strong> and entirely unaffected by the Infernal Legion nerf.</div>
+  <div class="ds-warn">⚠️ <strong>Power Zealot Spectres</strong> are found in Act 3 Crematorium. Raise Spectre immediately — they are your primary damage source for the entire game.</div>
+
+  <div class="ov-grid">
+    <div class="ov-card">
+      <div class="ov-card-head" style="color:#bf60ff">Playstyle</div>
+      <div class="ov-card-body">Passive summoner. Your army does the work — you manage buffs, curses, and positioning from behind the frontline. Very low APM outside of boss setups.</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-card-head" style="color:#bf60ff">Strengths</div>
+      <div class="ov-card-body">
+        <div class="ov-dot" style="background:#9B30DC"></div> #2 Minion Build in 0.5 — fully unaffected by Infernal Legion nerf<br>
+        <div class="ov-dot" style="background:#9B30DC"></div> Power Zealot Spectre = massive single-target DPS<br>
+        <div class="ov-dot" style="background:#9B30DC"></div> Extremely safe — army absorbs all incoming damage<br>
+        <div class="ov-dot" style="background:#9B30DC"></div> SSF-friendly, works from day 1 without trading<br>
+        <div class="ov-dot" style="background:#9B30DC"></div> Amanamu's Tithe Warriors — major 0.5 buff<br>
+        <div class="ov-dot" style="background:#9B30DC"></div> Runeforging upgrades gearing without trade dependency
+      </div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-card-head" style="color:#bf60ff">Weaknesses</div>
+      <div class="ov-card-body">
+        <div class="ov-dot" style="background:#e04040"></div> Power Zealot Spectres must be found (Act 3 Crematorium)<br>
+        <div class="ov-dot" style="background:#e04040"></div> Energy Shield nerfed in 0.5 — use Runic Ward to compensate<br>
+        <div class="ov-dot" style="background:#e04040"></div> Slower map clear than Lightning Arrow or Deadeye builds<br>
+        <div class="ov-dot" style="background:#e04040"></div> High Spirit cost — need Spirit investment for full army
+      </div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-card-head" style="color:#bf60ff">Patch 0.5 Status</div>
+      <div class="ov-card-body">
+        <div class="ov-dot" style="background:#40c060"></div> Unaffected by Infernal Legion nerf (not used)<br>
+        <div class="ov-dot" style="background:#40c060"></div> Volcano buff — easier Raging Spirit uptime<br>
+        <div class="ov-dot" style="background:#40c060"></div> Amanamu's Tithe = major Warrior DPS boost<br>
+        <div class="ov-dot" style="background:#40c060"></div> New Minion Splash I&II gems available
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-val" style="color:#ff6060">5★</div><div class="stat-lbl">DPS</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:#60a0ff">5★</div><div class="stat-lbl">Survival</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:#50c8b4">3★</div><div class="stat-lbl">Speed</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:#ffd700">4★</div><div class="stat-lbl">Budget</div></div>
+  </div>
+</div>
+
+  <div class="note note-warn">⚠ <strong>Level 18 required.</strong> Spirit Army Witch only works with <strong>The Raven's Flock</strong> equipped. Until Level 18: classic Minion Witch (Skeletal Warriors + Raging Spirits).</div>
+
+  <div class="mech">
+    <p><span class="kw">Spirit Army Witch</span> summons a permanent raven flock that orbits you, dealing <span class="kw">Chaos DoT</span> to everything in range. The flock acts as a single collective minion — all <span class="kw2">Minion Damage bonuses</span> and <span class="kw">Chaos DoT multipliers</span> scale it. The staff grants <span class="kw3">+111% Minion Damage</span> and <span class="kw3">34% Spirit Reservation Efficiency</span>.</p>
+    <p><span class="kw2">Mad Flight</span> is the burst command — all ravens fly between two mirror illusions dealing massive corridor damage. Always use after <span class="kw">Pain Offering</span> for maximum output. The raven flock <em>grows larger with kills</em> — in T15+ maps wait at the entrance before engaging the boss.</p>
+  </div>
+
+  <div class="sw">
+    <div class="sw-box" style="border-color:rgba(64,192,80,.2)">
+      <div class="sw-title" style="color:var(--green)">✓ Strengths</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--green)"></div>Passive mapping — ravens auto-damage</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--green)"></div>No complex rotation needed</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--green)"></div>Gruelling Madness slows enemies</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--green)"></div>Budget-friendly start</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--green)"></div>Most beginner-friendly minion build</div>
+    </div>
+    <div class="sw-box" style="border-color:rgba(224,64,96,.2)">
+      <div class="sw-title" style="color:var(--red)">✗ Weaknesses</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>The Raven's Flock required (no alt)</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>Only available from Level 18</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>Low base raven stats</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>Weaker vs fast single bosses</div>
+    </div>
+  </div>
+</div>
+
+<div class="div"><div class="div-dot"></div></div>
+
+<!-- ═══ ASCENDANCY ═══ -->
+<div class="sec" id="sec-ascendancy">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+    <h2 class="sec-title">Ascendancy — Infernalist</h2>
+    <div class="sec-bar"></div>
+  </div>
+  <div style="background:rgba(50,180,80,.1);border-left:3px solid rgba(50,180,80,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">✅ Infernalist is chosen for Pyromantic Pact (infinite resource sustain) and Loyalty from Infernal Hound (10% permanent damage reduction). Do NOT invest in Infernal Legion nodes.</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+    <div style="background:rgba(155,48,220,.06);border:1px solid rgba(155,48,220,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff;margin-bottom:4px">① First — Loyalty</div>
+      <div style="font-size:12px;color:#9B30DC;margin-bottom:6px">Infernal Hound</div>
+      <div style="font-size:13px;color:#c0a0d8">Infernal Hound reduces damage you take by 10% while near you (Loyalty buff). Essential passive survivability for the entire game. Always keep the Hound alive.</div>
+    </div>
+    <div style="background:rgba(155,48,220,.06);border:1px solid rgba(155,48,220,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff;margin-bottom:4px">② Priority — Pyromantic Pact</div>
+      <div style="font-size:12px;color:#9B30DC;margin-bottom:6px">Infinite Resource Sustain</div>
+      <div style="font-size:13px;color:#c0a0d8">Removes mana — replaces with Infernal Flame. When full, damages you (inverted with Recoup tech). Enables infinite casting with no resource management.</div>
+    </div>
+    <div style="background:rgba(155,48,220,.06);border:1px solid rgba(155,48,220,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff;margin-bottom:4px">③ Damage — Hellbound</div>
+      <div style="font-size:12px;color:#9B30DC;margin-bottom:6px">Minion Damage Multiplier</div>
+      <div style="font-size:13px;color:#c0a0d8">Minions deal more damage when near you. Stay close to your army during combat. Pairs with Hellbent Commander passive for stacked multipliers.</div>
+    </div>
+    <div style="background:rgba(155,48,220,.06);border:1px solid rgba(155,48,220,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff;margin-bottom:4px">④ Defense — Soul Eater</div>
+      <div style="font-size:12px;color:#9B30DC;margin-bottom:6px">Kill Stacks → Bonus Stats</div>
+      <div style="font-size:13px;color:#c0a0d8">Gain stacks from minion kills — bonus damage and movement speed. Excellent during map clear, reaches high stack counts quickly with a full army.</div>
+    </div>
+  </div>
+  <div style="background:rgba(220,80,30,.13);border-left:3px solid rgba(220,80,30,.5);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">⚠️ <strong>AVOID:</strong> Do NOT take any Infernal Legion ascendancy nodes. The gem was nerfed to 10% max Life damage/sec in 0.5 (was 20%). This build does not use Infernal Legion at all.</div>
+</div>
+  <div class="asc-flow">
+    <div class="asc-item">
+      <div class="asc-step">①<br>Act 2</div>
+      <div class="asc-body"><div class="asc-name" style="color:#9B30DC">Hellhound</div><div class="asc-desc">Additional minion — damage absorber + DPS. Scales fully with Minion Damage, supports the raven flock.</div></div>
+    </div>
+    <div class="asc-item">
+      <div class="asc-step">②<br>Act 2</div>
+      <div class="asc-body"><div class="asc-name" style="color:#FF4020">Pyromantic Pact</div><div class="asc-desc">Replaces Mana with Infernal Flame. No more mana issues when casting.</div></div>
+    </div>
+    <div class="asc-item">
+      <div class="asc-step">③<br>Act 4</div>
+      <div class="asc-body"><div class="asc-name" style="color:#FF8020">Bringer of Flame</div><div class="asc-desc">All Minion attacks can Ignite — extra DoT stack + Gruelling Madness synergy.</div></div>
+    </div>
+    <div class="asc-item gold">
+      <div class="asc-step">④<br>Chaos</div>
+      <div class="asc-body"><div class="asc-name" style="color:var(--gold)">Demon Form ⭐</div><div class="asc-desc">Massive damage boost at low Infernal Flame. Essential for endgame + Pinnacle bosses.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="div"><div class="div-dot"></div></div>
+
+<!-- ═══ SKILLS ═══ -->
+<div class="sec" id="sec-skills">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+    <h2 class="sec-title">Skills & Gem Links</h2>
+    <div class="sec-bar"></div>
+  </div>
+
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Skill bar (endgame): Volcano · Raise Spectre · Skeletal Warriors · Pain Offering · Elemental Weakness · Frost Bomb</div>
+
+  <div style="margin-bottom:10px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="width:10px;height:10px;border-radius:50%;background:#bf60ff;flex-shrink:0;box-shadow:0 0 6px #bf60ff"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#bf60ff">Volcano</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);color:#bf60ff;font-family:monospace">CORE</span>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Core 0.5 change — replaces Flame Wall. Cast to spawn Raging Spirits that apply ignite automatically. Much easier and faster than manually igniting enemies. Cast on cooldown throughout all content.</div>
+  <div><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Pain Offering</span><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Damage</span><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Unleash</span></div>
+</div>
+  <div style="margin-bottom:10px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="width:10px;height:10px;border-radius:50%;background:#e060ff;flex-shrink:0;box-shadow:0 0 6px #e060ff"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#e060ff">Raise Spectre</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);color:#bf60ff;font-family:monospace">CARRY</span>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Summon Power Zealot Spectres (found in Act 3 Crematorium). These are your primary single-target and AoE DPS. Use Uul-Netol's Embrace in endgame for massive Spectre DPS boost. Keep 2–3 active at all times.</div>
+  <div><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Uul-Netol's Embrace</span><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Damage</span><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Feeding Frenzy</span></div>
+</div>
+  <div style="margin-bottom:10px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="width:10px;height:10px;border-radius:50%;background:#c050f0;flex-shrink:0;box-shadow:0 0 6px #c050f0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#c050f0">Skeletal Warriors</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);color:#bf60ff;font-family:monospace">FRONT</span>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Frontline tanks. With Amanamu's Tithe support (new in 0.5) these deal significant damage on top of tanking. Active command sends all Warriors leaping onto target — use on elites and bosses.</div>
+  <div><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Amanamu's Tithe</span><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Speed</span><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Splash I</span></div>
+</div>
+  <div style="margin-bottom:10px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="width:10px;height:10px;border-radius:50%;background:#a040e0;flex-shrink:0;box-shadow:0 0 6px #a040e0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#a040e0">Skeletal Storm Mages</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);color:#bf60ff;font-family:monospace">UTIL</span>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Apply Shock to all enemies, causing them to take 20% more damage from all sources. Critical for increasing the entire army's effective DPS. Shock uptime is near 100% with enough Mages.</div>
+  <div><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Inspiration</span><span style="display:inline-block;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:4px;padding:2px 9px;font-size:13px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 3px 2px 0">Minion Damage</span></div>
+</div>
+  <div style="margin-bottom:10px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="width:10px;height:10px;border-radius:50%;background:#c060ff;flex-shrink:0;box-shadow:0 0 6px #c060ff"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#c060ff">Infernal Hound</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);color:#bf60ff;font-family:monospace">PASSIVE</span>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Provides the Loyalty buff — 10% reduced damage taken while near the Hound. Also taunts enemies and generates corpses on kills. Never let it die. Active ability makes it Unstoppable and enrages nearby minions.</div>
+  
+</div>
+  <div style="margin-bottom:10px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="width:10px;height:10px;border-radius:50%;background:#9B30DC;flex-shrink:0;box-shadow:0 0 6px #9B30DC"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#9B30DC">Pain Offering</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);color:#bf60ff;font-family:monospace">BUFF</span>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Cast after every Volcano to buff your entire army +40% attack speed for 8 seconds. Most important buff in your rotation. On bosses: refresh every 7 seconds.</div>
+  
+</div>
+  <div style="margin-bottom:10px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="width:10px;height:10px;border-radius:50%;background:#9030c0;flex-shrink:0;box-shadow:0 0 6px #9030c0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#9030c0">Elemental Weakness</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);color:#bf60ff;font-family:monospace">CURSE</span>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Primary curse — applies -20% to all enemy resistances. Cast on every pack and boss. Highest priority utility skill.</div>
+  
+</div>
+  <div style="margin-bottom:10px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="width:10px;height:10px;border-radius:50%;background:#7020a0;flex-shrink:0;box-shadow:0 0 6px #7020a0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#7020a0">Frost Bomb</div>
+    <span style="font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);color:#bf60ff;font-family:monospace">BOSS</span>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.5;margin-bottom:6px">Boss-only skill. Reduces enemy life regen by 90% and applies Cold Exposure (-25% cold resistance). Essential for endgame boss fights where life regen would otherwise be an issue.</div>
+  
+</div>
+</div>
+  <div class="skills">
+
+    <div class="sc" style="--c:#9B30DC"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#9B30DC;border-radius:8px 0 0 8px"></div>
+      <div class="sc-ico" style="border-color:rgba(155,48,220,.4);background:rgba(155,48,220,.1);color:#9B30DC"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22C12 22 4 16 4 10a8 8 0 0 1 16 0c0 6-8 12-8 12z"/></svg></div>
+      <div class="sc-body">
+        <div class="sc-name">Spirit Army Witch</div>
+        <div class="sc-desc">Persistent raven flock · Chaos DoT · Granted by The Raven's Flock (Level 18)</div>
+        <div class="sc-gems"><span class="gem">Minion Resistances</span><span class="gem">Slow Potency</span><span class="gem">Unleashed Potential</span></div>
+      </div>
+      <span class="sc-tag" style="color:#9B30DC;border-color:rgba(155,48,220,.3)">CORE</span>
+    </div>
+
+    <div class="sc"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#FF4020;border-radius:8px 0 0 8px"></div>
+      <div class="sc-ico" style="border-color:rgba(255,64,32,.4);background:rgba(255,64,32,.08);color:#FF4020"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+      <div class="sc-body">
+        <div class="sc-name">Mad Flight</div>
+        <div class="sc-desc">All ravens burst in corridor — use after Pain Offering · Boss/elite packs</div>
+        <div class="sc-gems"><span class="gem hi">Unleashed Potential</span></div>
+      </div>
+      <span class="sc-tag" style="color:#FF4020;border-color:rgba(255,64,32,.3)">BURST</span>
+    </div>
+
+    <div class="sc"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#A040FF;border-radius:8px 0 0 8px"></div>
+      <div class="sc-ico" style="border-color:rgba(160,64,255,.4);background:rgba(160,64,255,.08);color:#A040FF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div class="sc-body">
+        <div class="sc-name">Pain Offering</div>
+        <div class="sc-desc">Sacrifice minion → +Minion Damage buff · Always use before Mad Flight</div>
+        <div class="sc-gems"><span class="gem">Font of Rage</span><span class="gem">Persistence</span><span class="gem">Ablation</span></div>
+      </div>
+      <span class="sc-tag" style="color:#A040FF;border-color:rgba(160,64,255,.3)">BUFF</span>
+    </div>
+
+    <div class="sc"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#FF8C00;border-radius:8px 0 0 8px"></div>
+      <div class="sc-ico" style="border-color:rgba(255,140,0,.4);background:rgba(255,140,0,.08);color:#FF8C00"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg></div>
+      <div class="sc-body">
+        <div class="sc-name">Raise Spectre</div>
+        <div class="sc-desc">Best: Powered Zealot or Vaal Guard · Secondary minion DPS</div>
+        <div class="sc-gems"><span class="gem">Feeding Frenzy</span><span class="gem">Minion Speed</span></div>
+      </div>
+      <span class="sc-tag" style="color:#FF8C00;border-color:rgba(255,140,0,.3)">MINION</span>
+    </div>
+
+    <div class="sc"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#FF8C00;border-radius:8px 0 0 8px"></div>
+      <div class="sc-ico" style="border-color:rgba(255,140,0,.4);background:rgba(255,140,0,.08);color:#FF8C00"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg></div>
+      <div class="sc-body">
+        <div class="sc-name">Skeletal Arsonists</div>
+        <div class="sc-desc">Fire-based · Shoot through Flame Wall for fire buff</div>
+        <div class="sc-gems"><span class="gem">Fire Infusion</span><span class="gem">Immolate</span><span class="gem">Scattershot</span></div>
+      </div>
+      <span class="sc-tag" style="color:#FF8C00;border-color:rgba(255,140,0,.3)">MINION</span>
+    </div>
+
+    <div class="sc"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#40c8b4;border-radius:8px 0 0 8px"></div>
+      <div class="sc-ico" style="border-color:rgba(64,200,180,.4);background:rgba(64,200,180,.08);color:#40c8b4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div class="sc-body">
+        <div class="sc-name">Flame Wall</div>
+        <div class="sc-desc">Place on boss position · Arsonists shoot through for fire buff</div>
+        <div class="sc-gems"><span class="gem">Arcane Tempo</span><span class="gem">Fortress</span><span class="gem">Spell Cascade</span></div>
+      </div>
+      <span class="sc-tag" style="color:#40c8b4;border-color:rgba(64,200,180,.3)">UTILITY</span>
+    </div>
+
+    <div class="sc"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#8080C0;border-radius:8px 0 0 8px"></div>
+      <div class="sc-ico" style="border-color:rgba(128,128,192,.4);background:rgba(128,128,192,.08);color:#8080C0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></div>
+      <div class="sc-body">
+        <div class="sc-name">Bone Cage</div>
+        <div class="sc-desc">Crowd control · Dense packs + mobile bosses</div>
+        <div class="sc-gems"><span class="gem">Magnified Effect</span><span class="gem">Spell Cascade</span></div>
+      </div>
+      <span class="sc-tag" style="color:#8080C0;border-color:rgba(128,128,192,.3)">CC</span>
+    </div>
+
+    <div class="sc"><div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:#C85050;border-radius:8px 0 0 8px"></div>
+      <div class="sc-ico" style="border-color:rgba(200,80,80,.4);background:rgba(200,80,80,.08);color:#C85050"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="sc-body">
+        <div class="sc-name">Flammability</div>
+        <div class="sc-desc">Boss curse · Lower fire resistance · Apply before Mad Flight</div>
+        <div class="sc-gems"><span class="gem">Burning Inscription</span><span class="gem">Impending Doom</span></div>
+      </div>
+      <span class="sc-tag" style="color:#C85050;border-color:rgba(200,80,80,.3)">CURSE</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="div"><div class="div-dot"></div></div>
+
+<!-- ═══ LEVELING ═══ -->
+<div class="sec" id="sec-leveling">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+    <h2 class="sec-title">Leveling Guide · Acts 1–3</h2>
+    <div class="sec-bar"></div>
+  </div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Goal: build your minion army as quickly as possible. By Act 2 you should be hands-off — your skeletons clear everything while you manage curses.</div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#bf60ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 1</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#e0b0ff">Start with Bone Spear</div>
+      <div style="font-size:11px;color:#6a4a88">Damage + corpse generation</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.6">Use Bone Spear to kill enemies and generate corpses. Unlock Raise Skeleton as soon as available and start building your army. Focus weapon upgrades over everything else.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 First priority: find a sceptre with +1 to Minion Skill Gems. Even a low-level version more than doubles early army damage.</div>
+</div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#bf60ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 1–2</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#e0b0ff">Unlock Raise Skeleton + Skeletal Mages</div>
+      <div style="font-size:11px;color:#6a4a88">Army foundation</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.6">Max Raise Skeleton and Skeletal Mage ranks. Each rank increases damage and army size. By level 15 you should have a full frontline and supporting mages. Unlock Infernal Hound when available — it immediately provides the Loyalty damage reduction buff.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Infernal Hound: use its active ability on Elite monsters to taunt them. Keeps dangerous enemies from reaching you while your army destroys them.</div>
+</div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#bf60ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 2</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#e0b0ff">Unlock Pain Offering</div>
+      <div style="font-size:11px;color:#6a4a88">Core buff skill online</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.6">Pain Offering becomes available. Add it to your rotation immediately: Volcano (later) or Bone Spear → Pain Offering. The +40% attack speed buff to all minions is enormous. This is when the build starts to feel very strong.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Rotation from here: spawn minions → cast Pain Offering → let army clear. Refresh Pain Offering every 8 seconds.</div>
+</div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#bf60ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 3</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#e0b0ff">Find Power Zealot Spectres</div>
+      <div style="font-size:11px;color:#6a4a88">Main carry unlocked</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.6"><strong>Critical milestone.</strong> Power Zealot Spectres are found in the Act 3 Crematorium. When you see their corpses, cast Raise Spectre immediately. These become your primary DPS for the rest of the game — they deal dramatically more damage than any skeleton variant.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 You can only have 1–2 Spectres early without Spirit investment. Prioritize Spirit on gear to unlock a third Spectre slot ASAP.</div>
+</div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#bf60ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 3</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#e0b0ff">Replace Flame Wall with Volcano</div>
+      <div style="font-size:11px;color:#6a4a88">0.5 update</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.6">Once Volcano is available, replace Flame Wall in your links. Volcano summons Raging Spirits with automatic ignite application — much cleaner than Flame Wall. Your full 0.5 rotation is now live: Volcano → Pain Offering → Elemental Weakness → move.</div>
+  
+</div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(155,48,220,.2);border-radius:10px;padding:12px;background:rgba(155,48,220,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(155,48,220,.13);border:1px solid rgba(155,48,220,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#bf60ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Endgame</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#e0b0ff">Transition: Uul-Netol's Embrace</div>
+      <div style="font-size:11px;color:#6a4a88">Spectre DPS leap</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#c0a0d8;line-height:1.6">Once you reach maps, switch your Raise Spectre support from Minion Mastery to <strong>Uul-Netol's Embrace</strong>. This unique support gem massively boosts Spectre DPS and is the single biggest endgame upgrade for this build.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Skill bar finalized: Volcano · Raise Spectre · Skeletal Warriors · Pain Offering · Elemental Weakness · Frost Bomb</div>
+</div>
+</div>
+  <div class="timeline">
+
+    <div class="phase">
+      <div class="phase-tag">Phase 1</div>
+      <div class="phase-title">Act 1 · Level 1–12</div>
+      <div class="phase-desc">Start with Chaos Bolt. Grab Unearth immediately for temp minions. After King in the Mists: Raging Spirits. Focus Minion Damage + Energy Shield near Witch start.</div>
+      <div class="phase-gems">
+        <div class="pgrow"><div class="pgr-name">Unearth</div><div class="pgr-sups"><span class="pgr-s">Persistence</span><span class="pgr-s">Feeding Frenzy</span></div></div>
+        <div class="pgrow"><div class="pgr-name">Raging Spirits</div><div class="pgr-sups"><span class="pgr-s">Minion Speed</span><span class="pgr-s">Splatter</span></div></div>
+        <div class="pgrow"><div class="pgr-name">Chaos Bolt</div><div class="pgr-sups"><span class="pgr-s">Velocity</span><span class="pgr-s">Pierce</span></div></div>
+      </div>
+      <div class="phase-pts">▸ Minion Damage ~5pts · Energy Shield ~4pts · Mana Regen ~2pts</div>
+    </div>
+
+    <div class="phase key">
+      <div class="phase-tag">Phase 2 · ⭐ Ravens Online</div>
+      <div class="phase-title">Act 2 · Level 12–22</div>
+      <div class="phase-desc">Skeletal Arsonists + Flame Wall. <strong style="color:#C060FF">Level 18: equip The Raven's Flock → Spirit Army Witch online!</strong> Trial of Sekhemas → 1st Ascendancy: Hellhound.</div>
+      <div class="phase-gems">
+        <div class="pgrow hi"><div class="pgr-name" style="color:#C060FF">Spirit Army Witch ⭐</div><div class="pgr-sups"><span class="pgr-s gold">From Lvl 18 Staff</span></div></div>
+        <div class="pgrow"><div class="pgr-name">Skeletal Arsonists</div><div class="pgr-sups"><span class="pgr-s">Fire Infusion</span><span class="pgr-s">Immolate</span></div></div>
+        <div class="pgrow"><div class="pgr-name">Flame Wall</div><div class="pgr-sups"><span class="pgr-s">Arcane Tempo</span></div></div>
+      </div>
+      <div class="phase-pts">▸ Minion Damage ~5pts · Spirit nodes ~3pts · Life/ES ~3pts</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag">Phase 3</div>
+      <div class="phase-title">Acts 3–4 · Level 22–45</div>
+      <div class="phase-desc">Ravens are core damage. Add Raise Spectre (Vaal Guard or Powered Zealot). Mad Flight on bosses. Act 4 Trial → 2nd Ascendancy: Pyromantic Pact.</div>
+      <div class="phase-gems">
+        <div class="pgrow hi"><div class="pgr-name" style="color:#C060FF">Spirit Army Witch ⭐</div><div class="pgr-sups"><span class="pgr-s">Resistances</span><span class="pgr-s">Slow Potency</span><span class="pgr-s">Unleashed Potential</span></div></div>
+        <div class="pgrow"><div class="pgr-name">Raise Spectre</div><div class="pgr-sups"><span class="pgr-s">Feeding Frenzy</span><span class="pgr-s">Minion Speed</span></div></div>
+        <div class="pgrow"><div class="pgr-name">Bone Cage</div><div class="pgr-sups"><span class="pgr-s">Magnified Effect</span></div></div>
+      </div>
+      <div class="phase-pts">▸ Minion Life ~4pts · Chaos/DoT ~5pts · AoE ~3pts</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag">Endgame</div>
+      <div class="phase-title">Maps · Level 65+</div>
+      <div class="phase-desc">3rd Ascendancy: Bringer of Flame. 4th: Demon Form. Optimize Spectres to Powered Zealot. Max Energy Shield. Add Enfeeble + Flammability curses on bosses.</div>
+      <div class="phase-gems">
+        <div class="pgrow hi"><div class="pgr-name" style="color:#FF4020">Mad Flight ⭐ BURST</div><div class="pgr-sups"><span class="pgr-s gold">Unleashed Potential</span></div></div>
+        <div class="pgrow"><div class="pgr-name">Pain Offering</div><div class="pgr-sups"><span class="pgr-s">Font of Rage</span><span class="pgr-s">Persistence</span><span class="pgr-s">Ablation</span></div></div>
+        <div class="pgrow"><div class="pgr-name">Flammability</div><div class="pgr-sups"><span class="pgr-s">Burning Inscription</span><span class="pgr-s">Impending Doom</span></div></div>
+      </div>
+      <div class="phase-pts">▸ Chaos/DoT ~10pts · AoE ~10pts · Jewel Socket #2 · Defensive ES/Chaos Res</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="div"><div class="div-dot"></div></div>
+
+<!-- ═══ PASSIVE TREE ═══ -->
+<div class="sec" id="sec-tree">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div>
+    <h2 class="sec-title">Passive Tree</h2>
+    <div class="sec-bar"></div>
+  </div>
+  <div class="note note-info">ℹ Witch starts top-left (Intelligence section). Minion Damage Notables have highest priority from the start.</div>
+  <div class="tree-list">
+    <div class="tr"><span class="tr-range">Lvl 2–10</span><span class="tr-desc">Minion Damage Notables near Witch start (staff cluster top-left)</span><span class="tr-pts">~8 pts</span></div>
+    <div class="tr"><span class="tr-range">Lvl 10–20</span><span class="tr-desc">Energy Shield Notable (Essence Infusion) + Mana Regen</span><span class="tr-pts">~8 pts</span></div>
+    <div class="tr"><span class="tr-range">Lvl 20–30</span><span class="tr-desc">Spirit nodes (more room for minions + raven flock)</span><span class="tr-pts">~6 pts</span></div>
+    <div class="tr"><span class="tr-range">Lvl 30–40</span><span class="tr-desc">Jewel Socket #1 · Minion Life Notable</span><span class="tr-pts">~6 pts</span></div>
+    <div class="tr"><span class="tr-range">Lvl 40–55</span><span class="tr-desc">Chaos / DoT Damage Cluster (toward center)</span><span class="tr-pts">~10 pts</span></div>
+    <div class="tr"><span class="tr-range">Lvl 55–70</span><span class="tr-desc">Area of Effect Notable (raven radius) · Jewel Socket #2</span><span class="tr-pts">~10 pts</span></div>
+    <div class="tr"><span class="tr-range">Lvl 70–85</span><span class="tr-desc">Defensive ES · Chaos Resistance nodes</span><span class="tr-pts">~10 pts</span></div>
+    <div class="tr highlight"><span class="tr-range">Lvl 85–95</span><span class="tr-desc">Minion Speed · Power Charges · <strong style="color:var(--gold)">Archon of Undeath (NEW 0.5.0)</strong></span><span class="tr-pts">~10 pts</span></div>
+  </div>
+</div>
+
+<div class="div"><div class="div-dot"></div></div>
+
+<!-- ═══ GEAR ═══ -->
+<div class="sec" id="sec-gear">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <h2 class="sec-title">Gear Guide</h2>
+    <div class="sec-bar"></div>
+  </div>
+
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 <strong>Stat Priority:</strong> +1 Minion Skill Gems → Spirit (more minion slots) → Runic Ward via Verisium → Resistance caps (75%) → Life/ES</div>
+
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(155,48,220,.2);border-radius:8px;background:rgba(155,48,220,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="width:50px;flex-shrink:0;text-align:center">
+    <div style="font-size:10px;color:#9B30DC;font-family:monospace;font-weight:700;letter-spacing:1px">BiS</div>
+    <div style="font-size:10px;color:#666;margin-top:2px">Weapon</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff">Omen Sceptre (Rare) <span style="color:#ffd700;font-size:10px">★ REQUIRED</span></div>
+    <div style="font-size:12px;color:#8a6aa8;margin-top:2px">+1 to Minion Skill Gems · +Minion Damage · Cast Speed · Minion Speed</div>
+  </div>
+</div>
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(155,48,220,.2);border-radius:8px;background:rgba(155,48,220,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="width:50px;flex-shrink:0;text-align:center">
+    <div style="font-size:10px;color:#9B30DC;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#666;margin-top:2px">Offhand</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff">Leyline Focus (Rare)</div>
+    <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Spell Suppression · Life · Resistances · Chance to Block</div>
+  </div>
+</div>
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(155,48,220,.2);border-radius:8px;background:rgba(155,48,220,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="width:50px;flex-shrink:0;text-align:center">
+    <div style="font-size:10px;color:#9B30DC;font-family:monospace;font-weight:700;letter-spacing:1px">BiS</div>
+    <div style="font-size:10px;color:#666;margin-top:2px">Helm</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff">Sorcerous Tiara (Rare)</div>
+    <div style="font-size:12px;color:#8a6aa8;margin-top:2px">+1 to Minion Skill Gems · Minion Life · Energy Shield · Runic Ward</div>
+  </div>
+</div>
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(155,48,220,.2);border-radius:8px;background:rgba(155,48,220,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="width:50px;flex-shrink:0;text-align:center">
+    <div style="font-size:10px;color:#9B30DC;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#666;margin-top:2px">Body</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff">Wolfskin Mantle (Rare)</div>
+    <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Energy Shield · Resistances · Runic Ward via Verisium (compensates 0.5 ES nerf)</div>
+  </div>
+</div>
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(155,48,220,.2);border-radius:8px;background:rgba(155,48,220,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="width:50px;flex-shrink:0;text-align:center">
+    <div style="font-size:10px;color:#9B30DC;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#666;margin-top:2px">Gloves</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff">Bound Cuffs (Rare)</div>
+    <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Minion Damage · Life · Resistances · Attack/Cast Speed</div>
+  </div>
+</div>
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(155,48,220,.2);border-radius:8px;background:rgba(155,48,220,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="width:50px;flex-shrink:0;text-align:center">
+    <div style="font-size:10px;color:#9B30DC;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#666;margin-top:2px">Boots</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff">Bound Sandals (Rare)</div>
+    <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Movement Speed · Life · Resistances</div>
+  </div>
+</div>
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(155,48,220,.2);border-radius:8px;background:rgba(155,48,220,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="width:50px;flex-shrink:0;text-align:center">
+    <div style="font-size:10px;color:#9B30DC;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#666;margin-top:2px">Ring 1</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#a0a0ff">Amethyst Ring (Rare)</div>
+    <div style="font-size:12px;color:#8a6aa8;margin-top:2px">Chaos Resistance · Life · Minion Damage · Resistances</div>
+  </div>
+</div>
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(155,48,220,.2);border-radius:8px;background:rgba(155,48,220,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="width:50px;flex-shrink:0;text-align:center">
+    <div style="font-size:10px;color:#9B30DC;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#666;margin-top:2px">Ring 2</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#a0a0ff">Prismatic Ring (Rare)</div>
+    <div style="font-size:12px;color:#8a6aa8;margin-top:2px">All Resistances · Life · Minion Damage</div>
+  </div>
+</div>
+  <div style="display:flex;gap:10px;padding:10px;border:1px solid rgba(155,48,220,.2);border-radius:8px;background:rgba(155,48,220,.06);margin-bottom:8px;align-items:flex-start">
+  <div style="width:50px;flex-shrink:0;text-align:center">
+    <div style="font-size:10px;color:#9B30DC;font-family:monospace;font-weight:700;letter-spacing:1px">RARE</div>
+    <div style="font-size:10px;color:#666;margin-top:2px">Amulet</div>
+  </div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#bf60ff">Pearlescent Amulet (Rare)</div>
+    <div style="font-size:12px;color:#8a6aa8;margin-top:2px">+1 to Intelligence Skill Gems · Life · Minion Damage</div>
+  </div>
+</div>
+
+  <div style="margin-top:14px;padding:12px;background:rgba(155,48,220,.06);border:1px solid rgba(155,48,220,.35);border-radius:10px">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:#bf60ff;margin-bottom:6px">🔮 0.5 Runeforging Upgrades</div>
+    <div style="font-size:13px;color:#c0a0d8;line-height:1.6">Destroy Unique items with relevant properties → create Runes inheriting those stats → socket into your best gear. Priority: Runic Ward on Body Armour (compensates ES nerf) → Minion Damage runes on Sceptre/Helm. Farm <strong>Enfolding Dawn</strong> (100 Spirit) and destroy for Rune crafting materials.</div>
+  </div>
+</div>
+  <div class="gear-list">
+    <div class="gr bis"><span class="gr-slot">Staff</span><div class="gr-info"><div class="gr-name">The Raven's Flock</div><div class="gr-note">REQUIRED · +111% Minion Dmg · 34% Spirit Res. Eff. · Grants Spirit Army Witch</div></div><span class="gr-tag" style="color:var(--gold);border-color:rgba(232,200,64,.4)">BiS</span></div>
+    <div class="gr"><span class="gr-slot">Helmet</span><div class="gr-info"><div class="gr-name">ES Helm (Rare)</div><div class="gr-note">+% Max ES · +1 Minion Level · Chaos Res · Sockets</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(155,48,220,.3)">RARE</span></div>
+    <div class="gr"><span class="gr-slot">Body</span><div class="gr-info"><div class="gr-name">ES Armour (Rare)</div><div class="gr-note">High ES · Minions have % Life · Resistances · Intelligence</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(155,48,220,.3)">RARE</span></div>
+    <div class="gr"><span class="gr-slot">Gloves</span><div class="gr-info"><div class="gr-name">ES Gloves (Rare)</div><div class="gr-note">ES · Chaos Res · Intelligence · Minion Damage optional</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(155,48,220,.3)">RARE</span></div>
+    <div class="gr"><span class="gr-slot">Boots</span><div class="gr-info"><div class="gr-name">ES Boots (Rare)</div><div class="gr-note">ES · Movement Speed · Resistances · Chaos Res priority</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(155,48,220,.3)">RARE</span></div>
+    <div class="gr"><span class="gr-slot">Amulet</span><div class="gr-info"><div class="gr-name">Minion Amulet (Rare)</div><div class="gr-note">+1 to Minion Skill Gems · ES · Intelligence · Chaos/Ele Res</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(155,48,220,.3)">RARE</span></div>
+    <div class="gr"><span class="gr-slot">Rings ×2</span><div class="gr-info"><div class="gr-name">Rare Rings</div><div class="gr-note">Mana Regen · ES · Resistances (Chaos Res priority)</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(155,48,220,.3)">RARE</span></div>
+    <div class="gr"><span class="gr-slot">Belt</span><div class="gr-info"><div class="gr-name">ES / Hybrid Belt</div><div class="gr-note">Max ES · Life · Resistances · Intelligence</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(155,48,220,.3)">RARE</span></div>
+    <div class="gr"><span class="gr-slot">Jewels</span><div class="gr-info"><div class="gr-name">Minion Jewels</div><div class="gr-note">% Minion Damage · Minion Life · AoE for Minions · Chaos Res</div></div><span class="gr-tag" style="color:var(--ac);border-color:rgba(155,48,220,.3)">RARE</span></div>
+  </div>
+  <div class="note note-info" style="margin-top:10px">📊 <strong>Stat Priority:</strong> The Raven's Flock → +1 Minion Skill Level → Spirit Res. Eff. → Chaos Res ≥60% → Max Energy Shield → Ele Res caps (75%)</div>
+</div>
+
+<div class="div"><div class="div-dot"></div></div>
+
+<!-- ═══ ROTATION ═══ -->
+<div class="sec" id="sec-rotation">
+  <div class="sec-head">
+    <span class="sec-num">07</span>
+    <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div>
+    <h2 class="sec-title">Rotation & Playstyle</h2>
+    <div class="sec-bar"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+    <div style="background:rgba(155,48,220,.06);border:1px solid rgba(155,48,220,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#50c8b4;margin-bottom:8px">🗺 MAP CLEAR</div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#c0a0d8">
+        <div><span style="color:#bf60ff;font-weight:700">1.</span> Cast <strong>Volcano</strong> — Raging Spirits spawn and ignite enemies</div>
+        <div><span style="color:#bf60ff;font-weight:700">2.</span> Cast <strong>Pain Offering</strong> immediately after — +40% army attack speed</div>
+        <div><span style="color:#bf60ff;font-weight:700">3.</span> Cast <strong>Elemental Weakness</strong> on packs — -20% resistances</div>
+        <div><span style="color:#bf60ff;font-weight:700">4.</span> <strong>Move forward</strong> — Spectres and Warriors clear everything passively</div>
+        <div><span style="color:#bf60ff;font-weight:700">5.</span> <strong>Refresh Volcano</strong> every ~8s to maintain Raging Spirit count</div>
+      </div>
+    </div>
+    <div style="background:rgba(155,48,220,.06);border:1px solid rgba(155,48,220,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#FF8C00;margin-bottom:8px">⚔ BOSS ROTATION</div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#c0a0d8">
+        <div><span style="color:#bf60ff;font-weight:700">1.</span> <strong>Frost Bomb</strong> on boss — cold exposure + -90% life regen</div>
+        <div><span style="color:#bf60ff;font-weight:700">2.</span> <strong>Elemental Weakness</strong> — resistance shred</div>
+        <div><span style="color:#bf60ff;font-weight:700">3.</span> <strong>Volcano</strong> to refresh Raging Spirits</div>
+        <div><span style="color:#bf60ff;font-weight:700">4.</span> <strong>Pain Offering</strong> immediately after</div>
+        <div><span style="color:#bf60ff;font-weight:700">5.</span> <strong>Command Warriors</strong> onto boss — focus-attack burst</div>
+        <div><span style="color:#bf60ff;font-weight:700">6.</span> Refresh Volcano + Pain Offering every 7–8s</div>
+      </div>
+    </div>
+  </div>
+  <div style="background:rgba(50,180,80,.1);border-left:3px solid rgba(50,180,80,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">✅ <strong>Key Insight:</strong> Power Zealot Spectres handle most boss DPS passively. Your job is buff maintenance — Volcano → Pain Offering every ~8 seconds. Simple 2-button rhythm once mastered.</div>
+  <div style="background:rgba(220,80,30,.13);border-left:3px solid rgba(220,80,30,.5);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">⚠️ <strong>Stay Near Your Army:</strong> Hellbound (ascendancy) and Hellbent Commander (passive) both require proximity to your minions. Never kite far from your Spectres and Warriors — you lose significant DPS multipliers.</div>
+</div>
+
+  <div class="rot-block">
+    <div class="rot-header">
+      <div class="rot-header-ico" style="border-color:rgba(64,200,180,.3);background:rgba(64,200,180,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#40c8b4" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+      <span class="rot-header-title" style="color:#40c8b4">Map Clear</span>
+    </div>
+    <div class="rot-steps">
+      <div class="rstep"><div class="rn" style="border-color:#40c8b4;color:#40c8b4">1</div><div class="rb"><div class="rb-skill">Just move</div><div class="rb-desc">Ravens circle permanently — Chaos DoT hits everything. Zero input needed.</div></div></div>
+      <div class="rstep"><div class="rn" style="border-color:#FF8C00;color:#FF8C00">2</div><div class="rb"><div class="rb-skill">Flame Wall briefly</div><div class="rb-desc">Drop while running — Arsonists shoot through for fire buff.</div></div></div>
+      <div class="rstep"><div class="rn" style="border-color:#8080C0;color:#8080C0">3</div><div class="rb"><div class="rb-skill">Bone Cage on dense packs</div><div class="rb-desc">Optional CC — ravens kill them anyway, just speeds it up.</div></div></div>
+    </div>
+  </div>
+
+  <div class="rot-block">
+    <div class="rot-header">
+      <div class="rot-header-ico" style="border-color:rgba(255,140,0,.3);background:rgba(255,140,0,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#FF8C00" stroke-width="1.8"><path d="M18 3a3 3 0 0 0-3 3l-7 9a3 3 0 1 0 4 4l7-9a3 3 0 0 0 0-7z"/></svg></div>
+      <span class="rot-header-title" style="color:#FF8C00">Boss Rotation</span>
+    </div>
+    <div class="rot-steps">
+      <div class="rstep"><div class="rn" style="border-color:#C85050;color:#C85050">1</div><div class="rb"><div class="rb-skill">Flammability</div><div class="rb-desc">Apply curse first — lower fire resistance before engaging.</div></div></div>
+      <div class="rstep"><div class="rn" style="border-color:#FF8C00;color:#FF8C00">2</div><div class="rb"><div class="rb-skill">Flame Wall on boss</div><div class="rb-desc">Place on boss position for Arsonist fire buff.</div></div></div>
+      <div class="rstep"><div class="rn" style="border-color:#A040FF;color:#A040FF">3</div><div class="rb"><div class="rb-skill">Pain Offering</div><div class="rb-desc">Sacrifice minion for +Minion Damage. Always before Mad Flight.</div></div></div>
+      <div class="rstep"><div class="rn" style="border-color:#FF4020;color:#FF4020">4</div><div class="rb"><div class="rb-skill">Mad Flight</div><div class="rb-desc">All ravens burst on boss — maximum damage window.</div></div></div>
+      <div class="rstep"><div class="rn" style="border-color:#555;color:#555">5</div><div class="rb"><div class="rb-skill">Wait · Repeat</div><div class="rb-desc">Ravens return automatically. Repeat from Pain Offering.</div></div></div>
+    </div>
+  </div>
+
+  <div class="rot-block">
+    <div class="rot-header">
+      <div class="rot-header-ico" style="border-color:rgba(232,200,64,.3);background:rgba(232,200,64,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#E8C840" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <span class="rot-header-title" style="color:var(--gold)">Pinnacle Bosses</span>
+    </div>
+    <div class="rot-steps">
+      <div class="rstep"><div class="rn" style="border-color:#C85050;color:#C85050">1</div><div class="rb"><div class="rb-skill">Flammability + Enfeeble</div><div class="rb-desc">Both curses for max damage + defense.</div></div></div>
+      <div class="rstep"><div class="rn" style="border-color:var(--gold);color:var(--gold)">2</div><div class="rb"><div class="rb-skill">Withering Presence</div><div class="rb-desc">Swap in Spirit Gem for Wither stacks on boss.</div></div></div>
+      <div class="rstep"><div class="rn" style="border-color:#FF4020;color:#FF4020">3</div><div class="rb"><div class="rb-skill">Mad Flight rotation</div><div class="rb-desc">Execute loop with short rest phases. Raven flock grows during fight.</div></div></div>
+    </div>
+  </div>
+
+  <div class="note note-tip">🐦 <strong>Raven Flock Tip:</strong> In T15+ maps wait at entrance until flock reaches max size from first kills — massively increases Mad Flight burst damage.</div>
+</div>
+
+<div class="div"><div class="div-dot"></div></div>
+
+<!-- ═══ PATCH ═══ -->
+<div class="sec" id="sec-patch">
+  <div class="sec-head">
+    <span class="sec-num">08</span>
+    <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+    <h2 class="sec-title">Patch 0.5.0 Impact</h2>
+    <div class="sec-bar"></div>
+  </div>
+  <div class="patch-ok">✅ <strong>Return of the Ancients:</strong> Spirit Army Witch received indirect buffs. No direct nerfs. Build gets stronger in 0.5.0 — no adaptation required, only optimization.</div>
+  <div class="patch-items">
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 New Passive Cluster — Archon of Undeath</div><div class="pi-desc">New cluster in Witch/Sorceress area. Invest here after core Minion Damage nodes.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 Infernal Hound Buffs</div><div class="pi-desc">Infernal Hound Loyalty buff now scales more effectively. Keep Hound alive at all times.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 Minion Splash I &amp; II Added</div><div class="pi-desc">New Support Gems added in 0.5. Adds Melee Splash to Skeletal Warriors — significant AoE improvement.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 Runeforging for Gear Upgrades</div><div class="pi-desc">Use Verisium Runeforging on Sceptre and Helm. Destroy Unique items → Runes with their properties. Best way to upgrade minion gear without trading in week 1.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#ffa020"></div><div><div class="pi-title">🟡 Atlas Overhaul — Reset Your Tree</div><div class="pi-desc">Atlas rebuilt around fixed points of interest. New Fortress structure replaces old passive point system. Respec Atlas tree on league start.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#ffa020"></div><div><div class="pi-title">🟡 Energy Shield Changes</div><div class="pi-desc">ES system adjusted. Use Runic Ward via Verisium on armours as compensation. Prism Guardian remains viable with correct rune setup.</div></div></div>
+  </div>
+</div>
+  <div class="patch-ok">⚠️ <strong>Return of the Ancients (May 29, 2026):</strong> Spirit Army Witch (Infernalist Minion) received a fully unaffected by the Infernal Legion nerf — this build does not use Infernal Legion at all. Core minion armyc, this build requires adaptation. Core minion damage is otherwise unaffected.</div>
+  <div class="patch-items">
+    <div class="pi"><div class="pi-dot" style="background:#e04040"></div><div><div class="pi-title">🔴 Infernal Legion I Nerfed</div><div class="pi-desc">Now deals 10% max Life as Fire damage/sec (was 20%). If Infernal Legion was your primary damage scaler, swap to <strong>Herald of Ice Infernalist</strong> variant or Twisted Imperium setup. Do NOT pursue Infernal Legion as your main scaling mechanic in 0.5.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#e04040"></div><div><div class="pi-title">🔴 Energy Shield Overhaul</div><div class="pi-desc">ES defenses took a significant hit system-wide. Infernalist suffers more than other classes. Compensate with Runic Ward via Verisium Runeforging on armours — new in 0.5. Prism Guardian builds need rethinking.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#e04040"></div><div><div class="pi-title">🔴 Living Lightning Changed</div><div class="pi-desc">No longer replaces minions when summoning beyond maximum. Adjust your summoning rotation accordingly — you can no longer "cycle" minions to refresh buffs.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 Core Minion Damage Unchanged</div><div class="pi-desc">Skeletal Warriors, Raging Spirits, and Spectres base damage not nerfed. The standard Army Infernalist (Volcano → Raging Spirits → Unearth) remains strong. Replace Flame Wall with <strong>Volcano</strong> for easier ignite application in the campaign.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 Runic Ward — New Defense Layer</div><div class="pi-desc">Use Verisium to add Runic Ward to armours. Starting Act 3, Unique Armours can be Runeforged. This partially compensates the ES nerf for defensive scaling on Infernalist.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 Skeletal Warrior Supports Updated</div><div class="pi-desc">Use <strong>Amanamu's Tithe</strong> for Skeletal Warrior supports (replaces previous setup). Significant DPS improvement in the new patch.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 Minion Splash Gems Added</div><div class="pi-desc">New <strong>Minion Splash I &amp; II</strong> Strength Support Gems added. Creates minions which Strike with Melee Splash. Extra AoE for your army — excellent addition for this build.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 New League: Runes of Aldur</div><div class="pi-desc">60+ new Runes added. Destroying Unique items creates Runes with their properties. Massive crafting upgrade potential for minion gear. Farm Uniques → destroy → imprint into your best items.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#ffa020"></div><div><div class="pi-title">🟡 Atlas Overhaul</div><div class="pi-desc">Atlas rebuilt around fixed points of interest. New Fortress structure replaces old Atlas passive point system. Respec your Atlas tree on league start — old layouts are obsolete.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#ffa020"></div><div><div class="pi-title">🟡 Recommended Build Variant</div><div class="pi-desc">Community consensus: switch to <strong>Herald of Ice Infernalist</strong> (Twisted Imperium) as the optimal 0.5 Infernalist league starter. Spirit Army Witch remains viable if not relying on Infernal Legion, but top tier is now B→A with Infernal Legion gutted.</div></div></div>
+  </div>
+</div>
+  <div class="patch-ok">✅ <strong>Return of the Ancients:</strong> Spirit Army Witch received indirect buffs. No direct nerfs. Build gets stronger in 0.5.0 — no adaptation required, only optimization.</div>
+  <div class="patch-items">
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 New Passive Cluster — Archon of Undeath</div><div class="pi-desc">New cluster in Witch/Sorceress area. Invest here after core Minion Damage nodes.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 New Support Gems — Minion Splash I & II</div><div class="pi-desc">Test on Skeletal Arsonists for potential AoE improvement on trash packs.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 Minion Management QoL</div><div class="pi-desc">Younger Minions removed first on weapon swap. Prevents wasting Minion cooldowns.</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#40c060"></div><div><div class="pi-title">🟢 Genesis Tree Crafting</div><div class="pi-desc">Minion mods craftable on Rings and Belts via Genesis Tree (Breach mechanic).</div></div></div>
+    <div class="pi"><div class="pi-dot" style="background:#888"></div><div><div class="pi-title">🟡 Leech Cap — Neutral</div><div class="pi-desc">Max 40,000 dmg per hit for Leech. Irrelevant for Minion DoT builds.</div></div></div>
+  </div>
+</div>
+
+<div class="div"><div class="div-dot"></div></div>
+
+<!-- ═══ PRO TIPS ═══ -->
+<div class="sec" id="sec-tips">
+  <div class="sec-head">
+    <span class="sec-num">09</span>
+    <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+    <h2 class="sec-title">Pro Tips</h2>
+    <div class="sec-bar"></div>
+  </div>
+  <div class="tip-cards">
+    <div class="tip-card"><div class="tip-title">The Raven's Flock is Everything</div><div class="tip-text">Without it, Spirit Army Witch doesn't exist. Farm or trade for it as your absolute first priority. There is no alternative.</div></div>
+    <div class="tip-card"><div class="tip-title">Raven Flock Size Matters</div><div class="tip-text">The flock grows with kills. In T15+ maps wait at entrance for max flock size before the boss — this dramatically increases Mad Flight burst damage.</div></div>
+    <div class="tip-card"><div class="tip-title">Stat Priority Order</div><div class="tip-text">1. The Raven's Flock · 2. +1 Minion Skill Level · 3. Spirit Reservation Efficiency · 4. Chaos Res ≥60% · 5. Max Energy Shield · 6. Ele Res caps (75%) · 7. Intelligence</div></div>
+    <div class="tip-card"><div class="tip-title">Best Notable Targets</div><div class="tip-text">Minion Damage (all) · Essence Infusion · Spirit Reservation Efficiency · Chaos/DoT Multiplier · Area of Effect · Minion Life · Max Energy Shield · Jewel Sockets ×2 minimum</div></div>
+  </div>
+</div>
+
+<footer style="border-top:1px solid rgba(155,48,220,.15);padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">PATH OF EXILE 2 · SPIRALING CONSPIRACY · INFERNALIST WITCH · PATCH 0.5.0</footer>
+</div>
+
+<script>
+function ST(el) {
+  document.querySelectorAll('.tab-hero').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+  document.getElementById(el.dataset.sec).classList.add('on');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
