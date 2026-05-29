@@ -38,6 +38,7 @@
   --s-tier:#ffd700;
   --a-tier:#4a9eff;
   --b-tier:#64c864;
+  --b-tier:#64c864;
   --exotic:#e8a020;
   --named:#c060ff;
   --set:#3a8fff;
@@ -316,6 +317,14 @@ header::after{
 }
 .badge-s{border-color:var(--s-tier);color:var(--s-tier);background:rgba(255,215,0,0.06)}
 .badge-a{border-color:var(--a-tier);color:var(--a-tier);background:rgba(74,158,255,0.06)}
+.badge-b{border-color:#64c864;color:#64c864;background:rgba(100,200,100,0.06)}
+.btag-tier-b{background:rgba(100,200,100,.12);color:#64c864;border:1px solid rgba(100,200,100,.35)}
+.tier-label{display:flex;align-items:center;gap:10px;padding:6px 0 4px;margin-top:8px}
+.tier-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
+.tl-badge{font-family:'Rajdhani',sans-serif;font-weight:900;font-size:13px;padding:2px 10px;border-radius:4px;letter-spacing:1px}
+.tl-s{background:rgba(255,215,0,.12);color:#ffd700;border:1px solid rgba(255,215,0,.3)}
+.tl-a{background:rgba(74,154,255,.12);color:#4a9eff;border:1px solid rgba(74,154,255,.3)}
+.tl-b{background:rgba(100,200,100,.12);color:#64c864;border:1px solid rgba(100,200,100,.3)}
 .badge-dps{border-color:var(--red);color:var(--red);background:rgba(224,48,96,0.06)}
 .badge-tank{border-color:var(--teal);color:var(--teal);background:rgba(47,184,180,0.06)}
 .badge-pve{border-color:#60a060;color:#60a060;background:rgba(96,160,96,0.06)}
@@ -1230,7 +1239,7 @@ function tagBadge(t){
   return `<span class="btag ${m[t]}">${l[t]||t}</span>`;
 }
 function tierBadge(t){
-  const m={S:'btag-tier-s',A:'btag-tier-a'};
+  const m={S:'btag-tier-s',A:'btag-tier-a',B:'btag-tier-b'};
   return `<span class="btag ${m[t]}">${t}-Tier</span>`;
 }
 function diffBadge(d){
@@ -1315,7 +1324,7 @@ function renderGameTabs(){
   },50);
 }
 function getFilters(){
-  const base=[{id:'all',l:'All'},{id:'S',l:'S-Tier'},{id:'A',l:'A-Tier'}];
+  const base=[{id:'all',l:'All'},{id:'S',l:'S-Tier'},{id:'A',l:'A-Tier'},{id:'B',l:'B-Tier'}];
   const poe=[{id:'boss',l:'Bossing'},{id:'map',l:'Mapping'},{id:'easy',l:'Easy'},{id:'hard',l:'Complex'}];
   const div=[{id:'boss',l:'Bossing'},{id:'map',l:'Mapping'},{id:'dmg',l:'High DMG'},{id:'def',l:'Tanky'},{id:'easy',l:'Easy'},{id:'medium',l:'Medium'}];
   return [...base,...(activeGame==='poe2'?poe:div)];
@@ -1329,7 +1338,7 @@ function renderFilters(){
 function matches(b){
   if(!activeFilters.length) return true;
   return activeFilters.every(f=>{
-    if(f==='S'||f==='A') return b.tier===f;
+    if(f==='S'||f==='A'||f==='B') return b.tier===f;
     if(f==='easy'||f==='medium'||f==='hard') return b.diff===f;
     return b.tags.includes(f);
   });
@@ -1400,10 +1409,11 @@ function buildCard(b){
 function renderList(builds){
   const el=document.getElementById('listScroll');
   if(!builds.length){el.innerHTML=`<div class="empty"><div class="empty-ico">🔍</div>No builds found</div>`;return;}
-  const s=builds.filter(b=>b.tier==='S'),a=builds.filter(b=>b.tier==='A');
+  const s=builds.filter(b=>b.tier==='S'),a=builds.filter(b=>b.tier==='A'),bt=builds.filter(b=>b.tier==='B');
   let h='';
   if(s.length) h+=`<div class="tier-label"><span class="tl-badge tl-s">S</span></div>`+s.map(buildCard).join('');
   if(a.length) h+=`<div class="tier-label"><span class="tl-badge tl-a">A</span></div>`+a.map(buildCard).join('');
+  if(bt.length) h+=`<div class="tier-label"><span class="tl-badge tl-b">B</span></div>`+bt.map(buildCard).join('');
   el.innerHTML=h;
 }
 
