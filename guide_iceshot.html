@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ice Shot Deadeye Deadeye</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{--ac:#20a0d0;--bg:#040810;--s1:#060c14;--text:#d0e8f8;--muted:#507090;--muted2:#203040;--gold:#E8C840;--teal:#40c8b4;--green:#40c060;--red:#e04060}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(0,0,0,0) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0) 1px,transparent 1px);background-size:44px 44px;animation:bgshift 30s linear infinite;background-image:linear-gradient(#20a0d00d 1px,transparent 1px),linear-gradient(90deg,#20a0d00d 1px,transparent 1px)}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 0%,#20a0d01f 0%,transparent 100%)}
+@keyframes bgshift{from{background-position:0 0}to{background-position:44px 44px}}
+@keyframes boltflick{0%,88%,100%{opacity:1}91%{opacity:.1}95%{opacity:.9}}@keyframes sparkarc{0%{opacity:0;transform:translate(0,0)}40%{opacity:1}100%{opacity:0;transform:translate(12px,-10px)}}
+.wrap{max-width:660px;margin:0 auto;padding:0 16px 60px;position:relative;z-index:1}
+.hero{padding:28px 0 20px;text-align:center}
+.hero-icon{width:90px;height:90px;margin:0 auto 20px}
+.hero-pre{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:4px;color:#20a0d099;margin-bottom:6px;text-transform:uppercase}
+.hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(26px,6vw,40px);font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.hero-title em,.hero-title .t2{color:#20a0d0;font-style:normal}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;margin-bottom:14px}
+.hero-tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.htag{font-size:11px;padding:3px 10px;border-radius:2px;border:1px solid;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Rajdhani',sans-serif}
+.hero-bars{display:flex;justify-content:center;gap:20px}
+.hb{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
+.hb-track{width:48px;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.hb-fill{height:100%;border-radius:2px}
+.hb-label{font-size:9px;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase}
+.hb-val{font-size:14px;font-weight:700;font-family:'Rajdhani',sans-serif;line-height:1}
+.tab-bar-hero{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;padding:16px 16px 4px}
+.tab-hero{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px;cursor:pointer;flex-shrink:0;border-radius:8px;border:1px solid #20a0d01a;background:#20a0d00a;border-bottom:2px solid transparent;transition:.2s}
+.tab-hero:hover{background:#20a0d01a;border-color:#20a0d099}
+.tab-hero.on{border-color:#20a0d099;border-bottom-color:#20a0d0;background:#20a0d01a}
+.tab-ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+.tab-ico svg{width:14px;height:14px;color:#203040;transition:.2s}
+.tab-hero.on .tab-ico svg{color:#20a0d0;filter:drop-shadow(0 0 3px #20a0d0#20a0d01f)}
+.tab-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#203040;transition:.2s;white-space:nowrap;font-family:'Share Tech Mono',monospace}
+.tab-hero.on .tab-lbl{color:#20a0d0}
+.sec{display:none}.sec.on{display:block}
+.div{height:1px;background:linear-gradient(90deg,transparent,#20a0d0,#20a0d099,transparent);margin:20px 0;position:relative}
+.div-dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#20a0d0;border-radius:50%;box-shadow:0 0 8px #20a0d0}
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-ico{width:30px;height:30px;border-radius:8px;border:1px solid #20a0d099;background:#20a0d00a;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-ico svg{width:16px;height:16px;color:#20a0d0}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:#fff}
+.sec-num{font-family:'Share Tech Mono',monospace;font-size:12px;color:#20a0d033;letter-spacing:1px}
+.sec-line{flex:1;height:1px;background:linear-gradient(90deg,#20a0d099,transparent)}
+.info-block{background:var(--s1);border:1px solid #20a0d033;border-left:3px solid #20a0d0;border-radius:8px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.info-block::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 100% 0%,#20a0d014,transparent 70%);pointer-events:none}
+.info-block p{font-size:14px;color:#d0e8f899;line-height:1.75}
+.info-block p+p{margin-top:8px}
+.kw{color:#20a0d0;font-weight:700}.kw2{color:#20a0d099;font-weight:700}.kw3{color:var(--gold);font-weight:700}
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.sw-box{background:var(--s1);border:1px solid;border-radius:8px;padding:11px}
+.sw-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.sw-li{display:flex;align-items:flex-start;gap:6px;font-size:13px;color:#507090;line-height:1.5;margin-bottom:3px}
+.sw-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.note{padding:9px 12px;border-radius:6px;font-size:13px;line-height:1.55;border-left:3px solid;margin-bottom:10px}
+.note-warn{background:rgba(224,64,96,.06);border-color:var(--red);color:#c04060}
+.note-info{background:#20a0d014;border-color:#20a0d099;color:#20a0d099}
+.note-tip{background:rgba(64,192,80,.05);border-color:rgba(64,192,80,.3);color:#50a060}
+.note-gold{background:rgba(232,200,64,.05);border-color:rgba(232,200,64,.3);color:#a08020}
+.cycle{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.cycle-step{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border-radius:8px;border:1px solid rgba(255,255,255,.04)}
+.cycle-n{width:32px;height:32px;border-radius:50%;border:2px solid #20a0d0;background:#20a0d014;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#20a0d0;flex-shrink:0}
+.cycle-title{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.cycle-sub{font-size:13px;color:#507090;line-height:1.4}
+.cycle-badge{font-size:11px;padding:2px 8px;border-radius:3px;background:#20a0d014;border:1px solid #20a0d099;color:#20a0d0;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start;margin-left:auto}
+.gear-list{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.gr{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px;transition:.15s}
+.gr:hover{border-color:#20a0d033}
+.gr.bis{border-color:rgba(232,200,64,.2);background:rgba(232,200,64,.02)}
+.gr.named{border-color:rgba(192,96,255,.2)}
+.gr-slot{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted2);width:60px;flex-shrink:0;padding-top:2px}
+.gr-info{flex:1}
+.gr-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.gr.bis .gr-name{color:var(--gold)}.gr.named .gr-name{color:#c060ff}
+.gr-note{font-size:12px;color:var(--muted2);line-height:1.35}
+.gr-tag{font-size:10px;padding:2px 7px;border-radius:3px;border:1px solid;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;letter-spacing:.5px}
+.talent-cards{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.tc{background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+.tc-ico{font-size:19px;flex-shrink:0;line-height:1.3}
+.tc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#20a0d0;margin-bottom:3px}
+.tc-desc{font-size:13px;color:#507090;line-height:1.5}
+.set-table{display:flex;flex-direction:column;gap:3px;margin-bottom:10px}
+.st-row{display:grid;grid-template-columns:80px 1fr;gap:10px;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.st-pieces{font-family:'Share Tech Mono',monospace;font-size:12px;color:#20a0d0;font-weight:700}
+.st-bonus{font-size:13px;color:#d0e8f899;line-height:1.4}
+.skill-list{display:flex;flex-direction:column;gap:5px}
+.sk{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:9px;transition:.15s;position:relative;overflow:hidden}
+.sk:hover{border-color:#20a0d033}
+.sk-ico{font-size:20px;flex-shrink:0;line-height:1.3}
+.sk-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.sk-desc{font-size:13px;color:#507090;line-height:1.4}
+.stats-table{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.stat-row{display:grid;grid-template-columns:140px 1fr auto;gap:10px;align-items:center;padding:7px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:5px}
+.stat-attr{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#fff}
+.stat-target{font-family:'Share Tech Mono',monospace;font-size:13px;color:#20a0d0}
+.stat-note{font-size:12px;color:var(--muted2)}
+.lv-track{position:relative;padding-left:22px}
+.lv-track::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,#20a0d0,#20a0d099,transparent)}
+.lv-ph{position:relative;margin-bottom:17px}
+.lv-ph::before{content:'';position:absolute;left:-18px;top:5px;width:8px;height:8px;border-radius:50%;border:2px solid #20a0d0;background:var(--bg);z-index:1}
+.lv-ph.hi::before{background:#20a0d0;box-shadow:0 0 7px #20a0d0}
+.lv-tag{font-size:10px;color:#20a0d033;letter-spacing:1px;text-transform:uppercase;margin-bottom:1px}
+.lv-t{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.lv-d{font-size:13px;color:#507090;line-height:1.6;margin-bottom:6px}
+.lv-gems{display:flex;flex-direction:column;gap:3px;margin-bottom:5px}
+.lgr{display:flex;align-items:center;gap:7px;padding:3px 8px;background:rgba(255,255,255,.03);border-radius:4px;border:1px solid rgba(255,255,255,.04)}
+.lgr.hi{border-color:#20a0d033;background:#20a0d014}
+.lgr-n{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;min-width:120px;color:#fff}
+.lgr-ss{display:flex;flex-wrap:wrap;gap:2px}
+.lgr-s{font-size:10px;padding:1px 4px;border-radius:2px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);color:var(--muted);font-family:'Rajdhani',sans-serif}
+.lgr-s.gold{border-color:rgba(232,200,64,.3);color:var(--gold)}
+.lv-pts{font-size:11px;color:var(--muted2);border-top:1px solid rgba(255,255,255,.04);padding-top:4px;margin-top:3px}
+.tree-list{display:flex;flex-direction:column;gap:4px}
+.tr{display:flex;align-items:center;gap:12px;padding:7px 10px;background:var(--s1);border-radius:5px;border:1px solid rgba(255,255,255,.04)}
+.tr.hi{border-color:rgba(232,200,64,.18)}
+.tr-range{font-family:'Share Tech Mono',monospace;font-size:12px;color:#20a0d0;min-width:80px;flex-shrink:0}
+.tr.hi .tr-range{color:var(--gold)}
+.tr-desc{font-size:13px;color:#d0e8f899;flex:1}
+.tr-pts{font-size:11px;color:var(--muted2);flex-shrink:0}
+.rot-block{margin-bottom:16px}
+.rot-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rot-ico{width:22px;height:22px;border-radius:6px;border:1px solid;display:flex;align-items:center;justify-content:center}
+.rot-ico svg{width:12px;height:12px}
+.rot-title{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}
+.rot-steps{display:flex;flex-direction:column;gap:5px}
+.rstep{display:flex;gap:10px;align-items:flex-start}
+.rn{width:22px;height:22px;border-radius:50%;border:1px solid #20a0d0;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:#20a0d0;flex-shrink:0;margin-top:1px}
+.rb-skill{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:1px}
+.rb-desc{font-size:13px;color:#507090;line-height:1.4}
+.asc-flow{position:relative;padding-left:20px}
+.asc-flow::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,#20a0d0,#20a0d099,transparent)}
+.asc-item{position:relative;margin-bottom:14px;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.asc-item::before{content:'';position:absolute;left:-14px;top:7px;width:8px;height:8px;border-radius:50%;border:2px solid #20a0d0;background:var(--bg);z-index:1}
+.asc-item.gold::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px var(--gold)}
+.asc-step{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);line-height:1.4}
+.asc-when{font-size:10px;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;font-family:'Share Tech Mono',monospace}
+.asc-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;margin-bottom:3px}
+.asc-desc{font-size:13px;color:#507090;line-height:1.5}
+.tip-cards{display:flex;flex-direction:column;gap:6px}
+.tip-card{background:var(--s1);border:1px solid #20a0d033;border-radius:8px;padding:12px 14px}
+.tip-title{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#20a0d0;margin-bottom:4px}
+.tip-text{font-size:13px;color:#507090;line-height:1.55}
+.priority-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.pr{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:flex-start;padding:8px 10px;background:var(--s1);border:1px solid rgba(255,255,255,.04);border-radius:7px}
+.pr-n{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:900;color:#20a0d0;text-align:center}
+.pr-name{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:2px}
+.pr-desc{font-size:12px;color:#507090;line-height:1.4}
+.pr-badge{font-size:10px;padding:2px 6px;border-radius:3px;border:1px solid #20a0d099;color:#20a0d0;font-family:'Rajdhani',sans-serif;font-weight:700;flex-shrink:0;align-self:flex-start}
+  /* ── iPad / Tablet (768px+) ── */
+  
+</style>
+<style id="ipad-override">
+@media (min-width:768px){
+html,body{font-size:20px!important}
+.logo-text{font-size:32px!important}
+.icon-btn{font-size:22px!important}
+.gtab{font-size:19px!important;min-width:100px!important;padding:10px 6px!important}
+.gtab-label{font-size:17px!important}
+.gtab-count{font-size:15px!important}
+.chip{font-size:16px!important;padding:6px 14px!important}
+.badge{font-size:14px!important}
+.bc-tier-badge,.core-badge,.opt-badge,.dskill-tag,.dgear-tag,.gem-chip,.src{font-size:13px!important}
+.mod-tag{font-size:14px!important}
+.bc-name{font-size:24px!important}
+.bc-sub{font-size:18px!important}
+.bc-hud-corner,.bc-game-label,.vc-game{font-size:14px!important}
+.vcs-l,.mini-lbl{font-size:14px!important}
+.vcs-v,.mini-val{font-size:16px!important}
+.bcard-name{font-size:26px!important}
+.bcard-sub{font-size:18px!important}
+.bcard-arrow{font-size:30px!important}
+.dh-name{font-size:30px!important}
+.dh-sub,.guide-btn,.ds-title{font-size:18px!important}
+.dh-class{font-size:15px!important}
+.guide-btn{padding:12px 22px!important}
+.back-btn{font-size:24px!important}
+.mech-name{font-size:20px!important}
+.mech-desc,.note-box,.tip{font-size:18px!important}
+.wpn-lbl,.talent-lbl,.gear-slot,.dgear-slot,.dtab-lbl,.stat-lbl{font-size:14px!important}
+.wpn-name{font-size:22px!important}
+.wpn-type{font-size:16px!important}
+.talent-txt{font-size:16px!important}
+.skill-name,.tname,.rstep-skill,.phase-title,.dphase-title,.dasc-name,.drot-skill,.dgear-name,.dskill-name,.opt-name,.wc-name{font-size:19px!important}
+.skill-desc,.tdesc,.rstep-desc,.phase-desc,.dphase-desc,.drot-desc,.dskill-desc,.opt-desc,.wc-desc{font-size:17px!important}
+.spec-name{font-size:22px!important}
+.spec-desc{font-size:18px!important}
+.perk{font-size:15px!important}
+.rstep-n,.drot-label,.drot-n{font-size:15px!important}
+.gear-name{font-size:19px!important}
+.sw-title,.dsw-title,.gem-name,.dpgem-name{font-size:18px!important}
+.sw-item{font-size:17px!important}
+.phase-num{font-size:18px!important}
+.phase-sub,.gem-supports,.passive-box{font-size:16px!important}
+.wc-sub,.wc-tag{font-size:15px!important}
+.stat-val{font-size:20px!important}
+.dsec-title,.dpatch-title{font-size:18px!important}
+.dnote{font-size:17px!important}
+.dpgem-s,.dphase-passive,.dgear-note,.dphase-num,.dasc-num,.dtree-pts{font-size:14px!important}
+.dpatch-desc,.dtree-desc,.dtree-range,.dasc-desc{font-size:16px!important}
+#srch-in{font-size:20px!important}
+.srch-cancel{font-size:18px!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero">
+  <div class="hero-icon"><svg width="90" height="90" viewBox="0 0 56 56" fill="none"><defs><radialGradient id="is_bg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#001820"/><stop offset="100%" stop-color="#000c14"/></radialGradient><radialGradient id="is_rim" cx="42%" cy="28%" r="72%"><stop offset="0%" stop-color="#a0e8ff"/><stop offset="40%" stop-color="#20a0d0"/><stop offset="100%" stop-color="#062840"/></radialGradient><radialGradient id="is_inner" cx="40%" cy="32%" r="65%"><stop offset="0%" stop-color="#081828"/><stop offset="100%" stop-color="#030c14"/></radialGradient><radialGradient id="is_tip" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffffff"/><stop offset="25%" stop-color="#c0f0ff"/><stop offset="100%" stop-color="#20a0d0" stop-opacity="0"/></radialGradient></defs><circle cx="28" cy="28" r="27" fill="url(#is_bg)"/><circle cx="28" cy="28" r="23" fill="url(#is_rim)"/><circle cx="28" cy="28" r="17" fill="url(#is_inner)"/><ellipse cx="19" cy="16" rx="6" ry="2.5" fill="white" opacity=".12" transform="rotate(-32 19 16)"/><line x1="38" y1="18" x2="18" y2="38" stroke="#a0e0ff" stroke-width="2" stroke-linecap="round" opacity=".9"/><path d="M38,18 L42,14 L38,20 Z" fill="#60c0ff" opacity=".8"/><path d="M38,18 L44,18 L40,22 Z" fill="#40a0e0" opacity=".7"/><circle cx="18" cy="38" r="8" fill="url(#is_tip)"><animate attributeName="r" values="6;10;6" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;1;.6" dur="1.8s" repeatCount="indefinite"/></circle><circle cx="18" cy="38" r="3.5" fill="white" opacity=".95"/><line x1="18" y1="38" x2="10" y2="32" stroke="#c0f0ff" stroke-width="1.5" stroke-linecap="round" opacity="0"><animate attributeName="opacity" values="0;.9;0" dur="1.8s" repeatCount="indefinite"/></line><line x1="18" y1="38" x2="8" y2="40" stroke="#80d8ff" stroke-width="1.2" stroke-linecap="round" opacity="0"><animate attributeName="opacity" values="0;.8;0" dur="1.8s" repeatCount="indefinite" begin=".15s"/></line><line x1="18" y1="38" x2="12" y2="46" stroke="#a0e8ff" stroke-width="1.2" stroke-linecap="round" opacity="0"><animate attributeName="opacity" values="0;.8;0" dur="1.8s" repeatCount="indefinite" begin=".3s"/></line><line x1="18" y1="38" x2="22" y2="46" stroke="#60c8ff" stroke-width="1" stroke-linecap="round" opacity="0"><animate attributeName="opacity" values="0;.7;0" dur="1.8s" repeatCount="indefinite" begin=".1s"/></line><circle cx="18" cy="38" r="12" fill="none" stroke="#20a0d0" stroke-width="1" opacity="0"><animate attributeName="r" values="5;18;5" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;0;.6" dur="1.8s" repeatCount="indefinite"/></circle><polygon points="18,32 21,34.5 21,38.5 18,41 15,38.5 15,34.5" fill="none" stroke="#c0f0ff" stroke-width=".8" opacity=".7"><animate attributeName="opacity" values=".4;.9;.4" dur="1.8s" repeatCount="indefinite"/></polygon></svg></div>
+  <div class="hero-pre">▶ Path of Exile 2 · S-Tier · Most Played Build</div>
+  <h1 class="hero-title">Lightning <em>Arrow</em> Deadeye</h1>
+  <div class="hero-sub">Ranger · Deadeye · Chain Lightning · Patch 0.5.0</div>
+  <div class="hero-tags"><span class="htag" style="color:#FFD700;border-color:rgba(255,215,0,.3)">S-TIER</span><span class="htag" style="color:#20a0d0;border-color:#20a0d04d">CHAIN LIGHTNING</span><span class="htag" style="color:#c060ff;border-color:rgba(192,96,255,.3)">SCREEN CLEAR</span><span class="htag" style="color:#50c8b4;border-color:rgba(80,200,180,.3)">LEAGUE STARTER</span></div>
+  <div class="hero-bars"><div class="hb"><div class="hb-val" style="color:#ff6060">5★</div><div class="hb-track"><div class="hb-fill" style="width:95%;background:#ff6060"></div></div><div class="hb-label">DPS</div></div><div class="hb"><div class="hb-val" style="color:#60a0ff">4★</div><div class="hb-track"><div class="hb-fill" style="width:72%;background:#60a0ff"></div></div><div class="hb-label">SURV</div></div><div class="hb"><div class="hb-val" style="color:#40c8b4">5★</div><div class="hb-track"><div class="hb-fill" style="width:95%;background:#40c8b4"></div></div><div class="hb-label">SPD</div></div><div class="hb"><div class="hb-val" style="color:#E8C840">5★</div><div class="hb-track"><div class="hb-fill" style="width:90%;background:#E8C840"></div></div><div class="hb-label">EASE</div></div></div>
+</div>
+<div class="tab-bar-hero">
+  <div class="tab-hero on" data-sec="sec-overview" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="tab-lbl">Overview</div></div>
+  <div class="tab-hero" data-sec="sec-mechanic" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><div class="tab-lbl">Mechanic</div></div>
+  <div class="tab-hero" data-sec="sec-skills" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div><div class="tab-lbl">Skills</div></div>
+  <div class="tab-hero" data-sec="sec-asc" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div><div class="tab-lbl">Ascendancy</div></div>
+  <div class="tab-hero" data-sec="sec-leveling" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="tab-lbl">Leveling</div></div>
+  <div class="tab-hero" data-sec="sec-tree" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div><div class="tab-lbl">Passive Tree</div></div>
+  <div class="tab-hero" data-sec="sec-gear" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="tab-lbl">Gear</div></div>
+  <div class="tab-hero" data-sec="sec-rotation" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><div class="tab-lbl">Rotation</div></div>
+  <div class="tab-hero" data-sec="sec-patch" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="tab-lbl">Patch 0.5</div></div>
+  <div class="tab-hero" data-sec="sec-tips" onclick="ST(this)"><div class="tab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div class="tab-lbl">Pro Tips</div></div>
+</div>
+<div class="div"><div class="div-dot"></div></div>
+<div class="sec on" id="sec-overview">
+  <div class="sec-head"><span class="sec-num">01</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><h2 class="sec-title">Build Overview</h2><div class="sec-bar"></div></div>
+  <div class="ds"><strong>Ice Shot Deadeye</strong> is one of the strongest all-round builds in PoE2 0.5 Return of the Ancients — smoother, tankier, and with better endgame scaling than Lightning Arrow. Ice Shot fires a piercing cold projectile creating ice explosions that freeze entire packs. The 0.5 signature mechanic: <strong>Mirage Deadeye now channels Snipe</strong> — your clone stands still channeling while you freely move and freeze with Ice Shot. Snipe deals ~3,067% damage on frozen targets and one-shots virtually every boss.</div>
+  <div class="ds-warn">⚠️ Ice Shot unlocks at <strong>level 31</strong>. Level with Lightning Arrow + Lightning Rod until then — full swap at 31.</div>
+  <div class="sw-cards">
+    <div class="sw-card" style="border-color:rgba(32,160,208,.2)">
+      <div class="sw-title" style="color:#60c8ff">✓ Strengths</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#20a0d0"></div>Mirage Deadeye + Snipe = one-shot bosses while moving freely</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#20a0d0"></div>Herald of Ice explosions = instant screen-wide clear</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#20a0d0"></div>Freeze = enemies can't move or attack — best defense in game</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#20a0d0"></div>Deflect (Evasion-based) adds massive less damage taken layer</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#20a0d0"></div>No required Uniques — T15+ maps in rares</div>
+      <div class="sw-li"><div class="sw-dot" style="background:#20a0d0"></div>S-Tier ascendancy — Gathering Winds, Far Shot, Endless Munitions all unchanged</div>
+    </div>
+    <div class="sw-card" style="border-color:rgba(224,64,96,.2)">
+      <div class="sw-title" style="color:var(--red)">✗ Weaknesses</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>Ice Shot locked until level 31 — leveling uses Lightning Arrow</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>25% less freeze buildup in 0.5 — negligible in practice but noticeable early</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>Chain clear slightly slower than Lightning Arrow</div>
+      <div class="sw-li"><div class="sw-dot" style="background:var(--red)"></div>BiS endgame gear (Hyrri's Ire, Cadiro's Gambit) requires farming</div>
+    </div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-val" style="color:#ff6060">4★</div><div class="stat-lbl">DPS</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:#60a0ff">5★</div><div class="stat-lbl">Survival</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:#50c8b4">5★</div><div class="stat-lbl">Speed</div></div>
+    <div class="stat-item"><div class="stat-val" style="color:#ffd700">4★</div><div class="stat-lbl">Budget</div></div>
+  </div>
+</div>
+<div class="sec" id="sec-mechanic">
+  <div class="sec-head"><span class="sec-num">02</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h2 class="sec-title">Core Mechanic — Wie der Build wirklich funktioniert</h2><div class="sec-bar"></div></div>
+  <div style="background:rgba(200,30,30,.13);border-left:3px solid rgba(200,30,30,.5);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">🔴 <strong>Korrektur:</strong> Mirage Deadeye channelt NICHT automatisch Snipe. Beide Mirages (Archer + Deadeye) laufen Ice Shot. Snipe ist dein manueller Boss-Finisher.</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#60c8ff;margin-bottom:6px">🗺 Map Clear</div>
+      <div style="font-size:13px;color:#a0c8d8;line-height:1.6"><strong>1.</strong> Ice Shot trifft Pack → Kalt-Explosion → Freeze<br><strong>2.</strong> Mirage Archer + Mirage Deadeye feuern ebenfalls Ice Shot → mehr Freeze<br><strong>3.</strong> Herald of Ice triggert auf Shatters → Screen-Kette<br><strong>4.</strong> Tornado Shot zusätzliche AoE-Abdeckung</div>
+    </div>
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#FF8C00;margin-bottom:6px">⚔ Boss Rotation</div>
+      <div style="font-size:13px;color:#a0c8d8;line-height:1.6"><strong>1.</strong> Weapon Set 2 → <strong>Freezing Mark</strong> auf Boss<br><strong>2.</strong> Weapon Set 1 → <strong>Ice Shot</strong> → Boss einfrieren<br><strong>3.</strong> Boss eingefroren → <strong>Snipe manuell channeln</strong> (nah rangehen!)<br><strong>4.</strong> Icy Blast → ~3.067% Schaden → Boss tot<br><strong>5.</strong> Repeat bis Phase durch</div>
+    </div>
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#60c8ff;margin-bottom:6px">🧊 Freeze Loop</div>
+      <div style="font-size:13px;color:#a0c8d8;line-height:1.6">Ice Shot → Fork → mehrere Hits gleichzeitig → Freeze schneller aufgebaut. Beide Mirages feuern dazu → nahezu sofortiger Freeze auf alle Targets. Freeze ist deine Defense, nicht nur Offense.</div>
+    </div>
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:#60c8ff;margin-bottom:6px">⚡ Frenzy Charges</div>
+      <div style="font-size:13px;color:#a0c8d8;line-height:1.6"><strong>Barrage</strong> generiert Frenzy Charges über Perpetual Charge. <strong>Combat Frenzy</strong> verbraucht sie für massiven Damage Burst. Wichtig gegen Bosse — vor Snipe aufbauen.</div>
+    </div>
+  </div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 <strong>Snipe Timing Tipp von Fubgun:</strong> 5–10 Minuten Übung nötig. Das Timing passt sich an deine Attack Speed an — mit höherem Gear verschiebt es sich leicht. Übe in Maps, nicht erst beim Endgame Boss.</div>
+</div>
+<div class="sec" id="sec-skills">
+  <div class="sec-head"><span class="sec-num">03</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h2 class="sec-title">Skills &amp; Gem Links — Fubgun Setup</h2><div class="sec-bar"></div></div>
+
+  <div style="background:rgba(220,80,30,.13);border-left:3px solid rgba(220,80,30,.5);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">⚠️ <strong>Weapon Sets:</strong> Set 1 = alle DPS Skills. Set 2 = Freezing Mark. Wechsel mit Tilde (~) oder manuell.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Fubgun spielt <strong>Non-Crit Setup zuerst</strong> (Early/Maps), dann Transition zu Crit. Die gem links unten zeigen das Early/Non-Crit Setup.</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#60c8ff;flex-shrink:0;box-shadow:0 0 5px #60c8ff"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60c8ff">Ice Shot</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">SET 1</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Kern-Clearskill. Fork lässt Projektile spalten und zusätzliche Freeze-Aufbauten erzeugen. Cold Attunement wird in Midgame für Fork eingetauscht.</div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Elemental Armament II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Ice Bite II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Rapid Attacks II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Fork → Cold Attunement (mid)</span></div>
+</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#c0f0ff;flex-shrink:0;box-shadow:0 0 5px #c0f0ff"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#c0f0ff">Snipe</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">SET 1</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Manueller Boss-Finisher. Du channeIst Snipe selbst auf einem gefrorenen Ziel. Close Combat II + Point Blank = maximaler Schaden auf kurze Distanz. Window of Opportunity II gibt mehr Zeit zum vollständigen Channeln.</div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Elemental Armament II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Concentrated Area</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Elemental Focus</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Window of Opportunity II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Close Combat II</span></div>
+</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#20a0d0;flex-shrink:0;box-shadow:0 0 5px #20a0d0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#20a0d0">Tornado Shot</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">SET 1</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Sekundärer AoE-Clearskill. Overabundance II und Prolonged Duration II erhöhen Tornado-Dichte. Blind II ab Midgame für defensive Utility.</div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Prolonged Duration II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Overabundance II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Durability</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Blind II (mid)</span></div>
+</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#20a0d0;flex-shrink:0;box-shadow:0 0 5px #20a0d0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#20a0d0">Ice-Tipped Arrows</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">SET 1</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Passive Bogen-Aura. Longshot II boosted Far Shot Synergien. Cold Attunement erhöht Kälte-Skalierung auf allen Hits.</div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Magnified Area II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Elemental Armament II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Short Fuse I</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Longshot II</span></div>
+</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#80a0c0;flex-shrink:0;box-shadow:0 0 5px #80a0c0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#80a0c0">Freezing Mark</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">SET 2</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Boss-Mark auf Set 2. Eternal Mark = permanent aktiv. Charged Mark für Frenzy Charges. Mark of Siphoning II für Life/Mana Sustain auf Bossen.</div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Mark of Siphoning II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Charged Mark</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Eternal Mark</span></div><div style="margin-top:4px"><span style="font-size:9px;color:#506070;font-family:monospace;letter-spacing:1px">SET 2</span> </div>
+</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#6080a0;flex-shrink:0;box-shadow:0 0 5px #6080a0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#6080a0">Barrage</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">—</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Frenzy Charge Generator für Combat Frenzy. Cooldown Recovery II reduziert Cooldown. Perpetual Charge hält Charges aufrecht.</div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Cooldown Recovery II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Perpetual Charge</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Rapid Casting II</span></div>
+</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#60c8ff;flex-shrink:0;box-shadow:0 0 5px #60c8ff"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60c8ff">Herald of Ice</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">—</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Kern-Aura für Pack Clears. Longshot II für Far Shot Synergie. Cold Attunement erhöht Cold Exposure auf Shatters.</div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Magnified Area II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Elemental Armament II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Longshot II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Cold Attunement</span></div>
+</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#5070a0;flex-shrink:0;box-shadow:0 0 5px #5070a0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#5070a0">Combat Frenzy</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">—</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Frenzy Charge Consumer. Charge Profusion II erzeugt zusätzliche Charges pro Verbrauch.</div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Charge Profusion II</span></div>
+</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#20a0d0;flex-shrink:0;box-shadow:0 0 5px #20a0d0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#20a0d0">Mirage Archer</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">—</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Clone läuft Ice Shot mit Deliberation für langsamere aber stärkere Hits.</div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Ice Shot</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Elemental Armament II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Deliberation</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Rapid Attacks II</span></div>
+</div>
+
+  <div style="margin-bottom:9px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:11px 12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+    <div style="width:9px;height:9px;border-radius:50%;background:#20a0d0;flex-shrink:0;box-shadow:0 0 5px #20a0d0"></div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#20a0d0">Mirage Deadeye</div><span style="font-size:9px;padding:1px 5px;border-radius:3px;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);color:#506070;font-family:monospace;margin-left:6px">—</span>
+  </div>
+  <div style="font-size:12px;color:#809ab8;line-height:1.5;margin-bottom:5px">Zweiter Clone, ebenfalls Ice Shot. Beide Mirages erzeugen kontinuierlich Freeze auf alle Targets. <strong>Snipe wird MANUELL gespielt, nicht durch den Mirage!</strong></div>
+  <div><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Ice Shot</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Elemental Armament II</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Deliberation</span><span style="display:inline-block;background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:4px;padding:1px 7px;font-size:12px;color:#a0a0c0;font-family:'Rajdhani',sans-serif;font-weight:700;margin:2px 2px 2px 0">Rapid Attacks II</span></div>
+</div>
+</div>
+<div class="sec" id="sec-asc">
+  <div class="sec-head"><span class="sec-num">04</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h2 class="sec-title">Ascendancy — Deadeye (Fubgun Order)</h2><div class="sec-bar"></div></div>
+  <div style="background:rgba(200,30,30,.13);border-left:3px solid rgba(200,30,30,.5);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">🔴 <strong>Wichtig:</strong> Fubguns Reihenfolge weicht von der intuitiven ab. <strong>Point Blank kommt ZUERST</strong> — nicht Gathering Winds. Das macht Snipe sofort beim ersten Trial zur One-Shot Waffe.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60c8ff;margin-bottom:4px">① Point Blank — <span style="color:#ffd700">ZUERST</span></div>
+      <div style="font-size:12px;color:#20a0d0;margin-bottom:5px">Projectile Proximity Specialisation</div>
+      <div style="font-size:13px;color:#a0c8d8">Shots deal more damage the closer you are. Fubgun nimmt dies zuerst, weil Snipe bereits in early Maps online ist — Close Combat II auf Snipe kombiniert mit Point Blank = sofortiger One-Shot auf Bossen.</div>
+    </div>
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60c8ff;margin-bottom:4px">② Endless Munitions</div>
+      <div style="font-size:12px;color:#20a0d0;margin-bottom:5px">+2 Projectiles · Area of Effect</div>
+      <div style="font-size:13px;color:#a0c8d8">+2 Ice Shot Projektile → jedes spawnt eine eigene Explosion. Map Clear verdoppelt sich schlagartig. Zweite Prio nach Point Blank.</div>
+    </div>
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60c8ff;margin-bottom:4px">③ Gathering Winds</div>
+      <div style="font-size:12px;color:#20a0d0;margin-bottom:5px">Tailwind on Kill</div>
+      <div style="font-size:13px;color:#a0c8d8">+10% Action Speed per Kill. Fubgun notiert: Tailwind kann Snipe-Timing stören — deshalb erst nach Point Blank und Endless Munitions nehmen.</div>
+    </div>
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60c8ff;margin-bottom:4px">④ Mirage Deadeye</div>
+      <div style="font-size:12px;color:#20a0d0;margin-bottom:5px">Automatische Clone</div>
+      <div style="font-size:13px;color:#a0c8d8">Letzter Unlock. Mirage Deadeye und Mirage Archer laufen beide <strong>Ice Shot</strong> — sie chainen Freeze auf alle Targets. Snipe wird <strong>manuell</strong> als Boss Finisher gespielt, nicht durch den Mirage.</div>
+    </div>
+  </div>
+</div>
+<div class="sec" id="sec-leveling">
+  <div class="sec-head"><span class="sec-num">05</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h2 class="sec-title">Leveling Guide · Campaign</h2><div class="sec-bar"></div></div>
+  <div style="background:rgba(220,80,30,.13);border-left:3px solid rgba(220,80,30,.5);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">⚠️ Ice Shot unlocks at <strong>level 31</strong>. Until then use Lightning Arrow + Chain II. At level 31 swap everything to Ice Shot + Snipe.</div>
+
+  <div style="display:flex;align-items:center;gap:10px;margin:20px 0 8px"><span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#20a0d0;opacity:.5;letter-spacing:1px">PHASE 1</span><span style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:#fff">Act 1–2 · Lightning Arrow (Pre-level 31)</span><div style="flex:1;height:1px;background:linear-gradient(90deg,#20a0d060,transparent)"></div></div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60c8ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 1</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#c0f0ff">Start — Lightning Arrow + Lightning Rod</div>
+      <div style="font-size:11px;color:#3a6a88">Core pre-swap setup</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#a0c8d8;line-height:1.6">Lightning Arrow is your skill until level 31. Each hit spawns a <strong>Lightning Rod</strong> on the target. Use <strong>Barrage</strong> to rapidly stack 8 Rods, then move — they explode dealing massive AoE. Clean, fast campaign leveling with no Unique items required.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Support priority: Chain II on Lightning Arrow — each arrow chains 3 times, spawning Rods across the entire pack simultaneously.</div>
+</div>
+
+  <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:10px 12px;margin-bottom:12px"><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">WEAPON</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Zealot Bow (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Physical Damage · Attack Speed · Dex — vendor filter every zone</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">QUIVER</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Broadhead Quiver (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Attack Speed · Cold/Physical Damage to Attacks · Life</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">HELM</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Wrapped Cap (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Life · Evasion · Resistances — any rare helm works</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BODY</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Shrouded Vest (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Evasion · Life · Resistances — cap chaos resist early if possible</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">GLOVES</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Jewelled Gloves (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Life · Attack Speed · Resistances</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BOOTS</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Silk Slippers (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Movement Speed · Life · Resistances — 25%+ MS is the goal</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">RINGS</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Iron Ring × 2</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Life · Cold/Physical Damage to Attacks · Resistances</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">AMULET</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Lapis Amulet (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Dexterity · Life · Elemental Damage with Attacks</div>
+  </div>
+</div></div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 <strong>Vendor trick:</strong> Check vendor every level for a bow with higher Physical Damage. Weapon upgrades outweigh all other gear combined during leveling — a 50% DPS bow upgrade doubles your clear speed.</div>
+
+  <div style="display:flex;align-items:center;gap:10px;margin:20px 0 8px"><span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#20a0d0;opacity:.5;letter-spacing:1px">PHASE 2</span><span style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:#fff">Level 31 · Full Swap to Ice Shot</span><div style="flex:1;height:1px;background:linear-gradient(90deg,#20a0d060,transparent)"></div></div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60c8ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Lv 31</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#c0f0ff">Swap to Ice Shot — Critical Transition</div>
+      <div style="font-size:11px;color:#3a6a88">Full build online from this point</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#a0c8d8;line-height:1.6">At level 31 equip Ice Shot immediately. Your Lightning Arrow bow and most gear carry over — you just swap the skill gems. Add Herald of Ice as an aura if you have it. The freeze→shatter clear feels dramatically more satisfying than Lightning Arrow.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 If your bow has good Physical Damage, cold damage will scale fine — Ice Shot converts to cold. No gear swap needed at this exact moment.</div>
+</div>
+
+  <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:10px 12px;margin-bottom:12px"><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">WEAPON</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Duellist Bow / Recurve Bow (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Physical Damage (cold conversion) · Attack Speed · Crit Chance — highest priority upgrade</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">QUIVER</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Broadhead Quiver → Heavy Quiver</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Cold Damage to Attacks · Attack Speed · Crit Multi — upgrade from Act 1 quiver</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BODY</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Studded Vest / Ringmail (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Evasion · Life · Resistances · Cold Resist specifically</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">HELM</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Reinforced Helm (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Evasion · Life · Cold Resist — look for Freeze Duration as bonus affix</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">GLOVES</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Chain Gloves (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Attack Speed · Cold Damage · Life · Resistances</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BOOTS</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Goathide Boots (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Movement Speed (25%+) · Life · Resistances — mandatory MS</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">RINGS</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Amethyst Ring × 2</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Chaos Resist · Life · Cold/Elemental Damage to Attacks</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">AMULET</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Jade Amulet (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Dexterity · Cold Damage · Life · Elemental Damage with Attacks</div>
+  </div>
+</div></div>
+
+  <div style="display:flex;align-items:center;gap:10px;margin:20px 0 8px"><span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#20a0d0;opacity:.5;letter-spacing:1px">PHASE 3</span><span style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:#fff">Act 3 · First Ascendancy + Herald of Ice</span><div style="flex:1;height:1px;background:linear-gradient(90deg,#20a0d060,transparent)"></div></div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60c8ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Act 3</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#c0f0ff">First Ascendancy — Gathering Winds</div>
+      <div style="font-size:11px;color:#3a6a88">Trial of Sekhemas</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#a0c8d8;line-height:1.6">Complete Trial of Sekhemas. Take <strong>Gathering Winds</strong> first — Tailwind on Kill gives +10% action speed per kill stack. Your movement speed between packs becomes noticeably faster immediately. This is also when Herald of Ice with Magnified Area becomes available.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Herald of Ice setup: Herald of Ice + Elemental Armament II + Magnified Area II. Once online, the first kill in a frozen pack chains to clear the entire screen.</div>
+</div>
+
+  <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:10px 12px;margin-bottom:12px"><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">WEAPON</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Recurve / Hunter Bow (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Physical Damage · Cold to Attacks · Crit Chance · Attack Speed — save Orbs for any bow with these 3</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">QUIVER</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Serrated Arrow Quiver</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Cold Damage to Attacks · Crit Multi · Attack Speed — big DPS jump over Broadhead</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BODY</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Ringmail / Scale Vest (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Evasion + Armour hybrid · Life · Triple Resistance · Cold Resist</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">HELM</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Tiara (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Evasion · Life · Cold Resistance · Dexterity</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">GLOVES</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Wrapped Gloves (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Attack Speed · Cold Damage · Life · Res — attack speed best mod here</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BOOTS</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Leyline Boots (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Movement Speed · Evasion · Life · Resistances</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BELT</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Heavy Belt (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Life · Resistances · Strength if needed for attribute req</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">FLASKS</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Life Flask + Mana Flask</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Keep Mana Flask until Mana Remnants gem gives full sustain</div>
+  </div>
+</div></div>
+  <div style="background:rgba(50,180,80,.1);border-left:3px solid rgba(50,180,80,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">✅ <strong>At this point:</strong> Frozen packs + Herald of Ice shatter chains = screen clears. You should be running through maps rather than fighting.</div>
+
+  <div style="display:flex;align-items:center;gap:10px;margin:20px 0 8px"><span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#20a0d0;opacity:.5;letter-spacing:1px">PHASE 4</span><span style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:#fff">Act 4+ · Transition to Maps</span><div style="flex:1;height:1px;background:linear-gradient(90deg,#20a0d060,transparent)"></div></div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60c8ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Lv 50+</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#c0f0ff">Mirage Deadeye + Snipe — Endgame rotation</div>
+      <div style="font-size:11px;color:#3a6a88">Full boss-killing toolset online</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#a0c8d8;line-height:1.6">Once you have <strong>Mirage Deadeye</strong> and can support it with Snipe + Cooldown Recovery II, the full endgame rotation is available. Freeze boss → Mirage channels Snipe → Icy Blast one-shot. Complete your second and third Ascendancy points: <strong>Far Shot → Point Blank → Endless Munitions</strong>.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Point Blank unlock is your biggest single DPS spike in the entire build. Snipe damage from Mirage at close range will feel absurd — most bosses die in one Snipe cycle.</div>
+</div>
+
+  <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:10px 12px;margin-bottom:12px"><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">WEAPON</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Decimator / Zealot Bow (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Cold Proj. Damage · Crit Chance 6%+ · Crit Multi 25%+ · Attack Speed — this is your highest priority upgrade</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">QUIVER</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Primed / Expert Quiver (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Crit Multi · Cold Damage · Attack Speed · Freeze Duration — look for Runeforged version</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BODY</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Expert Ringmail (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Evasion · Life · All Resistances · Max Cold Resist — farm Hyrri's Ire here as drop or trade</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">HELM</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Expert Tiara (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Evasion · Cold Damage · Freeze Duration · Life</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">GLOVES</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Expert Wraps (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Attack Speed · Cold Damage · Life · Evasion</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BOOTS</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Expert Boots (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Movement Speed 30%+ · Evasion · Life · Cooldown Recovery (for Mirage)</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">RINGS</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Amethyst / Sapphire Ring</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Cold Damage · Crit Chance · Life · Max Resistances</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">AMULET</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Azure Amulet (Rare)</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Projectile Skill Levels · Cold Damage · Crit Damage — huge upgrade when found</div>
+  </div>
+</div></div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 <strong>Runeforging tip:</strong> Once you find a bow you like, use Verisium Runeforging to add Cold Damage runes. Destroy any Unique bows with relevant cold/crit properties to create Runes — free upgrades without trading.</div>
+
+  <div style="display:flex;align-items:center;gap:10px;margin:20px 0 8px"><span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#20a0d0;opacity:.5;letter-spacing:1px">ENDGAME CHASE</span><span style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:#fff">Maps+ · BiS Targets</span><div style="flex:1;height:1px;background:linear-gradient(90deg,#20a0d060,transparent)"></div></div>
+
+  <div style="margin-bottom:12px;border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:12px;background:rgba(32,160,208,.06)">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+    <div style="background:rgba(32,160,208,.13);border:1px solid rgba(32,160,208,.35);border-radius:5px;padding:2px 9px;font-size:10px;color:#60c8ff;font-family:'Rajdhani',sans-serif;font-weight:700;white-space:nowrap">Maps</div>
+    <div style="flex:1">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#c0f0ff">BiS Gear — Two Items Change Everything</div>
+      <div style="font-size:11px;color:#3a6a88">Priority farm targets</div>
+    </div>
+  </div>
+  <div style="font-size:13px;color:#a0c8d8;line-height:1.6"><strong>Hyrri's Ire</strong> (Body Armour): Doubles Evasion when untouched, adds Cold Damage, extends Freeze Duration. Slightly nerfed in 0.5 but still best-in-slot by a significant margin. <strong>Cadiro's Gambit</strong> (Quiver): Crescendo + Splinter + Reversing + Diamond arrow effects — returning, splitting, critical arrows that cascade. These two items multiply your DPS by 3–4x.</div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Cadiro's Gambit farming: gamble Obols at Purveyor of Curiosities (Quiver slot). Hyrri's Ire: boss drop or trade. Both available from day 1 via trade if you have currency.</div>
+</div>
+
+  <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:10px 12px;margin-bottom:12px"><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BODY</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Hyrri's Ire ★</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Doubles Evasion · Cold Damage · Freeze Duration — #1 farming priority</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">QUIVER</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Cadiro's Gambit ★</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Crescendo + Splinter + Reversing + Diamond — build-defining, 3-4x DPS</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">WEAPON</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Woe Strike Obliterator Bow</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">BiS crit bow base · farm as craft project or trade week 2</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BELT</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Headhunter Heavy Belt</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Endgame chase — stacks rare enemy buffs infinitely in map content</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">HELM</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Agony Horn Kamasan Tiara</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Cold Damage · Freeze Duration · Crit — significant endgame upgrade</div>
+  </div>
+</div><div style="display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(32,160,208,.08)">
+  <div style="width:60px;flex-shrink:0;font-size:9px;color:#20a0d0;font-family:monospace;font-weight:700;letter-spacing:1px;padding-top:1px">BOOTS</div>
+  <div style="flex:1">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;color:#60c8ff">Empyrean Dash Dragonscale</div>
+    <div style="font-size:11px;color:#5080a0;line-height:1.4;margin-top:1px">Top movement speed · Cooldown Recovery for Mirage Deadeye uptime</div>
+  </div>
+</div></div>
+</div>
+<div class="sec" id="sec-tree">
+  <div class="sec-head"><span class="sec-num">06</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5 6M12 11l5 6"/></svg></div><h2 class="sec-title">Passive Tree Priority</h2><div class="sec-bar"></div></div>
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Ranger starts bottom-right (Dexterity section). Path upward toward Cold Damage and Critical Strike clusters.</div>
+  <div class="tree-list">
+    <div class="tr"><div class="tr-dot" style="background:#20a0d0"></div><div><div class="tr-title">① Cold Damage Notables</div><div class="tr-desc">Highest priority from the start. Every Cold Damage notable multiplies Ice Shot, Herald of Ice explosions, and Snipe Icy Blast simultaneously. Maximum return per point invested.</div></div></div>
+    <div class="tr"><div class="tr-dot" style="background:#60c8ff"></div><div><div class="tr-title">② Critical Strike Chance + Multiplier</div><div class="tr-desc">Ice Shot scales extremely well with crits. Path toward the Ranger crit cluster after capping cold damage notables. Crit multiplier directly scales Snipe burst damage.</div></div></div>
+    <div class="tr"><div class="tr-dot" style="background:#60c8ff"></div><div><div class="tr-title">③ Projectile Speed &amp; Damage</div><div class="tr-desc">Faster projectiles reach Far Shot range faster — more damage per hit. Also improves Snipe's travel speed. Path through projectile nodes on the way to crit cluster.</div></div></div>
+    <div class="tr"><div class="tr-dot" style="background:#20a0d0"></div><div><div class="tr-title">④ Attack Speed</div><div class="tr-desc">More Ice Shot casts per second = more freeze application = more Herald of Ice explosions. Especially important for maintaining Mirage Deadeye uptime and Mana Remnant generation.</div></div></div>
+    <div class="tr"><div class="tr-dot" style="background:#a0c0d0"></div><div><div class="tr-title">⑤ Evasion + Deflect</div><div class="tr-desc">Deflect (new in 0.5) scales with Evasion rating — invest in Evasion nodes for both dodge chance and massive less damage taken. Pairs with freeze for near-invulnerability.</div></div></div>
+    <div class="tr"><div class="tr-dot" style="background:#6080a0"></div><div><div class="tr-title">⑥ Freeze Buildup / Duration</div><div class="tr-desc">More freeze duration = longer Snipe window = more reliable boss kills. Minor investment — enough to maintain freeze through the Snipe channel duration.</div></div></div>
+    <div class="tr"><div class="tr-dot" style="background:#405060"></div><div><div class="tr-title">⑦ Resistance Pathing</div><div class="tr-desc">Cap all resistances (75%) as you progress. Path through resistance nodes naturally on the way to damage clusters.</div></div></div>
+  </div>
+</div>
+<div class="sec" id="sec-gear">
+  <div class="sec-head"><span class="sec-num">07</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h2 class="sec-title">Gear Guide — Fubgun Progression</h2><div class="sec-bar"></div></div>
+
+  <div style="background:rgba(50,180,80,.1);border-left:3px solid rgba(50,180,80,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">✅ <strong>Fubgun Progression:</strong> Non-Crit Setup → Headhunter → Crit Bow + Crit Quiver → Hybrid ES/Evasion (4–5K Life+ES).</div>
+
+  <div style="margin-bottom:14px">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60c8ff;margin-bottom:8px">Phase 1 — Non-Crit Budget (SSF / frühe Maps)</div>
+    <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 Non-Crit Setup tötet auf ~5 Divines bereits jeden Arbiter Phase. <strong>Kein Crit</strong> nötig. Resistances: 75% Fire/Cold/Lightning. Chaos 30–50%.</div>
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:12px">
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+        <div style="display:flex;gap:10px"><div style="color:#20a0d0;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">BOW</div><div><strong style="color:#60c8ff">Obliterator Bow (Rare)</strong><div style="color:#5080a0;font-size:12px">Höchster ele/phys DPS den du finden kannst. Obliterator hat hohe Base-Damage und vernachlässigbaren Nachteil.</div></div></div>
+        <div style="display:flex;gap:10px"><div style="color:#20a0d0;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">GLOVES RINGS</div><div><strong style="color:#60c8ff">Flat Damage to Attacks (kalt oder phys)</strong><div style="color:#5080a0;font-size:12px">Höchste Prio auf Rings und Gloves. Kalt oder Phys — was höheren DPS gibt. Vendor Regex benutzen.</div></div></div>
+        <div style="display:flex;gap:10px"><div style="color:#20a0d0;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">BELT</div><div><strong style="color:#60c8ff">Heavy Belt (Rare)</strong><div style="color:#5080a0;font-size:12px">Löst Strength-Requirement. Life + Resistances.</div></div></div>
+        <div style="display:flex;gap:10px"><div style="color:#20a0d0;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">AMULET</div><div><strong style="color:#60c8ff">Azure Amulet (Rare)</strong><div style="color:#5080a0;font-size:12px">Intelligenz-Requirement hier lösen wenn nötig. Projectile Skill Levels · Flat Damage.</div></div></div>
+        <div style="display:flex;gap:10px"><div style="color:#20a0d0;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">BODY</div><div><strong style="color:#60c8ff">Großes Evasion Chest (Rare)</strong><div style="color:#5080a0;font-size:12px">Fubgun: "Big evasion chest is massive for defense." Priorität in Non-Crit Phase.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:14px">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#60c8ff;margin-bottom:8px">Phase 2 — Crit Transition</div>
+    <div style="background:rgba(220,80,30,.13);border-left:3px solid rgba(220,80,30,.5);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">⚠️ <strong>Reihenfolge nach Fubgun:</strong> ① Headhunter zuerst (vor Crit Swap) — Heart of the Well günstig für viel extra Schaden. ② Dann guten Crit Bow. ③ Dann Crit Quiver. ④ Dann ~450 ES Helm für Hybrid.</div>
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.2);border-radius:10px;padding:12px">
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+        <div style="display:flex;gap:10px"><div style="color:#ffd700;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">★ 1ST</div><div><strong style="color:#60c8ff">Headhunter Heavy Belt</strong><div style="color:#5080a0;font-size:12px">Vor dem Crit Swap kaufen. Günstig mit Heart of the Well Jewel kombinierbar für enormen DPS.</div></div></div>
+        <div style="display:flex;gap:10px"><div style="color:#ffd700;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">★ 2ND</div><div><strong style="color:#60c8ff">Crit Bow (Woe Strike / Obliterator Crit Craft)</strong><div style="color:#5080a0;font-size:12px">Hochster DPS ele/phys Bogen mit Crit Chance und Crit Multi. Obliterator Bogen craften ist der Go-To Weg.</div></div></div>
+        <div style="display:flex;gap:10px"><div style="color:#ffd700;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">★ 3RD</div><div><strong style="color:#60c8ff">Crit Quiver (Cadiro's Gambit oder Rare)</strong><div style="color:#5080a0;font-size:12px">Crit Multi auf Quiver ist entscheidend für den Crit Swap. Cadiro's Gambit als BiS-Ziel.</div></div></div>
+        <div style="display:flex;gap:10px"><div style="color:#ffd700;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">★ 4TH</div><div><strong style="color:#60c8ff">~450 ES Helm für Hybrid</strong><div style="color:#5080a0;font-size:12px">Wechsel zu ES/Evasion Hybrid nach Crit Bow + Quiver. Ziel: 4–5K kombiniertes Life+ES.</div></div></div>
+        <div style="display:flex;gap:10px"><div style="color:#20a0d0;font-family:monospace;font-size:10px;width:60px;flex-shrink:0;padding-top:1px">THEN</div><div><strong style="color:#60c8ff">Solid Boots / Gloves / Rings / Amulet</strong><div style="color:#5080a0;font-size:12px">Nach dem Helm-Upgrade Boots/Gloves/Ringe/Amulett optimieren für DPS + Resistances.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:12px;background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:#60c8ff;margin-bottom:6px">📋 Fubgun Mandatory Stats</div>
+    <div style="font-size:13px;color:#a0c8d8;line-height:1.7">
+      Resistances: <strong>75% Fire / Cold / Lightning</strong> · Chaos: <strong>30–50%</strong> (nicht zwingend 75%)<br>
+      Attribute: Belt löst Strength · Ring oder Amulet löst Intelligenz wenn nötig<br>
+      Vendor Regex: <code style="background:#111;padding:1px 5px;border-radius:3px">"!cros|crud"</code> <code style="background:#111;padding:1px 5px;border-radius:3px">"s: (am|ri|be|bow)|ovem|[egdl] to.at"</code>
+    </div>
+  </div>
+</div>
+<div class="sec" id="sec-rotation">
+  <div class="sec-head"><span class="sec-num">08</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></div><h2 class="sec-title">Rotation &amp; Playstyle</h2><div class="sec-bar"></div></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#50c8b4;margin-bottom:8px">🗺 MAP CLEAR</div>
+      <div style="display:flex;flex-direction:column;gap:5px;font-size:13px;color:#a0c8d8">
+        <div><span style="color:#60c8ff;font-weight:700">1.</span> <strong>Set 1</strong> — Ice Shot + Fork in Pack</div>
+        <div><span style="color:#60c8ff;font-weight:700">2.</span> Mirages feuern ebenfalls Ice Shot → sofortige Freeze-Kette</div>
+        <div><span style="color:#60c8ff;font-weight:700">3.</span> <strong>Herald of Ice</strong> Shatters → gesamter Screen</div>
+        <div><span style="color:#60c8ff;font-weight:700">4.</span> <strong>Tornado Shot</strong> für zusätzliche AoE-Abdeckung</div>
+        <div><span style="color:#60c8ff;font-weight:700">5.</span> Weiterrennen — Freeze + Chain clears bereits hinter dir</div>
+      </div>
+    </div>
+    <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px">
+      <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:#FF8C00;margin-bottom:8px">⚔ BOSS ROTATION</div>
+      <div style="display:flex;flex-direction:column;gap:5px;font-size:13px;color:#a0c8d8">
+        <div><span style="color:#60c8ff;font-weight:700">1.</span> <strong>Barrage</strong> → Frenzy Charges aufbauen</div>
+        <div><span style="color:#60c8ff;font-weight:700">2.</span> <strong>Set 2 (~)</strong> → <strong>Freezing Mark</strong> auf Boss</div>
+        <div><span style="color:#60c8ff;font-weight:700">3.</span> <strong>Set 1 (~)</strong> → <strong>Ice Shot</strong> bis Boss gefroren</div>
+        <div><span style="color:#60c8ff;font-weight:700">4.</span> Nah an Boss → <strong>Snipe manuell channeln</strong></div>
+        <div><span style="color:#60c8ff;font-weight:700">5.</span> <strong>Combat Frenzy</strong> Charges verbrauchen für Burst</div>
+        <div><span style="color:#60c8ff;font-weight:700">6.</span> Icy Blast → Boss One-Shot</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:rgba(32,160,208,.06);border:1px solid rgba(32,160,208,.35);border-radius:10px;padding:13px;margin-bottom:10px">
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:#60c8ff;margin-bottom:8px">⌨ Weapon Set Binding</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;color:#a0c8d8">
+      <div><strong style="color:#c0f0ff">Set 1 (~)</strong><br>Ice Shot · Snipe · Tornado Shot<br>Ice-Tipped Arrows · Barrage<br>Herald of Ice · Combat Frenzy<br>Mirage Archer · Mirage Deadeye</div>
+      <div><strong style="color:#80a0c0">Set 2 (~)</strong><br>Freezing Mark (Mark of Siphoning II + Charged Mark + Eternal Mark)<br><br>Wechsel mit <strong>~</strong> direkt vor Boss Mark.</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(74,154,224,.1);border-left:3px solid rgba(74,154,224,.45);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">💡 <strong>Vendor Regex (Fubgun):</strong> Im Vendor-Fenster eingeben für schnelles Gear-Scanning: <code style="background:#111;padding:2px 5px;border-radius:3px">"!cros|crud"</code> und <code style="background:#111;padding:2px 5px;border-radius:3px">"s: (am|ri|be|bow)|ovem|[egdl] to.at"</code></div>
+  <div style="background:rgba(220,80,30,.13);border-left:3px solid rgba(220,80,30,.5);border-radius:0 6px 6px 0;padding:9px 13px;margin:7px 0;font-size:13px;color:#d0d0e0;line-height:1.6">⚠️ <strong>Snipe Timing:</strong> Fubgun braucht selbst 5–10 Min Übung. Das perfekte Timing für vollständiges Channeln (max Icy Blast) verschiebt sich mit jeder Attack Speed Stufe. In Maps üben bevor du zum Boss gehst.</div>
+</div>
+<div class="sec" id="sec-tips">
+  <div class="sec-head"><span class="sec-num">10</span><div class="sec-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><h2 class="sec-title">Pro Tips</h2><div class="sec-bar"></div></div>
+  <div class="tip-cards">
+    <div class="tip-card"><div class="tip-title">Never Channel Snipe Yourself</div><div class="tip-text">Mirage Deadeye does it for you. Your job is to keep the boss frozen with Ice Shot while your clone handles the burst. If you find yourself channeling Snipe manually, you're doing it wrong — use Mirage Deadeye as your Snipe engine.</div></div>
+    <div class="tip-card"><div class="tip-title">Freeze = Your Best Defense</div><div class="tip-text">Frozen enemies cannot move, attack, or cast. In packs, freeze the first enemy and Herald of Ice clears everything. You take 0 incoming attacks during a full freeze clear. Prioritize freeze buildup over raw damage — survivability and DPS are the same stat.</div></div>
+    <div class="tip-card"><div class="tip-title">Far Shot: Always Stay at Range</div><div class="tip-text">Far Shot gives 30% more damage at full projectile travel distance. Never let enemies get close — use Gathering Winds movement speed to maintain distance and maximize every projectile's damage bonus.</div></div>
+    <div class="tip-card"><div class="tip-title">Cadiro's Gambit Changes Everything</div><div class="tip-text">When you get Cadiro's Gambit quiver, the build completely transforms. Crescendo, Splinter, Reversing, and Diamond effects mean returning crit arrows that split into cascading projectiles. Gamble at the Purveyor of Curiosities for Quiver slots whenever you have Obols.</div></div>
+    <div class="tip-card"><div class="tip-title">Freezing Salvo for Boss Freeze</div><div class="tip-text">Some bosses resist freeze buildup. Lead every boss phase with Freezing Salvo to guarantee the initial freeze, then maintain with Ice Shot. Never skip this opening — Snipe without freeze is just a regular shot.</div></div>
+    <div class="tip-card"><div class="tip-title">Campaign: Use Lightning Arrow Properly</div><div class="tip-text">Before level 31: Lightning Arrow with Chain II spawns 8 Lightning Rods per shot. Use Barrage to stack rods instantly on bosses. This is one of the fastest campaign leveling setups in the game — don't rush to Ice Shot before 31.</div></div>
+    <div class="tip-card"><div class="tip-title">Mirage Deadeye Cooldown</div><div class="tip-text">If Mirage Deadeye expires during a boss fight, immediately resummon. Your Snipe burst window closes entirely without the Mirage. Keep Cooldown Recovery gear to reduce Mirage Deadeye resummon time.</div></div>
+    <div class="tip-card"><div class="tip-title">Herald of Ice Sound Cue</div><div class="tip-text">The shattering sound of Herald of Ice is your signal that the pack is dead. If you hear the chain shatters, keep moving — don't stop to attack enemies that are already dying. Trust the chain and push forward.</div></div>
+  </div>
+</div>
+
+<footer style="border-top:1px solid #20a0d033;padding-top:14px;margin-top:20px;text-align:center;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted2);letter-spacing:2px">PATH OF EXILE 2 · LIGHTNING ARROW DEADEYE · S-TIER · LEAGUE STARTER</footer>
+</div>
+<script>
+function ST(el){document.querySelectorAll('.tab-hero').forEach(t=>t.classList.remove('on'));el.classList.add('on');document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));document.getElementById(el.dataset.sec).classList.add('on');window.scrollTo(0,0)}
+</script>
+</body>
+</html>
